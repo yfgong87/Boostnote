@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Cast"
+content: '''
+  # Cast
+  - You only need to cast when going from general type -> specific type. eg. Number -> Integer (since not all numbers are integer, integer inherits from number type)
+  - Syntax:
+  ```java
+  Object o = 'str';
+  String str = (String) o;
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-01T03:40:14.908Z"
+updatedAt: "2017-08-01T03:41:15.804Z"

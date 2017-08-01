@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "key": "6e2623e3aff765e4a79c",
+      "color": "#1278BD",
+      "name": "Default"
+    },
+    {
+      "key": "ca7b6b3755f93c46a5f8",
+      "color": "#30D5C8",
+      "name": "Java Data Structure"
+    },
+    {
+      "key": "c7615b6dcc7b2832aa16",
+      "color": "#FF8E00",
+      "name": "Java Basics"
+    },
+    {
+      "key": "df7fbd4f413bd7e56cde",
+      "color": "#B013A4",
+      "name": "Leetcode"
+    }
+  ],
+  "version": "1.0"
+}

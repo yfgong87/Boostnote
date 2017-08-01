@@ -1,0 +1,36 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "1. Two Sum"
+content: '''
+  # 1. Two Sum
+  ---
+  - Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+  
+  - You may assume that each input would have exactly one solution, and you may not use the same element twice.
+  
+  - Example: Given nums = [2, 7, 11, 15], target = 9, Because nums[0] + nums[1] = 2 + 7 = 9,return [0, 1].
+  ---
+  
+  ```java
+  //HashMap Solution
+  public class Solution {
+      public int[] twoSum(int[] nums, int target) {
+          Map<Integer, Integer> map = new HashMap<Integer,Integer>();
+          for (int i = 0; i < nums.length; i++){ 
+              int answer = target - nums[i];
+              if(map.containsKey(answer)){
+                  return new int[]{map.get(answer),i};
+              }
+              //put(key,value)
+              map.put(nums[i],i);
+          }
+          throw new IllegalArgumentException("No two sum solution");
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-01T03:28:05.334Z"
+updatedAt: "2017-08-01T03:54:34.985Z"
