@@ -1,0 +1,27 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Java Operater Precedence"
+content: '''
+  # Java Operater Precedence
+  | Category | Operator | Associativity|
+  | ------   | ------   | ------       |
+  | Postfix	| `() [] . (dot operator)` | 	Left to right| 
+  | Unary	|  `++ - - ! ~	`| Right to left| 
+  | Multiplicative	|` * /`	|  Left to right| 
+  | Additive	| `+ -`	| Left to right| 
+  | Shift	| `>> >>> <<`	| Left to right| 
+  | Relational	| `> >= < <=`	| Left to right| 
+  | Equality	| `== !=`	| Left to right| 
+  | Bitwise AND	| `&`	| Left to right| 
+  | Bitwise XOR	| `^`	| Left to right| 
+  | Bitwise OR	| `|`	| Left to right| 
+  | Logical AND |	`&&`| 	Left to right| 
+  | Logical OR	| `||`	| Left to right| 
+  | Conditional	| `?:`	| Right to left| 
+  | Assignment	| `= += -= *= /= %= >>= <<= &= ^= |=`	| Right to left| 
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-02T21:48:20.922Z"
+updatedAt: "2017-08-02T21:56:40.467Z"

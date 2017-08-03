@@ -1,0 +1,15 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Immutable"
+content: '''
+  # Immutable
+  ---
+  - In OOP, `immutable` object (unchangeable object) is an object whose state cannot be modified after it is created
+  - `String` is an immutable object because if it is used as key in `Table/Map`, if it is mutable there will be issue when retrieving the value stored under the key
+  ---
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-02T02:25:25.697Z"
+updatedAt: "2017-08-02T02:29:56.888Z"

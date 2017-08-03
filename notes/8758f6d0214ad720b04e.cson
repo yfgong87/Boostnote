@@ -1,0 +1,105 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Java Basics"
+content: '''
+  # Java Basics
+  ### Syntax
+  - Class Names − For all class names the first letter should be in Upper Case. If several words are used to form a name of the class, each inner word's first letter should be in Upper Case. Example: `class MyFirstJavaClass`
+  - Method Names − All method names should start with a Lower Case letter. If several words are used to form the name of the method, then each inner word's first letter should be in Upper Case. Example: `public void myMethodName()`
+  - Program File Name − Name of the program file should exactly match the class name. Example: Assume '`MyFirstJavaProgram`' is the class name. Then the file should be saved as '`MyFirstJavaProgram.java`'
+  ### Enums
+  - Enums restrict a variable to have one of only a few predefined values. The values in this enumerated list are called enums.
+  ### Comments
+  ```java
+  public class MyFirstJavaProgram {
+     /* This is
+      *   an example of 
+      *     multi-line comments.
+      */
+     public static void main(String []args) {
+        // This is an example of single line comment
+        /* This is also an example of single line comment. */
+        System.out.println("Hello World");
+     }
+  }
+  ```
+  ### Interface
+  - An interface defines the methods, a deriving class (subclass) should use. But the implementation of the methods is totally up to the subclass.
+  ### Class
+  - There can be only one public class per source file.
+  ### Create an object
+  - Declaration + Instantiation + Initialization
+  - A `Puppy` type is called a `Reference Datatypes`
+  ```java
+  public class Puppy {
+     public Puppy(String name) {
+        // This constructor has one parameter, name.
+        System.out.println("Passed Name is :" + name );
+     }
+  
+     public static void main(String []args) {
+        // Following statement would create an object myPuppy
+        // Declaration + Instantiation + Initialization
+        Puppy myPuppy = new Puppy( "tommy" );
+     }
+  }
+  ```
+  ### Data Type
+  - Default value for `boolean` is false
+  ### Variable Types
+  `Local Variables`
+  - Local variables are declared in methods, constructors, or blocks.
+  - Local variables are created when the method, constructor or block is entered and the variable will be destroyed once it exits the method, constructor, or block.
+  - Access modifiers cannot be used for local variables.
+  - Local variables are visible only within the declared method, constructor, or block.
+  - Local variables are implemented at stack level internally.
+  - There is no default value for local variables, so local variables should be declared and an initial value should be assigned before the first use.
+  ---
+  `Instance variables`
+  - These variables belong to the instance of a class, thus an object. And every instance of that class (object) has it's own copy of that variable. Changes made to the variable don't reflect in other instances of that class.
+  ```java
+  public class Product {
+      public int Barcode;
+  }
+  ```
+  - Access modifiers can be given for instance variables.
+  - Instance variables can be accessed directly by calling the variable name inside the class. However, within static methods (when instance variables are given accessibility), they should be called using the fully qualified name: `ObjectReference.VariableName`.
+  - Instance variables have default values.
+  ---
+  `Class variables`
+  - These are also known as `static` member variables and there's only one copy of that variable that is shared with all instances of that class. If changes are made to that variable, all other instances will see the effect of the changes.
+  ```java
+  public class Product {
+      public static int Barcode;
+  }
+  ```
+  - Static variables are rarely used other than being declared as constants
+  - Static variables can be accessed by calling with the class name: `ClassName.VariableName`.
+  - When declaring class variables as public static final, then variable names (constants) are all in upper cas: 
+  ```java
+  // DEPARTMENT is a constant
+     public static final String DEPARTMENT = "Development ";
+  ```
+  ---
+  ### Modifier
+  `Access Control Modifiers`
+  - Java provides a number of access modifiers to set access levels for classes, variables, methods and constructors. The four access levels are:
+  - Visible to the package, the default. No modifiers are needed.
+  - Visible to the class only (`private`).
+  - Visible to the world (`public`).
+  - Visible to the package and all subclasses (`protected`).
+  ---
+  `Non-Access Modifiers`
+  - Java provides a number of non-access modifiers to achieve many other functionality.
+  - The `static` modifier for creating class methods and variables.
+  - The `final` modifier for finalizing the implementations of classes, methods, and variables. Once a `final` variable has been assigned, it always contains the same value. If a `final` variable holds a reference to an object, then the state of the object may be changed by operations on the object, but the variable will always refer to the same object (this property of final is called non-transitivity). 
+  - The `abstract` modifier for creating abstract classes and methods.
+  - The `synchronized` and `volatile` modifiers, which are used for threads.
+  
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-02T03:12:28.527Z"
+updatedAt: "2017-08-02T15:20:04.941Z"

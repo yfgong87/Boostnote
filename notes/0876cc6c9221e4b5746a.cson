@@ -1,0 +1,85 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Loop"
+content: '''
+  # Loop
+  ### `break`
+  - The `break` statement in Java programming language has the following two usages −
+  - When the `break` statement is encountered inside a loop, the loop is immediately terminated and the program control resumes at the next statement following the loop.
+  - When a `break` statement is reached, the `switch` terminates, and the flow of control jumps to the next line following the `switch` statement.
+  
+  ![break](https://www.tutorialspoint.com/java/images/java_break_statement.jpg)
+  
+  ### `continue`
+  - The `continue` keyword can be used in any of the loop control structures. It causes the loop to immediately jump to the next iteration of the loop.
+  - In a `for` loop, the continue keyword causes control to immediately jump to the `update` statement.
+  ```java
+  for(initialization; Boolean_expression; update) {
+     // Statements
+  }
+  ```
+  - In a `while` loop or do/while loop, control immediately jumps to the Boolean expression.
+  
+  ![continue](https://www.tutorialspoint.com/java/images/java_continue_statement.jpg)
+  
+  ### `switch`
+  - Regular syntax:
+  ```java
+  switch (foo) {
+      case 1:
+          doSomething();
+          break;
+      case 2:
+          doSomethingElse();
+          break;
+      default:
+          doSomeOtherThing();
+          break;
+  }
+  ```
+  ---
+  - If no `break` is provided, will fall through and run other cases in order. 
+  - This is perfectly valid Java, but it probably doesn't do what the author intended: 
+  - If `foo` is 0, all three of the functions `doSomething`, `doSomethingElse`, and `doSomeOtherThing` run (in that order). 
+  - If `foo` is 1, only `doSomethingElse` and `doSomeOtherThing` run. 
+  - If `foo` is any other value, only `doSomeOtherThing` runs.
+  ```java
+  switch (foo) {
+      case 0:
+          doSomething();
+      case 1:
+          doSomethingElse();
+      default:
+          doSomeOtherThing();
+  }
+  ```
+  ---
+  - Non-standard (but common) usage of `break`: Use multiple value for a case: call `doSomething` if `foo` is 0 or 1
+  ```java
+  switch (foo) {
+      case 0:
+      case 1:
+          doSomething();
+          break;
+      case 2:
+          doSomethingElse();
+          break;
+      default:
+          doSomeOtherThing();
+          break;
+  }
+  ```
+  ### Enhanced `for` loop
+  ```java
+  for(declaration : expression) {
+     // Statements
+  }
+  ```
+  - `Declaration` − The newly declared block variable, is of a type compatible with the elements of the array you are accessing. The variable will be available within the for block and its value would be the same as the current array element.
+  - `Expression` − This evaluates to the array you need to loop through. The expression can be an array variable or method call that returns an array.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-02T22:11:47.889Z"
+updatedAt: "2017-08-03T00:49:38.798Z"

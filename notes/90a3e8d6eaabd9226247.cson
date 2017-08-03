@@ -1,0 +1,60 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Methods"
+content: '''
+  # Methods
+  ### `this`
+  - Differentiate the instance variables from local variables if they have same names, within a constructor or a method.
+  ```java
+  class Student {
+     //instance variable age
+     int age;   
+     Student(int age) {
+        //instance variable (this.age) = local variable (age)
+        this.age = age;	
+     }
+  }
+  ```
+  - Call one type of constructor (parametrized constructor or default) from other in a class. It is known as explicit constructor invocation.
+  ```java
+  //Call parameterized constructor within default constructor
+  class Student {
+     int age
+     Student() {
+        //Explicit constructor invocation
+        this(20);
+     }
+     
+     Student(int age) {
+        this.age = age;	
+     }
+  }
+  //Call default constructor within parameterized constructor
+  public class This_Example {
+     // Instance variable num
+     int num = 10;
+  	
+     This_Example() {
+        System.out.println("This is an example program on keyword this");	
+     }
+  
+     This_Example(int num) {
+        // Invoking the default constructor
+        this();
+        
+        // Assigning the local variable num to the instance variable num
+        this.num = num;	   
+     }
+  ```
+  ### Method Overloading
+  - When a class has two or more methods by the same name but different parameters, it is known as method overloading. It is different from overriding. In overriding, a method has the same method name, type, number of parameters, etc.
+  
+  ### `super`
+  - It is used to differentiate the members of superclass from the members of subclass, if they have same names.
+  - It is used to invoke the superclass constructor from subclass.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-03T01:03:41.271Z"
+updatedAt: "2017-08-03T02:34:07.187Z"

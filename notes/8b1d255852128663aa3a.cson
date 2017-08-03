@@ -1,0 +1,66 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "ArrayList"
+content: '''
+  # ArrayList
+  - `java.util.ArrayList`
+  - `ArrayList` automatically resize when adding or deleting elements in it.
+  - Basic handling of `ArrayList`:
+  ```java
+  //Initiate an ArrayList that can only take String
+  ArrayList<String> arrayList = new ArrayList<String>();
+  //2 way to add elements
+  arrayList.add("FirstName LastName");
+  arrayList.add(2, "insertString"); //.add(index, value), this method INSERT the value, NOT REPLACING the original!
+  arrayList.set(2, "replaceString"); //.set(index, value), this method REPLACE the value
+  //retrieve value from arrayList
+  arrayList.remove(2); //REMOVE the value
+  arrayList.removeRange(0,1);
+  //Check if element exist in ArrayList
+  arrayList.contains("FirstName LastName"); //true
+  //Print ArrayList
+  for(int i = 0; i < arrayList.size(); i++){
+    System.out.println(arrayList.get(i));
+  }
+  //Print ArrayList
+  for(String str : arrayList){
+    System.out.println(str);
+  }
+  //Print ArrayList
+  System.out.println(arrayList);
+  ```
+  - Using `Iterator` to handle `ArrayList`:
+  ```java
+  import java.util.Iterator;
+  Iterator arrayListIterator = new arrayList.Iterator();
+  while(arrayListIterator.hasNext()){
+    System.out.println(arrayListIterator.next());
+  }
+  ```
+  - Copy `ArrayList`
+  ```java
+  ArrayList newArrayList = new ArrayList();
+  ArrayList arrayListToCopy = new ArrayList();
+  newArrayList.addAll(arrayListToCopy);
+  ```
+  - Other methods:
+  ```java
+  //Empty ArrayList
+  arrayList.clear();
+  //Shallow Copy
+  ArrayList arrayListClone = arrayList.clone();
+  //Get index
+  arrayList.indexOf("FirstName LastName"); // return -1 if no element in there
+  //Check if empty
+  arrayList.isEmpty(); //false
+  //Turn ArrayList into Array
+  String[] strArray = new String[3];
+  strArray = arrayList.toArray();
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-03T02:58:27.081Z"
+updatedAt: "2017-08-03T04:30:15.346Z"

@@ -1,0 +1,24 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Java Structure"
+content: '''
+  # Java Structure
+  ### Nest
+  - `class` CAN have nested `class`. 
+  - A `class` CANNOT be `private`.
+  - A nested `class` CAN be `private`.
+  - `Method` CANNOT have nested `method`
+  
+  ### Abstraction
+  `Abstract` Class
+  - `Abstract` classes may or may not contain `abstract` methods, i.e., methods without body ( public `void` get(); )
+  - But, if a class has at least one abstract method, then the class must be declared abstract.
+  - If a class is declared `abstract`, it cannot be instantiated.
+  - To use an `abstract` class, you have to inherit it from another class, provide implementations to the `abstract` methods in it.
+  - If you inherit an `abstract` class, you have to provide implementations to all the `abstract` methods in it.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-03T02:28:32.582Z"
+updatedAt: "2017-08-03T02:42:38.333Z"

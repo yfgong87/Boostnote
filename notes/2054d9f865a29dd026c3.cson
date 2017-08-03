@@ -1,0 +1,24 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Copy"
+content: '''
+  # Copy
+  - In the Java context, we first need to make a distinction between "copying a value" and "copying an object".
+  ```java
+  int a = 1;
+  int b = a;     // copying a value
+  int[] s = new int[]{42};
+  int[] t = s;   // copying a value (the object reference for the array above)
+  
+  StringBuffer sb = new StringBuffer("Hi mom");
+  StringBuffer sb2 = new StringBuffer(sb); // copying an object.
+  ```
+  - In short, an assignment of a reference to a variable whose type is a reference type is "copying a value" where the value is the object reference. To copy an object, something needs to use new, either explicitly or under the hood.
+  ---
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-02T02:47:30.261Z"
+updatedAt: "2017-08-03T02:50:25.830Z"
