@@ -1,0 +1,49 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "strStr"
+content: '''
+  # strStr
+  ### Brute Force
+  ```java
+  class Solution {
+      /**
+       * Returns a index to the first occurrence of target in source,
+       * or -1  if target is not part of source.
+       * @param source string to be scanned.
+       * @param target string containing the sequence of characters to match.
+       */
+      public int strStr(String source, String target) {
+          // write your code here
+          int count = 0;
+          boolean check = true;
+          if (source == null || target == null){
+              return -1;
+          }
+          if (target.equals("")){
+              return 0;
+          }
+          while (count <= (source.length() - target.length())){
+              if (source.charAt(count) == target.charAt(0)){
+                  for (int i = 1; i < target.length(); i++){
+                      if (source.charAt(count + i) != target.charAt(i)){
+                          check = false;
+                          break;
+                      }
+                  }
+                  if (check){
+                      return count;
+                  }
+              }
+              check = true;
+              count++;
+          }
+          return -1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-04T14:14:22.315Z"
+updatedAt: "2017-08-04T14:14:44.788Z"

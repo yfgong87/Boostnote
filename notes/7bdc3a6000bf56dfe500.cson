@@ -1,0 +1,19 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Modifier Table"
+content: '''
+  # Modifier Table
+  |  Modifier |  Class  |  Package  |  Subclass (same pkg)  |  Subclass (diff pkg)  |  World  |
+  |-----------|---------|-----------|-----------------------|-----------------------|---------|
+  |  public   |   `+`   |    `+`    |          `+`          |          `+`          |   `+`   |
+  | protected |   `+`   |    `+`    |          `+`          |          `+`          |         |
+  |no modifier|   `+`   |    `+`    |          `+`          |                       |         |
+  |  private  |   `+`   |           |                       |                       |         |
+  `+` : accessible
+  `blank` : not accessible
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-04T15:29:57.549Z"
+updatedAt: "2017-08-04T15:38:49.333Z"

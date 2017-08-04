@@ -9,9 +9,21 @@ content: '''
   - `Hashtable` does not allow null keys or values.  `HashMap` allows one null key and any number of null values.
   - One of `HashMap`'s subclasses is `LinkedHashMap`, so in the event that you'd want predictable iteration order (which is insertion order by default), you could easily swap out the `HashMap` for a `LinkedHashMap`. This wouldn't be as easy if you were using `Hashtable`.
   ---
+  ### Get hashcode of a String
+  - `String` `str`; 
+  - `int` `n` = `str`.`length`();
+  - `hashcode` = `str`[0] * 31<sup>`(n-1)`</sup> + `str`[1] * 31<sup>`(n-2)`</sup> + ... + `str`[n-1] * 31<sup>`0`</sup>
+  ```java
+  //loop through each char in String to add charValue to hashcode
+  String str;
+  int hashcode = 0;
+  for (int i = 0; i < str.length(); i++) {
+      hashcode = hashcode*31 + charAt(i);
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:12:33.653Z"
-updatedAt: "2017-08-02T02:17:00.172Z"
+updatedAt: "2017-08-04T16:00:48.221Z"

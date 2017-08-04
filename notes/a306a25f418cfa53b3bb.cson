@@ -1,0 +1,58 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Subset"
+content: '''
+  # Subset
+  ```java
+  class Solution {
+      /**
+       * @param S: A set of numbers.
+       * @return: A list of lists. All valid subsets.
+       */
+      public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] nums) {
+          // write your code here
+          //ArrayList of Integer ArrayList that store all subset
+          ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+          //Handling null input
+          if(nums == null){
+              return result;
+          }
+          //Handling empty input
+          if(nums.length == 0){
+              result.add(new ArrayList<Integer>());
+              return result;
+          }
+          //Sort array to ensure no duplication
+          Arrays.sort(nums);
+          //Call recursion methods
+          addSubset(result, new ArrayList<Integer>(), 0, nums);
+          //return
+          return result;
+      }
+          
+      // recursion methods
+      public void addSubset(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> subset, int index, int[] nums){
+          //add subset to result
+          result.add(new ArrayList<Integer>(subset));
+          //recursion
+          for(int i = index; i < nums.length; i++){
+              //skip if encounter consecutive duplicate number
+              if(i != index && nums[i] == nums[i-1]){
+                  continue;
+              }
+              //add next number in array to subset
+              subset.add(nums[i]);
+              //Call self
+              addSubset(result, subset, i + 1, nums);
+              //backtracking
+              subset.remove(subset.size()-1);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: true
+createdAt: "2017-08-04T02:05:46.347Z"
+updatedAt: "2017-08-04T02:08:35.652Z"

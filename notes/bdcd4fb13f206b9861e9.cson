@@ -1,8 +1,11 @@
 type: "MARKDOWN_NOTE"
 folder: "c7615b6dcc7b2832aa16"
-title: "Primitive Value vs Object"
+title: "Primitive Value & Object Classes"
 content: '''
-  # Primitive Value vs Object
+  # Primitive Value & Object Classes
+  ### Compare primitive vs Compare object
+  - To compare two primitive, use `==`;
+  - To compare object, if use `==`, will compare their address. For `String`, use `.equal()` instead;
   ### radix
   - In the system with radix 13, for example, a string of digits such as 398 denotes the number 3 × 13<sup>2</sup> + 9 × 13<sup>1</sup> + 8 × 13<sup>0</sup>.
   ### primitive types
@@ -32,9 +35,9 @@ content: '''
   - Converting primitive data types into object is called `boxing`, and this is taken care by the compiler. Therefore, while using a wrapper class you just need to pass the value of the primitive data type to the constructor of the Wrapper class.
   - And the Wrapper object will be converted back to a primitive data type, and this process is called `unboxing`. The `Number` class is part of the `java.lang package`.
   ### `Number` class
-  - `Number`.compareTo(`argument`): Compares this `Number` object to the argument. If `Number` < argument, return `-1`. If `Number` = argument, return `0`. If `Number` > argument, return `1`.
-  - `Number`.equals(`argument`): Return `true` if equal, `false` if not.
-  - `Number`.valueOf(`primitive`)`: Return a Number object holding the value of the specified primitive value.
+  - `Number`.`compareTo`(`argument`): Compares this `Number` object to the argument. If `Number` < `argument`, return `-1`. If `Number` = `argument`, return `0`. If `Number` > `argument`, return `1`.
+  - `Number`.`equals`(`argument`): Return `true` if equal, `false` if not.
+  - `Number`.`valueOf`(`primitive`)`: Return a Number object holding the value of the specified primitive value.
   ```java
   Integer x =Integer.valueOf(9);
   ```
@@ -44,14 +47,14 @@ content: '''
   x.toString(); //return '5'
   Integer.toString(12); //return '12'
   ```
-  - parseInt(`String`): Returns an `int` representing the value of a `String` containing primitive `int` value.
-  - parseDouble(`String`): Returns an `double` representing the value of a `String` containing primitive `double` value.
-  - `Math`.abs(`int`, `float`, `long`, `double`, `short`, `byte`): Returns the absolute value of the argument.
-  - `Math`.ceil(`argument`): Returns the smallest `int` >= `argument` (Find the ceilling)
+  - `parseInt`(`String`): Returns an `int` representing the value of a `String` containing primitive `int` value.
+  - `parseDouble`(`String`): Returns an `double` representing the value of a `String` containing primitive `double` value.
+  - `Math`.`abs`(`int`, `float`, `long`, `double`, `short`, `byte`): Returns the absolute value of the argument.
+  - `Math`.`ceil`(`argument`): Returns the smallest `int` >= `argument` (Find the ceilling)
   ```java
   Math.ceil(125.9); //126.0
   ```
-  - `Math`.floor(`argument`): Return the biggest `int` <= `argument` (Find the floor)
+  - `Math`.`floor`(`argument`): Return the biggest `int` <= `argument` (Find the floor)
   ```java
   Math.ceil(125.9); //125
   ```
@@ -60,28 +63,29 @@ content: '''
   ```java
   System.out.println("She said \\"Hello!\\" to me.");
   ```
-  - `Character`.isDigit()
-  - `Character`.isLetter()
-  - `Character`.isWhitespace()
-  - `Character`.isLowerCase()
-  - `Character`.isUpperCase()
-  - `Character`.toUpperCase()
-  - `Character`.toLowerCase()
-  - `Character`.toString()
+  - `Character`.`isDigit`()
+  - `Character`.`isLetter`()
+  - `Character`.`isWhitespace`()
+  - `Character`.`isLowerCase`()
+  - `Character`.`isUpperCase`()
+  - `Character`.`toUpperCase`()
+  - `Character`.`toLowerCase`()
+  - `Character`.`toString`()
   ### `String` class
-  - `char` `String`.charAt(`int` `index`): Returns the character at the specified index.
-  - `boolean` `String`.equals(`Object` `anObject`): Compares this string to the specified object.
-  - `boolean` `String`.equalsIgnoreCase(`String` `anotherString`)
-  - `int` `String`.hashCode(): Returns a hash code for this string.
-  - `int` `String`.length(): Returns the length of this string.
-  - `String` concat(`String` `str`): Concatenates the specified string to the end of this string.
-  - `String` substring(`int` `beginIndex`): Returns a new string that is a substring of this string.
-  - `String` substring(`int` `beginIndex`, `int` `endIndex`): Returns a new string that is a substring of this string.
-  ### `Array` class
+  - `char` `String`.`charAt`(`int` `index`): Returns the character at the specified index.
+  - `boolean` `String`.`equals`(`Object` `anObject`): Compares this string to the specified object.
+  - `boolean` `String`.`equalsIgnoreCase`(`String` `anotherString`)
+  - `int` `String`.`hashCode`(): Returns a hash code for this string.
+  - `int` `String`.`length`(): Returns the length of this string.
+  - `String` `concat`(`String` `str`): Concatenates the specified string to the end of this string.
+  - `String` `substring`(`int` `beginIndex`): Returns a new string that is a substring of this string.
+  - `String` `substring`(`int` `beginIndex`, `int` `endIndex`): Returns a new string that is a substring of this string. NOTE: substring is from `beginIndex` to `endIndex - 1`
+  ### `Arrays` class
+  - `Arrays` not Array!!!!
   - These methods are `overloading` for all primitive value. (`Overloading` allows a class to have two or more methods having same name).
-  - public static `int` binarySearch(`Object`[ ] `array`, `Object` `key`): Searches the specified array of Object ( Byte, Int , double, etc.) for the specified value using the binary search algorithm. The array must be sorted prior to making this call. This returns index of the search key, if it is contained in the list; otherwise, it returns ( – (insertion point + 1)).
-  - public static `void` fill(`int`[ ] `array`, `int` `val`): Fill `array` with `val`
-  - public static `void` sort(`Object`[ ] `array`): Sorts the specified array of objects into an ascending order
+  - public static `int` `Arrays`.`binarySearch`(`Object`[ ] `array`, `Object` `key`): Searches the specified array of Object ( Byte, Int , double, etc.) for the specified value using the binary search algorithm. The array must be sorted prior to making this call. This returns index of the search key, if it is contained in the list; otherwise, it returns ( – (insertion point + 1)).
+  - public static `void` `Arrays`.`fill`(`int`[ ] `array`, `int` `val`): Fill `array` with `val`
+  - public static `void` `Arrays`.`sort`(`Object`[ ] `array`): Sorts the specified array of objects into an ascending order
   - `foreach` loop:
   ```java
   public class TestArray {
@@ -102,4 +106,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:00:38.326Z"
-updatedAt: "2017-08-03T02:28:15.268Z"
+updatedAt: "2017-08-04T15:51:33.897Z"

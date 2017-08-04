@@ -1,0 +1,14 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Recursion"
+content: '''
+  # Recursion
+  - Recursion are methods that calls themselves
+  - Each method call the problem has to be simpler
+  - Must lead to the condition when the method STOP calling itself
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-03T15:01:12.794Z"
+updatedAt: "2017-08-03T15:02:18.692Z"

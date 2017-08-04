@@ -14,7 +14,7 @@ content: '''
   arrayList.add(2, "insertString"); //.add(index, value), this method INSERT the value, NOT REPLACING the original!
   arrayList.set(2, "replaceString"); //.set(index, value), this method REPLACE the value
   //retrieve value from arrayList
-  arrayList.remove(2); //REMOVE the value
+  arrayList.remove(2); //REMOVE the value at index
   arrayList.removeRange(0,1);
   //Check if element exist in ArrayList
   arrayList.contains("FirstName LastName"); //true
@@ -63,4 +63,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-08-03T04:30:15.346Z"
+updatedAt: "2017-08-03T14:25:30.647Z"

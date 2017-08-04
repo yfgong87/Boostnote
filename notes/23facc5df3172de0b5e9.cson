@@ -11,7 +11,7 @@ content: '''
   
   ### Abstraction
   `Abstract` Class
-  - `Abstract` classes may or may not contain `abstract` methods, i.e., methods without body ( public `void` get(); )
+  - `Abstract` classes may or may not contain `abstract` methods, i.e., methods without body ( `public` `void` `get()`; )
   - But, if a class has at least one abstract method, then the class must be declared abstract.
   - If a class is declared `abstract`, it cannot be instantiated.
   - To use an `abstract` class, you have to inherit it from another class, provide implementations to the `abstract` methods in it.
@@ -21,4 +21,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:28:32.582Z"
-updatedAt: "2017-08-03T02:42:38.333Z"
+updatedAt: "2017-08-04T15:47:52.481Z"

@@ -3,6 +3,7 @@ folder: "c7615b6dcc7b2832aa16"
 title: "Copy"
 content: '''
   # Copy
+  ### copy a value vs copy an object
   - In the Java context, we first need to make a distinction between "copying a value" and "copying an object".
   ```java
   int a = 1;
@@ -15,10 +16,11 @@ content: '''
   ```
   - In short, an assignment of a reference to a variable whose type is a reference type is "copying a value" where the value is the object reference. To copy an object, something needs to use new, either explicitly or under the hood.
   ---
-  
+  ### shallow copy vs deep copy
+  - Shallow copying generally means copying only one level of an object, while deep copying generally means copying more than one level. 
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:47:30.261Z"
-updatedAt: "2017-08-03T02:50:25.830Z"
+updatedAt: "2017-08-03T18:25:59.864Z"
