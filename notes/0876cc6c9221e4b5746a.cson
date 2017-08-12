@@ -7,6 +7,7 @@ content: '''
   - The `break` statement in Java programming language has the following two usages −
   - When the `break` statement is encountered inside a loop, the loop is immediately terminated and the program control resumes at the next statement following the loop.
   - When a `break` statement is reached, the `switch` terminates, and the flow of control jumps to the next line following the `switch` statement.
+  - `break` will find the nearest Loop and jump out of it
   
   ![break](https://www.tutorialspoint.com/java/images/java_break_statement.jpg)
   
@@ -82,4 +83,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T22:11:47.889Z"
-updatedAt: "2017-08-03T00:49:38.798Z"
+updatedAt: "2017-08-11T23:26:53.840Z"

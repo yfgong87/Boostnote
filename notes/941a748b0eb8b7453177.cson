@@ -1,0 +1,18 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Tread Safe"
+content: '''
+  # Tread Safe
+  #### A piece of code is thread-safe if it only manipulates shared data structures in a manner that guarantees safe execution by multiple threads at the same time.
+  - Java provides various ways to ensure "Thread Safety" 
+  - Use of the keyword `Synchronized`.
+  - Use of `Atomic` Wrapper classes from `java.util.concurrent.atomic` package. e.g. AtomicInteger
+  - Use of `locks` from `java.util.concurrent.locks package`.
+  - Using thread safe collection classes.
+  - Using `volatile` keyword with variables to make every thread read the data from memory, not read from thread cache.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-12T14:51:35.702Z"
+updatedAt: "2017-08-12T14:53:10.860Z"

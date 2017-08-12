@@ -24,6 +24,11 @@
       "key": "8d19d56ee029f3fa592b",
       "color": "#E10051",
       "name": "Lintcode"
+    },
+    {
+      "key": "0ef4dc321cdc22cb8b00",
+      "color": "#3FD941",
+      "name": "Algorithms"
     }
   ],
   "version": "1.0"

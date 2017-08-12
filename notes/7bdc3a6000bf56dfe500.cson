@@ -11,9 +11,11 @@ content: '''
   |  private  |   `+`   |           |                       |                       |         |
   `+` : accessible
   `blank` : not accessible
+  
+  - If define a subclass that can be used by other subclass in the same pkg, use "`no modifier`"
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T15:29:57.549Z"
-updatedAt: "2017-08-04T15:38:49.333Z"
+updatedAt: "2017-08-08T19:08:13.354Z"

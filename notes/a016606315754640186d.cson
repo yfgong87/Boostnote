@@ -1,0 +1,54 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "Overview"
+content: '''
+  # Overview
+  ![Java Interface](https://malalanayake.files.wordpress.com/2014/09/collections.jpg)
+  
+  ### LinkedList
+  - Use the linked list If you need to maintain the list which does `NOT need random access` to the values and `needed frequent insertions and deletions`.
+  - Insertion and deletion is `O(1)` and access the (k)th element is `O(n)`.
+  - But remember LinkedList is not thread safe.
+  
+  ### ArrayList 
+  - Use the array list if you `Need the random access` to the values frequently and same as you `DON'T need frequent insertion and remove` operations.
+  - Access the (k)th element is `O(1)` and insertion and deletion is `O(n)`.
+  - Same as LinkedList remember ArrayList is not thread safe.
+  
+  ### Vector 
+  - When you need to maintain `thread safety` over the ArrayList use the Vector. 
+  - If you don’t need any synchronization on each and every operations you have to go for ArrayList otherwise it will give bad performance impact on each operation.
+  
+  ### PriorityQueue 
+  - We know that queue is a first come first serve basis but some times we need to get the things according to the priority. So if you have that kind of problem use the priority queue. 
+  - But remember PriorityQueue is not thread safe.
+  
+  ### HashSet 
+  - `NO duplicates`. When you need to maintain the unique list of objects you can use the HashSet. 
+  - HashSet allows the NULL Objects but it is `NOT maintain the insertion sequence`. If you need to maintain the insertion sequence you have to use the `LinkedHashSet`.
+  
+  ### TreeSet 
+  - Same as HashSet this data structure maintain the duplicate free collection and additionally its provide the sorted order of the elements.
+  - TreeSet is not allow the NULL objects. 
+  - Guarantees log(n) time cost for the basic operations add, remove and contains.
+  
+  ### HashTable 
+  - This data structure is useful when you need to do the insertion, deletion and the quick access to the given element in constant time. 
+  - All operations are in `O(1)`.
+  - Hash tables are `NOT maintain the insertion sequence`.
+  
+  ### HashMap 
+  - Hash map is used when you need to store the elements as key, value pairs.
+  - In hash map you cannot duplicate the key but you can duplicate the value with different key. 
+  - This is not maintain the insertion sequence. If you need to maintain the insertion sequence you have to use the `LinkedHashMap`. 
+  - Remember HashMap is not thread safe if you need thread safety over HashMap you have to use the `ConcurrentHashMap`
+  
+  ### TreeMap 
+  - If you need to maintain the key, value pairs in `sorted order` this is the data structure suits for that operation. 
+  - Its guarantees that the given key value pairs arrange in sorted order according to the compareTo() method in Object type which is stored in TreeMap.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-12T15:01:38.272Z"
+updatedAt: "2017-08-12T15:21:23.108Z"

@@ -1,7 +1,70 @@
 type: "MARKDOWN_NOTE"
 folder: "ca7b6b3755f93c46a5f8"
-title: "ArrayList"
+title: "List"
 content: '''
+  # List
+  ```java
+  //List is abstract; CANNOT be instantiated
+  List myList = new List(); //WRONG!
+  List myList = new ArrayList(); //CORRECT
+  ```
+  # Order of Element Add to List
+  ```java
+  import java.util.LinkedList;
+  
+  public class Main {
+    public static void main(String[] args) {
+      LinkedList<String> lList = new LinkedList<String>();
+      lList.add("1");
+      lList.add("2");
+      lList.add("3");
+      lList.add("4");
+      lList.add("5");
+  
+      System.out.println(lList); //[1, 2, 3, 4, 5]
+      lList.addFirst("0");
+      System.out.println(lList);//[0, 1, 2, 3, 4, 5]
+      lList.addLast("6");
+      System.out.println(lList);//[0, 1, 2, 3, 4, 5, 6]
+    }
+  }
+  ```
+  # Passing constructor to method
+  ```java
+  method (new ArrayList<Integer>() arrayList); //WRONG!!!!
+  method (new ArrayList<Integer>());//CORRECT
+  
+  //CORRECT
+  public ArrayList<Integer> method(int A){}
+  ArrayList<Integer> list = method(A);
+  ```
+  # Generic vs Non-generic type
+  - `ArrayList<Integer>` is not a subtype of List
+  ```java
+  List<List<Integer>> results = new ArrayList<ArrayList<Integer>>();// WRONG!!!!!
+  List<List<Integer>> list = new ArrayList<List<Integer>>(); //CORRECT
+  List<List<Integer>> list = new ArrayList<>(); //CORRECT, NOT RECOMMENDED
+  ```
+  - `Box<Integer>` is not a subtype of `Box<Number>` even though `Integer` is a subtype of `Number`.
+  ![generic](https://i.stack.imgur.com/IW0vU.gif)
+  ```java
+  //NON-generic Box Class
+  public class Box {
+      private Object object;
+  
+      public void set(Object object) { this.object = object; }
+      public Object get() { return object; }
+  }
+  //GENERIC Box Class
+  public class Box<Integer> {
+      // T stands for "Type"
+      private Integer a;
+  
+      public void set(Integer a) { this.a = a; }
+      public Integer get() { return a; }
+  }
+  ```
+  
   # ArrayList
   - `java.util.ArrayList`
   - `ArrayList` automatically resize when adding or deleting elements in it.
@@ -18,6 +81,10 @@ content: '''
   arrayList.removeRange(0,1);
   //Check if element exist in ArrayList
   arrayList.contains("FirstName LastName"); //true
+  //get size of ArrayList
+  int size = arrayList.size();
+  //get element by index
+  arrayList.get(1);
   //Print ArrayList
   for(int i = 0; i < arrayList.size(); i++){
     System.out.println(arrayList.get(i));
@@ -63,4 +130,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-08-03T14:25:30.647Z"
+updatedAt: "2017-08-12T00:10:59.215Z"

@@ -1,0 +1,36 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "Tree"
+content: '''
+  # Tree
+  ### Depth of Tree
+  - The depth of a node is the number of edges from the node to the tree's root node.
+  - A root node will have a depth of 0.
+  - The height of a node is the number of edges on the longest path from the node to a leaf.
+  - A leaf node will have a height of 0.
+  ### Binary Tree
+  - `LeftChild` or `RightChild` can be `null`.
+  - `LeftChild` < `Root` < `RightChild`
+  - Space Complexity of Tree structure is `O(h)`, where h is the height of the tree. Worst case `O(n)`, best/average case `O(logn)`
+  ### Traverse
+  - Always `Left` -> `Right`
+  - In-order: `Left` -> `Root` -> `Right`, print element in order
+  - Pre-order: `Root` -> `Left` -> `Right`
+  - Post-order：`Left` -> `Right` -> `Root`
+  ### Whether reach the end of the tree
+  ```java
+  //if root is null
+  if (root == null){
+  
+  }
+  //if root is leaf node
+  if (root.left == null && root.right == null){
+      
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-04T19:06:25.916Z"
+updatedAt: "2017-08-08T19:29:29.671Z"

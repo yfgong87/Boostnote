@@ -1,0 +1,21 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Math"
+content: '''
+  # Math
+  ```java
+  Integer A = new Integer(1);
+  Integer B = new Integer(5);
+  Math.max(A, B); // return 5
+  Math.min(A, B); // return 1
+  Math.abs(A - B); // return 4
+  
+  Integer.MIN_VALUE;
+  Integer.MAX_VALUE;
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-11T19:19:54.013Z"
+updatedAt: "2017-08-11T23:15:45.462Z"

@@ -10,20 +10,28 @@ content: '''
   - One of `HashMap`'s subclasses is `LinkedHashMap`, so in the event that you'd want predictable iteration order (which is insertion order by default), you could easily swap out the `HashMap` for a `LinkedHashMap`. This wouldn't be as easy if you were using `Hashtable`.
   ---
   ### Get hashcode of a String
-  - `String` `str`; 
-  - `int` `n` = `str`.`length`();
-  - `hashcode` = `str`[0] * 31<sup>`(n-1)`</sup> + `str`[1] * 31<sup>`(n-2)`</sup> + ... + `str`[n-1] * 31<sup>`0`</sup>
+  - `char`[] `charArray`; 
+  - `hashcode` = `charArray`[0] * 31<sup>`(n-1)`</sup> + `charArray`[1] * 31<sup>`(n-2)`</sup> + ... + `charArray`[n-1] * 31<sup>`0`</sup>
   ```java
   //loop through each char in String to add charValue to hashcode
   String str;
   int hashcode = 0;
   for (int i = 0; i < str.length(); i++) {
-      hashcode = hashcode*31 + charAt(i);
+      hashcode = hashcode*31 + str.charAt(i);
   }
+  return hashcode;
+  
+  //hashcode might getting too big for int type, 2 solutions in this case:
+  long hashcode = 0; //Solution 1: use long type instead of int
+  int HASH_SIZE = 1000000007;//Solution 2: set hash table size as a large prime number
+  for(int i = 0; i < str.length(); i++){
+      hashcode = (hashcode * 33 + (int)str.charAt(i)) % HASH_SIZE;//mod the large prime number base
+  }
+  return (int)hashcode;
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:12:33.653Z"
-updatedAt: "2017-08-04T16:00:48.221Z"
+updatedAt: "2017-08-04T16:40:25.146Z"
