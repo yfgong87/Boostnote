@@ -1,0 +1,45 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Character and String"
+content: '''
+  # `Character` and `String`
+  ### `Character` class
+  - Put quote inside quote
+  ```java
+  System.out.println("She said \\"Hello!\\" to me.");
+  ```
+  - `Character`.`isDigit`()
+  - `Character`.`isLetter`()
+  - `Character`.`isWhitespace`()
+  - `Character`.`isLowerCase`()
+  - `Character`.`isUpperCase`()
+  - `Character`.`toUpperCase`()
+  - `Character`.`toLowerCase`()
+  - `Character`.`toString`()
+  ### `String` class
+  - `char` `String`.`charAt`(`int` `index`): Returns the character at the specified index.
+  - `boolean` `String`.`equals`(`Object` `anObject`): Compares this string to the specified object.
+  - `boolean` `String`.`equalsIgnoreCase`(`String` `anotherString`)
+  - `int` `String`.`hashCode`(): Returns a hash code for this string.
+  - `int` `String`.`length`(): Returns the length of this string.
+  - `String` `concat`(`String` `str`): Concatenates the specified string to the end of this string.
+  - `String` `substring`(`int` `beginIndex`): Returns a new string that is a substring of this string.
+  - `String` `substring`(`int` `beginIndex`, `int` `endIndex`): Returns a new string that is a substring of this string. NOTE: substring is from `beginIndex` to `endIndex - 1`
+  - `String`.`valueOf`(`primitive` `element`): return the `String` representation of `element`
+  ### `StringBuilder`
+  ```java
+  StringBuilder sb = new StringBuilder();
+  sb.append("firstString");
+  sb.append("secondString");
+  sb.charAt(0); //'f'
+  sb.charAt(sb.length() - 1); // 'g'
+  sb.deleteCharAt(0);
+  String str = sb.toString();
+  ```
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-16T03:31:53.121Z"
+updatedAt: "2017-08-16T03:35:34.774Z"

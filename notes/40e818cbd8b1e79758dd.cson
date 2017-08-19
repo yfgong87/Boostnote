@@ -1,0 +1,57 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "BFS"
+content: '''
+  # BFS
+  ```java
+  public class Solution {
+  /**
+  * @param root: The root of binary tree.
+  * @return: Level order a list of lists of integer
+  */
+  /*    3
+       / \\
+      9  20
+        /  \\
+       15   7
+  
+    [
+       [3],
+       [9,20],
+       [15,7]
+    ]
+  */
+  public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+          // write your code here
+          ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
+          if (root == null){
+              return results;
+          }
+          Queue<TreeNode> queue = new LinkedList<TreeNode>();
+          queue.offer(root);
+          while(!queue.isEmpty()){
+              ArrayList<Integer> level = new ArrayList<Integer>();
+              int size = queue.size();
+              //注意，只有需要层级遍历时才需要用这层for，如果只需要遍历整个queue，可以省去这层
+              for (int i = 0; i < size; i++){
+                  TreeNode head = queue.poll();
+                  level.add(head.val);
+                  if (head.left != null){
+                      queue.offer(head.left);
+                  }
+                  if (head.right != null){
+                      queue.offer(head.right);
+                  }
+              }
+              results.add(level);
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-13T20:47:02.698Z"
+updatedAt: "2017-08-14T19:17:53.404Z"

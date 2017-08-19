@@ -13,9 +13,10 @@ content: '''
   `blank` : not accessible
   
   - If define a subclass that can be used by other subclass in the same pkg, use "`no modifier`"
+  - `protected` `final` `method`(): A `final` `method` can be used by copy or subclass of the superclass but `CANNOT be OVERIDE`
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T15:29:57.549Z"
-updatedAt: "2017-08-08T19:08:13.354Z"
+updatedAt: "2017-08-12T16:00:37.851Z"

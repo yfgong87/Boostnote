@@ -1,0 +1,24 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "System.out.print()"
+content: '''
+  # System.out.print()
+  ```java
+  String a = "hi"
+  int b = 5;
+  //print in different line
+  //hi
+  //5
+  System.out.println(a);
+  System.out.println(b);
+  //print in same line
+  //hi5
+  System.out.print(a + b);
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-15T16:28:02.436Z"
+updatedAt: "2017-08-15T16:29:54.620Z"

@@ -80,6 +80,19 @@ content: '''
   // DEPARTMENT is a constant
      public static final String DEPARTMENT = "Development ";
   ```
+  #### `Static` method CANNOT reference a `non-static` method or variable
+  - `non-static` method or variables has to be called from an `instance` of class
+  - You can't call something that doesn't exist. Since you haven't created an object, the `non-static` method doesn't exist yet. A `static` method (by definition) always exists.
+  ```java
+  private int a = 0;
+  static void staticMethod(){
+    nonStaticMethod();// WRONG!
+    a += 1;//WRONG!
+  }
+  private void nonStaticMethod(){
+  
+  }
+  ```
   ---
   ### Modifier
   `Access Control Modifiers`
@@ -102,4 +115,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T03:12:28.527Z"
-updatedAt: "2017-08-02T15:20:04.941Z"
+updatedAt: "2017-08-15T17:05:08.002Z"

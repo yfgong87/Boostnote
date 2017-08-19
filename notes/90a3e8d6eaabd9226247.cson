@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "c7615b6dcc7b2832aa16"
-title: "Methods"
+title: "Class, Methods, Polymorphism"
 content: '''
-  # Methods
+  # Class, Methods, Polymorphism
   ### `this`
   - Differentiate the instance variables from local variables if they have same names, within a constructor or a method.
   ```java
@@ -52,9 +52,68 @@ content: '''
   ### `super`
   - It is used to differentiate the members of superclass from the members of subclass, if they have same names.
   - It is used to invoke the superclass constructor from subclass.
+  ```java
+  //super class
+  public class Animal{
+    private String name;
+    //generic constructor
+    public Animal(){
+      
+    }
+    //specific constructor
+    public Animal(String name){
+      this.name = name;
+    }
+    //original method
+    public void walk(){
+      System.out.println("walk");
+    }
+  }
+  //subclass
+  public Cat extends Animal{
+    private String toy;
+    public Cat(){
+    
+    }
+    public Cat(String name, String toy){
+      super(name); // Call constructor in super class
+      this.toy = toy;
+    }
+    //overwritten method
+    public void walk(){
+      System.out.println("stalk");
+    }
+  }
+  ```
+  
+  ### Polymorphism (`extends`)
+  - Java is smart enough to call the `overided method` in `subclass`, rather than the original `method` in `superclass` when a `subclass` is defined this way:
+  ```java
+  Animal myCat = new Cat("Hermie", "mouse");
+  public void walk (Animal animal){
+    randomAnimal.walk();
+  }
+  walk(myCat);//will print "stalk"
+  ```
+  - However, if a `field` or `method` is `NOT` defined in `superclass`, but is defined `ONLY` in `subclass`, Java `CANNOT` figure it out.
+  ```java
+  Animal myCat = new Cat("Hermie", "mouse");
+  public void play (Animal animal){
+    System.out.println(animal.toy);
+  }
+  play(myCat); //Throw ERROR
+  ```
+  - // If you want access to `fields` or `methods` only found in the subclass you have to cast the object to that specific subclass first
+  ```java
+  //method 1
+  Cat myCatCopy = (Cat) myCat;
+  play(myCat);//will print "mouse"
+  //method 2
+  System.out.println(((Cat) myCat).toy);//will print "mouse"
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T01:03:41.271Z"
-updatedAt: "2017-08-03T02:34:07.187Z"
+updatedAt: "2017-08-12T16:48:04.250Z"

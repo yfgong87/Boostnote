@@ -3,9 +3,18 @@ folder: "c7615b6dcc7b2832aa16"
 title: "Primitive Value & Object Classes"
 content: '''
   # Primitive Value & Object Classes
+  ### Initialize primitive value
+  ```java
+  int a; // WRONG!!!!!!
+  int a = 0;
+  int[] a; // WRONG!!!!!
+  int[] a = new int[]; //WRONG!!!
+  int[] a = new int[0]; //empty array
+  int[] a = new int[5];
+  ```
   ### Compare primitive vs Compare object
-  - To compare two primitive, use `==`;
-  - To compare object, if use `==`, will compare their address. For `String`, use `.equal()` instead;
+  - To compare two `primitive`, use `==`;
+  - To compare `Object`, if use `==`, will ONLY compare their address, i.e. whether the two `Object` reference to the same address. For `String`, use `.equal()` instead;
   ### null Object
   - `Object` can be `null`. `Primitive` type CANNOT be `null`!!
   - A `null` `Object` is essentially a pointer that has not been assigned
@@ -22,6 +31,10 @@ content: '''
   ### primitive types
   ---
   - Primitive value does not have a refence variable, unlike objects, they cannot be shared.
+  ---
+  - First bit represent sign, `0` is `positive` number, `1` is `negative` number
+  - Two's Complement: `123` -> `1111011` -> `0000100` -`+1`> `0000101` -> `-123`
+  - `Left` shift -> `Multiply by 2`; `Right` shift -> `Divide by 2`
   ---
   - `byte` data type is an 8-bit signed two's complement integer.
   - Minimum value is -128 (-2^7)
@@ -73,29 +86,6 @@ content: '''
   ```java
   Math.ceil(125.9); //125
   ```
-  ### `Character` class
-  - Put quote inside quote
-  ```java
-  System.out.println("She said \\"Hello!\\" to me.");
-  ```
-  - `Character`.`isDigit`()
-  - `Character`.`isLetter`()
-  - `Character`.`isWhitespace`()
-  - `Character`.`isLowerCase`()
-  - `Character`.`isUpperCase`()
-  - `Character`.`toUpperCase`()
-  - `Character`.`toLowerCase`()
-  - `Character`.`toString`()
-  ### `String` class
-  - `char` `String`.`charAt`(`int` `index`): Returns the character at the specified index.
-  - `boolean` `String`.`equals`(`Object` `anObject`): Compares this string to the specified object.
-  - `boolean` `String`.`equalsIgnoreCase`(`String` `anotherString`)
-  - `int` `String`.`hashCode`(): Returns a hash code for this string.
-  - `int` `String`.`length`(): Returns the length of this string.
-  - `String` `concat`(`String` `str`): Concatenates the specified string to the end of this string.
-  - `String` `substring`(`int` `beginIndex`): Returns a new string that is a substring of this string.
-  - `String` `substring`(`int` `beginIndex`, `int` `endIndex`): Returns a new string that is a substring of this string. NOTE: substring is from `beginIndex` to `endIndex - 1`
-  - `String`.`valueOf`(`primitive` `element`): return the `String` representation of `element`
   ### `Arrays` class
   - `Arrays` not Array!!!!
   - These methods are `overloading` for all primitive value. (`Overloading` allows a class to have two or more methods having same name).
@@ -133,4 +123,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:00:38.326Z"
-updatedAt: "2017-08-10T03:20:41.391Z"
+updatedAt: "2017-08-18T22:01:23.940Z"

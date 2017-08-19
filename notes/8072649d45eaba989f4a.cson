@@ -1,0 +1,40 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "2D Matrix"
+content: '''
+  # 2D Matrix
+  ### Get Col, Row, Element
+  ```java
+  int[][] matrix;
+  //Num of Rows
+  matrax.length;
+  //Get Rows
+  for(int i = 0; i < matrix.length; i++){
+    matrix[i];//The i th row
+  } 
+  //Num of Columns
+  matrix[0].length;
+  //Get Element
+  for(int i = 0; i < matrix.length; i++){
+    for(int j = 0; j < matrix[j].length; j++){
+      matrix[i][j];//The i th th row, j th col
+    }
+  }
+  ```
+  ### Get Top/Bottom/Left/Right element
+  ```java
+  int[] directionX = {-1, 1, 0, 0};
+  int[] directionY = {0, 0, -1, 1};
+  int x; //starting x
+  int y; //starting y
+  for (int i = 0; i < 4; i++){
+    //print adjcent (4 directions) element
+    System.out.println(matrix[x + directionX[i]][y + directionY[i]]);
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-13T20:16:53.414Z"
+updatedAt: "2017-08-14T20:58:06.538Z"

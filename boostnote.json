@@ -29,6 +29,11 @@
       "key": "0ef4dc321cdc22cb8b00",
       "color": "#3FD941",
       "name": "Algorithms"
+    },
+    {
+      "key": "403e789cfa873c1c2c82",
+      "color": "#E10051",
+      "name": "Java Util"
     }
   ],
   "version": "1.0"

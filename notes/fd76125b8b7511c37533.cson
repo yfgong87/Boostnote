@@ -1,0 +1,35 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "HashSet"
+content: '''
+  # HashSet
+  - `HashSet` extends AbstractSet and `implements` the `Set` interface. It creates a `collection` that uses a hash table for storage.
+  ### Constructor
+  - `HashSet`( )
+  - `HashSet`(`Collection` `c`)
+  - `HashSet`(`int` capacity): This constructor initializes the capacity of the hash set to the given integer value capacity. The capacity grows automatically as elements are added to the HashSet.
+  
+  ### Methods
+  - `boolean` `HashSet`.`add`(`Object` `o`)
+  - `void` `HashSet`.`clear`()
+  - `Object` `HashSet`.`clone`(): Returns a shallow copy of this HashSet instance: the elements themselves are not cloned.
+  - `boolean` `HashSet`.`contains`(`Object` `o`): Returns true if this set contains the specified element.
+  - `boolean` `HashSet`.`isEmpty`(): Returns true if this set contains no elements.
+  - `Iterator` `HashSet`.`iterator`(): Returns an iterator over the elements in this set.
+  ```java
+  // create an iterator
+  Iterator iterator = hashset.iterator(); 
+        
+  // check values
+  while (iterator.hasNext()){
+     System.out.println("Value: " + iterator.next() + " ");  
+  }
+  ```
+  - `boolean` `HashSet`.`remove`(`Object` `o`): Removes the specified element from this set if it is present.
+  - `int` `HashSet`.`size`(): Returns the number of elements in this set (its cardinality).
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-14T19:19:06.995Z"
+updatedAt: "2017-08-14T21:30:18.304Z"

@@ -9,7 +9,7 @@ content: '''
   - Notice in my example above that in the `HashMap` there must not be duplicate keys, but it may have duplicate values.
   - In the `HashSet`, there must be no duplicate elements.
   ---
-  ### Use HashMap.entrySet to get a pair of <Key, Value>
+  ### Use `HashMap`.`entrySet`() + `Iterator` to get a pair of <Key, Value>
   ```java
   import java.util.HashMap;
   import java.util.Set;
@@ -39,7 +39,7 @@ content: '''
       // Iterate through HashMap entries(Key-Value pairs)
       System.out.println("HashMap Key-Value Pairs : ");
       while(it.hasNext()){
-         Map.Entry me = (Map.Entry)it.next();
+         Map.Entry<Integer, String> me = (Map.Entry)it.next();
          System.out.println("Key is: "+me.getKey() + 
          " & " + 
          " value is: "+me.getValue());
@@ -55,9 +55,32 @@ content: '''
   Key is: 11 &  value is: Value1
   Key is: 44 &  value is: Value4
   ```
+  ### HashMap Functions
+  #### Check value:
+  - `boolean` `HashMap`.`containsKey` (`Object` `Key`): Returns `true` if this map contains a mapping for the specified key.
+  - `boolean` `HashMap`.`containsValue` (`Object` `value`): Returns `true` if this map maps one or more keys to the specified value.
+  - `boolean` `HashMap`.`isEmpty`()
+  - `int` `HashMap`.`size`()
+  #### Add
+  - `Object` `HashMap`.`put`(`Object` `key`, `Object` `value`)
+  ```java
+  //Update value giving key
+  map.put(key, map.get(key) + 1);
+  //HashMap will OVERWRITE the value when giving the same key
+  map.put("1","1111");
+  map.put("1","2222");//only this entry will be saved
+  ```
+  - `HashMap`.`putAll`(`Map` `m`): Copies all of the mappings from the specified map to this map. 
+  #### Remove
+  - `Object` `HashMap`.`remove`(`Object` `key`)
+  - `void` `HashMap`.`clear`(): Removes all mappings from this map.
+  #### Get
+  - `Set` `HashMap`.`entrySet`(): Returns a collection view of the mappings contained in this map.
+  - Object `HashMap`.`get`(`Object` `key`): Returns the value to which the specified key is mapped in this identity hash map, or null if the map contains no mapping for this key.
+  - `Object` `HashMap`.`clone`(): Returns a shallow copy of this HashMap instance: the keys and values themselves are not cloned.
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-01T03:44:25.824Z"
-updatedAt: "2017-08-01T03:52:49.971Z"
+updatedAt: "2017-08-16T20:21:04.911Z"

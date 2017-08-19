@@ -20,11 +20,40 @@ content: '''
   | Conditional	| `?:`	| Right to left| 
   | Assignment	| `= += -= *= /= %= >>= <<= &= ^= |=`	| Right to left| 
   
+  # Tricks
+  - `&&` then `||`
+  - `a` `>>` `1` is equal to `a/2`, `a` `<<` `1` is equal to `a*2`
   # Modulo
   - The range of numbers for an integer modulo of n is 0 to n − 1. i.e. M % N = (0, N-1)
+  
+  # Bitwise operator
+  ```java
+  public class Test {
+  
+     public static void main(String args[]) {
+        int a = 60;	/* 60 = 0011 1100 */
+        int b = 13;	/* 13 = 0000 1101 */
+        int c = 0;
+  
+        c = a & b;        /* 12 = 0000 1100 */
+  
+        c = a | b;        /* 61 = 0011 1101 */
+  
+        c = a ^ b;        /* 49 = 0011 0001 */
+  
+        c = ~a;           /*-61 = 1100 0011 */
+  
+        c = a << 2;       /* 240 = 1111 0000 */
+  
+        c = a >> 2;       /* 15 = 1111 */
+  
+        c = a >>> 2;      /* 15 = 0000 1111 */
+     }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T21:48:20.922Z"
-updatedAt: "2017-08-04T04:08:10.345Z"
+updatedAt: "2017-08-18T21:54:21.655Z"

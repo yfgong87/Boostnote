@@ -1,0 +1,28 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "Scanner"
+content: '''
+  # Scanner
+  ```java
+  Scanner scanner = new Scanner(System.in); //REMEMBER THIS!
+  String myString = scanner.next();
+  int myInt = scanner.nextInt();
+  scanner.close();
+  
+  //Scan input into array
+  Scanner scanner = new Scanner(System.in);
+  int n = scanner.nextInt();
+  int[] arr = new int[n];
+  for (int i = 0; i < n; i++){
+      arr[i] = scanner.nextInt();
+  }
+  
+  System.out.println("myString is: " + myString);
+  System.out.println("myInt is: " + myInt);
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-15T16:19:19.788Z"
+updatedAt: "2017-08-16T18:09:45.757Z"

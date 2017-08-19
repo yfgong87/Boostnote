@@ -72,19 +72,29 @@ content: '''
   ```java
   //Initiate an ArrayList that can only take String
   ArrayList<String> arrayList = new ArrayList<String>();
-  //2 way to add elements
-  arrayList.add("FirstName LastName");
+  
+  //Add elements
+  arrayList.add("FirstName LastName"); // add to the end of ArrayList
+  arrayList.add(0, "newFirstElement"); //add to the front of ArrayList
+  
+  //Insert vs Replace
   arrayList.add(2, "insertString"); //.add(index, value), this method INSERT the value, NOT REPLACING the original!
   arrayList.set(2, "replaceString"); //.set(index, value), this method REPLACE the value
-  //retrieve value from arrayList
+  
+  //Remove value from arrayList
   arrayList.remove(2); //REMOVE the value at index
-  arrayList.removeRange(0,1);
+  arrayList.removeRange(0,1);//remove range
+  arrayList.remove(arrayList.size() - 1); //remove the last element
+  
   //Check if element exist in ArrayList
   arrayList.contains("FirstName LastName"); //true
+  
   //get size of ArrayList
   int size = arrayList.size();
+  
   //get element by index
   arrayList.get(1);
+  
   //Print ArrayList
   for(int i = 0; i < arrayList.size(); i++){
     System.out.println(arrayList.get(i));
@@ -125,9 +135,35 @@ content: '''
   strArray = arrayList.toArray();
   
   ```
+  # LinkedList
+  ```java
+  //Initiate an ArrayList that can only take String
+  LinkedList<String> linkedList = new LinkedList<String>();
+  
+  //Get first and last element
+  linkedList.getFirst();
+  linkedList.getLast();
+  linkedList.subList(1, 2); //From index 1 to 2
+  linkedList.indexOf("String");
+  
+  //Common methods
+  linkedList.add("String");
+  linkedList.add(1, "String");
+  linkedList.addAll(new LinkedList<String>());
+  linkedList.remove("String");
+  linkedList.remove(1, "String");
+  linkedList.removeAll(new LinkedList<String>());
+  linkedList.set(1, "String");
+  
+  //Check element
+  linkedList.contains();
+  linkedList.isEmpty();
+  linkedList.size();
+  
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-08-12T00:10:59.215Z"
+updatedAt: "2017-08-16T23:35:59.086Z"

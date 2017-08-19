@@ -1,0 +1,20 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Left Rotation on Array"
+content: '''
+  # Left Rotation on Array
+  ### Recursive method
+  #### First Swap the first two elements
+  - Put value in first element into Temp
+  - Put value in second element into first element
+  - Put Temp into second element
+  #### Recursion
+  - Recursively call method on subArray lacking the first element
+  - decrement count
+  - Base condition: when count is 0
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-16T15:34:54.669Z"
+updatedAt: "2017-08-16T15:38:38.269Z"

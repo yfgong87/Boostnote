@@ -1,0 +1,19 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "String"
+content: '''
+  # String
+  ### Split String
+  ```java
+  str = "Hello I'm your String";
+  String[] splited = str.split(" ");//split by ONE whitespace
+  String[] splited = str.split("\\\\s");//split by ONE whitespace
+  String[] splited = str.split("\\\\s+");//split by ONE or MANY whitespace
+  //NOTE: A tab could be a different number of columns depending on your environment, but a space is always one column
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-16T20:25:36.618Z"
+updatedAt: "2017-08-16T20:31:14.954Z"

@@ -1,0 +1,23 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Auto-boxing and Auto-unboxing"
+content: '''
+  # Auto-boxing and Auto-unboxing
+  ```java
+  //WRONG, Java cannot auto-unboxing
+  ArrayList list = new ArrayList();
+  list.add(1);
+  int a = list.get(0);
+  int a = (int)list.get(0);//Correct
+  
+  //Java auto-unboxing
+  ArrayList<Integer> list = new ArrayList();
+  list.add(1);
+  int a = list.get(0);
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-18T21:57:52.261Z"
+updatedAt: "2017-08-18T22:05:35.452Z"
