@@ -1,0 +1,75 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "Comparator and override compare()"
+content: '''
+  ## `Comparator` and override `compare()`
+  ### How it works: 
+  `compare()` method returns `-1`, `0` or `1` to say if it is less than, equal, or greater to the other. `Collections.sort()` use this result to determine if the two element need to be swapped or not.
+  ```java
+  class Pair {
+      int num;
+      String str;
+      public Pair(int num, String str) {
+          this.num = num;
+          this.str = str;
+      }
+  }
+  //left - right -> sort ascending
+  class sortByNumAscend implements Comparator<Pair>{
+      // Used for sorting in Ascending order
+      public int compare(Pair a, Pair b){
+          return a.num - b.num;
+      }
+  }
+  //right - left -> sort descending
+  class sortByNumDescend implements Comparator<Pair>{
+      // Used for sorting in Descending order
+      public int compare(Pair a, Pair b){
+          return b.num - a.num;
+      }
+  }
+  //sort String using compareTo()
+  class sortByStr implements Comparator<Pair>{
+      // Used for sorting in ascending order
+      public int compare(Pair a, Pair b){
+          a.str.compareTo(b.str);
+      }
+  }
+  class Main{
+      public static void main (String[] args){
+          //Compare ArrayList
+          ArrayList<Pair> pairList = new ArrayList<Pair>();
+          
+          //Classical way of using Comparator
+          Collections.sort(pairList, new sortByNumAscend());
+          
+          //Compact way of using Comparator
+          Collections.sort(pairList, new Comparator<Pair>() {
+                public int compare(Pair a, Pair b) {
+                    return a.num - b.num;
+                } 
+          });
+          
+          //Compare Arrays
+          Pair[] pairArray = new Pair[10];
+          
+          //Classical way of using Comparator
+          Arrays.sort(pairArray, new sortByNumAscend());
+          
+          //Compact way of using Comparator
+          Arrays.sort(pairArray, new Comparator<Pair>() {
+                public int compare(Pair a, Pair b) {
+                    return a.num - b.num;
+                } 
+          });
+          
+      }   
+  }
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-26T17:01:32.776Z"
+updatedAt: "2017-08-26T17:24:16.570Z"

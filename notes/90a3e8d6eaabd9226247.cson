@@ -46,12 +46,13 @@ content: '''
         this.num = num;	   
      }
   ```
-  ### Method Overloading
-  - When a class has two or more methods by the same name but different parameters, it is known as method overloading. It is different from overriding. In overriding, a method has the same method name, type, number of parameters, etc.
+  ### Method `Overloading`
+  When a class has two or more methods by the `same name` but `different parameters`, it is known as method `overloading`. It is different from overriding. In overriding, a method has the same method name, type, number of parameters, etc.
+  ![overriding vs overload](https://www.programcreek.com/wp-content/uploads/2009/02/overloading-vs-overriding.png)
   
-  ### `super`
+  ### `super` and `Overriding`
   - It is used to differentiate the members of superclass from the members of subclass, if they have same names.
-  - It is used to invoke the superclass constructor from subclass.
+  - It is used to `invoke` the `superclass constructor` from `subclass`.
   ```java
   //super class
   public class Animal{
@@ -86,7 +87,7 @@ content: '''
   }
   ```
   
-  ### Polymorphism (`extends`)
+  ### Polymorphism (`extends`) - `Overriding` + `Overloading`
   - Java is smart enough to call the `overided method` in `subclass`, rather than the original `method` in `superclass` when a `subclass` is defined this way:
   ```java
   Animal myCat = new Cat("Hermie", "mouse");
@@ -111,9 +112,11 @@ content: '''
   //method 2
   System.out.println(((Cat) myCat).toy);//will print "mouse"
   ```
+  ### `Constructor` CAN ONLY BE `overloaded`
+  - `constructor` cannot be inherited so it cannot be `overrided`, but can be `overloaded`
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T01:03:41.271Z"
-updatedAt: "2017-08-12T16:48:04.250Z"
+updatedAt: "2017-08-26T06:40:01.816Z"

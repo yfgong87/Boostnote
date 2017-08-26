@@ -51,6 +51,7 @@ content: '''
   - For `booleans` that is a `false`.
   - For `char` that is the null character `'\\u0000'` (whose decimal equivalent is 0).
   ### Array length
+  数组没有`length()`方法，有`length` 的属性。`String` 有`length()`方法
   ```java
   //Array uses .length
   int[] intArray = new int[5];
@@ -101,4 +102,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-08-26T00:07:05.843Z"
+updatedAt: "2017-08-26T06:37:38.921Z"

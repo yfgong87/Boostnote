@@ -133,8 +133,13 @@ content: '''
   //Turn ArrayList into Array
   String[] strArray = new String[3];
   strArray = arrayList.toArray();
-  
   ```
+  - Sort `ArrayList`
+  ```java
+  ArrayList<Integer> nums = new ArrayList<Integer>();
+  Collections.sort(nums);
+  ```
+  
   # LinkedList
   ```java
   //Initiate an ArrayList that can only take String
@@ -166,4 +171,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-08-16T23:35:59.086Z"
+updatedAt: "2017-08-26T16:59:04.464Z"
