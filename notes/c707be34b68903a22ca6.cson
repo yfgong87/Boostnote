@@ -1,0 +1,15 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Ternary Conditional Operator"
+content: '''
+  # Ternary Conditional Operator
+  if `a < b`, `minVal` = `a`, else `minVal` = `b`
+  ```java
+  minVal = (a < b) ? a : b;
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-24T15:35:11.981Z"
+updatedAt: "2017-08-24T15:36:22.109Z"

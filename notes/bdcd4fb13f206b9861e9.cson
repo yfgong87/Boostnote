@@ -45,6 +45,9 @@ content: '''
   ---
   - `short` data type is a 16-bit signed two's complement integer
   - `int` data type is a 32-bit signed two's complement integer.
+  - `Integer.MAX_VALUE`: 2<sup>31</sup>-1
+  - `Integer.MIN_VALUE`: -2<sup>31</sup>
+  - 注意：`Math.abs`(`Integer.MIN_VALUE`) 依然等于`Integer.MIN_VALUE`因为越界了，需要用`Math.abs`( (`long`)`Integer.MIN_VALUE`)
   ```java
   int max = Integer.MAX_VALUE;
   int min = Integer.MIN_VALUE;
@@ -86,41 +89,9 @@ content: '''
   ```java
   Math.ceil(125.9); //125
   ```
-  ### `Arrays` class
-  - `Arrays` not Array!!!!
-  - These methods are `overloading` for all primitive value. (`Overloading` allows a class to have two or more methods having same name).
-  - public static `int` `Arrays`.`binarySearch`(`Object`[ ] `array`, `Object` `key`): Searches the specified array of Object ( Byte, Int , double, etc.) for the specified value using the binary search algorithm. The array must be sorted prior to making this call. This returns index of the search key, if it is contained in the list; otherwise, it returns ( – (insertion point + 1)).
-  - public static `void` `Arrays`.`fill`(`int`[ ] `array`, `int` `val`): Fill `array` with `val`
-  - public static `void` `Arrays`.`sort`(`Object`[ ] `array`): Sorts the specified array of objects into an ascending order
-  - `foreach` loop:
-  ```java
-  public class TestArray {
-  
-     public static void main(String[] args) {
-        double[] myList = {1.9, 2.9, 3.4, 3.5};
-  
-        // Print all the array elements
-        for (double element: myList) {
-           System.out.println(element);
-        }
-     }
-  }
-  ```
-  - Array has fixed size
-  - Find row and column length of 2D Matrix:
-  ```java
-  int[][] matrix = new int[][] {
-          new int[] { 1, 2, 3 },
-          new int[] { 1, 2, 3, 4},
-      };
-  //row number of matrix
-  row = matrix.length; //return 2
-  //column number of first row
-  col = matrix[0].length; //return 3
-  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:00:38.326Z"
-updatedAt: "2017-08-18T22:01:23.940Z"
+updatedAt: "2017-08-25T03:32:25.462Z"

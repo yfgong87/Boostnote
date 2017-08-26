@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Modular Operation"
+content: '''
+  # Modular Operation
+  - `smallNum` % `bigNum` = `smallNum`
+  - `num` % `num` = `num`
+  - `num` % `10` = `lastDigit`
+  - (`A` + `B`) % `C` = (`A` % `C` + `B` % `C`) % `C`
+  - (`A` - `B`) % `C` = (`A` % `C` - `B` % `C`) % `C`
+  - (`A` * `B`) % `C` = (`A` % `C` * `B` % `C`) % `C`
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-22T14:44:08.358Z"
+updatedAt: "2017-08-22T15:04:38.736Z"

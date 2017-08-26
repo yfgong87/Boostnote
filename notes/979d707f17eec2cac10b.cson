@@ -1,0 +1,32 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "++i vs i++"
+content: '''
+  # `++i` vs `i++`
+  - `Indentical` in `for` loop
+  - `Different` when the value is used immediately
+  ```java
+  class PrePostDemo {
+      public static void main(String[] args){
+          int i = 3;
+          i++;
+          // prints 4
+          System.out.println(i);
+          ++i;			   
+          // prints 5
+          System.out.println(i);
+          // prints 6
+          System.out.println(++i);
+          // prints 6
+          System.out.println(i++);
+          // prints 7
+          System.out.println(i);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-21T03:18:26.888Z"
+updatedAt: "2017-08-21T03:21:08.355Z"

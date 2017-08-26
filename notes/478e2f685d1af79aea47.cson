@@ -1,13 +1,47 @@
 type: "MARKDOWN_NOTE"
 folder: "ca7b6b3755f93c46a5f8"
-title: "Array"
+title: "Arrays"
 content: '''
-  # Array
+  # Arrays
+  ### `Arrays` class
+  - `Arrays` not Array!!!!
+  - These methods are `overloading` for all primitive value. (`Overloading` allows a class to have two or more methods having same name).
+  - public static `int` `Arrays`.`binarySearch`(`Object`[ ] `array`, `Object` `key`): Searches the specified array of Object ( Byte, Int , double, etc.) for the specified value using the binary search algorithm. The array must be sorted prior to making this call. This returns index of the search key, if it is contained in the list; otherwise, it returns ( – (insertion point + 1)).
+  - public static `void` `Arrays`.`fill`(`int`[ ] `array`, `int` `val`): Fill `array` with `val`
+  - public static `void` `Arrays`.`sort`(`Object`[ ] `array`): Sorts the specified array of objects into an ascending order
+  - `foreach` loop:
+  ```java
+  public class TestArray {
+  
+     public static void main(String[] args) {
+        double[] myList = {1.9, 2.9, 3.4, 3.5};
+  
+        // Print all the array elements
+        for (double element: myList) {
+           System.out.println(element);
+        }
+     }
+  }
+  ```
+  - Array has fixed size
+  - Find row and column length of 2D Matrix:
+  ```java
+  int[][] matrix = new int[][] {
+          new int[] { 1, 2, 3 },
+          new int[] { 1, 2, 3, 4},
+      };
+  //row number of matrix
+  row = matrix.length; //return 2
+  //column number of first row
+  col = matrix[0].length; //return 3
+  ```
   ### Initialize Array
   ```java
   //In java, you cannot use a variable that is NOT or MIGHT NOT be initialized
   int arraySize = 5; // int value has to be initialized when creating variable
   int[] intArray = new int[arraySize];//Array size has to be initialized when creating array
+  int[] result = {1, 2};
+  int[] result = new int[]{1, 2};
   ```
   ### Initialized Value
   - Everything in a valid Java program not explicitly set to something by the programmer, is initialized to a `0` value.
@@ -30,9 +64,41 @@ content: '''
   String[] strArray = new String[5];
   System.out.println(strArray.length); // 5
   ```
+  ### 如何防止ArrayIndexOutOfBound
+  ```java
+  //Approach 1: Check in each iteration
+  for(int i = 0; i < array.length; i++) {
+      if(i == length - 1) {
+          //handle final element here...
+          break;
+      }
+  }
+  //Approach 2: Iterate until length - 2 and then handling the last element outside the loop
+  for(int i = 0; i < array.length - 1; i++){
+    //Your code
+  }
+  //Manage the final item array[length - 1] here
+  array[length - 1]...
+  ```
+  ### PrefixSum
+  - 问：为什么需要一个 `(0,0)` 的初始 Pair?
+  - 答：
+  我们首先需要回顾一下，在 subarray 这节课里，我们讲过一个重要的知识点，叫做 `Prefix Sum`.
+  比如对于数组 `[1,2,3,4]`，他的 Prefix Sum 是 `[1,3,6,10]`.
+  分别表示 `前1个数之和`，`前2个数之和`，`前3个数之和`，`前4个数之和`.
+  这个时候如果你想要知道子数组从下标 1 到下标 2 的这一段的和(2+3)，就用`前3个数之和` 减去`前1个数之和` 即 `PrefixSum[2]` - `PrefixSum[0]` = 6 - 1 = 5
+  你可以看到这里的前x个数，和具体对应的下标之间，存在 +-1 的问题
+  第 x 个数的下标是 x - 1，反之 下标 x 是第 x + 1 个数
+  那么问题来了，如果要计算 下标从 0~2 这一段呢？也就是第1个数到第3个数，因为那样会访问到 `PrefixSum[-1]`
+  所以我们把 `PrefixSum` 整体往后面移动一位，把第0位空出来表示前0个数之和，也就是0. => `[0,1,3,6,10]`
+  那么此时就用 `PrefixSum[3]` - `PrefixSum[0]` ，这样计算就更方便了。
+  此时，`PrefixSum[i]` 代表 前i个数之和，也就是下标区间在 0 ~ i-1 这一段的和
+  那么回过头来看看，为什么我们需要一个 `(0,0)` 的 pair 呢？
+  因为 这个 0,0 代表的就是前0个数之和为0
+  一个 n 个数的数组， 变成了 prefix Sum 数组之后，会多一个数出来
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-08-18T04:44:34.752Z"
+updatedAt: "2017-08-26T00:07:05.843Z"

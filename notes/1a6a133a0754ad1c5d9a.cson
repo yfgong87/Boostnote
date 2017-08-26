@@ -1,0 +1,21 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Check if Palindrome"
+content: '''
+  # Check if Palindrome
+  ```java
+  private boolean isPalindrome(String s){
+      for(int i = 0, j = s.length() - 1; i < j; i++, j--){
+          if s.charAt(i) != s.charAt(j){
+              return false;
+          }
+      }
+      return true;
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-19T23:12:04.488Z"
+updatedAt: "2017-08-19T23:12:30.990Z"

@@ -1,0 +1,170 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Merge Sort, Quick Sort, Heap Sort"
+content: '''
+  # Merge Sort, Quick Sort, Heap Sort
+  ### Merge Sort
+  | Best TC | Average TC | Worst TC | Space C |
+  | ------- | ---------  | -------- | ------- |
+  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(n)` |
+  ![](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
+  ```java
+  public class Solution {
+  
+      public void sortIntegers(int[] A) {
+          // write your code here
+          mergeSort(A, new int[A.length], 0, A.length - 1);
+      }
+      
+      private void mergeSort(int[] A, int[] temp, int leftStart, int rightEnd){
+          if(leftStart >= rightEnd){
+              return;
+          }
+          int mid = (leftStart + rightEnd) / 2;
+          mergeSort(A, temp, leftStart, mid);
+          mergeSort(A, temp, mid + 1, rightEnd);
+          merge(A, temp, leftStart, rightEnd);
+      }
+      
+      private void merge(int[] A, int[] temp, int leftStart, int rightEnd){
+          int leftEnd = (leftStart + rightEnd) / 2;
+          int rightStart = leftEnd + 1;
+          int size = rightEnd - leftStart + 1;
+          
+          int left = leftStart;
+          int right = rightStart;
+          int index = leftStart;
+          
+          while(left <= leftEnd && right <= rightEnd){
+              if(A[left] <= A[right]){
+                  temp[index] = A[left];
+                  left++;
+              } else {
+                  temp[index] = A[right];
+                  right++;
+              }
+              index++;
+          }
+          //arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
+          System.arraycopy(A, left, temp, index, leftEnd - left + 1);
+          System.arraycopy(A, right, temp, index, rightEnd - right + 1);
+          System.arraycopy(temp, leftStart, A, leftStart, size);
+      }
+      
+  };
+  ```
+  
+  ### Quick Sort
+  | Best TC | Average TC | Worst TC | Space C |
+  | ------- | ---------  | -------- | ------- |
+  | `O(nlogn)`	| `O(nlogn)` | 	`O(n^2)` | `O(logn)` |
+  - `logn` space complexity because of stack use in recursion
+  ![](https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif)
+  ```java
+  public class Solution {
+      public void sortIntegers(int[] A) {
+          // write your code here
+          quickSort(A, 0, A.length - 1);
+      }
+      
+      private void quickSort(int[] A, int left, int right){
+          if(left >= right){
+              return;
+          }
+          //get value of pivot
+          int pivot = A[(left + right) / 2];
+          //get new pivot afte partition
+          int index = partition(A, pivot, left, right);
+          quickSort(A, left, index - 1);
+          quickSort(A, index, right);
+      }
+      
+      //return new pivot
+      private int partition(int[] A, int pivot, int left, int right){
+          int temp;
+          //while left pointer has not met right pointer
+          while(left <= right){
+              //while left is smaller than pivot, keep moving left pointer to right
+              while(A[left] < pivot){
+                  left++;
+              }
+              //while right is bigger than pivot, keep moving right pointer to left
+              while(A[right] > pivot){
+                  right--;
+              }
+              //if left pointer has not met right pointer
+              if(left <= right){
+                  //swap
+                  temp = A[left];
+                  A[left] = A[right];
+                  A[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          return left;
+      }
+      
+  };
+  ```
+  ### Heap Sort
+  | Best TC | Average TC | Worst TC | Space C |
+  | ------- | ---------  | -------- | ------- |
+  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(1)` |
+  ![](https://upload.wikimedia.org/wikipedia/commons/1/1b/Sorting_heapsort_anim.gif)
+  ```java
+  public void sort(int arr[])
+      {
+          int n = arr.length;
+   
+          // Build heap (rearrange array)
+          for (int i = n / 2 - 1; i >= 0; i--)
+              heapify(arr, n, i);
+   
+          // One by one extract an element from heap
+          for (int i=n-1; i>=0; i--)
+          {
+              // Move current root to end
+              int temp = arr[0];
+              arr[0] = arr[i];
+              arr[i] = temp;
+   
+              // call max heapify on the reduced heap
+              heapify(arr, i, 0);
+          }
+      }
+   
+      // To heapify a subtree rooted with node i which is
+      // an index in arr[]. n is size of heap
+      void heapify(int arr[], int n, int i)
+      {
+          int largest = i;  // Initialize largest as root
+          int l = 2*i + 1;  // left = 2*i + 1
+          int r = 2*i + 2;  // right = 2*i + 2
+   
+          // If left child is larger than root
+          if (l < n && arr[l] > arr[largest])
+              largest = l;
+   
+          // If right child is larger than largest so far
+          if (r < n && arr[r] > arr[largest])
+              largest = r;
+   
+          // If largest is not root
+          if (largest != i)
+          {
+              int swap = arr[i];
+              arr[i] = arr[largest];
+              arr[largest] = swap;
+   
+              // Recursively heapify the affected sub-tree
+              heapify(arr, n, largest);
+          }
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-21T13:19:26.494Z"
+updatedAt: "2017-08-22T20:50:12.161Z"

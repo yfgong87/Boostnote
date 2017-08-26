@@ -1,0 +1,23 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Linked List"
+content: '''
+  # Linked List
+  ### Delete Node
+  ```java
+  //ONLY given the node to be deleted
+  node.val = node.next.val;
+  node.next = node.next.next;
+  
+  //Given prev node
+  prev.next = node.next;
+  
+  //Delete the next node after node
+  node.next = node.next.next;
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-20T00:42:40.023Z"
+updatedAt: "2017-08-20T00:45:32.371Z"

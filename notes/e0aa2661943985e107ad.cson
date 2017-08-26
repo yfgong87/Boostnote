@@ -1,0 +1,41 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Sort Array with HashSet"
+content: '''
+  # Sort Array with HashSet
+  ```java
+  int[] array = int[5];
+  Set<Integer> set = new HashSet<Integer>();
+  for(int i = 0; i < array.length; i++){
+     set.add(array[i]);//Set contains unique value, automatically remove duplicate
+  }
+  //CAUTION: this returns Integer[], NOT int[]
+  System.out.println(set.toArray(new Integer[set.size()]))
+  ```
+  # Sort Array without HashSet
+  ```java
+  private int[] removeDuplicates(int[] array) {
+      Arrays.sort(array);
+          
+      int index = 0;
+      for (int i = 0; i < array.length; i++) {
+          if (array[i] != array[index]) {
+              array[++index] = array[i];
+          }
+      }
+          
+      int[] newArray = new int[index + 1];
+      for (int i = 0; i < index + 1; i++) {
+          newArray[i] = array[i];
+      }
+          
+      return newArray;
+  }
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-19T14:50:32.276Z"
+updatedAt: "2017-08-19T15:06:12.971Z"

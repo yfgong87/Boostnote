@@ -1,0 +1,13 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "arraycopy()"
+content: '''
+  # `arraycopy()`
+  - System.`arraycopy`(`Object` `src`, `int` `srcPos`, `Object` `dest`, `int` `destPos`, `int` `length`)
+  - Copies an array from the specified source array, beginning at the specified position, to the specified position of the destination array.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-21T12:16:55.646Z"
+updatedAt: "2017-08-21T12:18:12.527Z"

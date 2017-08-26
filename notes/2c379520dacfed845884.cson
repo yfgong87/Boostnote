@@ -7,7 +7,7 @@ content: '''
   - `Queue` is first in, first out, like pass a door
   
   ### `Stack`
-  - `boolean` `Empty` ( ):  Returns `true` if the stack is empty, and returns `false` if the stack contains elements.
+  - `boolean` `empty` ( ):  Returns `true` if the stack is empty, and returns `false` if the stack contains elements.
   - `Object` `peek`( ): Returns the element on the `TOP` of the stack, but does **NOT** remove it.
   - `Object` `pop`( ): Returns the element on the **TOP** of the stack, `REMOVING` it in the process.
   - `Object` `push`(`Object` `element`): Pushes the `element` onto the `stack`. `Element` is also returned.
@@ -17,4 +17,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-07T21:28:46.275Z"
-updatedAt: "2017-08-07T22:22:40.645Z"
+updatedAt: "2017-08-21T23:32:51.324Z"

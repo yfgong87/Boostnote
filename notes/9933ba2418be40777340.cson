@@ -21,6 +21,7 @@ content: '''
   public static void main(String[] args) {
    
       // Creating a HashMap of int keys and String values
+      //Map<Integer, String> hashmap = new HashMap<Integer, String>();
       HashMap<Integer, String> hashmap = new HashMap<Integer, String>();
    
       // Adding Key and Value pairs to HashMap
@@ -83,4 +84,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-01T03:44:25.824Z"
-updatedAt: "2017-08-16T20:21:04.911Z"
+updatedAt: "2017-08-20T19:23:02.695Z"

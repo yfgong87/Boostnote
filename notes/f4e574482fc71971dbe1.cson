@@ -1,0 +1,65 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "DFS"
+content: '''
+  # DFS
+  ### `SubSet` I & II, `Permutation` I & II, `Combine Sum` I & II
+  ### BASE: backtracking
+  ```java
+  for(int i = 0; i < array.length; i++){
+      if(solution.contains(array[i]){
+        continue;
+      }
+      solution.add(array[i]);
+      addSubset(result, solution, array);
+      solution.remove(solution.size()-1);
+  }
+  ```
+  ### Module 1, `startIndex`
+  - `When to use`: When output need to be `NON-DESCENDING` order
+  - NOTE: `DO NOT` use for `Permutation` since we need different orders of same set of number
+  ```java
+  for(int i = index; i < array.length; i++){
+      solution.add(array[i]);
+      addSubset(result, solution, i, array);
+      solution.remove(solution.size()-1);
+  }
+  ```
+  ### Module 2, `i + 1`
+  - `When to use`: Each number in array may only be used `ONCE` in the solution.
+  - eg.`SubSets I`, `SubSets II`, `Combination Sum II`, 
+  ```java
+  for(int i = index; i < array.length; i++){
+      solution.add(array[i]);
+      addSubset(result, solution, i + 1, array);
+      solution.remove(solution.size()-1);
+  }
+  ```
+  ### Module 3, 选代表
+  - `When to use`: When array contains `DUPLICATE` numbers
+  - eg. `SubSets II`,`Combination Sum II`(相比`Combination Sum I`不能有去重这一步，因为每个数都要被用到且只用到一次)
+  ```java
+  for(int i = index; i < array.length; i++){
+      //if number has been put into solution then a same number appears, continue
+      if(i != index && array[i] == array[i - 1]){
+      continue;
+      }
+      solution.add(nums[i]);
+      addSubset(result, solution, i + 1, array);
+      solution.remove(solution.size()-1);
+  }
+  ```
+  ### Permutation II 当数组有重复数时，需要判断两件事来去重：
+  以下情况出现时`continue`
+  - 当前数`array[i]`已经访问过，可以用一个`int[] visited`来记录（`visited[i] == 1`）
+  - 相同的数再次出现时（`array[i] == array[i - 1]`），前一个数如果未被访问过（`visited[i - 1] == 0`）
+  ### 递归的出口
+  - `SubSets`: 遍历数组后
+  - `Permutation`: `solution`的大小等于数组大小
+  - `Combination Sum`: `remainTarget == 0`
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-19T17:47:51.066Z"
+updatedAt: "2017-08-19T19:59:42.375Z"

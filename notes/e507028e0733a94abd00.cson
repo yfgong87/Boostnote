@@ -1,0 +1,34 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "SubArray Sum"
+content: '''
+  # SubArray Sum
+  令 `PrefixSum[i]` = `A[0]` + `A[1]` + … `A[i - 1]`, `PrefixSum[0]` = `0`
+  易知构造 `PrefixSum` 耗费 `O(n)` 时间和 `O(n)` 空间
+  如需计算子数组从下标i到下标j之间的所有数之和
+  则有 `Sum(i~j)` = `PrefixSum[j + 1]` - `PrefixSum[i]`
+  一个 `n` 个数的数组， 变成了 `prefix Sum` 数组之后，会多一个数出来
+  ```java
+  public class Solution {
+      public int maxSubArray(int[] A) {
+          if (A == null || A.length == 0){
+              return 0;
+          }
+          
+          int max = Integer.MIN_VALUE, sum = 0, minSum = 0;
+          for (int i = 0; i < A.length; i++) {
+              sum += A[i];
+              max = Math.max(max, sum - minSum);
+              minSum = Math.min(minSum, sum);
+          }
+  
+          return max;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-24T19:58:31.726Z"
+updatedAt: "2017-08-25T22:19:45.618Z"
