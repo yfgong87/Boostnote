@@ -2,11 +2,37 @@ type: "MARKDOWN_NOTE"
 folder: "403e789cfa873c1c2c82"
 title: "StringBuilder"
 content: '''
-  # StringBuilder
+  # `StringBuilder`
+  ### Constructor
+  ```java
+  String str;
+  StringBuilder sb = new StringBuilder();
+  StringBuilder sb = new StringBuilder(str);
+  ```
+  ### Append & Insert
+  - `StringBuilder`.`append`(`argument`)
+  NOTE: `argument` could be `boolean`, `char`, `char[]`, `double`, `long`, `int`, `float`, `String`, `Object`
+  ```java
+  sb.append("String1").append("String2");
+  ```
+  - `StringBuilder`.`insert`(`int` `offset`, `argument`)
+  NOTE: `offset` = index before which data will be inserted.
+  ### Delete
+  - `StringBuilder`.`delete`(`int` `start`, `int` `end`)
+  NOTE: deletes the subsequence from `start` to `end-1` (inclusive)
+  - `StringBuilder`.`deleteCharAt`(`int` `index`)
+  ### Replace
+  - `StringBuilder`.`replace`(`int` `start`, `int` `end`, `String` `s`)
+  - `void` `setCharAt`(`int` `index`, `char` `c`)
+  ### Reverse
+  - `StringBuilder`.`reverse`( )
+  ### Cast to `String`
+  - `String` `toString`( )
+  - You can use any `String` method on a `StringBuilder` object by first converting the `StringBuilder` to a `String` with the `toString()` method of the `StringBuilder` class. Then convert the string back into a `StringBuilder` using the `StringBuilder`(`String` `str`) constructor.
   
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-18T04:59:12.457Z"
-updatedAt: "2017-08-18T04:59:19.899Z"
+updatedAt: "2017-08-28T23:47:50.766Z"

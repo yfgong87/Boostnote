@@ -1,0 +1,61 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "Iterate HashSet or HashMap"
+content: '''
+  # Iterate `HashSet` or `HashMap`
+  ### `entrySet`
+  NOTE: `entrySet` can only be used to iterate `HashMap`
+  - Iterate `HashMap` with `entrySet` + enhanced `for` loop
+  ```java
+  HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+  int i = 0;
+  for (Map.Entry<Integer, Boolean> entry : map.entrySet()){
+      nums[i] = entry.getKey();
+      i++;
+  }
+  ```
+  ### `Iterator`
+  NOTE: `Iterator` can be used to iterate `HashMap` and `HashSet`
+  NOTE: `Iterator.next()` returns the current value from the collection, `but at the same time`, `advances the iterator to the next element`.
+  - Iterate `HashSet` with `Iterator`
+  ```java
+  // create an iterator
+  Iterator iterator = hashset.iterator(); 
+        
+  // check values
+  while (iterator.hasNext()){
+     //NEED to Cast Since iterator is defined as generic!!!!!!
+     int num = (int)iterator.next(); 
+  }
+  ```
+  - Preferred way to define `Iterator`!
+  ```java
+  // create an iterator
+  Iterator<Integer> iterator = hashset.iterator(); 
+        
+  // check values
+  while (iterator.hasNext()){
+     //NO need to Cast since iterator is defined as Integer type
+     int num = iterator.next(); 
+  }
+  ```
+  - Iterate `HashMap` with `Iterator` + `entrySet`
+  ```java
+  HashMap<Integer, String> hashmap = new HashMap<Integer, String>();
+  // Getting a Set of Key-value pairs
+  Set entrySet = hashmap.entrySet(); 
+  // Obtaining an iterator for the entry set
+  Iterator it = entrySet.iterator();
+  // Iterate through HashMap entries(Key-Value pairs)
+  while(it.hasNext()){
+      Map.Entry<Integer, String> entry = (Map.Entry)it.next();
+      System.out.println("Key is: "+ entry.getKey() 
+      + " value is: "+ entry.getValue());
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-26T22:54:35.262Z"
+updatedAt: "2017-08-27T00:43:30.753Z"

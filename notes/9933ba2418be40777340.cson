@@ -3,6 +3,13 @@ folder: "ca7b6b3755f93c46a5f8"
 title: "HashMap"
 content: '''
   # HashMap
+  - Data structure to store `Entry` objects is an `array` named `table` of type Entry.
+  - A particular index location in array is referred as `bucket`, because it can hold the first element of a `LinkedList` of `Entry` objects.
+  - `Key` object’s `hashCode()` is required to calculate the index location of `Entry` object.
+  - `Key` object’s `equals()` method is used to maintain uniqueness of `Keys` in map.
+  - `Value` object’s `hashCode()` and `equals()` method are `NOT` used in HashMap’s `get()` and `put()` methods.
+  - Hash code for `null` keys is always `0`, and such `Entry` object is always stored in `0` index in `Entry[]`.
+  - In `Java 8`, once the number of items in a hash `bucket` grows beyond a certain threshold, that `bucket` will switch from using a `linked list` of entries to a `balanced tree`. In the case of high hash collisions, this will improve worst-case performance from `O(n)` to `O(log n)`
   ---
   - `HashSet` is a set, e.g. {1,2,3,4,5}
   - `HashMap` is a key -> value (key to value) map, e.g. {a -> 1, b -> 2, c -> 2, d -> 1}
@@ -84,4 +91,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-01T03:44:25.824Z"
-updatedAt: "2017-08-20T19:23:02.695Z"
+updatedAt: "2017-08-28T14:32:12.818Z"

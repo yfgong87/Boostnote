@@ -1,0 +1,40 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "比较"
+content: '''
+  # 比较
+  - `==` compares the object `reference`, if any, contained by a variable. 
+  - `.equals`() checks to see if two objects are equal according to their contract for what equality means. 
+  - It's entirely possible for two distinct object instances to be "equal" according to their contract. 
+  ```java
+  class Foo {
+      private int data;
+  
+      Foo(int d) {
+          this.data = d;
+  }
+  Foo f1 = new Foo(5);
+  Foo f2 = new Foo(5);
+  
+  System.out.println(f1 == f2);
+  // outputs false, they're distinct object instances
+  
+  System.out.println(f1.equals(f2));
+  // outputs true, they're "equal" according to their definition
+  
+  Foo f3 = null;
+  System.out.println(f3 == null);
+  // outputs true, `f3` doesn't have any object reference assigned to it
+  
+  System.out.println(f3.equals(null));
+  // Throws a NullPointerException, you can't dereference `f3`, it doesn't refer to anything
+  
+  System.out.println(f1.equals(f3));
+  // Outputs false, since `f1` is a valid instance but `f3` is null
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-29T00:05:31.420Z"
+updatedAt: "2017-08-29T00:13:35.719Z"

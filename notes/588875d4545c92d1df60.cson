@@ -81,14 +81,16 @@ content: '''
       
       //return new pivot
       private int partition(int[] A, int pivot, int left, int right){
-          int temp;
+          int temp = 0;
           //while left pointer has not met right pointer
           while(left <= right){
-              //while left is smaller than pivot, keep moving left pointer to right
+              //while left is smaller than pivot, 
+              //keep moving left pointer to right
               while(A[left] < pivot){
                   left++;
               }
-              //while right is bigger than pivot, keep moving right pointer to left
+              //while right is bigger than pivot, 
+              //keep moving right pointer to left
               while(A[right] > pivot){
                   right--;
               }
@@ -106,6 +108,88 @@ content: '''
       }
       
   };
+  ```
+  快排九章模板
+  - 为什么这里是`A[left] < pivot` 而不是 `A[left] <= pivot` ?
+  因为如果pivot刚好是最大值，那么我们对n个元素进行partition就会出现左边得到n个，右边得到0个元素的情况，这样左边继续递归下去有可能始终都是n（每次取出pivot都是最大值），那么会出现无限递归。
+  - 为什么这里是`A[right] > pivot` 而不是 `A[right] >= pivot` ?
+  同理，因为如果pivot刚好是最小值，那么我们对n个元素进行partition就会出现左边得到0个，右边得到n个元素的情况，这样右边继续递归下去有可能始终都是n（每次取出pivot都是最小值），那么会出现无限递归。
+  ```java
+  private void quickSort(int[] A, int start, int end) {
+          if (start >= end) {
+              return;
+          }
+          
+          int left = start, right = end;
+          // key point 1: pivot is the value, not the index
+          int pivot = A[(start + end) / 2];
+  
+          // key point 2: every time you compare left & right, it should be 
+          // left <= right not left < right (如果没有=则每次都漏掉了最后一个数)
+          while (left <= right) {
+              // key point 3: A[left] < pivot not A[left] <= pivot
+              while (left <= right && A[left] < pivot) {
+                  left++;
+              }
+              // key point 3: A[right] > pivot not A[right] >= pivot
+              while (left <= right && A[right] > pivot) {
+                  right--;
+              }
+              if (left <= right) {
+                  int temp = A[left];
+                  A[left] = A[right];
+                  A[right] = temp;
+                  
+                  left++;
+                  right--;
+              }
+          }
+          //最后一次循环后left已经在right的右边了
+          quickSort(A, start, right);
+          quickSort(A, left, end);
+      }
+  ```
+  彩虹排序🌈
+  Non-randomly Picking the `Pivot`
+  这里 `while (l <= r && colors[l] <= colorMid)`
+  对于这个while循环为什么是<= 不是 < , 它为什么和快排不一样呢 ？
+  首先由如下几个地方大家需要注意：
+  因为rainbowSort的递归里 (..., colorMid + 1, colorTo)，所以colorMid的值不能混到右边去，因为右边值的区间是`[colorMid + 1, colorTo]`, 左边的值是`[colorFrom, colorMid]`。所以我们需要把等于colorMid的值放在partition的左侧。而不是像快排一样，等于pivot的值的元素放在左侧或者右侧是无所谓的。所以这里我们应该分别使用`colors[l] <= colorMid` 和 `color[r] > colorMid`
+  因为`colorFrom >= colorTo`的时候我们已经return了，所以求colorMid的时候，colorFrom一定不等于colorTo。又因为`colorMid = （colorFrom + colorTo） / 2`, 所以colorMid一定不会等于最大值colorTo，也就避免了我们所说的因为pivot是最大值而导致无限递归的问题，所以我们可以放心的使用<=。
+  ```java
+  private void rainbowSort(int[] colors,
+                        int start,
+                        int end,
+                        int colorFrom, 
+                        int colorTo){
+          if(start >= end){
+              return;
+          }           
+          if(colorFrom >= colorTo){
+              return;
+          }
+          int left = start;
+          int right = end;
+          int colorMid = (colorFrom + colorTo) / 2;
+          while(left <= right){
+              //注意这里是colors[left] <= colorMid,因为在递归时colorMid只能去左边
+              while(left <= right && colors[left] <= colorMid){
+                  left++;
+              }
+              while(left <= right && colors[right] > colorMid){
+                  right--;
+              }
+              if(left <= right){
+                  int temp = colors[left];
+                  colors[left] = colors[right];
+                  colors[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          rainbowSort(colors, start, right, colorFrom, colorMid);
+          rainbowSort(colors, left, end, colorMid + 1, colorTo);
+      }
   ```
   ### Heap Sort
   | Best TC | Average TC | Worst TC | Space C |
@@ -167,4 +251,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-08-22T20:50:12.161Z"
+updatedAt: "2017-08-28T02:59:38.428Z"

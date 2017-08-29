@@ -1,0 +1,25 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "Math"
+content: '''
+  # Math
+  ```java
+  Integer A = new Integer(1);
+  Integer B = new Integer(5);
+  Math.max(A, B); // return 5
+  Math.min(A, B); // return 1
+  Math.abs(A - B); // return 4
+  
+  Integer.MIN_VALUE;
+  Integer.MAX_VALUE;
+  ```
+  ### `MIN_VALUE` 越界问题
+  - `Integer.MAX_VALUE`: 2<sup>31</sup>-1
+  - `Integer.MIN_VALUE`: -2<sup>31</sup>
+  - 注意：`Math.abs`(`Integer.MIN_VALUE`) 依然等于`Integer.MIN_VALUE`因为越界了，需要用`Math.abs`( (`long`)`Integer.MIN_VALUE`)
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-29T01:00:11.930Z"
+updatedAt: "2017-08-29T02:47:52.510Z"

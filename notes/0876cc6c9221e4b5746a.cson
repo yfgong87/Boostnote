@@ -3,6 +3,9 @@ folder: "c7615b6dcc7b2832aa16"
 title: "Loop"
 content: '''
   # Loop
+  ### `for` loop
+  ![for](https://www.tutorialspoint.com/java/images/java_for_loop.jpg)
+  
   ### `break`
   - The `break` statement in Java programming language has the following two usages −
   - When the `break` statement is encountered inside a loop, the loop is immediately terminated and the program control resumes at the next statement following the loop.
@@ -83,4 +86,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T22:11:47.889Z"
-updatedAt: "2017-08-11T23:26:53.840Z"
+updatedAt: "2017-08-29T00:53:25.377Z"

@@ -38,9 +38,15 @@ content: '''
   ### Initialize Array
   ```java
   //In java, you cannot use a variable that is NOT or MIGHT NOT be initialized
-  int arraySize = 5; // int value has to be initialized when creating variable
-  int[] intArray = new int[arraySize];//Array size has to be initialized when creating array
+  int arraySize = 5; // int value MUST be initialized when creating variable
+  int[] intArray = new int[arraySize];//Array size MUST be initialized when creating array
+  //Method 1:
+  int[] result = new int[2];
+  result[0] = 1;
+  result[1] = 2;
+  //Method 2:
   int[] result = {1, 2};
+  //Method 3:
   int[] result = new int[]{1, 2};
   ```
   ### Initialized Value
@@ -102,4 +108,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-08-26T06:37:38.921Z"
+updatedAt: "2017-08-27T00:10:26.645Z"

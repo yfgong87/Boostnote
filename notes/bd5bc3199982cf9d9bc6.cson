@@ -21,9 +21,18 @@ content: '''
   ### Number of subStrings in a string with `n` char
   - `n * (n + 1) / 2`, e.g. `O(n^2)`
   - `"abcd"`: 4 (`"a"`, `"b"`, `"c"`, `"d"`) + 3 (`"ab"`, `"bc"`, `"cd"`) + 2 (`"abc"`, `"bcd"`) + 1 (`"abcd"`) = `4 * (4 + 1) / 2`
+  
+  ### Compare String
+  - `boolean` `String`.`equals`(`String` `str`)
+  Return `true` if equal, return `false` if not equal or `str` is `null`
+  NOTE1: `equals`() make a check on reference first, so it is SAFE to compare with `null`
+  NOTE2: However `equals`() CANNOT be invoked on a `null` object
+  - `int` `String`.`compareTo`(`String` `str`)
+  Return `0` if equal, or `positive` / `negative` value based on lexicographic difference
+  NOTE: If `str` is `null`, throw `NullPointerException`
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-08-22T20:40:01.110Z"
+updatedAt: "2017-08-29T00:08:23.673Z"
