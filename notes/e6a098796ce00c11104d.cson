@@ -1,0 +1,47 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "`java"
+content: '''
+  ```java
+  class returnType{
+      int depth;
+      boolean isBalanced;
+      returnType(int depth, boolean isBalanced){
+          this.depth = depth;
+          this.isBalanced = isBalanced;
+      }
+  }
+  public class Solution {
+      /*
+       * @param root: The root of binary tree.
+       * @return: True if this Binary tree is Balanced, or false.
+       */
+      public boolean isBalanced(TreeNode root) {
+          // write your code here
+          return helper(root).isBalanced;
+      }
+      private returnType helper(TreeNode root){
+          if(root == null){
+              return new returnType(0, true);
+          }
+          if(root.left == null && root.right == null){
+              return new returnType(1, true);
+          }
+          returnType left = helper(root.left);
+          returnType right = helper(root.right);
+          boolean isBalanced = true;
+          //如果tree的subtree中之一不是balanced或者两者depth相差大于一，tree不balance
+          if(!left.isBalanced || !right.isBalanced || Math.abs(left.depth - right.depth) > 1){
+              isBalanced = false;
+          }
+          //注意这里是Math.max而不是left + right + 1！
+          return new returnType(Math.max(left.depth, right.depth) + 1, isBalanced);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-01T02:09:07.152Z"
+updatedAt: "2017-09-01T02:10:56.055Z"

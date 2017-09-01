@@ -1,0 +1,55 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Permutation II"
+content: '''
+  # Permutation II
+  ```java
+  class Solution {
+      public List<List<Integer>> permuteUnique(int[] nums) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(nums == null){
+              return results;
+          }
+          List<Integer> solution = new ArrayList<Integer>();
+          if(nums.length == 0){
+              results.add(solution);
+              return results;
+          }
+          Arrays.sort(nums);
+          int[] visited = new int[nums.length];
+          helper(results, solution, nums, visited);
+          return results;
+      }
+      private void helper (List<List<Integer>> results,
+                           List<Integer> solution,
+                           int[] nums,
+                           int[] visited){
+          //当集合大小等于数组大小时完成当前solution
+          if(solution.size() == nums.length){
+              results.add(new ArrayList<Integer>(solution));
+          }
+          //无需startIndex，每次都从第一个数开始找
+          for(int i = 0; i < nums.length; i++){
+              //当前数已经用过
+              if(visited[i] == 1){
+                  continue;
+              }
+              //选代表
+              if(i != 0 && nums[i] == nums[i - 1] && visited[i - 1] == 0){
+                  continue;
+              }
+              visited[i] = 1;
+              solution.add(nums[i]);
+              helper(results, solution, nums, visited);
+              solution.remove(solution.size() - 1);
+              visited[i] = 0;
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-30T18:29:42.817Z"
+updatedAt: "2017-08-30T18:30:37.486Z"

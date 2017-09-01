@@ -9,6 +9,7 @@ content: '''
   ```java
   HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
   int i = 0;
+  //注意Entry开头大写！！！
   for (Map.Entry<Integer, Boolean> entry : map.entrySet()){
       nums[i] = entry.getKey();
       i++;
@@ -58,4 +59,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T22:54:35.262Z"
-updatedAt: "2017-08-27T00:43:30.753Z"
+updatedAt: "2017-09-01T14:13:59.284Z"

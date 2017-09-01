@@ -1,0 +1,39 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Minimum Depth of Binary Tree"
+content: '''
+  # Minimum Depth of Binary Tree
+  ```java
+  public class Solution {
+      /**
+       * @param root: The root of binary tree.
+       * @return: An integer.
+       */
+      public int minDepth(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return 0;
+          }
+          //leaf node depth is 1
+          if(root.left == null && root.right == null){
+              return 1;
+          }
+          //注意与Maximum Depth区分，Min Depth时需要注意null子树
+          int left = Integer.MAX_VALUE;
+          int right = Integer.MAX_VALUE;
+          if(root.left != null){
+              left = minDepth(root.left);
+          }
+          if(root.right != null){
+              right = minDepth(root.right);
+          }
+          return Math.min(left, right) + 1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-01T01:41:53.508Z"
+updatedAt: "2017-09-01T01:54:39.443Z"

@@ -19,7 +19,7 @@ content: '''
   NOTE: `offset` = index before which data will be inserted.
   ### Delete
   - `StringBuilder`.`delete`(`int` `start`, `int` `end`)
-  NOTE: deletes the subsequence from `start` to `end-1` (inclusive)
+  NOTE: deletes the subsequence from `start` to `end` (`EXCLUSIVE`)
   - `StringBuilder`.`deleteCharAt`(`int` `index`)
   ### Replace
   - `StringBuilder`.`replace`(`int` `start`, `int` `end`, `String` `s`)
@@ -35,4 +35,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-18T04:59:12.457Z"
-updatedAt: "2017-08-28T23:47:50.766Z"
+updatedAt: "2017-08-31T19:01:37.786Z"

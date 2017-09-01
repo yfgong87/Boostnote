@@ -1,0 +1,53 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Combination Sum II"
+content: '''
+  # Combination Sum II
+  ```java
+  class Solution {
+      public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(candidates == null){
+              return results;
+          }
+          List<Integer> subset = new ArrayList<Integer>();
+          if(candidates.length == 0){
+              results.add(subset);
+              return results;
+          }   
+          Arrays.sort(candidates);
+          helper(results, subset, candidates, target, 0);
+          return results;
+      }
+      private void helper(List<List<Integer>> results,
+                          List<Integer> subset,
+                          int[] candidates,
+                          int target,
+                          int index){
+          //Find a combination
+          if(target == 0){
+              results.add(new ArrayList<Integer>(subset));
+          }
+          //递归的出口，没有这步会太慢，TimeLimitExceed
+          if(target < 0){
+              return;
+          }
+          //用 i + 1 因为题目要求同一个数只能使用一次
+          for(int i = index; i < candidates.length; i++){
+              //需要去重，因为candidates可以有重复数
+              if(i != index && candidates[i] == candidates[i - 1]){
+                  continue;
+              }
+              subset.add(candidates[i]);
+              helper(results, subset, candidates, target - candidates[i], i + 1);
+              subset.remove(subset.size() - 1);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-30T17:53:12.543Z"
+updatedAt: "2017-08-30T17:59:57.163Z"

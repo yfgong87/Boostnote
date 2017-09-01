@@ -3,12 +3,23 @@ folder: "ca7b6b3755f93c46a5f8"
 title: "List"
 content: '''
   # List
+  ### When to use
+  When to use `array`: 
+  - Excessive read, as time complexity of read is always O(1) 
+  - Random access to element using index
+  
+  When to use `ArrayList`:
+  - Same as `array`, but `ArrayList` allocate memory as needed!
+  
+  When to use `LinkedList`:
+  - Effective use of memory space as items get allocated as needed
+  - Excessive Add/Remove of elements (It's better than `ArrayList`, because since array list items get stored in memory in adjacent place. when adding a new element in the middle of the array list, all  the items after the inserted one `HAVE to be shifted`, with Linked list the new item gets injected in the list without the need to shift the other items as they are `NOT adjacent in the memory`)
   ```java
   //List is abstract; CANNOT be instantiated
   List myList = new List(); //WRONG!
   List myList = new ArrayList(); //CORRECT
   ```
-  # Order of Element Add to List
+  ### Order of Element Add to List
   ```java
   import java.util.LinkedList;
   
@@ -29,7 +40,7 @@ content: '''
     }
   }
   ```
-  # Passing constructor to method
+  ### Passing constructor to method
   ```java
   method (new ArrayList<Integer>() arrayList); //WRONG!!!!
   method (new ArrayList<Integer>());//CORRECT
@@ -38,7 +49,7 @@ content: '''
   public ArrayList<Integer> method(int A){}
   ArrayList<Integer> list = method(A);
   ```
-  # Generic vs Non-generic type
+  ### Generic vs Non-generic type
   - `ArrayList<Integer>` is not a subtype of List
   ```java
   List<List<Integer>> results = new ArrayList<ArrayList<Integer>>();// WRONG!!!!!
@@ -65,7 +76,7 @@ content: '''
   }
   ```
   
-  # ArrayList
+  ### ArrayList
   - `java.util.ArrayList`
   - `ArrayList` automatically resize when adding or deleting elements in it.
   - Basic handling of `ArrayList`:
@@ -140,7 +151,7 @@ content: '''
   Collections.sort(nums);
   ```
   
-  # LinkedList
+  ### LinkedList
   ```java
   //Initiate an ArrayList that can only take String
   LinkedList<String> linkedList = new LinkedList<String>();
@@ -171,4 +182,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-08-26T16:59:04.464Z"
+updatedAt: "2017-08-30T02:07:43.219Z"

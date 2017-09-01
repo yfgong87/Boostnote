@@ -1,0 +1,49 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Combination Sum"
+content: '''
+  # Combination Sum
+  ```java
+  class Solution {
+      public List<List<Integer>> combinationSum(int[] candidates, int target) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(candidates == null){
+              return results;
+          }
+          List<Integer> subset = new ArrayList<Integer>();
+          if(candidates.length == 0){
+              results.add(subset);
+              return results;
+          }
+          Arrays.sort(candidates);
+          helper(results, subset, candidates, target, 0);
+          return results;
+      }
+      private void helper(List<List<Integer>> results,
+                          List<Integer> subset,
+                          int[] candidates,
+                          int target,
+                          int index){
+          //Find a combination
+          if(target == 0){
+              results.add(new ArrayList<Integer>(subset));
+          }
+          //递归的出口，没有这步会StackOverFlow，因为这里不用 i + 1
+          if(target < 0){
+              return;
+          }
+          //不用 i + 1 因为题目要求同一个数可以被反复使用多次
+          for(int i = index; i < candidates.length; i++){
+              subset.add(candidates[i]);
+              helper(results, subset, candidates, target - candidates[i], i);
+              subset.remove(subset.size() - 1);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-30T17:35:01.017Z"
+updatedAt: "2017-08-30T17:37:39.421Z"

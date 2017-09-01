@@ -1,0 +1,46 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Binary Tree Paths"
+content: '''
+  # Binary Tree Paths
+  ```java
+  public class Solution {
+      /**
+       * @param root the root of the binary tree
+       * @return all root-to-leaf paths
+       */
+      List<String> results = new ArrayList<String>();
+      public List<String> binaryTreePaths(TreeNode root) {
+          // Write your code here
+          //Make sure input is not null
+          if(root == null){
+              return results;
+          }
+          dfs(root, new String());
+          return results;
+      }
+      private void dfs(TreeNode root, String path){
+          String str = Integer.toString(root.val);
+          int size = str.length();
+          if(root.left == null && root.right == null){
+              path = path + str;
+              results.add(path);
+          }
+          path = path + str + "->";
+          if(root.left != null){
+              dfs(root.left, path);
+          }
+          if(root.right != null){
+              dfs(root.right, path);
+          }
+          //回溯，path里去掉 "上一个值 ->"
+          path = path.substring(0, path.length() - 2 - size);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-31T20:17:40.813Z"
+updatedAt: "2017-08-31T20:19:00.158Z"

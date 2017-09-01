@@ -1,0 +1,44 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Subsets II"
+content: '''
+  # Subsets II
+  ```java
+  class Solution {
+      public List<List<Integer>> subsetsWithDup(int[] nums) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(nums == null){
+              return results;
+          }
+          List<Integer> subset = new ArrayList<Integer>();
+          if(nums.length == 0){
+              results.add(subset);
+              return results;
+          }
+          Arrays.sort(nums);
+          helper(results, subset, 0, nums);
+          return results;
+      }
+      private void helper (List<List<Integer>> results,
+                           List<Integer> subset,
+                           int index,
+                           int[] nums){
+          results.add(new ArrayList<Integer>(subset));
+          for(int i = index; i < nums.length; i++){
+              //需要去重，因为nums可以有重复数
+              if(i != index && nums[i] == nums[i - 1]){
+                  continue;
+              }
+              subset.add(nums[i]);
+              helper(results, subset, i + 1, nums);
+              subset.remove(subset.size() - 1);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-30T17:12:53.095Z"
+updatedAt: "2017-08-30T17:56:24.803Z"

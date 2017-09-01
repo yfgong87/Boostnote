@@ -1,0 +1,30 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "去重"
+content: '''
+  # 去重
+  使用`HashSet`
+  ```java
+      private int[] removeDuplicate(int[] candidates){
+          Set<Integer> set = new HashSet<Integer>();
+          for(int i = 0; i < candidates.length; i++){
+              set.add(candidates[i]);
+          }
+          int[] newArray = new int[set.size()];
+          Iterator<Integer> it = set.iterator();
+          int i = 0;
+          while(it.hasNext()){
+              newArray[i] = it.next();
+              i++;
+          }
+          Arrays.sort(newArray);
+          return newArray;
+      }
+  ```
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-30T17:49:23.875Z"
+updatedAt: "2017-08-30T17:52:49.248Z"

@@ -1,0 +1,52 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Subtree with Maximum Average"
+content: '''
+  # Subtree with Maximum Average
+  ```java
+  public class Solution {
+      /**
+       * @param root the root of binary tree
+       * @return the root of the maximum average of subtree
+       */
+      private class resultClass {
+      int sum;
+      int num;
+      resultClass(int sum, int num){
+          this.sum = sum;
+          this.num = num;
+          }
+      }
+      private resultClass subtreeResult = null;
+      private TreeNode result;
+      public TreeNode findSubtree2(TreeNode root) {
+          // Write your code here
+          helper(root);
+          return this.result;
+      }
+      private resultClass helper (TreeNode root){
+          if (root == null){
+              return new resultClass(0,0);
+          }
+          //sum and num of current node
+          resultClass left = helper(root.left);
+          resultClass right = helper(root.right);
+          resultClass result = new resultClass(left.sum + right.sum + root.val,
+          left.num + right.num + 1);
+          //if sum/num > subtreeResult.sum/subtreeResult.num
+          if (subtreeResult == null || 
+              //将除法转化为乘法可以避免精度以及除0问题！！
+              result.sum * this.subtreeResult.num > this.subtreeResult.sum * result.num){
+              this.subtreeResult = result;
+              this.result = root;
+          }
+          return result;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-31T15:42:07.287Z"
+updatedAt: "2017-08-31T16:32:39.669Z"

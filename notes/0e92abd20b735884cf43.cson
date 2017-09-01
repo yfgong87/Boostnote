@@ -1,0 +1,36 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "PriorityQueue"
+content: '''
+  # PriorityQueue
+  - Pull out element with lowest priority first
+  - If priority are the same, element will be pulled out based on the heap structure
+  - `PriorityQueue` use the `compareTo` method in class to determine priority
+  ### Constructor
+  - `public` `PriorityQueue`()
+  Default Initial Capacity = 11
+  - `public` `PriorityQueue`(`int` `initialCapacity`)
+  - `public` `PriorityQueue`(`int` `initialCapacity`, `Comparator`<`E`> `comparator`)
+  - `public` `PriorityQueue`(`Collection`<`E`> `c`)
+  ### Add
+  - `boolean` `PriorityQueue`.`add`(`E` `e`)
+  - `boolean` `PriorityQueue`.`offer`(`E` `e`)
+  ### Get
+  - `E` `PriorityQueue`.`poll`()
+  - `Iterator`<`E`> `PriorityQueue`.`iterator`()
+  ### Delete
+  - `boolean` `PriorityQueue`.`remove`(`Object` `o`)
+  - `void` `PriorityQueue`.`clear`()
+  ### Check
+  - `int` `PriorityQueue`.`size`()
+  -  `E` `PriorityQueue`.`peek`()
+  - `boolean` `PriorityQueue`.`contains`(`Object` `o`)
+  ### `toArray`() - Ordered Traversal
+  - `Object`[ ] `PriorityQueue`.`toArray`()
+  The `Iterator` provided in method `iterator()` is not guaranteed to traverse the elements of the priority queue in any particular order. If you need `ordered traversal`, consider using `Arrays`.`sort`(`pq`.`toArray`( )).
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-01T03:58:01.305Z"
+updatedAt: "2017-09-01T15:37:03.927Z"

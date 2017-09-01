@@ -1,0 +1,39 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Minimum Subtree"
+content: '''
+  # Minimum Subtree
+  ```java
+  public class Solution {
+      /**
+       * @param root the root of binary tree
+       * @return the root of the minimum subtree
+       */
+      int min = Integer.MAX_VALUE;
+      TreeNode node = null;
+      public TreeNode findSubtree(TreeNode root) {
+          // Write your code here
+          helper(root);
+          return node;
+      }
+      private int helper (TreeNode root){
+          if(root == null){
+              return 0;
+          }
+          int left = helper(root.left);
+          int right = helper(root.right);
+          int sum = left + right + root.val;
+          if(sum < min){
+              min = sum;
+              node = root;
+          }
+          return sum;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-08-31T18:16:10.054Z"
+updatedAt: "2017-08-31T18:16:21.366Z"

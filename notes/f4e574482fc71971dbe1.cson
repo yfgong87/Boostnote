@@ -5,6 +5,7 @@ content: '''
   # DFS
   ### `SubSet` I & II, `Permutation` I & II, `Combine Sum` I & II
   ### BASE: backtracking
+  Can use `stack` if allowed
   ```java
   for(int i = 0; i < array.length; i++){
       if(solution.contains(array[i]){
@@ -16,7 +17,8 @@ content: '''
   }
   ```
   ### Module 1, `startIndex`
-  - `When to use`: When output need to be `NON-DESCENDING` order
+  - `When to use`: When duplicates are `NOT` allowed / result has to be `NON-DESCENDING` order
+  - 只要不是排列（`Permutation`），都需要用到`startIndex`
   - NOTE: `DO NOT` use for `Permutation` since we need different orders of same set of number
   ```java
   for(int i = index; i < array.length; i++){
@@ -62,4 +64,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-19T17:47:51.066Z"
-updatedAt: "2017-08-19T19:59:42.375Z"
+updatedAt: "2017-08-30T17:32:16.763Z"
