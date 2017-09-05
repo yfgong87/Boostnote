@@ -1,7 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "`java"
+title: "Balanced Binary Tree"
 content: '''
+  # Balanced Binary Tree 
   ```java
   class returnType{
       int depth;
@@ -44,4 +45,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T02:09:07.152Z"
-updatedAt: "2017-09-01T02:10:56.055Z"
+updatedAt: "2017-09-02T02:54:51.865Z"

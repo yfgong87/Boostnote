@@ -1,0 +1,25 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Invert Binary Tree"
+content: '''
+  # Invert Binary Tree
+  ```java
+  public void invertBinaryTree(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return;
+          }
+          TreeNode temp = new TreeNode(0);
+          temp = root.left;
+          root.left = root.right;
+          root.right = temp;
+          invertBinaryTree(root.left);
+          invertBinaryTree(root.right);
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-05T17:21:14.336Z"
+updatedAt: "2017-09-05T17:21:28.653Z"

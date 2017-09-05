@@ -1,0 +1,42 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Merge Two Sorted Lists"
+content: '''
+  # Merge Two Sorted Lists 
+  ```java
+  public class Solution {
+      /**
+       * @param ListNode l1 is the head of the linked list
+       * @param ListNode l2 is the head of the linked list
+       * @return: ListNode head of linked list
+       */
+      public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+          // write your code here
+          ListNode dummy = new ListNode(0);
+          ListNode curr = dummy;
+          while(l1 != null && l2 != null){
+              if(l1.val <= l2.val){
+                  curr.next = l1;
+                  l1 = l1.next;
+              } else {
+                  curr.next = l2;
+                  l2 = l2.next;
+              }
+              curr = curr.next;
+          }
+          if(l1 == null){
+              curr.next = l2;
+          }
+          if (l2 == null){
+              curr.next = l1;
+          }
+          return dummy.next;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-02T02:54:07.688Z"
+updatedAt: "2017-09-02T02:54:24.591Z"

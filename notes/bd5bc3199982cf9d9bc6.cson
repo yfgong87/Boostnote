@@ -3,6 +3,21 @@ folder: "ca7b6b3755f93c46a5f8"
 title: "String"
 content: '''
   # String
+  ### Iterate String
+  ```java
+  String s = "123";
+  for (Character c : s.toCharArray()){
+    //code
+  }
+  ```
+  ### Check if `char` is within a specific `char` set
+  ```java
+  char c = '1';
+  String charSet = "123";
+  if (charSet.contains(String.valueOf(c))) {
+      return true;
+  }
+  ```
   ### Split String
   ```java
   str = "Hello I'm your String";
@@ -30,9 +45,41 @@ content: '''
   - `int` `String`.`compareTo`(`String` `str`)
   Return `0` if equal, or `positive` / `negative` value based on lexicographic difference
   NOTE: If `str` is `null`, throw `NullPointerException`
+  
+  ### String Methods
+  #### Check
+  - `int` `String`.`length`( )
+  - `boolean` `String`.`isEmpty`( )
+  - `boolean` `String`.`startsWith`(`String` `str`)
+  - `boolean` `String`.`endsWith`(`String` `str`)
+  #### Get
+  - `char` `String`.`charAt`(`int`, `index`)
+  - `String` `String`.`substring`(`int` `beginIndex`)
+  - `String` `String`.`substring`(`int` `beginIndex`, `int` `endIndex`): `beginIndex` is INCLUSIVE, `endIndex` is EXCLUSIVE
+  #### Compare
+  - `int` `String`.`compareTo`(`String` `str`): Compares two strings lexicographically.
+  - `int` `String`.`compareToIgnoreCase`(`String` `str`): Compares two strings lexicographically, ignoring case differences.
+  - `boolean` `String`.`equals`(`Object` `o`): Compares this string to the specified object.
+  - `boolean`	`String`.`equalsIgnoreCase`(`String` `str`): Compares this String to another String, ignoring case considerations.
+  #### Modify
+  - `String` `String`.`toUpperCase`( )
+  - `String` `String`.`toLowerCase`( )
+  - `char[ ]` `String`.`toCharArray`( )
+  - `String[ ]` `String`.`split`(`String` `regex`)
+  - `String` `String`.`concat`(`String` `anotherStr`): concatenate `anotherStr` to the end of `String`
+  - `String` `String`.`trim`( ): Returns a copy of the string, with leading and trailing whitespace omitted.
+  - `String` `String`.`replaceAll`(`String` `regex`, `String` `replacement`): Replaces EACH match.
+  - `String` `String`.`replaceFirst`(`String` `regex`, `String` `replacement`): Replaces FIRST match
+  #### valueOf
+  - `String`.`valueOf`(`Primitive`)
+  `Primitive` can be `boolean`, `char`, `char[ ]`, `double`, `long`, `int`, `float`, `Object`
+  - `String`.`valueOf`(`char[ ]` charSet)
+  - `String`.`valueOf`(`char[ ]` `charSet`, `int` `offset`, `int` `count`)
+  #### Other
+  - `int` `String`.`hashcode`( )
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-08-29T00:08:23.673Z"
+updatedAt: "2017-09-03T00:49:58.288Z"

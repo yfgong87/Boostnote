@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "ca7b6b3755f93c46a5f8"
-title: "Stack vs Queue"
+title: "Stack"
 content: '''
-  # `Stack` vs `Queue`
+  # `Stack`
   - `Stack` is last in, last out, like a stack of disc
   - `Queue` is first in, first out, like pass a door
   
@@ -17,4 +17,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-07T21:28:46.275Z"
-updatedAt: "2017-08-21T23:32:51.324Z"
+updatedAt: "2017-09-03T00:52:32.910Z"

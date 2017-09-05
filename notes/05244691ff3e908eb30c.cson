@@ -27,7 +27,7 @@ content: '''
   ### Reverse
   - `StringBuilder`.`reverse`( )
   ### Cast to `String`
-  - `String` `toString`( )
+  - `String` `StringBuilder`.`toString`( )
   - You can use any `String` method on a `StringBuilder` object by first converting the `StringBuilder` to a `String` with the `toString()` method of the `StringBuilder` class. Then convert the string back into a `StringBuilder` using the `StringBuilder`(`String` `str`) constructor.
   
 '''
@@ -35,4 +35,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-18T04:59:12.457Z"
-updatedAt: "2017-08-31T19:01:37.786Z"
+updatedAt: "2017-09-05T02:58:57.034Z"

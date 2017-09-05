@@ -1,0 +1,51 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "High Five"
+content: '''
+  # High Five
+  ```java
+  public class Solution {
+      /**
+       * @param results a list of <student_id, score>
+       * @return find the average of 5 highest scores for each person
+       * Map<Integer, Double> (student_id, average_score)
+       */
+      public Map<Integer, Double> highFive(Record[] results) {
+          // Write your code here
+          Map<Integer, Double> result = new HashMap<Integer, Double>();
+          Map<Integer, PriorityQueue<Integer>> map = new HashMap<Integer, PriorityQueue<Integer>>();
+          for(Record r : results){
+              if(!map.containsKey(r.id)){
+                  map.put(r.id, new PriorityQueue<Integer>());
+              }
+              PriorityQueue<Integer> pq = map.get(r.id);
+              if(pq.size() < 5){
+                  pq.add(r.score);
+              } else {
+                  //通过打擂台每次淘汰掉最小数，最终留下最大的五个数
+                  //这样不用写新的Comparator，并且heap大小始终为五
+                  if(pq.peek() < r.score){
+                      pq.poll();
+                      pq.add(r.score);
+                  }
+              }
+          }
+          
+          for(Map.Entry<Integer, PriorityQueue<Integer>> entry : map.entrySet()){
+              int sum = 0;
+              for(int i = 0; i < 5; i++){
+                  sum += entry.getValue().poll();
+              }
+              double avg = (double)sum / 5;
+              result.put(entry.getKey(), avg);
+          }
+          return result;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-04T05:54:17.445Z"
+updatedAt: "2017-09-04T05:55:58.324Z"

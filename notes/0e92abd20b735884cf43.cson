@@ -2,8 +2,8 @@ type: "MARKDOWN_NOTE"
 folder: "ca7b6b3755f93c46a5f8"
 title: "PriorityQueue"
 content: '''
-  # PriorityQueue
-  - Pull out element with lowest priority first
+  # PriorityQueue 
+  - Is a `minHeap`: Pull out element with lowest priority first
   - If priority are the same, element will be pulled out based on the heap structure
   - `PriorityQueue` use the `compareTo` method in class to determine priority
   ### Constructor
@@ -33,4 +33,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T03:58:01.305Z"
-updatedAt: "2017-09-01T15:37:03.927Z"
+updatedAt: "2017-09-01T19:57:29.593Z"

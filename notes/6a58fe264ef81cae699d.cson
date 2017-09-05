@@ -1,0 +1,42 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Top k Largest Number"
+content: '''
+  # Top k Largest Number
+  ```java
+  class Solution {
+      /*
+       * @param nums an integer array
+       * @param k an integer
+       * @return the top k largest numbers in array
+       */
+      public int[] topk(int[] nums, int k) {
+          // Write your code here
+          if(nums == null || nums.length == 0){
+              return null;
+          }
+          PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+          for(int i = 0; i < nums.length; i++){
+              if(pq.size() < k){
+                  pq.add(nums[i]);
+              } else {
+                  if(pq.peek() < nums[i]){
+                      pq.poll();
+                      pq.add(nums[i]);
+                  }
+              }
+          }
+          int[] result = new int[k];
+          for(int i = k - 1; i >= 0; i--){
+              result[i] = pq.poll();
+          }
+          return result;
+      }
+  };
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-04T13:35:45.828Z"
+updatedAt: "2017-09-04T13:36:11.860Z"

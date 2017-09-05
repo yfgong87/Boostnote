@@ -85,8 +85,8 @@ content: '''
   ArrayList<String> arrayList = new ArrayList<String>();
   
   //Add elements
-  arrayList.add("FirstName LastName"); // add to the end of ArrayList
-  arrayList.add(0, "newFirstElement"); //add to the front of ArrayList
+  arrayList.add("FirstName LastName"); // add to the END of ArrayList
+  arrayList.add(0, "newFirstElement"); //add to the FRONT of ArrayList
   
   //Insert vs Replace
   arrayList.add(2, "insertString"); //.add(index, value), this method INSERT the value, NOT REPLACING the original!
@@ -182,4 +182,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-08-30T02:07:43.219Z"
+updatedAt: "2017-09-04T13:55:23.381Z"

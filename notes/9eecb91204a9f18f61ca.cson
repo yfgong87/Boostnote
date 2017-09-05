@@ -1,0 +1,136 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Merge Sort"
+content: '''
+  # Merge Sort
+  | Best TC | Average TC | Worst TC | Space C |
+  | ------- | ---------  | -------- | ------- |
+  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(n)` |
+  ![](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
+  
+  ### 算时间复杂度
+  `T(n)` = `2` * `T(n/2)` + `O(n)` //其中O(n)为merge这一步的时间
+  `T(n)` = `2` * (`2` * `T(n/4)` + `O(n/2)`) + `O(n)` = `2^2` * `T(n/4)` + `2·O(n)`
+  `T(n)` = `2` * (`2` * (`2` * `T(n/8)` + `O(n/4)`) + `O(n/2)`) + `O(n)` = `2^3` * `T(n/8)` + `3·O(n)`
+  .
+  .
+  `T(n)` = `2^k` * `T(n/n)` + `k·O(n)` //其中`2^k = n`, `k` = `logn`, `T(1)` = 0
+  `T(n)` = `logn·O(n)` = `O(nlogn)`
+  
+  ### Merge Sort on Array
+  时间复杂度`O(nlogn)`,空间复杂度`O(n)`
+  ```java
+  public class Solution {
+      /**
+       * @param A an integer array
+       * @return void
+       */
+      public void sortArray(int[] A) {
+          // use a shared temp array, the extra memory is O(n) at least
+          int[] temp = new int[A.length];
+          mergeSort(A, 0, A.length - 1, temp);
+      }
+      
+      private void mergeSort(int[] A, int start, int end, int[] temp) {
+          if (start >= end) {
+              return;
+          }
+  
+          int mid = (start + end) / 2;
+  
+          mergeSort(A, start, mid, temp);
+          mergeSort(A, mid + 1, end, temp);
+          merge(A, start, mid, end, temp);
+      }
+      
+      private void merge(int[] A, int start, int mid, int end, int[] temp) {
+          int left = start;
+          int right = mid + 1;
+          int index = start;
+          
+          // merge two sorted subarrays in A to temp array
+          while (left <= mid && right <= end) {
+              if (A[left] < A[right]) {
+                  temp[index++] = A[left++];
+              } else {
+                  temp[index++] = A[right++];
+              }
+          }
+          while (left <= mid) {
+              temp[index++] = A[left++];
+          }
+          while (right <= end) {
+              temp[index++] = A[right++];
+          }
+          
+          // copy temp back to A
+          for (int i = start; i <= end; i++) {
+              A[i] = temp[i];
+          }
+      }
+  }
+  ```
+  ### Merge Sort on List
+  时间复杂度`O(nlogn)`,空间复杂度`O(1)`
+  ```java
+  public class Solution {
+      /*
+       * @param head: The head of linked list.
+       * @return: You should return the head of the sorted linked list, using constant space complexity.
+       */
+      public ListNode sortList(ListNode head) {
+          // write your code here
+          return mergeSort(head);
+      }
+      //找mid
+      private ListNode getMid(ListNode head){
+          //这里fast和slow不能都等于head,不然mid有可能成为null前一个node，此时mid.next为null
+          //这样right永远是null，left永远是原来的list不变，Stack Overflow
+          ListNode fast = head.next;
+          ListNode slow = head;
+          while(fast != null && fast.next != null){
+              fast = fast.next.next;
+              slow = slow.next;
+          }
+          return slow;
+      }
+      //recursive method
+      private ListNode mergeSort(ListNode head){
+          if(head == null || head.next == null){
+              return head;
+          }
+          ListNode mid = getMid(head);
+          ListNode right = mergeSort(mid.next);
+          //break the list from middle
+          mid.next = null;
+          ListNode left = mergeSort(head);
+          return merge(left, right);
+      }
+      //merge
+      private ListNode merge(ListNode head1, ListNode head2){
+          ListNode dummy = new ListNode(0), tail = dummy;
+          while(head1 != null && head2 != null){
+              if(head1.val <= head2.val){
+                  tail.next = head1;
+                  head1 = head1.next;
+              } else{
+                  tail.next = head2;
+                  head2 = head2.next;
+              }
+              tail = tail.next;
+          }
+          if(head1 == null){
+              tail.next = head2;
+          } else {
+              tail.next = head1;
+          }
+          return dummy.next;
+      }
+  };
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-01T20:28:15.762Z"
+updatedAt: "2017-09-05T00:35:00.607Z"

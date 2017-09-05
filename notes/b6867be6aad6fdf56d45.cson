@@ -1,0 +1,60 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Binary Tree Path Sum II"
+content: '''
+  # Binary Tree Path Sum II
+  ```java
+  public class Solution {
+      /**
+       * @param root the root of binary tree
+       * @param target an integer
+       * @return all valid paths
+       */
+      List<List<Integer>> results = new ArrayList<List<Integer>>();
+      public List<List<Integer>> binaryTreePathSum2(TreeNode root, int target) {
+          // Write your code here
+          if(root == null){
+              return results;
+          }
+          helper2(root, target);
+          return results;
+      }
+      private void helper2(TreeNode root, int target){
+          if(root == null){
+              return;
+          }
+          List<Integer> path = new ArrayList<Integer>();
+          path.add(root.val);
+          helper(results, path, root, target - root.val);
+          helper2(root.left, target);
+          helper2(root.right, target);
+      }
+      private void helper(List<List<Integer>> results,
+                          List<Integer> path,
+                          TreeNode root,
+                          int target){
+          if(root == null){
+              return;
+          }
+          if(target == 0){
+              results.add(new ArrayList<Integer>(path));
+          }
+          if(root.left != null){
+              path.add(root.left.val);
+              helper(results, path, root.left, target - root.left.val);
+              path.remove(path.size() - 1);
+          }
+          if(root.right != null){
+              path.add(root.right.val);
+              helper(results, path, root.right, target - root.right.val);
+              path.remove(path.size() - 1);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-04T20:57:18.330Z"
+updatedAt: "2017-09-04T20:57:31.895Z"

@@ -1,0 +1,38 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Valid Parentheses"
+content: '''
+  # Valid Parentheses
+  ```java
+      public boolean isValidParentheses(String s) {
+          // write your code here
+          Stack<Character> stack = new Stack<Character>();
+          for(char c : s.toCharArray()){
+              if(c == '(' || c == '{' || c == '['){
+                  stack.push(c);
+              }
+              if(c == ')'){
+                  if(stack.isEmpty() || stack.pop() != '('){
+                      return false;
+                  }
+              }
+              if(c == '}'){
+                  if(stack.isEmpty() || stack.pop() != '{'){
+                      return false;
+                  }
+              }
+              if(c == ']'){
+                  if(stack.isEmpty() || stack.pop() != '['){
+                      return false;
+                  }
+              }
+          }
+          return stack.isEmpty();
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-05T17:33:29.500Z"
+updatedAt: "2017-09-05T17:33:49.517Z"

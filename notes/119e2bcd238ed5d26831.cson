@@ -14,13 +14,14 @@ content: '''
   - Since it is a subtype of Collections class, it inherits all the methods of it namely `size`(), `isEmpty`(), `contains`() etc.
   #### These three methods throw exception
   - `add`(): Adds an element at the tail of queue. More specifically, at the last of linkedlist if it is used, or according to the priority in case of priority queue implementation.
-  - `remove`(): Removes and returns the head of the queue. Throws NoSuchElementException when queue is impty.
+  - `remove`(): Removes and returns the head of the queue. Throws NoSuchElementException when queue is empty.
   - `element`(): Similar to peek(). Throws NoSuchElementException if queue is empty.
   #### These three methods return specific value
   - `offer`(): Inserts an element if possible, otherwise returning `false`.
   - `poll`(): Removes and returns the head of the queue. Returns `null` if queue is empty.
   - `peek`(): To view the head of queue without removing it. Returns `null` if queue is empty.
-  
+  #### Inherit from `Collection`
+  `addAll`, `clear`, `contains`, `containsAll`, `equals`, `hashCode`, `isEmpty`, `iterator`, `remove`, `removeAll`, `retainAll`, `size`, `toArray`, `toArray`
   
   
 '''
@@ -28,4 +29,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-12T14:54:35.945Z"
-updatedAt: "2017-08-13T17:32:26.623Z"
+updatedAt: "2017-09-05T04:05:06.028Z"

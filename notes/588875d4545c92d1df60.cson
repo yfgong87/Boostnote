@@ -1,59 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "Merge Sort, Quick Sort, Heap Sort"
+title: "Quick Sort, Heap Sort"
 content: '''
-  # Merge Sort, Quick Sort, Heap Sort
-  ### Merge Sort
-  | Best TC | Average TC | Worst TC | Space C |
-  | ------- | ---------  | -------- | ------- |
-  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(n)` |
-  ![](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)
-  ```java
-  public class Solution {
-  
-      public void sortIntegers(int[] A) {
-          // write your code here
-          mergeSort(A, new int[A.length], 0, A.length - 1);
-      }
-      
-      private void mergeSort(int[] A, int[] temp, int leftStart, int rightEnd){
-          if(leftStart >= rightEnd){
-              return;
-          }
-          int mid = (leftStart + rightEnd) / 2;
-          mergeSort(A, temp, leftStart, mid);
-          mergeSort(A, temp, mid + 1, rightEnd);
-          merge(A, temp, leftStart, rightEnd);
-      }
-      
-      private void merge(int[] A, int[] temp, int leftStart, int rightEnd){
-          int leftEnd = (leftStart + rightEnd) / 2;
-          int rightStart = leftEnd + 1;
-          int size = rightEnd - leftStart + 1;
-          
-          int left = leftStart;
-          int right = rightStart;
-          int index = leftStart;
-          
-          while(left <= leftEnd && right <= rightEnd){
-              if(A[left] <= A[right]){
-                  temp[index] = A[left];
-                  left++;
-              } else {
-                  temp[index] = A[right];
-                  right++;
-              }
-              index++;
-          }
-          //arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
-          System.arraycopy(A, left, temp, index, leftEnd - left + 1);
-          System.arraycopy(A, right, temp, index, rightEnd - right + 1);
-          System.arraycopy(temp, leftStart, A, leftStart, size);
-      }
-      
-  };
-  ```
-  
+  # Quick Sort, Heap Sort
   ### Quick Sort
   | Best TC | Average TC | Worst TC | Space C |
   | ------- | ---------  | -------- | ------- |
@@ -128,11 +77,11 @@ content: '''
           // left <= right not left < right (如果没有=则每次都漏掉了最后一个数)
           while (left <= right) {
               // key point 3: A[left] < pivot not A[left] <= pivot
-              while (left <= right && A[left] < pivot) {
+              while (A[left] < pivot) {
                   left++;
               }
               // key point 3: A[right] > pivot not A[right] >= pivot
-              while (left <= right && A[right] > pivot) {
+              while (A[right] > pivot) {
                   right--;
               }
               if (left <= right) {
@@ -251,4 +200,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-08-28T02:59:38.428Z"
+updatedAt: "2017-09-04T19:49:26.781Z"

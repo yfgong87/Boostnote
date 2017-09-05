@@ -1,0 +1,20 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Merge k sorted list"
+content: '''
+  # Merge k sorted list
+  ### 时间复杂度: `k`个平均长度为`n`的list
+  - 解法1(`divide & conquer`): 与解法3类似，一共递归`logk`层，每层每个数进行了一次操作，故时间复杂度为`O(nlogk)`
+  - 解法2(`Heap`): 每个元素进入堆一次，出去堆一次，一共是`2n`次，因为堆得大小是`k`，所以每次操作的复杂度是`logk`，故时间复杂度也是`O(nlogk)`
+  - 解法3(`两两合并`): `List.size()`开始值为`k`, 对于每一层，`Lists.size()`都会减半，所以总共需要`logk`层，而在每一层，所有的数(共`n` 个)都只进行了一次操作，故时间复杂度为`O(nlogk)`
+  
+  ### 空间复杂度: `k`个平均长度为`n`的list
+  - 解法1(`divide & conquer`): 因为链表的合并不需要额外空间，故空间复杂度为`O(1)`
+  - 解法2(`Heap`): 因为需要额外的`k`大小的堆，，故空间复杂度为`O(k)`
+  - 解法3(`两两合并`): 因为链表的合并不需要额外空间，故空间复杂度为`O(1)`
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-02T21:22:07.620Z"
+updatedAt: "2017-09-02T22:00:43.429Z"

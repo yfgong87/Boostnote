@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "时间复杂度"
+content: '''
+  # 时间复杂度
+  - 递归产生的栈空间一般不考虑，若考虑，栈空间的复杂度一般是`O(递归的层数 * 每层new出来的空间复杂度)`
+  
+  
+  # 空间复杂度
+  - 链表的合并不需要额外的空间，为`O(1)`
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-02T20:46:20.441Z"
+updatedAt: "2017-09-02T20:48:03.332Z"
