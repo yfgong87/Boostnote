@@ -1,0 +1,74 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Number of Island"
+content: '''
+  # Number of Island
+  ```java
+  public class Solution {
+      /**
+       * @param grid a boolean 2D matrix
+       * @return an integer
+       */
+      class Coordinate{
+          int x;
+          int y;
+          Coordinate(int x, int y){
+              this.x = x;
+              this.y = y;
+          }
+      }
+      public int numIslands(boolean[][] grid) {
+          // Write your code here
+          int count = 0;
+          if (grid == null || grid.length == 0 || grid[0].length == 0){
+              return count;
+          }
+          //for each element in grid
+          for (int i = 0; i < grid.length; i++){
+              for (int j = 0; j < grid[0].length; j++){
+                  //if element is "1"
+                  if(grid[i][j]){
+                      search (grid, i, j);
+                      count++;
+                  }
+              }
+          }
+          return count;
+      }
+      
+      private void search (boolean[][] grid, int x, int y){
+          
+          int[] directionX = {-1, 1, 0, 0};
+          int[] directionY = {0, 0, -1, 1};
+          
+          Queue<Coordinate> queue = new LinkedList<Coordinate>();
+          queue.offer(new Coordinate(x, y));
+          while (!queue.isEmpty()){
+              Coordinate head = queue.poll();
+              for(int i = 0; i < 4; i++){
+                 Coordinate adj = new Coordinate(head.x + directionX[i], head.y + directionY[i]);
+                 //if point is out of bound, continue
+                 if(!isInBound(grid, adj)){
+                     continue;
+                 }
+                 //if point value is "1"
+                 if(grid[adj.x][adj.y]){
+                     //set value to "0", add to queue
+                     grid[adj.x][adj.y] = false;
+                     queue.offer(adj);
+                 }
+              }
+          }
+  
+      }
+      
+      private boolean isInBound(boolean[][] grid, Coordinate coor){
+          return coor.x >=0 && coor.x < grid.length && coor.y >=0 && coor.y < grid[0].length;
+      }
+    ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-06T02:21:39.808Z"
+updatedAt: "2017-09-06T02:21:52.124Z"

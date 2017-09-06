@@ -12,9 +12,50 @@ content: '''
   - 解法1(`divide & conquer`): 因为链表的合并不需要额外空间，故空间复杂度为`O(1)`
   - 解法2(`Heap`): 因为需要额外的`k`大小的堆，，故空间复杂度为`O(k)`
   - 解法3(`两两合并`): 因为链表的合并不需要额外空间，故空间复杂度为`O(1)`
+  
+  ### 解法一：Divide & Conquer
+  ```java
+  public ListNode mergeKLists(List<ListNode> lists) {  
+          // write your code here
+          if(lists == null || lists.size() == 0){
+              return null;
+          }
+          return helper(lists, 0, lists.size() - 1);
+      }
+      private ListNode helper(List<ListNode> lists, int start, int end){
+          if(start >= end){
+              //递归的出口：当divide到只剩一个list时返回该list
+              return lists.get(start);
+          }
+          int mid = (start + end) / 2;
+          ListNode left = helper(lists, start, mid);
+          ListNode right = helper(lists, mid + 1, end);
+          return mergeTwoList(left, right);
+      }
+      private ListNode mergeTwoList(ListNode head1, ListNode head2){
+          ListNode dummy = new ListNode(0), curr = dummy;
+          while(head1 != null && head2 != null){
+              if(head1.val < head2.val){
+                  curr.next = head1;
+                  head1 = head1.next;
+              } else {
+                  curr.next = head2;
+                  head2 = head2.next;
+              }
+              curr = curr.next;
+          }
+          if(head1 == null){
+              curr.next = head2;
+          }
+          if(head2 == null){
+              curr.next = head1;
+          }
+          return dummy.next;
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-02T21:22:07.620Z"
-updatedAt: "2017-09-02T22:00:43.429Z"
+updatedAt: "2017-09-05T23:10:30.051Z"

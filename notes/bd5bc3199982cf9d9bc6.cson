@@ -75,6 +75,14 @@ content: '''
   `Primitive` can be `boolean`, `char`, `char[ ]`, `double`, `long`, `int`, `float`, `Object`
   - `String`.`valueOf`(`char[ ]` charSet)
   - `String`.`valueOf`(`char[ ]` `charSet`, `int` `offset`, `int` `count`)
+  #### indexOf / lastIndexOf
+  `indexOf`: Return the index of `first` occurence
+  `lastIndexOf`: Return the index of `last` occurence
+  Return `-1` if NOT found
+  - `int` `String`.`indexOf`(`char` `c`)
+  - `int` `String`.`indexOf`(`String` `s`)
+  - `int` `String`.`indexOf`(`char` `c`, `int` `startIndex`)
+  - `int` `String`.`indexOf`(`String` `s`, `int` `startIndex`)
   #### Other
   - `int` `String`.`hashcode`( )
 '''
@@ -82,4 +90,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-09-03T00:49:58.288Z"
+updatedAt: "2017-09-06T04:15:17.184Z"

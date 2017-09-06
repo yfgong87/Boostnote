@@ -42,6 +42,7 @@ content: '''
           for(int i = A.length - 1; i > 0; i--){
               //left pointer
               for(int j = 0; j < i; j++){
+                  //不断把最大数挪到数组最右边
                   //ascending, keep pushing the largest number to the right
                   if(A[j + 1] < A[j]){
                       //swap
@@ -66,7 +67,8 @@ content: '''
           //      j-1  i/j
           for (int i = 1; i < array.length; i++) {
               for(int j = i ; j > 0 ; j--){
-                  //如果后一个数大于前一个数
+                  //如果后一个数小于前一个数，swap
+                  //不断把最小数挪到数组最左边
                   if(array[j] < array[j-1]){
                       //swap
                       temp = array[j];
@@ -83,4 +85,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T01:06:47.947Z"
-updatedAt: "2017-08-21T13:19:24.488Z"
+updatedAt: "2017-09-05T19:23:10.704Z"

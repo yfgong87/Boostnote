@@ -96,7 +96,9 @@ content: '''
       }
       //recursive method
       private ListNode mergeSort(ListNode head){
+          //这里head和head.next都不能为null
           if(head == null || head.next == null){
+              //注意这里是return head而不是return null!!!
               return head;
           }
           ListNode mid = getMid(head);
@@ -133,4 +135,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T20:28:15.762Z"
-updatedAt: "2017-09-05T00:35:00.607Z"
+updatedAt: "2017-09-05T21:25:39.146Z"

@@ -1,0 +1,70 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Graph Valid Tree"
+content: '''
+  # Graph Valid Tree
+  ```java
+  public class Solution {
+      /**
+       * @param n an integer
+       * @param edges a list of undirected edges
+       * @return true if it's a valid tree, or false
+       */
+      public boolean validTree(int n, int[][] edges) {
+          // Write your code here
+          if(n == 0){
+              return false;
+          }
+          //Valid Graph条件一：n个点，n-1条边才能组成图
+          if(edges.length != n - 1){
+              return false;
+          }
+          
+          //save all edges into a HashMap<Integer, Set<Integer>>
+          HashMap<Integer, Set<Integer>> map = initialize(n, edges);
+          
+          //Valid Graph条件二：每个点都必须互相连通才能组成图
+          //       A
+          //      / \\     D       四个点，三条边，但不是图
+          //     B - C
+          Queue<Integer> queue = new LinkedList<Integer>();
+          Set<Integer> set = new HashSet<Integer>();
+          queue.offer(0);
+          set.add(0);
+          while(!queue.isEmpty()){
+              int head = queue.poll();
+              for(int neighbor : map.get(head)){
+                  //当该点没有被访问过
+                  if(!set.contains(neighbor)){
+                      queue.offer(neighbor);
+                      set.add(neighbor);
+                  } 
+              }
+          }
+          //如果每个点都互相连通，BFS就应该能访问到所有的点
+          return set.size() == n;
+          
+      }
+      private HashMap<Integer, Set<Integer>> initialize(int n, int[][] edges){
+          //HashMap里存的是 <点, 该点的neighbor>
+          HashMap<Integer, Set<Integer>> map = new HashMap<Integer, Set<Integer>>();
+          for(int i = 0; i < n; i++){
+              map.put(i, new HashSet<Integer>());
+          }
+          //把每个边中的两个点放入另一个点的neighbor里
+          for(int i = 0; i < edges.length; i++){
+              int first = edges[i][0];
+              int second = edges[i][1];
+              map.get(first).add(second);
+              map.get(second).add(first);
+          }
+          return map;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-06T04:47:34.643Z"
+updatedAt: "2017-09-06T06:10:27.051Z"
