@@ -1,0 +1,71 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Linked List Cycle"
+content: '''
+  # Linked List Cycle
+  对于判断链表是否有环，方法很简单，用两个指针，一开始都指向头结点，一个是快指针，一次走两步，一个是慢指针，一次只走一步，当两个指针重合时表示存在环了。
+  [证明链接](http://blog.csdn.net/sysucph/article/details/15378043)
+  
+  检查是否有环方法一
+  ```java
+  public boolean hasCycle(ListNode head) {
+          if (head == null || head.next == null)   return false;
+          ListNode slow = head;
+          ListNode fast = head.next;
+          while (fast != null && fast.next != null) {
+              if (slow == fast){
+                return true;
+              }
+              slow = slow.next;
+              fast = fast.next.next;
+              
+          }
+          return false;
+  }
+  ```
+  检查是否有环方法二
+  ```java
+  public boolean hasCycle(ListNode head) {
+          if (head == null || head.next == null)   return false;
+          ListNode slow = head;
+          ListNode fast = head.next;
+          while (slow != fast) {
+              if (fast == null || fast.next == null){
+                return false;
+              }
+              slow = slow.next;
+              fast = fast.next.next;
+          }
+          return true;
+  }
+  ```
+  找环开始的node:
+  当快指针和慢指针重合的时候，把一个指针重新指向头指针，两个指针现在速度一样，一次走一步，那么当两个指针值相同时，所在的指针就是我们要找的起始位置。
+  ```java
+  public ListNode detectCycle(ListNode head) {
+          if (head == null || head.next == null)   return null;
+          ListNode slow = head;
+          ListNode fast = head.next;
+          ListNode entry = head;
+          
+          while (fast != null && fast.next != null) {
+              slow = slow.next;
+              fast = fast.next.next;
+              if (slow == fast) {
+                  while (entry != slow) {
+                      entry = entry.next;
+                      slow = slow.next;
+                  }
+                  return entry;
+              }
+          }
+          
+          return null;
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-10T05:47:16.427Z"
+updatedAt: "2017-09-10T06:06:12.242Z"

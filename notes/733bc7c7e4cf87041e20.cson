@@ -1,0 +1,64 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Course Schedule II"
+content: '''
+  # Course Schedule II
+  ```java
+  public class Solution {
+      /**
+       * @param numCourses a total of n courses
+       * @param prerequisites a list of prerequisite pairs
+       * @return true if can finish all courses or false
+       */
+      public int[] findOrder(int numCourses, int[][] prerequisites) {
+          // Write your code here
+          if(numCourses <= 0){
+              return new int[0];;
+          }
+          //prerequisite[后续][先修]
+          //每个课的degree
+          int[] degrees = new int[numCourses];
+          //edges用于存储边(每个先修课及其所有后续课)
+          List<Integer>[] edges = new ArrayList[numCourses];
+          for(int i = 0; i < numCourses; i++){
+              edges[i] = new ArrayList<Integer>();
+          }
+          //有几个先修课，后续课的degree就加几
+          for(int i = 0; i < prerequisites.length; i++){
+              degrees[prerequisites[i][0]]++;
+              edges[prerequisites[i][1]].add(prerequisites[i][0]);
+          }
+          Queue<Integer> queue = new LinkedList<Integer>();
+          for(int i = 0; i < numCourses; i++){
+              //所有degree为0的加入Queue
+              if(degrees[i] == 0){
+                  queue.offer(i);
+              }
+          }
+          int count = 0;
+          int[] path = new int[numCourses];
+          while(!queue.isEmpty()){
+              int head = queue.poll();
+              path[count] = head;
+              count++;
+              //先修课被poll出时，其所有后续课degree--
+              for(int i : edges[head]){
+                  degrees[i]--;
+                  if(degrees[i] == 0){
+                      queue.offer(i);
+                  }
+              }
+          }
+          if(count == numCourses){
+             return path;
+          }
+          return new int[0];
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-06T16:34:46.762Z"
+updatedAt: "2017-09-06T16:56:50.889Z"

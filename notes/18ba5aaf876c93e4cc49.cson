@@ -1,0 +1,48 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Copy List with Random Pointer"
+content: '''
+  # Copy List with Random Pointer
+  ```java
+  public class Solution {
+      /**
+       * @param head: The head of linked list with a random pointer.
+       * @return: A new head of a deep copy of the list.
+       */
+      public RandomListNode copyRandomList(RandomListNode head) {
+          // write your code here
+          //map存的是<老node，新node>
+          HashMap<RandomListNode, RandomListNode> map = new HashMap<RandomListNode,RandomListNode>();
+          RandomListNode dummy = new RandomListNode(0), curr = dummy;
+          RandomListNode newNode;
+          while(head != null){
+              if(map.containsKey(head)){
+                  newNode = map.get(head);
+              } else {
+                  newNode = new RandomListNode(head.label);
+                  map.put(head, newNode);
+              }
+              curr.next = newNode;
+              
+              if(head.random != null){
+                  if(map.containsKey(head.random)){
+                      newNode.random = map.get(head.random);
+                  } else {
+                      newNode.random = new RandomListNode(head.random.label);
+                      map.put(head.random, newNode.random);
+                  }
+              }
+              
+              curr = curr.next;
+              head = head.next;
+          }
+          return dummy.next;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-10T22:06:15.629Z"
+updatedAt: "2017-09-10T22:45:09.308Z"

@@ -20,9 +20,9 @@ content: '''
           if(left >= right){
               return;
           }
-          //get value of pivot
+          // key point: pivot is the value, not the index
           int pivot = A[(left + right) / 2];
-          //get new pivot afte partition
+          //get new pivot after partition
           int index = partition(A, pivot, left, right);
           quickSort(A, left, index - 1);
           quickSort(A, index, right);
@@ -59,10 +59,14 @@ content: '''
   };
   ```
   快排九章模板
+  - 为什么要用`left<=right`?
+  因为我们不希望等于的时候停下来，而是partition成两份，正在意义上分开，所以用了`left <= right` 使得结束的时候`right`一定小于`left`
   - 为什么这里是`A[left] < pivot` 而不是 `A[left] <= pivot` ?
   因为如果pivot刚好是最大值，那么我们对n个元素进行partition就会出现左边得到n个，右边得到0个元素的情况，这样左边继续递归下去有可能始终都是n（每次取出pivot都是最大值），那么会出现无限递归。
   - 为什么这里是`A[right] > pivot` 而不是 `A[right] >= pivot` ?
   同理，因为如果pivot刚好是最小值，那么我们对n个元素进行partition就会出现左边得到0个，右边得到n个元素的情况，这样右边继续递归下去有可能始终都是n（每次取出pivot都是最小值），那么会出现无限递归。
+  - 为什么在while内部还要检测`left <= right`?
+  防止`A[left] < pivot` 或者 `A[right] > pivot` 越界
   ```java
   private void quickSort(int[] A, int start, int end) {
           if (start >= end) {
@@ -77,11 +81,11 @@ content: '''
           // left <= right not left < right (如果没有=则每次都漏掉了最后一个数)
           while (left <= right) {
               // key point 3: A[left] < pivot not A[left] <= pivot
-              while (A[left] < pivot) {
+              while (left <= right && A[left] < pivot) {
                   left++;
               }
               // key point 3: A[right] > pivot not A[right] >= pivot
-              while (A[right] > pivot) {
+              while (left <= right && A[right] > pivot) {
                   right--;
               }
               if (left <= right) {
@@ -200,4 +204,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-09-04T19:49:26.781Z"
+updatedAt: "2017-09-09T00:38:29.640Z"

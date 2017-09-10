@@ -37,6 +37,8 @@ content: '''
   ```
   ### Initialize Array
   ```java
+  //Initialize an empty array
+  int[] emptyArray = new int[0];
   //In java, you cannot use a variable that is NOT or MIGHT NOT be initialized
   int arraySize = 5; // int value MUST be initialized when creating variable
   int[] intArray = new int[arraySize];//Array size MUST be initialized when creating array
@@ -48,6 +50,17 @@ content: '''
   int[] result = {1, 2};
   //Method 3:
   int[] result = new int[]{1, 2};
+  ```
+  ### Generic Array Creation Error
+  - Java does not allow creation of Array of Generic type, to do this:
+  ```java
+  //先定义
+  int size = 5;
+  List<myObject>[] listArray = new ArrayList[size];
+  //再Initialize
+  for(int i = 0; i < size; i++) {
+       listArray[i] = new ArrayList<myObject>();
+  }
   ```
   ### Initialized Value
   - Everything in a valid Java program not explicitly set to something by the programmer, is initialized to a `0` value.
@@ -108,4 +121,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-08-27T00:10:26.645Z"
+updatedAt: "2017-09-08T16:19:22.866Z"

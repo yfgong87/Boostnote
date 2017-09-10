@@ -1,21 +1,9 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "Find middle point of LinkedNode"
-content: '''
-  # Find middle point of LinkedNode
-  ```java
-  private ListNode findMiddle(ListNode head) {
-          ListNode slow = head, fast = head.next;
-          while (fast != null && fast.next != null) {
-              fast = fast.next.next;
-              slow = slow.next;
-          }
-          return slow;
-      }
-  ```
-'''
+title: ""
+content: ""
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-22T21:03:59.923Z"
-updatedAt: "2017-08-22T21:04:30.579Z"
+updatedAt: "2017-09-09T16:53:28.988Z"

@@ -1,0 +1,72 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "3Sum"
+content: '''
+  # 3Sum
+  ```java
+  public class Solution {
+      /*
+       * @param numbers: Give an array numbers of n integer
+       * @return: Find all unique triplets in the array which gives the sum of zero.
+       */
+      public List<List<Integer>> threeSum(int[] numbers) {
+          // write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(numbers == null || numbers.length < 3){
+              return results;
+          }
+          Arrays.sort(numbers);
+          int target = 0;
+          int left = 0;
+          int right = 0;
+          //优化：最后两个数不用看(循环到numbers.length - 2即可)
+          for(int i = 0; i < numbers.length - 2 ; i++){
+              //第一个数去重
+              if(i > 0 && numbers[i] == numbers[i - 1]){
+                  continue;
+              }
+              target = -numbers[i];
+              left = i + 1;
+              right = numbers.length - 1;
+              helper(results, left, right, target, numbers);
+          }
+          return results;
+      }
+      private void helper(List<List<Integer>> results,
+                          int left,
+                          int right,
+                          int target,
+                          int[] numbers){
+          while(left < right){
+              if(numbers[left] + numbers[right] < target){
+                  left++;
+              } else if (numbers[left] + numbers[right] > target){
+                  right--;
+              } else {
+                  //Deep Copy
+                  ArrayList<Integer> result = new ArrayList<Integer>();
+                  result.add(-target);
+                  result.add(numbers[left]);
+                  result.add(numbers[right]);
+                  results.add(result);
+                  left++;
+                  right--;
+                  //第二个数去重
+                  while(left < right && numbers[left] == numbers[left - 1]){
+                      left++;
+                  }
+                  //第三个数去重
+                  while(left < right && numbers[right] == numbers[right + 1]){
+                      right--;
+                  }
+              }
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-08T19:24:18.564Z"
+updatedAt: "2017-09-08T19:24:28.034Z"

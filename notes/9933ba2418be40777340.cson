@@ -71,6 +71,7 @@ content: '''
   - `int` `HashMap`.`size`()
   #### Add
   - `Object` `HashMap`.`put`(`Object` `key`, `Object` `value`)
+  - 重要：修改`HashMap`里的值绝对不能用`map.get(key)++`直接修改，而是需要重新`map.put`进`newValue`
   ```java
   //Update value giving key
   map.put(key, map.get(key) + 1);
@@ -91,4 +92,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-01T03:44:25.824Z"
-updatedAt: "2017-08-28T14:32:12.818Z"
+updatedAt: "2017-09-06T17:46:16.161Z"

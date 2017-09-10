@@ -1,0 +1,73 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Reverse node in K group"
+content: '''
+  # Reverse node in K group
+  ```java
+  // version 1:
+  /**
+   * Definition for singly-linked list.
+   * public class ListNode {
+   *     int val;
+   *     ListNode next;
+   *     ListNode(int x) { val = x; }
+   * }
+   */
+  public class Solution {
+      /**
+       * @param head a ListNode
+       * @param k an integer
+       * @return a ListNode
+       */
+      public ListNode reverseKGroup(ListNode head, int k) {
+          ListNode dummy = new ListNode(0), curr = dummy;
+          dummy.next = head;
+          
+          while (curr != null) {
+              curr = reverseK(curr, k);
+          }
+          
+          return dummy.next;
+      }
+      
+      // head -> n1 -> n2 ... nk -> nk+1
+      // =>
+      // head -> nk -> nk-1 .. n1 -> nk+1
+      // return n1
+      public ListNode reverseK(ListNode head, int k) {
+          //首先找到nk及nk+1
+          ListNode nk = head;
+          for(int i = 0; i < k; i++){
+              nk = nk.next;
+              //如果剩下的不够k个数,return null
+              if(nk == null){
+                  return null;
+              }
+          }
+          ListNode nkplus = nk.next;
+          
+          //从n1起reverse
+          ListNode n1 = head.next;
+          ListNode prev = null;
+          ListNode curr = n1;
+          while(curr != nkplus){
+              ListNode temp = curr.next;
+              curr.next = prev;
+              prev = curr;
+              curr = temp;
+          }
+          
+          //连接首尾
+          head.next = nk;
+          n1.next = nkplus;
+          
+          return n1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-09T17:31:19.402Z"
+updatedAt: "2017-09-09T17:31:30.363Z"

@@ -1,0 +1,81 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Clone Graph"
+content: '''
+  # Clone Graph
+  ```java
+  /**
+   * Definition for undirected graph.
+   * class UndirectedGraphNode {
+   *     int label;
+   *     ArrayList<UndirectedGraphNode> neighbors;
+   *     UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
+   * };
+   */
+  public class Solution {
+      /**
+       * @param node: A undirected graph node
+       * @return: A undirected graph node
+       */
+      public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+          // write your code here
+          if (node == null){
+              return node;
+          }
+          
+          //Use BFS to get all nodes in graph
+          ArrayList<UndirectedGraphNode> nodes = getNode(node);
+          
+          //Clone all nodes
+          HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+          for(UndirectedGraphNode n : nodes){
+              //key, value
+              map.put(n, new UndirectedGraphNode(n.label));
+          }
+          
+          //Clone all neighbors (edges)
+          //for every node in nodes
+          for(UndirectedGraphNode n : nodes){
+              //get the copy node in hashmap
+              UndirectedGraphNode copyNode = map.get(n);
+              //for every neighbor of node
+              for (UndirectedGraphNode neighbor : n.neighbors){
+                  //get the neighbor of node
+                  UndirectedGraphNode copyNeighbor = map.get(neighbor);
+                  //Add neighbor to copy node
+                  copyNode.neighbors.add(copyNeighbor);
+              }
+          }
+          
+          //return
+          return map.get(node);
+          
+      }
+      //Get all nodes in graph using BFS
+      private ArrayList<UndirectedGraphNode> getNode(UndirectedGraphNode node){
+          
+          Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+          HashSet<UndirectedGraphNode> set = new HashSet<>();
+         
+          queue.offer(node);
+          set.add(node);
+          
+          while(!queue.isEmpty()){
+              UndirectedGraphNode head = queue.poll();
+              for(UndirectedGraphNode neighbor : head.neighbors){
+                  if(!set.contains(neighbor)){
+                      set.add(neighbor);
+                      queue.offer(neighbor);
+                  }
+              }
+          }
+          return new ArrayList<UndirectedGraphNode>(set);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-06T14:57:54.354Z"
+updatedAt: "2017-09-06T14:58:03.128Z"

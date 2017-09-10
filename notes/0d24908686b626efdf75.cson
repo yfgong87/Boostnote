@@ -1,0 +1,40 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Two Sum"
+content: '''
+  # Two Sum
+  - Two Sum 的Brute Force Time Complexity是`O`(`N`<sup>`2`</sup>)
+  - 如果直接用Two Sum由于先行sort了所以需要保存原来的index，不如直接用HashMap
+  ```java
+  public class Solution {
+      /*
+       * @param numbers: An array of Integer
+       * @param target: target = numbers[index1] + numbers[index2]
+       * @return: [index1 + 1, index2 + 1] (index1 < index2)
+       */
+      public int[] twoSum(int[] numbers, int target) {
+          // write your code here
+          HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+          for(int i = 0; i < numbers.length; i++){
+              //key = number, value = index
+              map.put(numbers[i], i);
+          }
+          for(int i = 0; i < numbers.length; i++){
+              int complement = target - numbers[i];
+              if(map.containsKey(complement)){
+                  int[] results = new int[2];
+                  results[0] = i + 1;
+                  results[1] = map.get(complement) + 1;
+                  return results;
+              }
+          }
+          return null;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-08T18:18:22.509Z"
+updatedAt: "2017-09-08T20:21:02.296Z"

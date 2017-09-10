@@ -1,0 +1,52 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Search in Rotated Sorted Array"
+content: '''
+  # Search in Rotated Sorted Array 
+  ```java
+  public class Solution {
+      /** 
+       *@param A : an integer rotated sorted array
+       *@param target :  an integer to be searched
+       *return : an integer
+       */
+      public int search(int[] A, int target) {
+          // write your code here
+          //handle exceptions
+          if (A.length == 0 || A == null){
+              return -1;
+          }
+          //initiate pointer
+          int start = 0;
+          int end = A.length - 1;
+          //binary search
+          while (start + 1 < end){
+              int mid = start + (end - start) / 2;
+              if (target > A[0] && A[mid] < A[0]){
+                  end = mid; // if target is on left segment, mid on right segment
+              } else if (target < A[0] && A[mid] > A[0]){
+                  start = mid; // if target is on right segment, mid on left segment
+              } else{ //target and mid on same segment
+                  if (A[mid] < target){
+                      start = mid;
+                  } else{
+                      end = mid;
+                  }
+              }
+          }
+          if (A[start] == target){
+              return start;
+          }
+          if (A[end] == target){
+              return end;
+          } 
+          return -1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-07T23:36:53.338Z"
+updatedAt: "2017-09-07T23:37:14.463Z"

@@ -1,0 +1,38 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Window Sum"
+content: '''
+  # Window Sum
+  ```java
+  public class Solution {
+      /*
+       * @param nums: a list of integers.
+       * @param k: length of window.
+       * @return: the sum of the element inside the window at each moving.
+       */
+      public int[] winSum(int[] nums, int k) {
+          // write your code here
+          //注意一：k可能小于等于0
+          if(nums == null || nums.length < k || k <= 0){
+              return new int[0];
+          }
+          //注意二，size
+          int size = nums.length - k + 1;
+          int[] sums = new int[size];
+          //注意三, 第一个sum
+          for(int i = 0; i < k; i++){
+              sums[0] += nums[i];
+          }
+          for(int i = 1; i < size; i++){
+              sums[i] = sums[i - 1] - nums[i - 1] + nums[i + k - 1];
+          }
+          return sums;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-08T22:14:48.578Z"
+updatedAt: "2017-09-08T22:15:49.147Z"

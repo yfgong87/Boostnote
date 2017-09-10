@@ -1,0 +1,45 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Insert into Cyclic sorted List"
+content: '''
+  # Insert into Cyclic sorted List
+  ```java
+  public class Solution {
+      /**
+       * @param node a list node in the list
+       * @param x an integer
+       * @return the inserted new list node
+       */
+      public ListNode insert(ListNode node, int x) {
+          // Write your code here
+          ListNode newNode = new ListNode(x);
+          
+          if(node == null){
+              newNode.next = newNode;
+              return newNode;
+          }
+          
+          ListNode curr = node;
+          while(curr.next != node){
+              //insert in the middle of the list
+              if(curr.val <= x && x <= curr.next.val){
+                  break;
+              }
+              //insert in the tail of the list
+              if(curr.val > curr.next.val && (x >= curr.val || x <= curr.next.val)){
+                  break;
+              }
+              curr = curr.next;
+          }
+          newNode.next = curr.next;
+          curr.next = newNode;
+          return newNode;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-10T05:32:05.776Z"
+updatedAt: "2017-09-10T05:32:22.076Z"

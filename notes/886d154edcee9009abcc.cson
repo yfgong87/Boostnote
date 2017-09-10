@@ -1,0 +1,38 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Dummy Node"
+content: '''
+  # Dummy Node
+  给一个LinkedList，起始点为head
+  新建两个点，`dummy`和`curr`，`curr = dummy`，此时`dummy`和`curr`都指向`null`
+  ```java
+  ListNode dummy = new ListNode(0), curr = dummy;
+  ```
+  
+  此时如果将`dummy`指向`head`，则`curr`也默认指向了`head`
+  ```java
+  dummy.next = head;
+  ```
+  总结：此时`curr`与`dummy`是内存块上的两个`不同块`，但他们都指向`head`
+  
+  - 此时如果改变`curr`，`dummy`并不会变化，仍然指向`head`
+  ```java
+  curr = curr.next;
+  //or
+  while(curr != null){
+    curr = curr.next;
+  }
+  ```
+  
+  - 但是如果此时改变`curr.next`，则`dummy.next`也变化，因为`curr`和`dummy`的`next`对应的是内存块上的`同一块`
+  (这一块内存有两个名字，`curr.next`和`dummy.next`)
+  ```java
+  newNode = new ListNode(0);
+  curr.next = newNode;
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-10T22:45:34.896Z"
+updatedAt: "2017-09-10T22:59:56.659Z"

@@ -1,0 +1,50 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Search in a Big sorted Array"
+content: '''
+  # Search in a Big sorted Array
+  ```java
+  public class Solution {
+      /**
+       * @param reader: An instance of ArrayReader.
+       * @param target: An integer
+       * @return : An integer which is the index of the target number
+       */
+      public int searchBigSortedArray(ArrayReader reader, int target) {
+          // write your code here
+          //xxxxxxxx|oooooooo........double the end pointer each loop until the end becomes bigger than target
+          //initialize pointer
+          int start = 0;
+          int end = 1;
+          //increment end until end >= target
+          while(reader.get(end) < target){
+              end *= 2;
+          }
+          //Binary search
+          while (start + 1 < end) {
+              int mid = start + (end - start) / 2;
+              if (reader.get(mid) == target){
+                  //since need the first index, always move end to left, not start to right
+                  end = mid;
+              } else if (reader.get(mid) < target){
+                  start = mid;
+              } else{
+                  end = mid;
+              }
+          }
+          if (reader.get(start) == target){
+              return start;
+          }
+          if (reader.get(end) == target){
+              return end;
+          }
+          return -1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-07T19:51:11.079Z"
+updatedAt: "2017-09-07T19:51:28.442Z"

@@ -104,7 +104,7 @@ content: '''
   }
   play(myCat); //Throw ERROR
   ```
-  - // If you want access to `fields` or `methods` only found in the subclass you have to cast the object to that specific subclass first
+  - // If you want access to `fields` or `methods` only found in the `subclass` you have to cast the object to that specific subclass first
   ```java
   //method 1
   Cat myCatCopy = (Cat) myCat;
@@ -119,4 +119,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T01:03:41.271Z"
-updatedAt: "2017-08-26T06:40:01.816Z"
+updatedAt: "2017-09-08T08:41:56.663Z"

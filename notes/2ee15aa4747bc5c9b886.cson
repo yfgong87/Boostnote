@@ -1,0 +1,45 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Top k Largest Number II"
+content: '''
+  # Top k Largest Number II
+  ```java
+  public class Solution {
+      Queue<Integer> pq;
+      int size = 0;
+      public Solution(int k) {
+          // initialize your data structure here.
+          this.pq = new PriorityQueue<Integer>();
+          this.size = k;
+      }
+  
+      public void add(int num) {
+          // Write your code here
+          if(pq.size() < size){
+              pq.add(num);
+          } else {
+              if(pq.peek() < num){
+                  pq.poll();
+                  pq.add(num);
+              }
+          }
+      }
+  
+      public List<Integer> topk() {
+          // Write your code here
+          List<Integer> results = new ArrayList<Integer>();
+          PriorityQueue<Integer> pqCopy = new PriorityQueue<Integer>(pq);
+          //注意check是否已经Empty
+          while(!pqCopy.isEmpty()){
+              results.add(0, pqCopy.poll());
+          }
+          return results;
+      }
+  };
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-06T23:08:39.779Z"
+updatedAt: "2017-09-06T23:09:04.705Z"

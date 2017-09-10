@@ -1,0 +1,26 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Overlap Rectangle"
+content: '''
+  # Overlap Rectangle
+  `l`为左上的点，`r`为右下的点
+  ```java
+  boolean doOverlap(Point l1, Point r1, Point l2, Point r2)
+  {
+      // If one rectangle is on left side of other
+      if (l1.x > r2.x || l2.x > r1.x)
+          return false;
+   
+      // If one rectangle is above other
+      if (l1.y < r2.y || l2.y < r1.y)
+          return false;
+   
+      return true;
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-09T17:58:58.346Z"
+updatedAt: "2017-09-09T18:00:12.598Z"

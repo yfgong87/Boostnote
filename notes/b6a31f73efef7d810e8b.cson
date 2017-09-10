@@ -1,0 +1,63 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Rotate Matrix"
+content: '''
+  # Rotate Matrix
+  `O(n^2)` time and `O(1)` space algorithm
+  
+  - Rotate by +90:
+  `Transpose` -> `Reverse each row`
+  
+  - Rotate by -90:
+  Method 1 : `Transpose` -> `Reverse each column`
+  Method 2 : `Reverse each row` -> `Transpose`
+  
+  - Rotate by +180:
+  Method 1: `Rotate by +90 twice`
+  Method 2: (`Reverse each row` -> `reverse each column`) = (`Transpose`)
+  
+  - Rotate by -180:
+  Method 1: `Rotate by -90 twice`
+  Method 2: `Reverse each column` -> `reverse each row`
+  Method 3: `Rotate by +180` 
+  
+  ### Transpose
+  ![transpose](https://www.thecrazyprogrammer.com/wp-content/uploads/2015/04/Java-Program-to-Find-Transpose-of-Matrix.jpg)
+  
+  ```java
+  public class Solution {
+      /*
+       * @param matrix: a lists of integers
+       * @return: 
+       */
+      public void rotate(int[][] matrix) {
+          // write your code here
+          int n = matrix.length;
+          if(n == 0){
+              return;
+          }
+          //Transpose x and y (只交换右上的半个三角矩阵)
+          for(int i = 0; i < n; i++){
+              for(int j = i; j < n; j++){
+                  int temp = matrix[i][j];
+                  matrix[i][j] = matrix[j][i];
+                  matrix[j][i] = temp;
+              }
+          }
+          //Reverse each row
+          for(int i = 0; i < n; i++){
+              for(int j = 0; j < n / 2; j++){
+                  int temp = matrix[i][j];
+                  matrix[i][j] = matrix[i][n - j - 1];
+                  matrix[i][n - j - 1] = temp;
+              }
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-09T19:58:20.377Z"
+updatedAt: "2017-09-10T04:56:44.132Z"

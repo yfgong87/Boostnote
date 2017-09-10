@@ -1,8 +1,9 @@
 type: "MARKDOWN_NOTE"
 folder: "ca7b6b3755f93c46a5f8"
-title: "String"
+title: "String & Character"
 content: '''
-  # String
+  # String & Character
+  ## `String`
   ### Iterate String
   ```java
   String s = "123";
@@ -53,7 +54,7 @@ content: '''
   - `boolean` `String`.`startsWith`(`String` `str`)
   - `boolean` `String`.`endsWith`(`String` `str`)
   #### Get
-  - `char` `String`.`charAt`(`int`, `index`)
+  - `char` `String`.`charAt`(`int` `index`)
   - `String` `String`.`substring`(`int` `beginIndex`)
   - `String` `String`.`substring`(`int` `beginIndex`, `int` `endIndex`): `beginIndex` is INCLUSIVE, `endIndex` is EXCLUSIVE
   #### Compare
@@ -85,9 +86,23 @@ content: '''
   - `int` `String`.`indexOf`(`String` `s`, `int` `startIndex`)
   #### Other
   - `int` `String`.`hashcode`( )
+  
+  ## `Character`
+  ### cases
+  - `char` `Character`.`toLowerCase`(`char` `c`)
+  - `char` `Character`.`toUpperCase`(`char` `c`)
+  - `boolean` `Character`.`isLowerCase`(`char` `c`)
+  - `boolean` `Character`.`isUpperCase`(`char` `c`)
+  
+  ### validate char type
+  - `boolean` `Character`.`isDigit`(`char` `c`)
+  - `boolean` `Character`.`isLetter`(`char` `c`)
+  - `boolean` `Character`.`isWhiteSpace`(`char` `c`)
+  ### transform
+  - `String` `Character`.`toString`( )
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-09-06T04:15:17.184Z"
+updatedAt: "2017-09-08T01:44:21.486Z"

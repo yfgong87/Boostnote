@@ -67,7 +67,7 @@ content: '''
   - Instance variables have default values.
   ---
   `Class variables`
-  - These are also known as `static` member variables and there's only one copy of that variable that is shared with all instances of that class. If changes are made to that variable, all other instances will see the effect of the changes.
+  - These are also known as `static` member variables and there's only `ONE copy` of that variable that is `SHARED` with all instances of that class. If changes are made to that variable, all other instances will see the effect of the changes.
   ```java
   public class Product {
       public static int Barcode;
@@ -115,4 +115,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T03:12:28.527Z"
-updatedAt: "2017-08-15T17:05:08.002Z"
+updatedAt: "2017-09-09T18:37:24.361Z"
