@@ -1,0 +1,24 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Remove certain Character from String"
+content: '''
+  # Remove certain Character from String
+  去除`String`中所有元音字母
+  ```java
+  String str = "stringContainsVowel";
+  StringBuffer sb = new StringBuffer();
+  String vowel = "aeiouAEIOU";
+  for(int i = 0; i < str.length(); i++){
+      if(vowel.indexOf(str.charAt(i)) > -1){
+          continue; 
+      }
+      sb.append(str.charAt(i));
+  }
+  return sb.toStirng();
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-10T23:07:16.648Z"
+updatedAt: "2017-09-10T23:09:53.961Z"

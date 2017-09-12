@@ -1,0 +1,34 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Move Zeros"
+content: '''
+  # Move Zeros
+  Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+  ```java
+  public void moveZeroes(int[] nums) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return;
+          }
+          int left = 0; int right = 0;
+          while(right < nums.length){
+              //如果右指针碰到0,继续走
+              if(nums[right] == 0){
+                  right++;
+              } else {
+                  //右指针不是0，跟左指针换，左指针走一格
+                  int temp = nums[left];
+                  nums[left] = nums[right];
+                  nums[right] = temp;
+                  left++;
+                  right++;
+              }
+          }
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-12T20:27:46.355Z"
+updatedAt: "2017-09-12T20:28:04.947Z"

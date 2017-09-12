@@ -1,0 +1,53 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "K Cloest Points"
+content: '''
+  # K Cloest Points
+  ```java
+  public class Solution {
+      /**
+       * @param points a list of points
+       * @param origin a point
+       * @param k an integer
+       * @return the k closest points
+       */
+      Point global_origin = new Point();
+      public Point[] kClosest(Point[] points, Point origin, int k) {
+          // Write your code here
+          global_origin = origin;
+          PriorityQueue<Point> pq = new PriorityQueue<Point>(k, new Comparator<Point>(){
+              public int compare(Point a, Point b){
+                  int dif = getDistance(b, global_origin) - getDistance(a, global_origin);
+                  if(dif == 0){
+                      dif = b.x - a.x;
+                  }
+                  if(dif == 0){
+                      dif = b.y - a.y;
+                  }
+                  return dif;
+              }
+          });
+          for(Point p : points){
+              pq.add(p); //如果先add了，下一行判断就不能用">="
+              if(pq.size() > k){
+                  pq.poll();
+              }
+          }
+          Point[] result = new Point[k];
+          for(int i = k - 1; i >= 0; i--){
+              result[i] = pq.poll();
+          }
+          return result;
+      }
+      public int getDistance(Point a, Point b){
+          int distance = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+          return distance;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-11T00:41:44.729Z"
+updatedAt: "2017-09-11T01:42:38.460Z"

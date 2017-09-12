@@ -1,0 +1,36 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Reverse Linked List II"
+content: '''
+  # Reverse Linked List II
+  ```java
+  public ListNode reverseBetween(ListNode head, int m, int n) {
+          // write your code here
+          ListNode dummy = new ListNode(0), curr = dummy;
+          dummy.next = head;
+          //找到m
+          for(int i = 1; i < m; i++){
+              curr = curr.next;
+          }
+          ListNode preNode = curr;
+          ListNode mNode = curr.next;
+          
+          ListNode nNode = mNode, postNode = nNode.next;
+          for(int i = m; i < n; i++){
+              ListNode temp = postNode.next;
+              postNode.next = nNode;
+              nNode = postNode;
+              postNode = temp;
+          }
+          preNode.next = nNode;
+          mNode.next = postNode;
+          
+          return dummy.next;
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-12T20:53:58.154Z"
+updatedAt: "2017-09-12T20:54:12.137Z"

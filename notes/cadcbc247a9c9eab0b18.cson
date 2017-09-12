@@ -20,7 +20,7 @@ content: '''
               }
               PriorityQueue<Integer> pq = map.get(r.id);
               if(pq.size() < 5){
-                  pq.add(r.score);
+                  pq.add(r.score);//由于是先判断size再add，pq.size则不能 >= 5
               } else {
                   //通过打擂台每次淘汰掉最小数，最终留下最大的五个数
                   //这样不用写新的Comparator，并且heap大小始终为五
@@ -48,4 +48,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-04T05:54:17.445Z"
-updatedAt: "2017-09-04T05:55:58.324Z"
+updatedAt: "2017-09-11T01:43:58.091Z"
