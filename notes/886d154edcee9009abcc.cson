@@ -3,8 +3,8 @@ folder: "c7615b6dcc7b2832aa16"
 title: "Dummy Node"
 content: '''
   # Dummy Node
-  给一个LinkedList，起始点为head
-  新建两个点，`dummy`和`curr`，`curr = dummy`，此时`dummy`和`curr`都指向`null`
+  给一个`LinkedList`，起始点为`head`
+  新建两个点，`dummy`和`curr`，`curr` = `dummy`，此时`dummy`和`curr`都指向`null`
   ```java
   ListNode dummy = new ListNode(0), curr = dummy;
   ```
@@ -13,7 +13,13 @@ content: '''
   ```java
   dummy.next = head;
   ```
-  总结：此时`curr`与`dummy`是内存块上的两个`不同块`，但他们都指向`head`
+  
+  反之如果将`curr`指向`head`，则`dummy`也默认指向了`head`
+  ```java
+  curr.next = head;
+  ```
+  
+  此时`curr`与`dummy`是内存块上的两个`不同块`，但他们都指向`head`
   
   - 此时如果改变`curr`，`dummy`并不会变化，仍然指向`head`
   ```java
@@ -30,9 +36,10 @@ content: '''
   newNode = new ListNode(0);
   curr.next = newNode;
   ```
+  总结：在`curr`还等于`dummy`的时候，只能给`curr`而不是`curr.next`赋值
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T22:45:34.896Z"
-updatedAt: "2017-09-10T22:59:56.659Z"
+updatedAt: "2017-09-13T16:45:11.189Z"

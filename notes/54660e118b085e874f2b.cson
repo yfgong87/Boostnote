@@ -42,9 +42,41 @@ content: '''
       }
   }
   ```
+  ```java
+  public String longestPalindrome(String s) {
+          // write your code here
+          String result = "";
+          if(s == null || s.length() == 0){
+              return result;
+          }
+          int start = 0, end = 0;
+          for(int i = 0; i < s.length(); i++){
+              int lengthA = expand(s, i, i);  //"bab"的情况
+              int lengthB = expand(s, i, i + 1);  //"baab"的情况
+              int length = Math.max(lengthA, lengthB);
+              if(length > end - start + 1){
+                  start = i - (length - 1) / 2; //最左边有可能越界
+                  end = i + length / 2;
+              }
+          }
+          return s.substring(start, end + 1); //右边不包含
+      }
+      
+      public int expand(String s, int left, int right){
+          int leftPointer = left;
+          int rightPointer = right;
+          while(leftPointer >= 0 && rightPointer < s.length() 
+                && (s.charAt(leftPointer) == s.charAt(rightPointer))){
+              leftPointer--;
+              rightPointer++;
+          }
+          //这样写可以保证expand(s,0,0) 和 expand(s,0,1)不越界
+          return rightPointer - leftPointer - 1;
+      }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T23:36:01.852Z"
-updatedAt: "2017-09-10T23:47:56.791Z"
+updatedAt: "2017-09-14T04:14:53.868Z"

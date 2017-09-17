@@ -14,7 +14,7 @@ content: '''
   - Space Complexity of Tree structure is `O(h)`, where h is the height of the tree. Worst case `O(n)`, best/average case `O(logn)`
   ### Traverse
   - Always `Left` -> `Right`
-  - In-order: `Left` -> `Root` -> `Right`, print element in order
+  - In-order: `Left` -> `Root` -> `Right`, print element in sorted order in a `BST`
   - Pre-order: `Root` -> `Left` -> `Right`
   - Post-order：`Left` -> `Right` -> `Root`
   ### Whether reach the end of the tree
@@ -28,9 +28,93 @@ content: '''
       
   }
   ```
+  
+  ### Traverse without Iteration
+  #### Inorder Traversal(`Left` -> `Root` -> `Right`)
+  - Create an empty `stack`.
+  - Initialize `current` node as `root`
+  - Push the `current` node to `stack` and set `current = current.left` until `current` is `NULL`
+  - While `stack` is not empty then 
+       `1`. Pop the top item from `stack`.
+       `2`. Print the `popped item`, set `current = popped_item.right`
+       `3`. Push the `current` node to `stack` and set `current = current.left` until `current` is `NULL`
+  - If `stack` is empty then we are done.
+  ```java
+  public ArrayList<Integer> inorderTraversal(TreeNode root) {
+          // write your code here
+          ArrayList<Integer> results = new ArrayList<Integer>();
+          Stack<TreeNode> stack = new Stack<TreeNode>();
+          while(root != null){
+              stack.push(root);
+              root = root.left;
+          }
+          while(!stack.isEmpty()){
+              TreeNode head = stack.pop();
+              results.add(head.val);
+              head = head.right;
+              while(head != null){
+                  stack.push(head);
+                  head = head.left;
+              }
+          }
+          return results;
+  }
+  ```
+  #### Preorder Traversal (`Root` -> `Left` -> `Right`)
+  - Create an empty `stack` and push `root` node to `stack`.
+  - While `stack` is not empty:
+    `1`. Pop an item from `stack` and print it.
+    `2`. If `poppedItem.right` is not `NULL`, push `poppedItem.rihgt` to stack
+    `3`. If `poppedItem.left` is not `NULL`, push `poppedItem.left` to stack
+  ```java
+  public List<Integer> preorderTraversal(TreeNode root) {
+          // write your code here
+          ArrayList<Integer> results = new ArrayList<Integer>();
+          Stack<TreeNode> stack = new Stack<TreeNode>();
+          if(root != null){
+              stack.push(root);
+          }
+          while(!stack.isEmpty()){
+              TreeNode head = stack.pop();
+              results.add(head.val);
+              if(head.right != null){
+                  stack.push(head.right);
+              }
+              if(head.left != null){
+                  stack.push(head.left);
+              }
+          }
+          return results;
+      }
+  ```
+  ### Postorder Traversal (`Left` -> `Right` -> `Root`)
+  Modify the code for pre-order to make it `root`-`right`-`left`, and then `REVERSE` the output so that we can get `left`-`right`-`root` .
+  ```java
+  public List<Integer> postorderTraversal(TreeNode root) {
+          // write your code here
+          ArrayList<Integer> results = new ArrayList<Integer>();
+          Stack<TreeNode> stack = new Stack<TreeNode>();
+          if(root != null){
+              stack.push(root);
+          }
+          while(!stack.isEmpty()){
+              TreeNode head = stack.pop();
+              //加到结果的最前面
+              results.add(0, head.val);
+              //先放left后right，这样先出来right后出来left
+              if(head.left != null){
+                  stack.push(head.left);
+              }
+              if(head.right != null){
+                  stack.push(head.right);
+              }
+          }
+          return results;
+      }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T19:06:25.916Z"
-updatedAt: "2017-08-08T19:29:29.671Z"
+updatedAt: "2017-09-14T20:51:15.608Z"

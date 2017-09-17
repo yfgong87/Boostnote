@@ -4,49 +4,54 @@ title: "Subtree with Maximum Average"
 content: '''
   # Subtree with Maximum Average
   ```java
-  public class Solution {
-      /**
-       * @param root the root of binary tree
-       * @return the root of the maximum average of subtree
-       */
-      private class resultClass {
-      int sum;
+  class returnType{
       int num;
-      resultClass(int sum, int num){
-          this.sum = sum;
+      int sum;
+      TreeNode node;
+      returnType(int num, int sum, TreeNode node){
           this.num = num;
-          }
-      }
-      private resultClass subtreeResult = null;
-      private TreeNode result;
-      public TreeNode findSubtree2(TreeNode root) {
-          // Write your code here
-          helper(root);
-          return this.result;
-      }
-      private resultClass helper (TreeNode root){
-          if (root == null){
-              return new resultClass(0,0);
-          }
-          //sum and num of current node
-          resultClass left = helper(root.left);
-          resultClass right = helper(root.right);
-          resultClass result = new resultClass(left.sum + right.sum + root.val,
-          left.num + right.num + 1);
-          //if sum/num > subtreeResult.sum/subtreeResult.num
-          if (subtreeResult == null || 
-              //将除法转化为乘法可以避免精度以及除0问题！！
-              result.sum * this.subtreeResult.num > this.subtreeResult.sum * result.num){
-              this.subtreeResult = result;
-              this.result = root;
-          }
-          return result;
+          this.sum = sum;
+          this.node = node;
       }
   }
+  
+  public class Solution {
+      /*
+       * @param root: the root of binary tree
+       * @return: the root of the maximum average of subtree
+       */
+      returnType max = new returnType(0, 0, null);
+      public TreeNode findSubtree2(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return root;
+          }
+          helper(root);
+          return max.node;
+      }
+      
+      public returnType helper(TreeNode root){
+          if(root == null){
+              return new returnType(0, 0, null);
+          }
+          returnType left = helper(root.left);
+          returnType right = helper(root.right);
+          int num = left.num + right.num + 1;
+          int sum = left.sum + right.sum + root.val;
+          //别忘记max未初始化的情况
+          if(max.node == null || sum * max.num > max.sum * num){
+              max.sum = sum;
+              max.num = num;
+              max.node = root;
+          }
+          return new returnType(num, sum, root);
+      }
+  }
+  ```
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-31T15:42:07.287Z"
-updatedAt: "2017-08-31T16:32:39.669Z"
+updatedAt: "2017-09-16T16:44:43.244Z"

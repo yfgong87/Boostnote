@@ -1,0 +1,67 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Topological Sorting"
+content: '''
+  # Topological Sorting
+  ```java
+  /**
+   * Definition for Directed graph.
+   * class DirectedGraphNode {
+   *     int label;
+   *     ArrayList<DirectedGraphNode> neighbors;
+   *     DirectedGraphNode(int x) { label = x; neighbors = new ArrayList<DirectedGraphNode>(); }
+   * };
+   */
+  public class Solution {
+      /**
+       * @param graph: A list of Directed graph node
+       * @return: Any topological order for the given graph.
+       */    
+      public ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
+          // write your code here
+          ArrayList<DirectedGraphNode> results = new ArrayList<DirectedGraphNode>();
+          if(graph == null || graph.size() == 0){
+              return results;
+          }
+          //map存的是<node, degree>
+          HashMap<DirectedGraphNode, Integer> map = new HashMap<DirectedGraphNode, Integer>();
+          //将图中所有点放入map，同时对每个优先级低的node，其degree++
+          for(DirectedGraphNode n : graph){
+              if(!map.containsKey(n)){
+                  map.put(n, 0);
+              }
+              for(DirectedGraphNode neighbor : n.neighbors){
+                  if(!map.containsKey(neighbor)){
+                      map.put(neighbor, 0);
+                  }
+                  map.put(neighbor, map.get(neighbor) + 1);
+              }
+          }
+          //遍历图，找到任意一个degree为0的node作为起始点
+          Queue<DirectedGraphNode> queue = new LinkedList<DirectedGraphNode>();
+          for(DirectedGraphNode n : graph){
+              if(map.get(n) == 0){
+                  queue.offer(n);
+              }
+          }
+          //BFS，找到起点的所有下一级点，其degree--，一旦减到0，将点放入queue
+          while(!queue.isEmpty()){
+              DirectedGraphNode head = queue.poll();
+              results.add(head);
+              for(DirectedGraphNode neighbor : head.neighbors){
+                  map.put(neighbor, map.get(neighbor) - 1);
+                  if(map.get(neighbor) == 0){
+                      queue.offer(neighbor);
+                  }
+              }
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-17T02:20:51.205Z"
+updatedAt: "2017-09-17T02:26:52.102Z"

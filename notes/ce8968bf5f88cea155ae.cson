@@ -1,0 +1,153 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Lowest Common Ancester"
+content: '''
+  # Lowest Common Ancester
+  基本型：提供`root`，并且保证`TreeNode A`和`TreeNode B` 一定存在于树中
+  ```java
+  public class Solution {
+      /*
+       * @param root: The root of the binary search tree.
+       * @param A: A TreeNode in a Binary.
+       * @param B: A TreeNode in a Binary.
+       * @return: Return the least common ancestor(LCA) of the two nodes.
+       */
+      public TreeNode lowestCommonAncestor(TreeNode root, TreeNode A, TreeNode B) {
+          // write your code here
+          //找到了A或B或碰到了null，返回
+          if(root == null || root == A || root == B){
+              return root;
+          }
+          //继续往左右找
+          TreeNode left = lowestCommonAncestor(root.left, A, B);
+          TreeNode right = lowestCommonAncestor(root.right, A, B);
+          //左右都找到了A或B，则root为LCA
+          if(left != null && right != null){
+              return root;
+          }
+          if(left != null){
+              return left;
+          }
+          if(right != null){
+              return right;
+          }
+          return null;
+      }
+  }
+  ```
+  变种1：
+  不提供`root`, 但是每个`TreeNode`都有一个`parent`
+  并且保证`TreeNode A`和`TreeNode B` 一定存在于树中
+  ```java
+  public ParentTreeNode lowestCommonAncestorII(ParentTreeNode A,
+                                               ParentTreeNode B) {
+          // Write your code here
+          ArrayList<ParentTreeNode> pathA = findPathToRoot(A);
+          ArrayList<ParentTreeNode> pathB = findPathToRoot(B);
+          int indexA = pathA.size() - 1;
+          int indexB = pathB.size() - 1;
+          while (indexA >= 0 && indexB >=0){
+              if (pathA.get(indexA) != pathB.get(indexB)){
+                  break;
+              }
+              indexA--;
+              indexB--;
+          }
+          //从Root开始比较A和B的路径，当A和B路径不一致时，返回前一个A/B
+          return pathA.get(indexA + 1);
+      }
+      //找到从node到path的路径
+      private ArrayList<ParentTreeNode> findPathToRoot (ParentTreeNode node){
+          ArrayList<ParentTreeNode> path = new ArrayList<ParentTreeNode>();
+          while (node != null){
+              path.add(node);
+              node = node.parent;
+          }
+          return path;
+                                                   }
+  ```
+  变种2：
+  `不`保证`TreeNode A`和`TreeNode B` 一定存在于树中
+  ```java
+  class ResultType {
+      public boolean a_exist, b_exist;
+      public TreeNode node;
+      ResultType(boolean a, boolean b, TreeNode n) {
+          a_exist = a;
+          b_exist = b;
+          node = n;
+      }
+  }
+  
+  public class Solution {
+      /**
+       * @param root The root of the binary tree.
+       * @param A and B two nodes
+       * @return: Return the LCA of the two nodes.
+       */
+      public TreeNode lowestCommonAncestor3(TreeNode root, TreeNode A, TreeNode B) {
+          // write your code here
+          ResultType result = helper(root, A, B);
+          if (result.a_exist && result.b_exist)
+              return result.node;
+          else
+              return null;
+      }
+  
+      public ResultType helper(TreeNode root, TreeNode A, TreeNode B) {
+          if (root == null)
+              return new ResultType(false, false, null);
+              
+          ResultType left = helper(root.left, A, B);
+          ResultType right = helper(root.right, A, B);
+          
+          boolean a_exist = left.a_exist || right.a_exist || root == A;
+          boolean b_exist = left.b_exist || right.b_exist || root == B;
+          
+          if (root == A || root == B)
+              return new ResultType(a_exist, b_exist, root);
+  
+          if (left.node != null && right.node != null)
+              return new ResultType(a_exist, b_exist, root);
+              
+          if (left.node != null)
+              return new ResultType(a_exist, b_exist, left.node);
+              
+          if (right.node != null)
+              return new ResultType(a_exist, b_exist, right.node);
+  
+          return new ResultType(a_exist, b_exist, null);
+      }
+  }
+  ```
+  变种3：在`BST`中找`LCA`
+  ```java
+  /*         4
+           /   \\
+          2     6
+         / \\   / \\
+        1   3 5   7     */
+  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode A, TreeNode B) {
+      if(root == null) return null;
+      //A, B都比root小，往左找
+      if(root.val > A.val && root.val > B.val) {
+          return lowestCommonAncestor(root.left, A, B);
+      }
+      //A, B都比root大，往右找
+      if(root.val < A.val && root.val < B.val){
+          return lowestCommonAncestor(root.right, A, B);
+      }
+      //A, B一个比root大，一个比root小，root即是LCA
+      return root;
+  }
+  ```
+  变种4：在`BST`中找两个`node`的距离
+  ```java
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-16T03:53:08.885Z"
+updatedAt: "2017-09-16T03:53:08.885Z"

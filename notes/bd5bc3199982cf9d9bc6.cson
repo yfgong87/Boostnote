@@ -20,6 +20,7 @@ content: '''
   }
   ```
   ### Split String
+  注意！！空串`split`还是空串，有可能会死循环
   ```java
   str = "Hello I'm your String";
   String[] splited = str.split(" ");//split by ONE whitespace
@@ -84,6 +85,17 @@ content: '''
   - `int` `String`.`indexOf`(`String` `s`)
   - `int` `String`.`indexOf`(`char` `c`, `int` `startIndex`)
   - `int` `String`.`indexOf`(`String` `s`, `int` `startIndex`)
+  ```java
+  //活用indexOf：Remove Vowel
+  //本质上将indexOf作为一个类似.contains()的method来使用
+  StringBuffer sb = new StringBuffer();
+  String v = "aeiouAEIOU";
+  for(int i = 0; i < string.length(); i++){
+      if(v.indexOf(string.charAt(i)) > -1) continue; 
+      sb.append(string.charAt(i));
+  }
+  return sb.toStirng();
+  ```
   #### Other
   - `int` `String`.`hashcode`( )
   
@@ -105,4 +117,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-09-08T01:44:21.486Z"
+updatedAt: "2017-09-16T00:36:54.144Z"

@@ -1,0 +1,42 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Subtree"
+content: '''
+  # Subtree
+  ```java
+  public class Solution {
+      /*
+       * @param T1: The roots of binary tree T1.
+       * @param T2: The roots of binary tree T2.
+       * @return: True if T2 is a subtree of T1, or false.
+       */
+      public boolean isSubtree(TreeNode T1, TreeNode T2) {
+          // write your code here
+          if(T2 == null){
+              return true;
+          }
+          if(T1 == null){
+              return false;
+          }
+          return isSameTree(T1, T2) || isSubtree(T1.left, T2) || isSubtree(T1.right, T2);
+      }
+      private boolean isSameTree(TreeNode T1, TreeNode T2){
+          if(T1 == null && T2 == null){
+              return true;
+          }
+          if(T1 == null || T2 == null){
+              return false;
+          }
+          if(T1.val != T2.val){
+              return false;
+          }
+          return isSameTree(T1.left, T2.left) && isSameTree(T1.right, T2.right);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-12T21:54:02.735Z"
+updatedAt: "2017-09-12T21:54:10.513Z"

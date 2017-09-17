@@ -1,0 +1,145 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Binary Tree Sum I, II, III"
+content: '''
+  # Binary Tree Sum I, II, III
+  ### 复杂度：
+  - 一般情况下，搜索问题的复杂度我们一般情况下是这么计算的 O(`解的个数` * `产生解的复杂度`)
+  - 这道题计算出所有符合的path是`O(n)`，但是如果print out所有符合的path，那么最坏是`O(n^2)`的。因为有可能符合的path有很多条，极端的例子就是，从root到所有叶子节点的path的sum全部都一样。
+  
+  
+  I: 找所有`sum`为target的`path`，`path`必须从`root`到`leaf`
+  ```java
+      public List<List<Integer>> binaryTreePathSum(TreeNode root, int target) {
+          // Write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(root == null){
+              return results;
+          }
+          List<Integer> path = new ArrayList<Integer>();
+          dfs (results, path, root, target);
+          return results;
+      }
+      private void dfs (List<List<Integer>> results,
+                        List<Integer> path,
+                        TreeNode root,
+                        int target){
+          if(root == null){
+              return;
+          }
+          path.add(root.val);
+          target = target - root.val;
+          //只有到达leaf时才将path加入result
+          //并且此时不能return，还要继续找，因为可能还有只有left或只有right的情况
+          if(root.left == null && root.right == null && target == 0){
+              results.add(new ArrayList<Integer>(path));
+          }
+          if(root.left != null){
+              dfs (results, path, root.left, target);
+          }
+          if(root.right != null){
+              dfs (results, path, root.right, target);
+          }
+          path.remove(path.size() - 1);
+      }
+  ```
+  
+  II: `path`不一定非要从`root`到`leaf`,但必须是一条`straight down line`
+  ```java
+      public List<List<Integer>> binaryTreePathSum2(TreeNode root, int target) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          // Write your code here
+          if(root == null){
+              return results;
+          }
+          helper(results, root, target);
+          return results;
+      }
+      //因为题目不限定path必须从root到leaf，所以helper以树中的每个点做为root做一遍search
+      private void helper(List<List<Integer>> results,
+                          TreeNode root, 
+                          int target){
+          if(root == null){
+              return;
+          }
+          List<Integer> path = new ArrayList<Integer>();
+          dfs (results, path, root, target);
+          helper(results, root.left, target);
+          helper(results, root.right, target);
+      }
+      private void dfs (List<List<Integer>> results,
+                        List<Integer> path,
+                        TreeNode root,
+                        int target){
+          if(root == null){
+              return;
+          }
+          path.add(root.val);
+          target = target - root.val;
+          //因为题目不限定path必须从root到leaf，不到leaf node也可以返回
+          if(target == 0){
+              results.add(new ArrayList<Integer>(path));
+          }
+          if(root.left != null){
+              dfs (results, path, root.left, target);
+          }
+          if(root.right != null){
+              dfs (results, path, root.right, target);
+          }
+          path.remove(path.size() - 1);
+      }
+  ```
+  III: `path`可以从树种任意一点开始，任意一点结束(`O(n^2)` dfs枚举起点 然后再一次dfs)
+  - 当`root`为路径起点时，`prev`为空，此时可以向三个方向进行搜索（`parent`节点、`left`节点、`right`节点）。
+  - 同一个点，只能走一次，不能重复走。所以当`root`不是路径起点时，此时的`prev`为搜索路径中`root`的前一个点，只能向三个方向中，非`prev`的两个方向进行搜索。
+  ```java
+      public List<List<Integer>> binaryTreePathSum3(ParentTreeNode root, int target) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(root == null){
+              return results;
+          }
+          // Write your code here
+          helper(results, root, target);
+          return results;
+      }
+      private void helper(List<List<Integer>> results,
+                          ParentTreeNode root, 
+                          int target){
+          if(root == null){
+              return;
+          }
+          dfs(results, new ArrayList<Integer>(), root, null, target);
+          helper(results, root.left, target);
+          helper(results, root.right, target);
+      }
+      private void dfs(List<List<Integer>> results,
+                          List<Integer> path,
+                          ParentTreeNode root,
+                          ParentTreeNode prev,
+                          int target){
+          if(root == null){
+              return;
+          }
+          path.add(root.val);
+          target -= root.val;
+          if(target == 0){
+              results.add(new ArrayList<Integer>(path));
+          }
+          if(root.left != null && root.left != prev){
+              dfs(results, path, root.left, root, target);
+          }
+          if(root.right != null && root.right != prev){
+              dfs(results, path, root.right, root, target);
+          }
+          if(root.parent != null && root.parent != prev){
+              dfs(results, path, root.parent, root, target);
+          }
+          path.remove(path.size() - 1);
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-15T19:42:12.227Z"
+updatedAt: "2017-09-15T21:33:24.908Z"

@@ -1,0 +1,32 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Subarray Sum"
+content: '''
+  # Subarray Sum
+  ```java
+  public ArrayList<Integer> subarraySum(int[] nums) {
+          // write your code here
+          //Map存PrefixSum和其index
+          HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+          ArrayList<Integer> result = new ArrayList<Integer>();
+          int sum = 0;
+          map.put(0, -1);
+          for(int i = 0; i < nums.length; i++){
+              sum += nums[i];
+              if(map.containsKey(sum)){
+                  result.add(map.get(sum) + 1);
+                  result.add(i);
+                  return result;
+              } else {
+                  map.put(sum, i);
+              }
+          }
+          return result;
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-14T22:49:16.736Z"
+updatedAt: "2017-09-14T22:49:53.154Z"

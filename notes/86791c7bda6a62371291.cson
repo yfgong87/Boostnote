@@ -1,0 +1,24 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "最大公约数"
+content: '''
+  # 最大公约数
+  ```java
+  static int gcd(int a, int b)
+  {
+    while(a != 0 && b != 0) // until either one of them is 0
+    {
+       int temp = b;
+       b = a % b;
+       a = temp;
+    }
+    // either one is 0, so return the non-zero value
+    return a + b; 
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-13T17:28:49.525Z"
+updatedAt: "2017-09-13T17:29:34.575Z"

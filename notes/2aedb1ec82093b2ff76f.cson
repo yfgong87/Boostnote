@@ -3,7 +3,8 @@ folder: "8d19d56ee029f3fa592b"
 title: "Search 2D Matrix"
 content: '''
   # Search 2D Matrix
-  public class Solution {
+  ```java
+    public class Solution {
       /*
        * @param matrix: matrix, a list of lists of integers
        * @param target: An integer
@@ -14,58 +15,30 @@ content: '''
           if(matrix.length == 0 || matrix[0].length == 0){
               return false;
           }
+          int row = matrix.length;
+          int col = matrix[0].length;
           int start = 0;
-          int end = matrix.length - 1;
+          int end = row * col - 1;
           int mid = 0;
-          while (start + 1 < end){
+          while(start + 1 < end){
               mid = start + (end - start) / 2;
-              if(matrix[mid][0] < target){
+              if(matrix[mid / col][mid % col] < target){
                   start = mid;
-              } else if(matrix[mid][0] > target){
-                  end = mid;
               } else {
                   end = mid;
               }
           }
-          int index = 0;
-          if(matrix[start][0] == target || matrix[end][0] == target){
-              return true;
-          } else if(matrix[start][0] < target){
-              index = start;
-          } else {
-              index = end;
-          }
-          start = 0;
-          end = matrix[0].length - 1;
-          mid = 0;
-          while (start + 1 < end){
-              mid = start + (end - start) / 2;
-              if(matrix[index][mid] < target){
-                  start = mid;
-              } else if(matrix[index][mid] > target){
-                  end = mid;
-              } else {
-                  end = mid;
-              }
-          }
-          if(matrix[index][start] == target || matrix[index][end] == target){
+          if(matrix[start / col][start % col] == target ||
+             matrix[end / col][end % col] == target){
               return true;
           }
           return false;
       }
   }
-  
-  
-  if(matrix[start][0] <= target && target <= matrix[start][col - 1]){
-              index = start;
-          } else if (matrix[end][0] <= target && target <= matrix[end][col - 1]){
-              index = end;
-          } else {
-              return false;
-          }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-07T18:39:34.543Z"
-updatedAt: "2017-09-07T18:40:09.791Z"
+updatedAt: "2017-09-13T15:54:56.556Z"

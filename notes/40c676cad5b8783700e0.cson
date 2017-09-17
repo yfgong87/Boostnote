@@ -1,0 +1,72 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Flatten Binary Tree to Linked List"
+content: '''
+  # Flatten Binary Tree to Linked List
+  - 首先将`root.right`接到`root.left`的`最右下`的点
+  - 然后将`root.left`整体挪到右边成为新的`root.right`
+  - 然后将新的`root.left`变成`null`
+  - 最后返回整个序列的最后一个`node`
+  - 回到上一层递归
+  ```java
+  /*
+       1 
+      / \\               
+     2   5
+    / \\   \\
+   3   4   6
+   
+       1               1               1                 1
+      / \\             / \\             /                   \\
+     2   5           2   5           2                     2
+    /     \\           \\   \\           \\                     \\
+   3       6           3   6           3                     3
+    \\                   \\               \\                     \\
+     4                   4               4                     4
+                       (返回)              \\                     \\
+                                           5                     5
+                                            \\                     \\
+                                             6                     6
+  */
+  public class Solution {
+      /**
+       * @param root: a TreeNode, the root of the binary tree
+       * @return: nothing
+       */
+      public void flatten(TreeNode root) {
+          // write your code here
+          helper (root);
+      }
+      private TreeNode helper (TreeNode root){
+          if (root == null){
+              return null;
+          }
+          TreeNode left = helper(root.left);
+          TreeNode right = helper(root.right);
+          
+          //connect last element on the left tree to root.right
+          if (left != null){
+              left.right = root.right;   //root.right接到root.left的最右下
+              root.right = root.left;    //root.left接到root.right
+              root.left = null;          //root.left成为null
+          }
+          
+          //if right is not null, right is the last element
+          if (right != null){
+              return right;
+          }
+          //if right is null but left is not null, left is the last element
+          if (left != null){
+              return left;
+          }
+          //if both left and right are null, root is is the last element
+          return root;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-16T17:15:04.366Z"
+updatedAt: "2017-09-16T17:40:32.012Z"

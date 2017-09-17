@@ -1,0 +1,53 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Tree Algorithms"
+content: '''
+  # Tree Algorithms
+  ### isSubTree vs isSameTree
+  ```java
+  //判断T2是否为T1的subtree
+  public boolean isSubtree(TreeNode T1, TreeNode T2) {
+          // write your code here
+          //必须先判断T2是否为空，因为即使T1为空，只要T2为空也满足条件
+          if(T2 == null){
+              return true;
+          }
+          if(T1 == null){
+              return false;
+          }
+          return isSameTree(T1, T2) || isSubtree(T1.left, T2) || isSubtree(T1.right, T2);
+      }
+      public boolean isSameTree(TreeNode T1, TreeNode T2){
+          if(T1 == null && T2 == null){
+              return true;
+          }
+          if(T1 == null || T2 == null){
+              return false;
+          }
+          if(T1.val != T2.val){
+              return false;
+          }
+          return isSameTree(T1.left, T2.left) && isSameTree(T1.right, T2.right);
+      }
+  ```
+  ### Tree Amplitude
+  Tree里最大值与最小值的差
+  ```java
+  public static int amplitude(TreeNode root){
+      if (root == null) return 0;
+      int max = root.val, min = root.val;
+      return helper(root, max, min);
+  }
+  private static int helper(TreeNode root, int max, int min){
+      if (root == null) return max - min;
+      if (root.val < min) min = root.val;
+      if (root.val > max) max = root.val;
+      return Math.max(helper(root.left, max, min), helper(root.right, max, min));
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-15T15:39:10.933Z"
+updatedAt: "2017-09-15T15:56:18.025Z"

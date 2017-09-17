@@ -50,6 +50,7 @@ content: '''
           ListNode n1 = head.next;
           ListNode prev = null;
           ListNode curr = n1;
+          //curr最后一定是在nk+1，类似于reverse LinkedList中curr最后一定是null
           while(curr != nkplus){
               ListNode temp = curr.next;
               curr.next = prev;
@@ -70,4 +71,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-09T17:31:19.402Z"
-updatedAt: "2017-09-09T17:31:30.363Z"
+updatedAt: "2017-09-12T21:31:41.814Z"

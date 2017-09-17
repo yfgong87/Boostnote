@@ -1,0 +1,28 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "坐标表示"
+content: '''
+  # 坐标表示
+  四连通：
+  ```java
+  int[] directionX = {1, -1, 0, 0};
+  int[] directionY = {0, 0, 1, -1};
+  for(int i = 0; i < 4; i++){
+    adj = matrix[x + directionX[i]][y + directionY[i]];
+  }
+  ```
+  八连通：
+  ```java
+  int[] directionX = {1, -1, 0, 0, 1, -1, 1, -1};
+  int[] directionY = {0, 0, 1, -1, 1, 1, -1, -1};
+  for(int i = 0; i < 8; i++){
+    adj = matrix[x + directionX[i]][y + directionY[i]];
+  }
+  ```
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-14T17:13:30.133Z"
+updatedAt: "2017-09-14T17:16:21.853Z"
