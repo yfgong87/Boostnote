@@ -58,7 +58,8 @@ content: '''
   - `double` is represented in `64` bits, with `1` sign bit, `11` bits of exponent, and `52` bits of significand.
   ---
   - `boolean` data type represents one bit of information
-  - Default value is false
+  - `boolean` 的 default 是 `false`
+  - 注意：`Boolean` 的 default 是`null`
   ---
   - `char` data type is a single 16-bit Unicode character
   - `char` 是以其在ASCII中对应的`int`来存储的
@@ -101,4 +102,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:00:38.326Z"
-updatedAt: "2017-09-12T02:25:44.537Z"
+updatedAt: "2017-09-22T06:44:54.869Z"

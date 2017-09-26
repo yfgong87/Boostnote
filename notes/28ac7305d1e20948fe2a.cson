@@ -1,0 +1,74 @@
+type: "SNIPPET_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Validate BST"
+description: "Validate BST"
+snippets: [
+  {
+    name: ""
+    mode: "text"
+    content: '''
+      /**
+       * Definition of TreeNode:
+       * public class TreeNode {
+       *     public int val;
+       *     public TreeNode left, right;
+       *     public TreeNode(int val) {
+       *         this.val = val;
+       *         this.left = this.right = null;
+       *     }
+       * }
+       */
+      class ResultType {
+          boolean isBST;
+          int max, min;
+          
+          ResultType(boolean isBST, int max, int min) {
+              this.isBST = isBST;
+              this.max = max;
+              this.min = min;
+          }
+      }
+      
+      public class Solution {
+          /**
+           * @param root: The root of binary tree.
+           * @return: True if the binary tree is BST, or false
+           */
+          public boolean isValidBST(TreeNode root) {
+              ResultType result = helper(root);
+              return result.isBST;
+          }
+          
+          private ResultType helper(TreeNode root) {
+              if (root == null) {
+                  return new ResultType(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+              }
+              
+              ResultType left = helper(root.left);
+              ResultType right = helper(root.right);
+              
+              boolean isBST = true;
+              if (!left.isBST || !right.isBST) {
+                  // if is_bst is false then minValue and maxValue are useless
+                  isBST = false;
+              }
+              
+              if (root.left != null && left.max >= root.val || 
+                  root.right != null && right.min <= root.val) {
+                  isBST = false;
+              }
+              
+              return new ResultType(isBST,
+                                    Math.max(root.val, right.max),
+                                    Math.min(root.val, left.min));
+          }
+      }
+      
+    '''
+  }
+]
+tags: []
+isStarred: false
+isTrashed: true
+createdAt: "2017-09-25T20:30:44.743Z"
+updatedAt: "2017-09-25T20:31:15.815Z"

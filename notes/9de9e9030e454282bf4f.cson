@@ -1,0 +1,102 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Cut off Tree From Golf Field"
+content: '''
+  # Cut off Tree From Golf Field
+  ```java
+  class Solution {
+      class Tree{
+          int x;
+          int y;
+          int height;
+          Tree(int x, int y, int height){
+              this.x = x;
+              this.y = y;
+              this.height = height;
+          }
+      }
+      class Point{
+          int x;
+          int y;
+          Point(int x, int y){
+              this.x = x;
+              this.y = y;
+          }
+      }
+      public int cutOffTree(List<List<Integer>> forest) {
+          if(forest == null || forest.size() == 0){
+              return 0;
+          }
+          int row = forest.size();
+          int col = forest.get(0).size();
+          PriorityQueue<Tree> pq = new PriorityQueue<Tree>((Tree a, Tree b) -> a.height - b.height);
+          //把所有树按从矮到高加入pq
+          for(int i = 0; i < row; i++){
+              for(int j = 0; j < col; j++){
+                  if(forest.get(i).get(j) > 1){
+                      pq.add(new Tree(i, j, forest.get(i).get(j)));
+                  }
+              }
+          }
+          
+          Point start = new Point(0, 0);
+          int totalStep = 0;
+          while(!pq.isEmpty()){
+              Tree tree = pq.poll();
+              int step = getStep(forest, start, tree, row, col);
+              //如果从当前起点不能走到下一棵树，因为pq里还有树没砍完，返回-1表示不能全部砍完
+              if(step < 0){
+                  return -1;
+              }
+              totalStep += step;
+              //砍完的树成为新起点
+              start.x = tree.x;
+              start.y = tree.y;
+          }
+          return totalStep;
+      }
+      
+      int[] directionX = {0, 0, 1, -1};
+      int[] directionY = {1, -1, 0, 0};                           
+      public int getStep(List<List<Integer>> forest, Point start, Tree tree, int row, int col){
+          int step = 0;
+          boolean[][] visited = new boolean[row][col];
+          Queue<Point> queue = new LinkedList<Point>();
+          queue.offer(start);
+          visited[start.x][start.y] = true;
+          while(!queue.isEmpty()){
+              int size = queue.size();
+              //因为每一步只能往上下左右走一步，所以需要level for loop
+              for(int i = 0; i < size; i++){
+                  Point head = queue.poll();
+                  //如果当前点就是目标树，返回步数
+                  if(head.x == tree.x && head.y == tree.y){
+                      return step;
+                  }
+                  //看上下左右四个点，如果是坑，或者越界了，或者已经访问过了，则跳过
+                  for(int j = 0; j < 4; j++){
+                      Point adj = new Point(head.x + directionX[j], head.y + directionY[j]);
+                      if(!inBound(adj, forest) || forest.get(adj.x).get(adj.y) == 0 || visited[adj.x][adj.y]){
+                          continue;
+                      }
+                      queue.offer(adj);
+                      visited[adj.x][adj.y] = true;
+                  }
+              }
+              //上下左右都没找到目标树，则步数加一
+              step++;
+          }
+          return -1;
+      }
+                             
+      public boolean inBound(Point a, List<List<Integer>> forest){
+          return a.x >= 0 && a.x < forest.size() && a.y >= 0 && a.y < forest.get(0).size();
+      }                         
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-21T18:38:07.997Z"
+updatedAt: "2017-09-21T18:43:36.037Z"

@@ -9,6 +9,7 @@ content: '''
   - public static `int` `Arrays`.`binarySearch`(`Object`[ ] `array`, `Object` `key`): Searches the specified array of Object ( Byte, Int , double, etc.) for the specified value using the binary search algorithm. The array must be sorted prior to making this call. This returns index of the search key, if it is contained in the list; otherwise, it returns ( – (insertion point + 1)).
   - public static `void` `Arrays`.`fill`(`int`[ ] `array`, `int` `val`): Fill `array` with `val`
   - public static `void` `Arrays`.`sort`(`Object`[ ] `array`): Sorts the specified array of objects into an ascending order
+  - `Arrays`.`equals`(`a`, `b`): `a`, `b` can be any array of `Objects`/`primitive`
   - `foreach` loop:
   ```java
   public class TestArray {
@@ -116,9 +117,11 @@ content: '''
   那么回过头来看看，为什么我们需要一个 `(0,0)` 的 pair 呢？
   因为 这个 0,0 代表的就是前0个数之和为0
   一个 n 个数的数组， 变成了 prefix Sum 数组之后，会多一个数出来
+  
+  ### `Arrays`.`asList`(`int`[ ] `array`)
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-09-08T16:19:22.866Z"
+updatedAt: "2017-09-24T16:28:29.660Z"

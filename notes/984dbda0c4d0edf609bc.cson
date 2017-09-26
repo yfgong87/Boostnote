@@ -13,7 +13,7 @@ content: '''
   - `LeftChild` < `Root` < `RightChild`
   - Space Complexity of Tree structure is `O(h)`, where h is the height of the tree. Worst case `O(n)`, best/average case `O(logn)`
   ### Traverse
-  - Always `Left` -> `Right`
+  - Always `Left` -> `Right`, `In`/`Pre`/`Post`指的是`Root`的位置
   - In-order: `Left` -> `Root` -> `Right`, print element in sorted order in a `BST`
   - Pre-order: `Root` -> `Left` -> `Right`
   - Post-order：`Left` -> `Right` -> `Root`
@@ -44,14 +44,19 @@ content: '''
           // write your code here
           ArrayList<Integer> results = new ArrayList<Integer>();
           Stack<TreeNode> stack = new Stack<TreeNode>();
+          //STEP1: Keep Pushing to Stack until there is no left child
           while(root != null){
               stack.push(root);
               root = root.left;
           }
+          //STEP2: Keep Popping until Stack is Empty
           while(!stack.isEmpty()){
               TreeNode head = stack.pop();
+              //head is the left child of its parent, need to be print first
+              //head is also the root of their right child
               results.add(head.val);
               head = head.right;
+              //STEP3: Repeat the entire process for the right child
               while(head != null){
                   stack.push(head);
                   head = head.left;
@@ -117,4 +122,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T19:06:25.916Z"
-updatedAt: "2017-09-14T20:51:15.608Z"
+updatedAt: "2017-09-26T01:37:03.523Z"

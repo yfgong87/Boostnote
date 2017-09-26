@@ -1,0 +1,96 @@
+type: "MARKDOWN_NOTE"
+folder: "6e2623e3aff765e4a79c"
+title: "Zombie in Matrix"
+content: '''
+  # Zombie in Matrix
+  ```java
+  public class Solution {
+      /**
+       * @param grid  a 2D integer grid
+       * @return an integer
+       */
+      class Coordinate{
+          int x;
+          int y;
+          Coordinate(int x, int y){
+              this.x = x;
+              this.y = y;
+          }
+      }
+      
+      public int ZOMBIE = 1;
+      public int PEOPLE = 0;
+      
+      public int zombie(int[][] grid) {
+          // Write your code here
+          if(grid == null || grid.length == 0 || grid[0].length == 0){
+              return 0;
+          }
+          int row = grid.length;
+          int col = grid[0].length;
+          int people = 0;
+          Queue<Coordinate> queue = new LinkedList<Coordinate>();
+          //search the array, count "0" while find all "1" and put into queue
+          for(int i = 0; i < row; i++){
+              for(int j = 0; j < col; j++){
+                  //find people
+                  if(grid[i][j] == PEOPLE){
+                      people++;
+                  } else if(grid[i][j] == ZOMBIE){    //find zombie
+                      queue.offer(new Coordinate(i, j));
+                  }
+              }
+          }
+          //if no people, return 0
+          if(people == 0){
+              return 0;
+          }
+          
+          int day = 0;
+          int[] directionX = {1, -1, 0, 0};
+          int[] directionY = {0, 0, 1, -1};
+          
+          while(!queue.isEmpty()){
+              day++;
+              int size = queue.size();
+              for (int i = 0; i < size; i++){
+                  Coordinate head = queue.poll();
+                  for(int j = 0; j < 4; j++){
+                      Coordinate adj = new Coordinate(head.x + directionX[j], head.y + directionY[j]);
+                      //check if the neighbor is inBound and if it is a people
+                      //if neighbor is not people, continue
+                      if(!peopleInBound(grid, adj)){
+                          continue;
+                      }
+                      //if neighbor is people, turn it to zombie, people--
+                      grid[adj.x][adj.y] = ZOMBIE;
+                      people--;
+                      //if people is 0, done, return day
+                      if(people == 0){
+                          return day;
+                      }
+                      //add new zombie into queue
+                      queue.offer(adj);
+                  }
+              }
+          }
+          //people is never 0, return -1
+          return -1;
+      }
+      private boolean peopleInBound(int[][] grid, Coordinate coor){
+          if(coor.x < 0 || coor.y < 0 || coor.x >= grid.length || coor.y >= grid[0].length){
+              return false;
+          }
+          if(grid[coor.x][coor.y] != PEOPLE){
+              return false;
+          }
+          return true;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-17T20:58:30.854Z"
+updatedAt: "2017-09-17T20:58:40.311Z"

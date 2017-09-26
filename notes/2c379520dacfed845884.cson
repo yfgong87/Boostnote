@@ -1,20 +1,9 @@
 type: "MARKDOWN_NOTE"
 folder: "ca7b6b3755f93c46a5f8"
-title: "Stack"
-content: '''
-  # `Stack`
-  - `Stack` is last in, last out, like a stack of disc
-  - `Queue` is first in, first out, like pass a door
-  
-  ### `Stack`
-  - `boolean` `empty` ( ):  Returns `true` if the stack is empty, and returns `false` if the stack contains elements.
-  - `Object` `peek`( ): Returns the element on the `TOP` of the stack, but does **NOT** remove it.
-  - `Object` `pop`( ): Returns the element on the **TOP** of the stack, `REMOVING` it in the process.
-  - `Object` `push`(`Object` `element`): Pushes the `element` onto the `stack`. `Element` is also returned.
-  - `int` `search`(`Object` `element`): Searches for `element` in the `stack`. If found, its OFFSET from the top of the `stack` is returned. Otherwise, `-1` is returned. i.e. Top element will return `1`.
-'''
+title: ""
+content: ""
 tags: []
 isStarred: false
-isTrashed: false
+isTrashed: true
 createdAt: "2017-08-07T21:28:46.275Z"
-updatedAt: "2017-09-03T00:52:32.910Z"
+updatedAt: "2017-09-21T01:37:33.478Z"

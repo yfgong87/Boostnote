@@ -19,8 +19,15 @@ content: '''
       return true;
   }
   ```
-  ### Split String
-  注意！！空串`split`还是空串，有可能会死循环
+  ### Split String: `String`[ ] `String`.`split`(`String` `regex`)
+  - `regex`本身被删掉
+  - 如果`regex`删掉后生成的空串在中间，则保留，如果在开头或结尾，则不保留
+  ```java
+  String str = "boo:and:foo";
+  str.split(":"); //{ "boo", "and", "foo" }
+  str.split("o"); //{ "b", "", ":and:f" }, 第二个"o"成为空串，第三和第四个"o"不保留
+  ```
+  - 注意！！空串`split`还是空串，有可能会死循环
   ```java
   str = "Hello I'm your String";
   String[] splited = str.split(" ");//split by ONE whitespace
@@ -69,6 +76,14 @@ content: '''
   - `char[ ]` `String`.`toCharArray`( )
   - `String[ ]` `String`.`split`(`String` `regex`)
   - `String` `String`.`concat`(`String` `anotherStr`): concatenate `anotherStr` to the end of `String`
+  ```java
+  String str = "";
+  char a = 'a';
+  int b = 1;
+  // + 是以 StringBuilder.append() 实现的
+  str = a + b; //b被自动转换成String，最后结果为"a1"
+  return "" + a + b; //同上
+  ```
   - `String` `String`.`trim`( ): Returns a copy of the string, with leading and trailing whitespace omitted.
   - `String` `String`.`replaceAll`(`String` `regex`, `String` `replacement`): Replaces EACH match.
   - `String` `String`.`replaceFirst`(`String` `regex`, `String` `replacement`): Replaces FIRST match
@@ -77,16 +92,31 @@ content: '''
   `Primitive` can be `boolean`, `char`, `char[ ]`, `double`, `long`, `int`, `float`, `Object`
   - `String`.`valueOf`(`char[ ]` charSet)
   - `String`.`valueOf`(`char[ ]` `charSet`, `int` `offset`, `int` `count`)
+  
   #### indexOf / lastIndexOf
-  `indexOf`: Return the index of `first` occurence
-  `lastIndexOf`: Return the index of `last` occurence
-  Return `-1` if NOT found
+  ##### 返回值：
+  - `indexOf`: Return the index of `first` occurence
+  - `lastIndexOf`: Return the index of `last` occurence
+  - Both return `-1` if NOT found
+  - 返回的都是`String`的第一位所在的`index`
+  ```java
+  //     012345678910
+  str = "Hello Hello";
+  str.indexOf("llo"); //返回2，返回第一个char所在的index
+  str.lastIndexOf("llo"); //返回8，返回第一个char所在的index
+  str.indexOf("llo", 5); //返回8，从5往后找
+  str.lastIndexOf("llo", 5); //返回2, 从5往前找
+  ```
+  
+  ##### 语法：
   - `int` `String`.`indexOf`(`char` `c`)
   - `int` `String`.`indexOf`(`String` `s`)
   - `int` `String`.`indexOf`(`char` `c`, `int` `startIndex`)
-  - `int` `String`.`indexOf`(`String` `s`, `int` `startIndex`)
+  - `int` `String`.`indexOf`(`String` `s`, `int` `startIndex`) : 可以把`startIndex`设为上一个`index + 1`去找第二次出现的`index`
+  - `int` `String`.`lastIndexOf`(`String` `s`, `int` `startIndex`): 从`startIndex`往回(`backwards`)找！
+  
+  ##### 活用indexOf：Remove Vowel
   ```java
-  //活用indexOf：Remove Vowel
   //本质上将indexOf作为一个类似.contains()的method来使用
   StringBuffer sb = new StringBuffer();
   String v = "aeiouAEIOU";
@@ -95,7 +125,13 @@ content: '''
       sb.append(string.charAt(i));
   }
   return sb.toStirng();
+  
+  //String本身有.contains()
+  public boolean String.contains(CharSequence s);
+  String.contains(String str);  //Valid, String can be converted to CharSequence
+  String.contains(char c); //WRONG! char cannot be converted to CharSequence
   ```
+  
   #### Other
   - `int` `String`.`hashcode`( )
   
@@ -112,9 +148,13 @@ content: '''
   - `boolean` `Character`.`isWhiteSpace`(`char` `c`)
   ### transform
   - `String` `Character`.`toString`( )
+  ```java
+  char[] charArray = oldString.toCharArray();
+  String newString = new String(charArray);
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-09-16T00:36:54.144Z"
+updatedAt: "2017-09-22T20:26:04.808Z"

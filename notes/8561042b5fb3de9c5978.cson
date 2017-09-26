@@ -3,6 +3,15 @@ folder: "403e789cfa873c1c2c82"
 title: "Iterate HashSet or HashMap"
 content: '''
   # Iterate `HashSet` or `HashMap`
+  ### Enhanced `for` loop
+  Can be used to iterate `HashSet`
+  ```java
+  Set<String> set = new HashSet<String>();
+  
+  for (String s : set) {
+      System.out.println(s);
+  }
+  ```
   ### `entrySet`
   NOTE: `entrySet` can only be used to iterate `HashMap`
   - Iterate `HashMap` with `entrySet` + enhanced `for` loop
@@ -59,4 +68,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T22:54:35.262Z"
-updatedAt: "2017-09-01T14:13:59.284Z"
+updatedAt: "2017-09-17T16:07:40.400Z"

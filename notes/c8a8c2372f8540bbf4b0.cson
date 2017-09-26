@@ -72,9 +72,77 @@ content: '''
   }
   
   ```
+  
+  ### Java 7 vs Java 8 Comparator
+  - Classic Comparator example.
+  ```java
+  //Example 1 - Java 7
+  Comparator<Point> comparator = new Comparator<Point>() {
+  	@Override
+  	public int compare(Point a, Point b) {
+  		return a.x - b.x;
+  	}
+  };
+  
+  //Example 2 - Java 7
+  PriorityQueue<Point> pq = new PriorityQueue<Point>(new Comparator<Point>(){
+    @Override
+  	public int compare(Point a, Point b) {
+  		return a.x - b.x;
+  	}
+  });
+  
+  //Example 3 - Java 7
+  PriorityQueue<Point> pq = new PriorityQueue<Point>(new Comparator<Point>(){
+    @Override
+  	public int compare(Point a, Point b) {
+  		int dif = a.x - b.x;
+      if(dif == 0){
+          dif = a.y - b.y;
+      }
+      return dif;
+  	}
+  });
+  ```
+  - Lambda expression equivalent.
+  ```java
+  //Example 1 - Java 8
+  Comparator<Point> comparator =
+  	(Point a, Point b) -> a.x - b.x;
+    
+  //Example 2 - Java 8
+  PriorityQueue<Point> pq = new PriorityQueue<Point>((Point a, Point b) -> a.x - b.x);
+  
+  //Example 3 - Java 8
+  PriorityQueue<Point> pq = new PriorityQueue<Point>((Point a, Point b) -> {
+          if(a.x == b.x){
+              return a.y - b.y;
+          } else {
+              return a.x - b.x;
+          }
+        });
+  
+  //Sort
+  /**
+   * Definition of Interval:
+   * public class Interval {
+   *     int start, end;
+   *     Interval(int start, int end) {
+   *         this.start = start;
+   *         this.end = end;
+   *     }
+   */
+  //写法一
+  intervals.sort(Comparator.comparing(i -> i.start));
+  //写法二
+  Collections.sort(intervals, (Interval a, Interval b) -> a.start - b.start);
+  //写法三
+  intervals.sort((Interval a, Interval b) -> a.start - b.start);
+  ```
+  
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T17:01:32.776Z"
-updatedAt: "2017-09-01T18:47:14.881Z"
+updatedAt: "2017-09-22T18:28:58.738Z"

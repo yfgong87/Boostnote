@@ -24,6 +24,10 @@ content: '''
   ### Replace
   - `StringBuilder`.`replace`(`int` `start`, `int` `end`, `String` `s`)
   - `void` `setCharAt`(`int` `index`, `char` `c`)
+  ```java
+  StringBuilder myName = new StringBuilder("Yifon Gong");
+  myName.setCharAt(3, 'a');
+  ```
   ### Reverse
   - `StringBuilder`.`reverse`( )
   ### Cast to `String`
@@ -35,4 +39,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-18T04:59:12.457Z"
-updatedAt: "2017-09-05T02:58:57.034Z"
+updatedAt: "2017-09-21T04:55:06.703Z"

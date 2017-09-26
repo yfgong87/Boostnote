@@ -11,6 +11,7 @@ content: '''
           helper(root);
           return max;
       }
+      //helper 返回的是当前 root 往下走的 Longest Consecutive Sequence
       private int helper (TreeNode root){
           if(root == null){
               return 0;
@@ -36,7 +37,7 @@ content: '''
                   right = 1;
               }
           }
-          
+          //往左下和往右下走的 Longest Consecutive Sequence 取最长
           int result = Math.max(left, right);
           max = Math.max(max, result);
           return result;
@@ -71,7 +72,7 @@ content: '''
           }
           returnType left = helper(root.left);
           returnType right = helper(root.right);
-          int dec = 0;
+          int dec = 0;  //如果不连续，最少也是0
           int inc = 0;
           if(root.left != null && root.left.val == root.val - 1){
               dec = Math.max(dec, left.max_dec + 1);
@@ -86,6 +87,7 @@ content: '''
               inc = Math.max(inc, right.max_inc + 1);
           }
           int max = dec + 1 + inc;
+          //注意还要再跟 left 和 right 的最大值比较，分治的最后一步
           max = Math.max(max, Math.max(left.max, right.max));
           return new returnType(dec, inc, max);
       }
@@ -132,4 +134,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T02:48:00.281Z"
-updatedAt: "2017-09-16T03:51:17.630Z"
+updatedAt: "2017-09-26T03:09:37.241Z"

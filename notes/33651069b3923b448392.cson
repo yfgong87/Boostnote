@@ -1,0 +1,76 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Binary Tree Serilization & Deserilization"
+content: '''
+  # Binary Tree Serilization & Deserilization
+  ```java
+  public class Codec {
+  
+      // Encodes a tree to a single string.
+      public String serialize(TreeNode root) {
+          if(root == null){
+              return "";
+          }
+          StringBuilder sb = new StringBuilder();
+          Queue<TreeNode> queue = new LinkedList<TreeNode>();
+          queue.offer(root);
+          while(!queue.isEmpty()){
+              int size = queue.size();
+              for(int i = 0; i < size; i++){
+                  TreeNode head = queue.poll();
+                  if(head == null){
+                      sb.append("#,");
+                      continue;
+                  } else {
+                      sb.append(Integer.toString(head.val)).append(",");
+                  }
+                  //千万注意这里不需要check是否null，即使是null也要放进queue
+                  queue.offer(head.left);
+                  queue.offer(head.right);
+              }
+          }
+          //移除trailing的'#'和','
+          while(sb.charAt(sb.length() - 1) == '#' ||
+                sb.charAt(sb.length() - 1) == ','){
+              sb.deleteCharAt(sb.length() - 1);
+          }
+          return sb.toString();
+      }
+  
+      // Decodes your encoded data to tree.
+      public TreeNode deserialize(String data) {
+          if(data.equals("")){
+              return null;
+          }
+          String[] vals = data.split(",");
+          ArrayList<TreeNode> queue = new ArrayList<TreeNode>();
+          TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
+          queue.add(root);
+          boolean isLeftChild = true;
+          //index用于找到当前左右儿子对应的父亲，每次右儿子结束后就要转到下一个父亲
+          int index = 0;
+          for(int i = 1; i < vals.length; i++){
+              if(!vals[i].equals("#")){
+                  TreeNode node = new TreeNode(Integer.parseInt(vals[i]));
+                  if(isLeftChild){
+                      queue.get(index).left = node;
+                  } else {
+                      queue.get(index).right = node;
+                  }
+                  queue.add(node);
+              }
+              if(!isLeftChild){
+                  index++;
+              }
+              isLeftChild = !isLeftChild;
+          }
+          return root;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-21T02:46:26.990Z"
+updatedAt: "2017-09-21T02:50:26.550Z"

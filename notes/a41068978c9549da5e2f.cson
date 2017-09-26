@@ -1,0 +1,83 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Word Ladder"
+content: '''
+  # Word Ladder
+  严格来说复杂度是`O(nL^2)`，`L`为字符串长度。`L^2`包含两个部分，一个是枚举最后一个单词的长度时的耗费`L`，然后枚举出一个单词之后，检查这个单词在hash表中是否存在，严格的说应该是需要耗费`O(L)`的，所以是`O(NL^2）`。但是建议这个hash表部分的复杂度，一定要明白的告诉面试官你是怎么计算的，否则某些水平不高的面试官可能会以为你算错了。
+  ```java
+  public class Solution {
+      public int ladderLength(String start, String end, Set<String> dict) {
+          if (dict == null) {
+              return 0;
+          }
+          //起始已经等于结束，直接返回1
+          if (start.equals(end)) {
+              return 1;
+          }
+          //必须先把起始和结束的word加到字典里
+          //dict.add(start); //可以不加start，但必须加end
+          dict.add(end);
+  
+          HashSet<String> hash = new HashSet<String>();
+          Queue<String> queue = new LinkedList<String>();
+          queue.offer(start);
+          hash.add(start);
+          
+          int length = 1;
+          while(!queue.isEmpty()) {
+              length++;
+              //因为每换一个char都需要加一步数，所以需要分层
+              int size = queue.size();
+              for (int i = 0; i < size; i++) {
+                  String word = queue.poll();
+                  for (String nextWord: getNextWords(word, dict)) {
+                      //如果下一个word已经被考虑过了，continue
+                      if (hash.contains(nextWord)) {
+                          continue;
+                      }
+                      //如果下一个word已经等于end了就结束
+                      if (nextWord.equals(end)) {
+                          return length;
+                      }
+                      
+                      hash.add(nextWord);
+                      queue.offer(nextWord);
+                  }
+              }
+          }
+          return 0;
+      }
+   
+      // get connections with given word.
+      // for example, given word = 'hot', dict = {'hot', 'hit', 'hog'}
+      // it will return ['hit', 'hog']
+      private ArrayList<String> getNextWords(String word, Set<String> dict) {
+          ArrayList<String> nextWords = new ArrayList<String>();
+          //技巧：可以直接for循环26个字母
+          for (char c = 'a'; c <= 'z'; c++) {
+              //将word中的每一位依次换成从a到z的char(除了原本的char)
+              for (int i = 0; i < word.length(); i++) {
+                  /* 这一步优化可以不加
+                  if (c == word.charAt(i)) {
+                      continue;
+                  }*/
+                  //将String s中的第index位的char换成c
+                  StringBuilder sb = new StringBuilder(word);
+                  sb.setCharAt(i, c);
+                  String nextWord = sb.toString();
+                  if (dict.contains(nextWord)) {
+                      //如果换了一位后的word在字典中存在就返回
+                      nextWords.add(nextWord);
+                  }
+              }
+          }
+          return nextWords;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-21T03:18:48.801Z"
+updatedAt: "2017-09-23T03:15:22.627Z"

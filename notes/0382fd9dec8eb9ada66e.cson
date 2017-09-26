@@ -1,0 +1,120 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "2Queues = Stack vs 2Stacks = Queue"
+content: '''
+  # 2Queues = Stack vs 2Stacks = Queue
+  两个`Queue`实现`Stack`
+  ```java
+  class Stack {
+      private Queue<Integer> queue1;
+      private Queue<Integer> queue2;
+      
+      public Stack() {
+          queue1 = new LinkedList<Integer>();
+          queue2 = new LinkedList<Integer>();
+      }
+      
+      //将queue1除了最后放进去的一个数，全部放进queue2
+      //queue1留最后一个数，其他全部放进queue2
+      private void moveItems() {
+          while (queue1.size() != 1) {
+              queue2.offer(queue1.poll());
+          }
+      }
+      
+      //交换queue1，queue2
+      //每次操作结束后，queue1里永远装着全部数，queue2永远都只是个空queue
+      private void swapQueues() {
+          Queue<Integer> temp = queue1;
+          queue1 = queue2;
+          queue2 = temp;
+      }
+      
+      /**
+       * push a new item into the stack
+       */
+      //数全部加入queue1
+      public void push(int value) {
+          queue1.offer(value);
+      }
+      
+      /**
+       * return the top of the stack
+       */
+      public int top() {
+          moveItems();                //queue1只留最后一个数(最后加入的数)
+          int item = queue1.poll();   //queue1最后一个数就是stack要pop/peek的数，queue1在poll()之后变为空queue
+          swapQueues();               //交换1，2
+          queue1.offer(item);         //把最后一个数再还给queue1
+          return item;
+      }
+      
+      /**
+       * pop the top of the stack and return it
+       */
+      public void pop() {
+          moveItems();
+          queue1.poll();
+          swapQueues();   //最后一个数不用还给queue1
+      }
+      
+      /**
+       * check the stack is empty or not.
+       */
+      public boolean isEmpty() {
+          return queue1.isEmpty();
+      }
+  }
+  ```
+  两个`Stack`实现`Queue`
+  ```java
+  public class MyQueue {
+      private Stack<Integer> stack1;
+      private Stack<Integer> stack2;
+  
+      public MyQueue() {
+         // do initialization if necessary
+         stack1 = new Stack<Integer>();
+         stack2 = new Stack<Integer>();
+      }
+      
+      //stack1全部放进stack2，stack2成为逆序的stack1
+      private void move(){
+          while(!stack1.isEmpty()){
+              stack2.push(stack1.pop());
+          }
+      }
+      
+      public void push(int element) {
+          // write your code here
+          //新来的数全放进stack1
+          stack1.push(element);
+      }
+  
+      public int pop() {
+          // write your code here
+          //如果stack2为空，继续从stack1逆序转移数
+          //将stack1变成逆序然后全部放进stack2，stack
+          if(stack2.empty() == true){
+              move();
+          }
+          //如果stack2不为空，直接返回stack2的最后一个
+          //逆序的最后一个 = 顺序的第一个
+          return stack2.pop();
+      }
+  
+      public int top() {
+          // write your code here
+          if(stack2.empty() == true){
+              move();
+          }
+          return stack2.peek();
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-19T18:54:54.539Z"
+updatedAt: "2017-09-19T20:43:33.065Z"

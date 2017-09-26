@@ -1,0 +1,78 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Word Abbreviation Set"
+content: '''
+  # Word Abbreviation Set
+  ```java
+  /*
+  <d2r, <deer, door>>
+  <c2e, <cake>>
+  <c2d, <card>>
+  isUnique("dear") // return false， 因为d2r对应的word在词典中不唯一
+  isUnique("cart") // return true，因为cart及其abbr在词典中不存在，所以唯一
+  isUnique("cane") // return false，因为cane的abbr在词典中对应的词不是自己
+  isUnique("make") // return true，因为make及其abbr在词典中不存在，所以唯一
+  */
+  public class ValidWordAbbr {
+      Map<String, Set<String>> map;
+      /*
+      * @param dictionary: a list of words
+      */public ValidWordAbbr(String[] dictionary) {
+          // do intialization if necessary
+          //<d2r, <deer, door>>
+          map = new HashMap<String, Set<String>>();
+          for(String s : dictionary){
+              String abbr = getAbbr(s);
+              if(!map.containsKey(abbr)){
+                  Set<String> set = new HashSet<String>();
+                  set.add(s);
+                  map.put(abbr, set);
+              } else {
+                  Set<String> set = map.get(abbr);
+                  if(!set.contains(s)){
+                     set.add(s); 
+                  }
+              }
+          }
+      }
+  
+      /*
+       * @param word: a string
+       * @return: true if its abbreviation is unique or false
+       */
+      public boolean isUnique(String word) {
+          // write your code here
+          String abbrWord = getAbbr(word);
+          if(map.containsKey(abbrWord)){
+              Set<String> set = map.get(abbrWord);
+              if(set.size() == 1 && set.contains(word)){
+                  return true; //如果word在dict里且其abbr所对应的词在字典里唯一，Unique
+              } else {
+                  return false;
+              }
+          } else {
+              return true; //如果word及其abbr根本就不在dict里，Unique
+          }
+      }
+      
+      public String getAbbr(String s){
+          if(s.length() < 2){
+              return s;
+          }
+          char[] sc = s.toCharArray();
+          return "" + sc[0] + sc.length - 2 + sc[sc.length - 1];
+      }
+  }
+  
+  /**
+   * Your ValidWordAbbr object will be instantiated and called as such:
+   * ValidWordAbbr obj = new ValidWordAbbr(dictionary);
+   * boolean param = obj.isUnique(word);
+   */
+   ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-22T20:03:11.105Z"
+updatedAt: "2017-09-22T20:07:13.997Z"

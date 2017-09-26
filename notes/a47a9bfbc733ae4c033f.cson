@@ -1,0 +1,42 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "System Longest File Path"
+content: '''
+  # System Longest File Path
+  ```java
+  public class Solution {
+      /*
+       * @param input: an abstract file system
+       * @return: return the length of the longest absolute path to file
+       */
+      public int lengthLongestPath(String input) {
+          // write your code here
+          if(input.length() == 0){
+              return 0;
+          }
+          String[] strArray = input.split("\\n");
+          int maxSum = 0;
+          int[] sums = new int[strArray.length + 1];
+          for(String str : strArray){
+              //'\\t'是一个字符
+              //+2 是为了留出 sums[0] 方便后面当 level = 1 时执行 sums[level - 1]
+              int level = str.lastIndexOf('\\t') + 2;
+              int len = str.length() - level + 1;
+              if(str.contains(".")){
+                  //最后一层不用加'/'
+                  maxSum = Math.max(maxSum, sums[level - 1] + len);
+              } else {
+                  //每层结束后要加一个'/'
+                  sums[level] = sums[level - 1] + len + 1;
+              }
+          }
+          return maxSum;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-20T20:04:52.104Z"
+updatedAt: "2017-09-20T20:05:01.275Z"

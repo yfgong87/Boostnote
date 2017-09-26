@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "403e789cfa873c1c2c82"
+title: "Random number"
+content: '''
+  # Random number
+  ```java
+  import java.util.Random;
+  Random rand = new Random();
+  int  n = rand.nextInt(50) + 1;
+  //50 is the maximum and the 1 is our minimum 
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-24T19:38:47.640Z"
+updatedAt: "2017-09-24T19:39:12.972Z"

@@ -46,7 +46,7 @@ content: '''
           ArrayList<ParentTreeNode> pathB = findPathToRoot(B);
           int indexA = pathA.size() - 1;
           int indexB = pathB.size() - 1;
-          while (indexA >= 0 && indexB >=0){
+          while (indexA >= 0 && indexB >= 0){
               if (pathA.get(indexA) != pathB.get(indexB)){
                   break;
               }
@@ -150,4 +150,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T03:53:08.885Z"
-updatedAt: "2017-09-16T03:53:08.885Z"
+updatedAt: "2017-09-25T20:57:03.832Z"

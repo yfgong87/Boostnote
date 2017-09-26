@@ -1,0 +1,48 @@
+type: "MARKDOWN_NOTE"
+folder: "6e2623e3aff765e4a79c"
+title: "Binary Tree Flipping"
+content: '''
+  # Binary Tree Flipping
+  ```java
+  /*        1                 1
+           / \\               / 
+          2   3             2 - 3
+         / \\               /
+        4   5             4 - 5
+  
+  */
+  public class Solution {
+      /*
+       * @param root: the root of binary tree
+       * @return: new root
+       */
+      TreeNode newRoot;
+      public TreeNode upsideDownBinaryTree(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return null;
+          }
+          flip(root);
+          return newRoot;
+      }
+      
+      public void flip(TreeNode root){
+          //递归到最左下角的点，作为新root返回
+          if(root.left == null){
+              newRoot = root;
+              return;
+          }
+          flip(root.left);
+          root.left.right = root;
+          root.left.left = root.right;
+          root.right = null;
+          root.left = null;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-26T03:39:17.492Z"
+updatedAt: "2017-09-26T03:42:47.166Z"

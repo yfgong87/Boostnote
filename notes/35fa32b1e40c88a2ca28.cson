@@ -14,7 +14,16 @@ content: '''
     public int getWheel();
   }
   ```
-  ### Interface vs Superclass
+  ### Abstract Class & Methods
+  - `Abstract` `class` is one which can't be instantiated, i.e. its object cannot be created.
+  - `Abstract` `method` are method's declaration without its definition.
+  - A `Non-abstract` `class` can only have `Non-abstract` `methods`.
+  - An `Abstract` `class` can have both the `Non-abstract` as well as `Abstract` `methods`.
+  - If the `Class` has an `Abstract` `method` then the `class` must also be `Abstract`.
+  - An `Abstract` `method` must be `implemented` by the very first `Non-Abstract` `sub-class`.
+  - `Abstract` `class` in Design patterns are used to encapsulate the behaviors that keeps changing.
+  
+  ### Interface (`implements`) vs Superclass (`extends`)
   - Use an `interface`/`implements` if you want to define a `contract/default behavior`. I.e. X must take Y and return Z. It doesn't care how the code is doing that. 
   - A `class` can `implements` `MANY` `interface`.
   - Use an `abstract` `class` if you want to define default behaviour in non-abstract methods so that the endusers can reuse it without rewriting it again and again. 
@@ -22,8 +31,11 @@ content: '''
   - `abstract` `class` with only `abstract` `methods` = `interface`. 
   
   ### Why use Interface when having Superclass?
+  In short: You can implement `MANY` interfaces, but you can only inherit `ONE` class.
   [Nice Explaination on stackOverFlow](https://stackoverflow.com/questions/27777641/why-should-we-use-interface-if-we-can-simply-override-methods-of-the-superclass)
   - In short, to prevent `Diamond Problem` when inheriting can cause confusion
+  ![diamond](https://i.stack.imgur.com/9q1gh.png)
+  - Simply, if a class, `D` inherits from two classes `B` and `C`, and `B` and `C` both inherit from the same class `A`, which implementation of the methods from `A` does `D` get?
   - `interface` does NOT allow modification of its method, but a class can `implements` `MANY` `interface` to acquire desired function
   - `subclass` can modify or add method from `superclass`, but a `subclass` can `extends` `ONLY ONE` `superclass`
   
@@ -46,4 +58,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-12T16:38:38.775Z"
-updatedAt: "2017-08-14T19:26:11.753Z"
+updatedAt: "2017-09-20T05:46:28.429Z"

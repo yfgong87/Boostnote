@@ -1,0 +1,90 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Subarray Anagram"
+content: '''
+  # Subarray Anagram
+  普通版
+  ```java
+  public class Solution {
+      /*
+       * @param s: a string
+       * @param p: a string
+       * @return: a list of index
+       */
+      public List<Integer> findAnagrams(String s, String p) {
+          // write your code here
+          List<Integer> result = new ArrayList<Integer>();
+          if(s.length() < p.length()){
+              return result;
+          }
+          int[] mapS = new int[256];
+          int[] mapP = new int[256];
+          char[] sc = s.toCharArray();
+          char[] pc = p.toCharArray();
+          for(int i = 0; i < p.length(); i++){
+              mapS[sc[i]]++;
+              mapP[pc[i]]++;
+          }
+          if(Arrays.equals(mapS, mapP)){
+              result.add(0);
+          }
+          for(int i = 1; i <= s.length() - p.length(); i++){
+              mapS[sc[i - 1]]--;
+              mapS[sc[i + p.length() - 1]]++;
+              if(Arrays.equals(mapS, mapP)){
+                  result.add(i);
+              }
+          }
+          return result;
+      }
+  }
+  ```
+  `absSum`优化版
+  ```java
+  public class Solution {
+      /*
+       * @param s: a string
+       * @param p: a string
+       * @return: a list of index
+       */
+      public List<Integer> findAnagrams(String s, String p) {
+          // write your code here
+          List<Integer> result = new ArrayList<Integer>();
+          if(s.length() < p.length()){
+              return result;
+          }
+          int[] difMap = new int[256];
+          char[] sc = s.toCharArray();
+          char[] pc = p.toCharArray();
+          for(int i = 0; i < p.length(); i++){
+              difMap[sc[i]]++;
+              difMap[pc[i]]--;
+          }
+          int absSum = 0;
+          for(int i : difMap){
+              absSum += Math.abs(i);
+          }
+          if(absSum == 0){
+              result.add(0);
+          }
+          for(int i = 1; i <= s.length() - p.length(); i++){
+              int left = sc[i - 1];
+              int right = sc[i + p.length() - 1];
+              absSum = absSum - Math.abs(difMap[left]) - Math.abs(difMap[right]);
+              difMap[left]--;
+              difMap[right]++;
+              absSum = absSum + Math.abs(difMap[left]) + Math.abs(difMap[right]);
+              if(absSum == 0){
+                  result.add(i);
+              }
+          }
+          return result;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-21T22:47:43.819Z"
+updatedAt: "2017-09-21T22:51:04.417Z"

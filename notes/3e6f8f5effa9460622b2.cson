@@ -1,9 +1,15 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Minimum Depth of Binary Tree"
+title: "Minimum & Maximum Depth of Binary Tree"
 content: '''
-  # Minimum Depth of Binary Tree
+  # Minimum & Maximum Depth of Binary Tree
+  ### Min Depth
   ```java
+  //考虑特例怎么做，当root.left为空 depth = 0 时，root到底是 depth = 1 还是 depth = 2 (正解)
+  /*      1
+           \\
+            2
+                          */
   public class Solution {
       /**
        * @param root: The root of binary tree.
@@ -31,9 +37,22 @@ content: '''
       }
   }
   ```
+  ### Max Depth
+  - 不存在上面的问题
+  ```java
+  public int maxDepth(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return 0;
+          }
+          int left = maxDepth(root.left);
+          int right = maxDepth(root.right);
+          return Math.max(left, right) + 1;
+      }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T01:41:53.508Z"
-updatedAt: "2017-09-01T01:54:39.443Z"
+updatedAt: "2017-09-26T02:25:52.058Z"
