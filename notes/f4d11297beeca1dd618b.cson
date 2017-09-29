@@ -18,9 +18,11 @@ content: '''
        */
       public int divide(int dividend, int divisor) {
           // write your code here
+          //Corner Case I
           if(dividend == 0){
               return 0;
           }
+          //Corner Case II
           if(divisor == 0){
               if(dividend > 0){
                   return Integer.MAX_VALUE;
@@ -29,9 +31,11 @@ content: '''
                   return Integer.MIN_VALUE;
               }
           }
+          //Corner Case III
           if(dividend == Integer.MIN_VALUE && divisor == -1){
               return Integer.MAX_VALUE;
           }
+          //判断正负号
           int isNegative = 1;
           if((dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0)){
               isNegative = -1;
@@ -39,14 +43,15 @@ content: '''
           long a = Math.abs((long)dividend);
           long b = Math.abs((long)divisor);
           int result = 0;
+          //这里必须是 while 而不是 if 因为有可能是3倍或者5倍(非2的整数倍)
           while(a >= b){
               int count = 0;
-              while(a >= b << count){
+              while(a >= (b << count)){
                   count++;
               }
               //先做+/-，再做<</>>，再做赋值
-              a -= b << count - 1;
-              result += 1 << count - 1;
+              a -= (b << (count - 1));
+              result += (1 << (count - 1));
           }
           return isNegative * result;
       }
@@ -57,4 +62,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T02:35:00.761Z"
-updatedAt: "2017-09-08T02:35:54.344Z"
+updatedAt: "2017-09-27T19:47:09.737Z"

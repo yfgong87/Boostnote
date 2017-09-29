@@ -2,11 +2,15 @@ type: "MARKDOWN_NOTE"
 folder: "8796d797cb901e033f4a"
 title: "递归"
 content: '''
-  # 递归
+  ### 递归
   - 写递归时，随着递归深度加深变化的那个变量放进`input param`里
+  
+  ### `nums == null` vs `nums.length == 0`
+  `num == null`的意思是，你没钱也没有钱包。（`nums`在内存中没有一个对应的空间，连存储`length`的地方都没有）
+  `num.length == 0` 的意思是， 你有钱包，你钱包里没钱。（内存中开辟了一篇`nums`的空间，但是一个数都没放进去，但是这篇内存空间中存了`length`，且`length`的值是0）
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-19T21:19:38.134Z"
-updatedAt: "2017-09-19T21:19:47.630Z"
+updatedAt: "2017-09-29T04:35:56.915Z"

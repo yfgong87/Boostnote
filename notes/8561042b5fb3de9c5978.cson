@@ -63,9 +63,23 @@ content: '''
       + " value is: "+ entry.getValue());
   }
   ```
+  # Iterate a HashMap from `min` to `max`
+  - `hash.keySet()` has to be consecutive `int` sequence
+  ```java
+  for(int i = Collections.min(hash.keySet()); i <= Collections.max(hash.keySet()); i++){
+      //code
+  }
+  ```
+  # Iterate using `keySet()`
+  ```java
+  for(int key : map.keySet()){
+      //code
+      map.get(key);
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T22:54:35.262Z"
-updatedAt: "2017-09-17T16:07:40.400Z"
+updatedAt: "2017-09-28T20:27:30.174Z"

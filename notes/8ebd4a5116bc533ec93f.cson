@@ -24,39 +24,40 @@ content: '''
               return node;
           }
           //map里存的是<original, copy>
-          Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+          Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
           //set用于检验是否已经process了当前node，因为graph里可能有loop，需要去重复
-          Set<UndirectedGraphNode> set = new HashSet<UndirectedGraphNode>();
+          Set<UndirectedGraphNode> set = new HashSet<>();
           
-          Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+          Queue<UndirectedGraphNode> queue = new LinkedList<>();
           queue.offer(node);
           UndirectedGraphNode newNode;
           while(!queue.isEmpty()){
               UndirectedGraphNode head = queue.poll();
               
-              //如果已经process过这个点了，continue
+              //如果已经process过这个点(head)了，continue
               if(set.contains(head)){
                   continue;
               }
               set.add(head);
               
-              //如果map里还没有这个点，加进去
+              //如果map里还没有这个点(head)，加进去
               if(!map.containsKey(head)){
                   newNode = new UndirectedGraphNode(head.label);
                   map.put(head, newNode);
               }
               newNode = map.get(head);
               
-              //将这个点的所有neighbor放进queue
+              //将这个点(head)的所有neighbor放进queue
               UndirectedGraphNode newNeighbor;
-              for(UndirectedGraphNode n : head.neighbors){
-                  queue.offer(n);
+              for(UndirectedGraphNode neighbor : head.neighbors){
+                  queue.offer(neighbor);
                   //如果map里还没有这个neighbor点，加进去
-                  if(!map.containsKey(n)){
-                      newNeighbor = new UndirectedGraphNode(n.label);
-                      map.put(n, newNeighbor);
+                  if(!map.containsKey(neighbor)){
+                      newNeighbor = new UndirectedGraphNode(neighbor.label);
+                      map.put(neighbor, newNeighbor);
                   }
-                  newNeighbor = map.get(n);
+                  newNeighbor = map.get(neighbor);
+                  //新节点和新邻居全加到map里
                   newNode.neighbors.add(newNeighbor);
               }
           }
@@ -69,4 +70,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-06T14:57:54.354Z"
-updatedAt: "2017-09-16T19:52:19.335Z"
+updatedAt: "2017-09-28T04:13:18.344Z"

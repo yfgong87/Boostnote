@@ -1,14 +1,14 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Binary Tree Sum I, II, III"
+title: "Binary Tree Path Sum I, II, III"
 content: '''
-  # Binary Tree Sum I, II, III
+  # Binary Tree Path Sum I, II, III
   ### 复杂度：
   - 一般情况下，搜索问题的复杂度我们一般情况下是这么计算的 O(`解的个数` * `产生解的复杂度`)
-  - 这道题计算出所有符合的path是`O(n)`，但是如果print out所有符合的path，那么最坏是`O(n^2)`的。因为有可能符合的path有很多条，极端的例子就是，从root到所有叶子节点的path的sum全部都一样。
-  
+  - 在不考虑deepcopy的时间的情况下，I是O(n)，因为每个点遍历一次，II是O(n)~O(n^2)，因为每个点需要求上面一条链的和，在树是一条链的情况下是最坏情况,每个点只和根节点有边相连是最好情况，III是O(n^2)，因为需要枚举起点和终点，最好和最坏都是O(n^2)
   
   I: 找所有`sum`为target的`path`，`path`必须从`root`到`leaf`
+  这道题计算出所有符合的path是`O(n)`，但是如果print out所有符合的path，那么最坏是`O(n^2)`的。因为有可能符合的path有很多条，极端的例子就是，从root到所有叶子节点的path的sum全部都一样。
   ```java
       public List<List<Integer>> binaryTreePathSum(TreeNode root, int target) {
           // Write your code here
@@ -45,6 +45,7 @@ content: '''
   ```
   
   II: `path`不一定非要从`root`到`leaf`,但必须是一条`straight down line`
+  算法是`O(N)`的，每个点走了一次。但是因为要记录答案，`result.add(new ArrayList(solution))`这句时间复杂度可能很高，有`O(N^2)`
   ```java
       public List<List<Integer>> binaryTreePathSum2(TreeNode root, int target) {
           List<List<Integer>> results = new ArrayList<List<Integer>>();
@@ -142,4 +143,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-15T19:42:12.227Z"
-updatedAt: "2017-09-15T21:33:24.908Z"
+updatedAt: "2017-09-29T15:06:03.897Z"

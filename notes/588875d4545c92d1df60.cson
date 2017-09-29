@@ -176,7 +176,7 @@ content: '''
                       20
               5              10
           12    15        8      2
-      6     2  9
+        6   2  9
   
   
       Note that this can also be written an array format as:
@@ -213,10 +213,11 @@ content: '''
           }
       }
   ```
-  Non-recursive version
+  `Non-recursive` version
   ```java
-  void heapify(int arr[], int n, int i)
+  void siftdown(int arr[], int n, int i)
       {
+          //i 是当前子树的根
           while(i < n){
             int largest = i;  // Initialize largest as root
             int l = 2*i + 1;  // left = 2*i + 1
@@ -230,22 +231,28 @@ content: '''
             if (r < n && arr[r] > arr[largest])
                 largest = r;
    
-            // If largest is not root
-            if (largest == i)
-            {
-                break;
-            }
+            // If largest is root, break
+            if (largest == i) break;
+            // If largest is not root, swap
             int swap = arr[i];
             arr[i] = arr[largest];
             arr[largest] = swap;
-  
+            // 继续检验换过去的root是不是该subtree里的最大
             i = largest;
           }
       }
+      
+  public void heapify(int[] A) {
+        int n = A.length;
+        //这里没有 -1 也能过，但是 n / 2 是没有叶子节点的，所以没有必要进入循环，n / 2 - 1 更好
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            siftdown(A, n, i);
+        } 
+    }
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-09-20T03:08:02.366Z"
+updatedAt: "2017-09-27T22:38:31.520Z"

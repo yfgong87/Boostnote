@@ -3,7 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Flatten Binary Tree to Linked List"
 content: '''
   # Flatten Binary Tree to Linked List
-  - preorder Traversal
+  - `preorder` Traversal
   - 首先将`root.right`接到`root.left`的`最右下`的点
   - 然后将`root.left`整体挪到右边成为新的`root.right`
   - 然后将新的`root.left`变成`null`
@@ -51,7 +51,7 @@ content: '''
               root.right = root.left;    //root.left接到root.right
               root.left = null;          //root.left成为null
           }
-          
+          //注意顺序！！一定要先判断右边是否为null，因为是preorder，链表的最后一个一定是最右下的点
           //if right is not null, right is the last element
           if (right != null){
               return right;
@@ -70,4 +70,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T17:15:04.366Z"
-updatedAt: "2017-09-26T03:37:14.891Z"
+updatedAt: "2017-09-28T21:29:31.446Z"
