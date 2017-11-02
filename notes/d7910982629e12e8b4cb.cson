@@ -1,0 +1,84 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Roman to Integer"
+content: '''
+  # Roman to Integer
+  ```java
+  public class Solution {
+      /*
+       * @param s: Roman representation
+       * @return: an integer
+       */
+      public int romanToInt(String s) {
+          // write your code here
+          int[] nums = new int[s.length()];
+          //转换为数组
+          for(int i = 0; i < nums.length; i++){
+              switch(s.charAt(i)){
+                  case('I'):
+                      nums[i] = 1;
+                      break;
+                  case('V'):
+                      nums[i] = 5;
+                      break;
+                  case('X'):
+                      nums[i] = 10;
+                      break;
+                  case('L'):
+                      nums[i] = 50;
+                      break;
+                  case('C'):
+                      nums[i] = 100;
+                      break;
+                  case('D'):
+                      nums[i] = 500;
+                      break;
+                  case('M'):
+                      nums[i] = 1000;
+              }
+          }
+              int sum = 0;
+              for(int i = 0; i < nums.length - 1; i++){
+                  //比后面数大就加上，比后面数小就减掉
+                  if(nums[i] >= nums[i + 1]){
+                      sum += nums[i];
+                  } else {
+                      sum -= nums[i];
+                  }
+              }
+              return sum += nums[nums.length - 1];
+      }
+  }
+  ```
+  
+  # Integer to Roman
+  ```java
+  public class Solution {
+      /*
+       * @param n: The integer
+       * @return: Roman representation
+       */
+      public String intToRoman(int n) {
+          // write your code here
+          StringBuilder sb = new StringBuilder();
+          int[] numeral = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+          String[] roman = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+          for(int i = 0; i < 13; i++){
+              int m = n / numeral[i];
+              if(m != 0){
+                  for(int j = 0; j < m; j++){
+                      sb.append(roman[i]);
+                  }
+              }
+              n = n % numeral[i];
+          }
+          return sb.toString();
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-03T16:10:54.480Z"
+updatedAt: "2017-10-03T16:28:22.581Z"

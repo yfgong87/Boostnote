@@ -1,0 +1,39 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Sliding Window with Max Average"
+content: '''
+  # Sliding Window with Max Average 
+  ```java
+  public class MovingAverage {
+      int count;
+      int size;
+      double[] sums;
+      /** Initialize your data structure here. */
+      public MovingAverage(int size) {
+          this.size = size;
+          this.count = 0;
+          this.sums = new double[size + 1];
+      }
+      
+      public int mod (int x){
+          return x % (size + 1);
+      }
+      
+      public double next(int val) {
+          // Write your code here
+          count++;
+          sums[mod(count)] = sums[mod(count - 1)] + val;
+          if(count < size){
+              return sums[mod(count)] / count;
+          } else {
+              return (sums[mod(count)] - sums[mod(count - size)]) / size;
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-03T00:00:54.766Z"
+updatedAt: "2017-10-03T00:01:16.549Z"

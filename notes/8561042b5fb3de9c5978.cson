@@ -64,10 +64,34 @@ content: '''
   }
   ```
   # Iterate a HashMap from `min` to `max`
-  - `hash.keySet()` has to be consecutive `int` sequence
   ```java
-  for(int i = Collections.min(hash.keySet()); i <= Collections.max(hash.keySet()); i++){
-      //code
+  //Method 1: Sort by Key 1
+  //hash.keySet() has to be consecutive `int` sequence?
+  //Collection.min() 接受 Collection
+  for(int i = Collections.min(map.keySet()); i <= Collections.max(map.keySet()); i++){
+      System.out.println(map.get(i));
+  }
+  
+  //Method 2: Sort by Key 2
+  List<K> keys = new LinkedList<K>(map.keySet()); //ArrayList 也可以
+  Collections.sort(keys); //Collections.sort() 只接受List
+  for(int key : keys){
+      System.out.println(map.get(key));
+  }
+  
+  //Method 3: Sort by Value
+  List<Map.Entry<K,V>> entries = new LinkedList<Map.Entry<K,V>>(map.entrySet());
+        
+  Collections.sort(entries, new Comparator<Map.Entry<K,V>>() {
+  
+      @Override
+      public int compare(Entry<K, V> a, Entry<K, V> b) {
+          return a.getValue().compareTo(b.getValue());
+      }
+  });
+  
+  for(Map.Entry<K,V> entry: entries){
+      System.out.println(entry.getValue());
   }
   ```
   # Iterate using `keySet()`
@@ -82,4 +106,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T22:54:35.262Z"
-updatedAt: "2017-09-28T20:27:30.174Z"
+updatedAt: "2017-10-12T05:06:48.452Z"

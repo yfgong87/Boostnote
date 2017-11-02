@@ -44,7 +44,7 @@ content: '''
               for(int j = 0; j < i; j++){
                   //不断把最大数挪到数组最右边
                   //ascending, keep pushing the largest number to the right
-                  if(A[j + 1] < A[j]){
+                  if(A[j] > A[j + 1]){
                       //swap
                       temp = A[j];
                       A[j] = A[j + 1];
@@ -79,10 +79,38 @@ content: '''
           }
           return input;
       }
+      
+  //Insertion Sort a LinkedList
+  public class Solution {
+      /*
+       * @param head: The first node of linked list.
+       * @return: The head of linked list.
+       */
+      public ListNode insertionSortList(ListNode head) {
+          // write your code here
+          //dummy 指向新链表的第一个节点
+          ListNode dummy = new ListNode(0);
+          while(head != null){
+              //每次都从新链表的第一个节点往后找
+              ListNode curr = dummy;
+              //找到比 head 小的最后一个节点，设为 curr
+              while(curr.next != null && curr.next.val < head.val){
+                  curr = curr.next;
+              }
+              //把 head 插到 curr 后面
+              ListNode temp = head.next;
+              head.next = curr.next;
+              curr.next = head;
+              head = temp;
+          }
+          return dummy.next;
+      }
+  }
   ```
+  
 '''
 tags: []
 isStarred: false
 isTrashed: false
-createdAt: "2017-08-21T01:06:47.947Z"
-updatedAt: "2017-09-05T19:23:10.704Z"
+createdAt: "2017-10-11T03:23:12.937Z"
+updatedAt: "2017-10-24T16:22:14.750Z"

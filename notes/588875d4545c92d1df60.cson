@@ -9,57 +9,9 @@ content: '''
   | `O(nlogn)`	| `O(nlogn)` | 	`O(n^2)` | `O(logn)` |
   - `logn` space complexity because of stack use in recursion
   ![](https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif)
-  ```java
-  public class Solution {
-      public void sortIntegers(int[] A) {
-          // write your code here
-          quickSort(A, 0, A.length - 1);
-      }
-      
-      private void quickSort(int[] A, int left, int right){
-          if(left >= right){
-              return;
-          }
-          // key point: pivot is the value, not the index
-          int pivot = A[(left + right) / 2];
-          //get new pivot after partition
-          int index = partition(A, pivot, left, right);
-          quickSort(A, left, index - 1);
-          quickSort(A, index, right);
-      }
-      
-      //return new pivot
-      private int partition(int[] A, int pivot, int left, int right){
-          int temp = 0;
-          //while left pointer has not met right pointer
-          while(left <= right){
-              //while left is smaller than pivot, 
-              //keep moving left pointer to right
-              while(A[left] < pivot){
-                  left++;
-              }
-              //while right is bigger than pivot, 
-              //keep moving right pointer to left
-              while(A[right] > pivot){
-                  right--;
-              }
-              //if left pointer has not met right pointer
-              if(left <= right){
-                  //swap
-                  temp = A[left];
-                  A[left] = A[right];
-                  A[right] = temp;
-                  left++;
-                  right--;
-              }
-          }
-          return left;
-      }
-      
-  };
-  ```
-  快排九章模板
-  - 为什么要用`left<=right`?
+  
+  ### 快排九章模板
+  - 为什么要用`left<=right`? (`注意`: 所有partition类问题都适用)
   因为我们不希望等于的时候停下来，而是partition成两份，正在意义上分开，所以用了`left <= right` 使得结束的时候`right`一定小于`left`
   - 为什么这里是`A[left] < pivot` 而不是 `A[left] <= pivot` ?
   因为如果pivot刚好是最大值，那么我们对n个元素进行partition就会出现左边得到n个，右边得到0个元素的情况，这样左边继续递归下去有可能始终都是n（每次取出pivot都是最大值），那么会出现无限递归。
@@ -144,6 +96,42 @@ content: '''
           rainbowSort(colors, left, end, colorMid + 1, colorTo);
       }
   ```
+  🌈彩虹排序的`HashMap`做法(`O(k)` extra memory)
+  ```java
+  class Solution {
+      /**
+       * @param colors: A list of integer
+       * @param k: An integer
+       * @return: nothing
+       */
+      public void sortColors2(int[] colors, int k) {
+          // write your code here
+          if(colors == null || colors.length == 0){
+              return;
+          }
+          Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+          for(int color : colors){
+              if(!map.containsKey(color)){
+                  map.put(color, 1);
+              } else {
+                  map.put(color, map.get(color) + 1);
+              }
+          }
+          int index = 0;
+          for(int color = 1; color <= k; color++){
+              if(!map.containsKey(color)){
+                  continue;
+              }
+              for(int i = 0; i < map.get(color); i++){
+                  colors[index] = color;
+                  index++;
+              }
+          }
+      }
+  
+  }
+  ```
+  
   ### Heap Sort
   | Best TC | Average TC | Worst TC | Space C |
   | ------- | ---------  | -------- | ------- |
@@ -255,4 +243,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-09-27T22:38:31.520Z"
+updatedAt: "2017-10-07T16:28:24.794Z"

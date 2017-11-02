@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "54936dfc46477b1f2e19"
+title: "Parking Lot"
+content: '''
+  # Parking Lot
+  一个parking lot，三个函数，enter、leave、display。   一个车来了之后先预估自己的停留时间。然后随时离开，有可能在估计时间之内、有可能在估计时间之外。  显示当前剩余车位数量。如果满了就显示最近的estimated时间。   剩下的需求就要自己沟通了，需要啥class、啥数据结构
+  ```java
+  class Park{
+  
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-10T21:31:45.367Z"
+updatedAt: "2017-10-10T21:32:29.204Z"

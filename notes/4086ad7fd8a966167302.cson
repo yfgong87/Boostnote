@@ -1,0 +1,61 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Sort Character by Frequency"
+content: '''
+  # Sort Character by Frequency
+  Input:
+  `"tree"`
+  
+  Output:
+  `"eert"`
+  
+  Explanation:
+  `'e'` appears twice while `'r'` and `'t'` both appear once.
+  So `'e'` must appear before both `'r'` and `'t'`. Therefore `"eetr"` is also a valid answer.
+  ```java
+  class Solution {
+      public String frequencySort(String s) {
+          //<char, frequency>
+          Map<Character, Integer> map = new HashMap<>();
+          
+          //每个char都放进map，统计出现频率
+          for(char c : s.toCharArray()){
+              if(!map.containsKey(c)){
+                  map.put(c, 1);
+              } else {
+                  map.put(c, map.get(c) + 1);
+              }
+          }
+          
+          //出现频率转换成bucket的index，char转换成bucket的值
+          //bucket要比s多一位，因为要留一位放出现频率为0的
+          List<Character>[] bucket = new List[s.length() + 1];
+          for(char key : map.keySet()){
+              int freq = map.get(key);
+              if(bucket[freq] == null){
+                  bucket[freq] = new ArrayList<Character>();
+              }
+              bucket[freq].add(key);
+          }
+          
+          //打印
+          StringBuilder sb = new StringBuilder();
+          for(int freq = bucket.length - 1; freq >= 0; freq--){
+              if(bucket[freq] != null){
+                  for(char c : bucket[freq]){
+                      for(int i = 0; i < freq; i++){
+                          sb.append(c);
+                      }
+                  }
+              }
+          }
+          return sb.toString();
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T06:42:49.205Z"
+updatedAt: "2017-10-01T06:43:43.920Z"

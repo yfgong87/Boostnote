@@ -1,0 +1,71 @@
+type: "MARKDOWN_NOTE"
+folder: "54936dfc46477b1f2e19"
+title: "Mini Cassandra"
+content: '''
+  # Mini Cassandra
+  Cassandra has two level of keys:
+  - `row_key` is used to hash and can not support range query.
+  - `column_key` is sorted and support range query.
+  - `column_value` is a string. you can serialize any data into a string and store it in column value.
+  ```java
+  /**
+   * Definition of Column:
+   * public class Column {
+   *     public int key;
+   *     public String value;
+   *     public Column(int key, String value) {
+   *         this.key = key;
+   *         this.value = value;
+   *    }
+   * }
+   */
+  
+  
+  public class MiniCassandra {
+      private Map<String, NavigableMap<Integer, String>> map;
+      public MiniCassandra() {
+          // do intialization if necessary
+          map = new HashMap<String, NavigableMap<Integer, String>>();
+      }
+  
+      /*
+       * @param row_key: a string
+       * @param column_key: An integer
+       * @param column_value: a string
+       * @return: nothing
+       */
+      public void insert(String row_key, int column_key, String column_value) {
+          // write your code here
+          if(!map.containsKey(row_key)){
+              map.put(row_key, new TreeMap<Integer, String>());
+          }
+          map.get(row_key).put(column_key, column_value);
+      }
+  
+      /*
+       * @param row_key: a string
+       * @param column_start: An integer
+       * @param column_end: An integer
+       * @return: a list of Columns
+       */
+      public List<Column> query(String row_key, int column_start, int column_end) {
+          // write your code here
+          List<Column> results = new ArrayList<Column>();
+          if(map.containsKey(row_key)){
+              //TreeMap.subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive)
+              //Returns a view of the portion of this map whose keys range from fromKey to toKey.
+              for (Map.Entry<Integer, String> entry : 
+                  map.get(row_key).subMap(column_start, true, column_end, true).entrySet()) {
+                  results.add(new Column(entry.getKey(), entry.getValue()));
+              }
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-01T19:03:10.834Z"
+updatedAt: "2017-11-01T19:06:37.615Z"

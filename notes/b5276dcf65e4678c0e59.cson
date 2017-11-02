@@ -38,7 +38,7 @@ content: '''
               isBST = false;
           }
           //注意必须保证left和right不是null，不然left.max就是Integer.MIN_VALUE
-          //如果root也是Integer.MIN_VALUE且没有child，通不过
+          //如果root是Integer.MIN_VALUE, 且root没有child，则left.max == root.val, 通不过
           if (root.left != null && left.max >= root.val || 
               root.right != null && right.min <= root.val) {
               isBST = false;
@@ -56,4 +56,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-25T20:31:17.510Z"
-updatedAt: "2017-09-25T20:33:48.292Z"
+updatedAt: "2017-10-01T19:37:16.025Z"

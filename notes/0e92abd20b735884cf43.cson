@@ -6,6 +6,15 @@ content: '''
   - Is a `minHeap`: Pull out element with lowest priority first
   - If priority are the same, element will be pulled out based on the heap structure
   - `PriorityQueue` use the `compareTo` method in class to determine priority
+  ### Constructor
+  In Java 8, both constructor below are Valid
+  ```java
+  //写法一，缺省 initialCapacity, Java7 中不行
+  PriorityQueue<Object> pq = new PriorityQueue<Object>(Comparator<? super E> comparator);
+  
+  //写法二
+  PriorityQueue<Object> pq = new PriorityQueue<Object>(int initialCapacity, Comparator<? super E> comparator)
+  ```
   ### Java 7 vs Java 8 Comparator
   - Classic Comparator example.
   ```java
@@ -76,12 +85,29 @@ content: '''
           });
           
   //当需要用到Comparator比较大小时，注意加入PriorityQueue时的写法
+  //如果 pq 里要保留最小的 k 个数，用 maxHeap，每次踢掉最大的
+  //如果 pq 里要保留最大的 k 个数，用 minHeap，每次踢掉最小的
   for(Point p : points){
-              pq.add(p);    //先加入，让pq自己的Coparator比较
-              if(pq.size() > k){
-                  pq.poll(); //如果发现size超了再移除最大或最小数
-              }
-          }
+      pq.add(p);    //先加入，让pq自己的Coparator比较
+      if(pq.size() > k){
+          pq.poll(); //如果发现size超了再踢掉最大或最小数
+      }
+  }
+  
+  //当不需要用到Comparator比较大小时，则可以这样写
+  //假设 pq 是 minHeap 并且 pq 里要保留最大的 k 个数
+  for(int i : nums){
+      if(pq.size() < k){
+         pq.add(i);  //如果不满 k 个数，直接加入
+      } else {
+         if(pq.peek() < i){ //如果 >= k 个数，判断待加入的数是否大于 pq 的最小值
+            pq.poll();  //如果大于最小值，移除最小值，放入待加入的数
+            pq.add(i);
+         }
+      }
+  }
+  
+  //打印 pq 中的数的时候一定要注意是否需要 reverse
   ```
   - `public` `PriorityQueue`(`Collection`<`E`> `c`)
   ### Add
@@ -105,4 +131,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T03:58:01.305Z"
-updatedAt: "2017-09-21T17:10:15.832Z"
+updatedAt: "2017-10-10T21:17:18.041Z"

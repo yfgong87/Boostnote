@@ -20,6 +20,7 @@ content: '''
           for(String str : strArray){
               //'\\t'是一个字符
               //+2 是为了留出 sums[0] 方便后面当 level = 1 时执行 sums[level - 1]
+              //顶层 str.lastIndexOf('\\t')返回 -1, -1 + 2 = 1
               int level = str.lastIndexOf('\\t') + 2;
               int len = str.length() - level + 1;
               if(str.contains(".")){
@@ -39,4 +40,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-20T20:04:52.104Z"
-updatedAt: "2017-09-20T20:05:01.275Z"
+updatedAt: "2017-10-11T04:46:21.098Z"

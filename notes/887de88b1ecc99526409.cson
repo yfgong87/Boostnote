@@ -8,14 +8,17 @@ content: '''
           // write your code here
           ListNode dummy = new ListNode(0), curr = dummy;
           dummy.next = head;
+          //preNode    mNode           nNode    postNode
+          //    1   ->   2   ->  3   ->   4   ->    5   ->    null
+          //            m=2              n=4
           //找到m
           for(int i = 1; i < m; i++){
               curr = curr.next;
           }
           ListNode preNode = curr;
-          ListNode mNode = curr.next;
-          
-          ListNode nNode = mNode, postNode = nNode.next;
+          ListNode mNode = curr.next, nNode = mNode; 
+          ListNode postNode = nNode.next;
+          //for(int i = 0; i < n - m; i++)
           for(int i = m; i < n; i++){
               ListNode temp = postNode.next;
               postNode.next = nNode;
@@ -33,4 +36,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-12T20:53:58.154Z"
-updatedAt: "2017-09-12T20:54:12.137Z"
+updatedAt: "2017-09-29T22:57:08.554Z"

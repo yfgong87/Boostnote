@@ -1,0 +1,58 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Word Break"
+content: '''
+  # Word Break
+  严格来说复杂度是`O(nL^2)`，`n`为总长度，`L`为最长字符串长度。`L^2`包含两个部分，一个是枚举最后一个单词的长度时的耗费`L`，然后枚举出一个单词之后，检查这个单词在hash表中是否存在，严格的说应该是需要耗费`O(L)`的，所以是`O(nL^2）`。但是建议这个hash表部分的复杂度，一定要明白的告诉面试官你是怎么计算的，否则某些水平不高的面试官可能会以为你算错了。
+  ```java
+  public class Solution {
+      /*
+       * @param s: A string
+       * @param dict: A dictionary of words dict
+       * @return: A boolean
+       */
+      public boolean wordBreak(String s, Set<String> dict) {
+          // write your code here
+          if(s == null || s.length() == 0){
+              return true;
+          }
+          int maxLength = getMaxLength(dict);
+          //breakable数组比String 多一位
+          boolean[] breakable = new boolean[s.length() + 1];
+          breakable[0] = true;
+          //枚举整个String到第 i 位为止是否可分割
+          for(int i = 1; i < s.length() + 1; i++){
+              //以第 i 位结尾的substring里，枚举最后一个单词
+              for(int lastWordLength = 1; 
+                  lastWordLength <= i && lastWordLength <= maxLength;
+                  lastWordLength++){
+                      if(!breakable[i - lastWordLength]){
+                          continue; //lastWord往前的substring不可分割，continue掉继续枚举lastWord
+                      }
+                      //这里substring构建了一个长度为L的String，花费了O(L)
+                      if(dict.contains(s.substring(i - lastWordLength, i))){
+                          breakable[i] = true;
+                          break; //到 i 为止的substring可以分割，break掉继续枚举 i
+                      }
+                  }
+          }
+          return breakable[s.length()];
+      }
+      //找到字典中最长的单词
+      public int getMaxLength(Set<String> dict){
+          int maxLength = Integer.MIN_VALUE;
+          for(String s : dict){
+              if(s.length() > maxLength){
+                  maxLength = s.length();
+              }
+          }
+          return maxLength;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-29T18:59:25.330Z"
+updatedAt: "2017-09-29T19:51:20.481Z"

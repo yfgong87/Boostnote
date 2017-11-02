@@ -1,0 +1,28 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Pascal's triangle"
+content: '''
+  # Pascal's triangle
+  In `Pascal's triangle`, each number is the sum of the two numbers directly above it
+  ![triangle](https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif)
+  ```java
+      public List<Integer> getRow(int rowIndex) {
+          List<Integer> results = new ArrayList<Integer>();
+          //rowIndex = 0 也要做一次add(1)
+          for(int i = 0; i < rowIndex + 1; i++){
+              //在后面加1 就要从后面往前加
+              results.add(1);
+              //掐头去尾，不能等于i, 也不能等于0
+              for(int j = i - 1; j > 0; j--){
+                  results.set(j, results.get(j - 1) + results.get(j));
+              }
+          }
+          return results;
+      }
+      ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T02:35:04.302Z"
+updatedAt: "2017-10-01T03:15:34.364Z"

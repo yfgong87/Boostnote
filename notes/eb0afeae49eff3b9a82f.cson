@@ -1,0 +1,77 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Remove Node from LinkedList"
+content: '''
+  # Remove Node from LinkedList
+  ### Remove element from LinkedList
+  Remove all elements from a linked list of integers that have value `val`
+  ```java
+  public ListNode removeElements(ListNode head, int val) {
+          // write your code here
+          //create dummy node that always point to head
+          ListNode dummy = new ListNode(0);
+          dummy.next = head;
+          //create prev that always 1 node ahead
+          ListNode prev = dummy;
+          while(head != null){
+              if(head.val == val){
+                  //remove head, 删除了 head 之后 pre 依然在 head 的前一位，所以不用动
+                  prev.next = head.next;
+              } else{
+                  //skip head
+                  prev = head;
+              }
+              //move head to next
+              head = head.next;
+          }
+          //return dummy
+          return dummy.next;
+      }
+  ```
+  ### Remove Nth Node from end of LinkedList
+  ```java
+  //用到getLength
+  public ListNode removeNthFromEnd(ListNode head, int n) {
+          // write your code here
+          ListNode dummy = new ListNode(0), pre = dummy;
+          dummy.next = head;
+          int len = 0;
+          while(head != null){
+              len++;
+              head = head.next;
+          }
+          if(n > len){
+              return head;   //如果n越界了
+          }
+          for(int i = 0; i < len - n; i++){
+              pre = pre.next;
+          }
+          pre.next = pre.next.next;
+          return dummy.next;
+      }
+      
+  //不用到getLength
+  public ListNode removeNthFromEnd(ListNode head, int n) {
+          // write your code here
+          ListNode dummy = new ListNode(0), pre = dummy;
+          dummy.next = head;
+          for(int i = 0; i < n; i++){
+              if(head == null){     //如果n越界了
+                  return head;
+              }
+              head = head.next;
+          }
+          while(head != null){
+              pre = pre.next;
+              head = head.next;
+          }
+          pre.next = pre.next.next; //此时 pre 在要删除的节点前一位
+          return dummy.next;
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-21T14:47:13.295Z"
+updatedAt: "2017-10-21T15:15:19.234Z"

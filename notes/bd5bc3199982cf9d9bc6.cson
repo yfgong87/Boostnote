@@ -25,7 +25,7 @@ content: '''
   ```java
   String str = "boo:and:foo";
   str.split(":"); //{ "boo", "and", "foo" }
-  str.split("o"); //{ "b", "", ":and:f" }, 第二个"o"成为空串，第三和第四个"o"不保留
+  str.split("o"); //{ "b", "", ":and:f" }, 前两个"o"之间形成空串，后两个"o"之间形成的空串因为在结尾，所以不保留
   ```
   - 注意！！空串`split`还是空串，有可能会死循环
   ```java
@@ -42,9 +42,6 @@ content: '''
   str.substring(1, 5); // returns "mile"
   str.substring(0, str.length()); //return "smiles", str.length() = 6
   ```
-  ### Number of subStrings in a string with `n` char
-  - `n * (n + 1) / 2`, e.g. `O(n^2)`
-  - `"abcd"`: 4 (`"a"`, `"b"`, `"c"`, `"d"`) + 3 (`"ab"`, `"bc"`, `"cd"`) + 2 (`"abc"`, `"bcd"`) + 1 (`"abcd"`) = `4 * (4 + 1) / 2`
   
   ### Compare String
   - `boolean` `String`.`equals`(`String` `str`)
@@ -54,6 +51,10 @@ content: '''
   - `int` `String`.`compareTo`(`String` `str`)
   Return `0` if equal, or `positive` / `negative` value based on lexicographic difference
   NOTE: If `str` is `null`, throw `NullPointerException`
+  ```java
+  //结果 < 0 则 str1 is lexicographically first (comes first in a dictionary)
+  str1.compareTo(str2); 
+  ```
   
   ### String Methods
   #### Check
@@ -157,4 +158,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-09-22T20:26:04.808Z"
+updatedAt: "2017-10-10T22:55:23.698Z"

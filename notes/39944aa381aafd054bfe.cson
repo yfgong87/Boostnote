@@ -1,0 +1,82 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Nested List Weighted Sum I and II"
+content: '''
+  # Nested List Weighted Sum I and II
+  Given the list `[[1,1],2,[1,1]]`, return `10`. (four 1's at depth 2, one 2 at depth 1)
+  ```java
+  /**
+   * // This is the interface that allows for creating nested lists.
+   * // You should not implement it, or speculate about its implementation
+   * public interface NestedInteger {
+   *
+   *     // @return true if this NestedInteger holds a single integer, rather than a nested list.
+   *     public boolean isInteger();
+   *
+   *     // @return the single integer that this NestedInteger holds, if it holds a single integer
+   *     // Return null if this NestedInteger holds a nested list
+   *     public Integer getInteger();
+   *
+   *     // @return the nested list that this NestedInteger holds, if it holds a nested list
+   *     // Return null if this NestedInteger holds a single integer
+   *     public List<NestedInteger> getList();
+   * }
+   */
+  public class Solution {
+      public int depthSum(List<NestedInteger> nestedList) {
+          return helper(nestedList, 1);
+      }
+      
+      public int helper(List<NestedInteger> nestedList, int depth){
+          int sum = 0;
+          for(NestedInteger n : nestedList){
+              if(n.isInteger()){
+                  sum += n.getInteger() * depth;
+              } else {
+                  sum += helper(n.getList(), depth + 1);
+              }
+          }
+          return sum;
+      }
+  }
+  ```
+  Now the weight is defined from bottom up.
+  Given the list `[[1,1],2,[1,1]]`, return `8`. (four 1's at depth 1, one 2 at depth 2)
+  ```java
+  class Solution {
+      public int depthSumInverse(List<NestedInteger> nestedList) {
+          int depth = getDepth(nestedList);
+          return getSum(nestedList, depth);
+      }
+      
+      public int getSum(List<NestedInteger> nestedList, int depth){
+          int sum = 0;
+          for(NestedInteger n : nestedList){
+              if(n.isInteger()){
+                  sum += n.getInteger() * depth;
+              } else {
+                  sum += getSum(n.getList(), depth - 1);
+              }
+          }
+          return sum;
+      }
+      
+      public int getDepth(List<NestedInteger> nestedList){
+          int depth = 0;
+          for(NestedInteger n : nestedList){
+              if(n.isInteger()){
+                  depth = Math.max(depth, 1);
+              } else {
+                  depth = Math.max(depth, getDepth(n.getList()) + 1);
+              }
+          }
+          return depth;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-25T17:29:12.415Z"
+updatedAt: "2017-10-25T17:31:24.348Z"

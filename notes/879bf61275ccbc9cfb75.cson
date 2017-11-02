@@ -3,6 +3,8 @@ folder: "8d19d56ee029f3fa592b"
 title: "LRU Cache"
 content: '''
   # LRU Cache
+  - 使用`HashMap`(用于迅速找到`key`)和 `Doubly LinkedList`(用于迅速移动和删除)
+  - `update`和`add`操作都会导致被操作节点挪到`tail`，`delete`操作总是删除`head`(里面是`LRU`)
   ```java
   public class LRUCache {
       class Node{
@@ -54,11 +56,15 @@ content: '''
       // @return nothing
       public void set(int key, int value) {
           // write your code here
+          //先调用一下get(), 成功 update 的同时也把此节点挪到了 tail
           if(get(key) != -1){
               map.get(key).val = value;
               return;
           }
           
+          //如果找不到这个节点，则将其加入List
+          
+          //如果List满了，则删除 head 的后一个
           if(map.size() == capacity){
               //删除head
               map.remove(head.next.key);
@@ -66,7 +72,7 @@ content: '''
               head.next.prev = head;
           }
           
-          //将新node放入tail
+          //总是将新 node 放入 tail 的前一个
           Node newNode = new Node(key, value);
           map.put(key, newNode);
           toTail(newNode);
@@ -85,4 +91,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-07T17:10:33.257Z"
-updatedAt: "2017-09-07T17:10:41.136Z"
+updatedAt: "2017-10-08T05:50:14.554Z"

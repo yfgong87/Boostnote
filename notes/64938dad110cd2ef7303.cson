@@ -1,0 +1,43 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "二分法"
+content: '''
+  # 二分法
+  - 数组一定要是排好序的
+  - 如果二分的是数组的`index`，如果写成`while(start + 1 < end)`，那么最后`start`和`end`分别对应数组里两个相邻的数，`start`和`end`对应的数与`target`大小关系未知，且这两个数哪一个和`target`更接近也是未知的，需要判断
+  - 如果二分的是连续整数，如果写成`while(start + 1 < end)`，那么最后`start`和`end`一定是相邻的两个整数
+  - 如果二分的是连续`double`，如果写成`while(start + PRECISION < end)`，那么最后`start`和`end`一定相差`PRECISION`
+  - 下面是二分模板，用来找`target`，如果找不到就返回`target`应该插入的位置
+  ```java
+      public int searchInsert(int[] A, int target) {
+          // write your code here
+          if(A == null || A.length == 0){
+              return 0;
+          }
+          int start = 0;
+          int end = A.length - 1;
+          while(start + 1 < end){
+              int mid = start + (end - start) / 2;
+              if(A[mid] < target){
+                  start = mid;
+              } else {
+                  end = mid;
+              }
+          }
+          //target的可能区间：
+          // < A[start], A[start], A[start] < target < A[end], A[end], > A[end]
+          if(target <= A[start]){
+              return start;
+          }
+          if(target <= A[end]){
+              return end;
+          }
+          return end + 1;
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-24T18:00:36.391Z"
+updatedAt: "2017-11-02T19:36:25.881Z"

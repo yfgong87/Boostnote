@@ -1,0 +1,52 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Edit Distance II"
+content: '''
+  # Edit Distance II
+  判断 `abc`和`abd`是否能通过一次`replace`/`delete`/`insertion`操作实现转换
+  ```java
+  public class Solution {
+      /*
+       * @param s: a string
+       * @param t: a string
+       * @return: true if they are both one edit distance apart or false
+       */
+      public boolean isOneEditDistance(String s, String t) {
+          // write your code here
+          //保证 s > t
+          if(t.length() > s.length()){
+              return isOneEditDistance(t, s);
+          }
+          int dif = s.length() - t.length();
+          //如果replace,s和t只能有一个char不同
+          if(dif == 0){
+              int count = 0;
+              for(int i = 0; i < t.length(); i++){
+                  if(t.charAt(i) != s.charAt(i)){
+                      count++;
+                  }
+              }
+              return count == 1;
+          }
+          //如果insert/delete，s和t在去掉一个不同后必须相等
+          if(dif == 1){
+              for(int i = 0; i < t.length(); i++){
+                  if(t.charAt(i) != s.charAt(i)){
+                      if(!t.substring(i).equals(s.substring(i + 1))){
+                          return false;
+                      }
+                  }
+              }
+              return true;
+          }
+          return false; //dif > 1
+      }
+      
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-03T16:02:26.929Z"
+updatedAt: "2017-10-03T16:10:45.564Z"

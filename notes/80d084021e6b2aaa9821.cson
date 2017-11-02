@@ -1,0 +1,43 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Merge Interval"
+content: '''
+  # Merge Interval
+  ```java
+  public class Solution {
+      /*
+       * @param intervals: interval list.
+       * @return: A new interval list.
+       */
+      public List<Interval> merge(List<Interval> intervals) {
+          // write your code here
+          List<Interval> result = new ArrayList<Interval>();
+          //左端点排序
+          Comparator<Interval> comparator = new Comparator<Interval>(){
+              public int compare(Interval a, Interval b){
+                  return a.start - b.start;
+              }
+          };
+          intervals.sort(comparator);
+          //intervals.sort(Comparator.comparing(i -> i.start));
+          //记录前一个interval
+          Interval last = null;
+          for(Interval curr : intervals){
+              //比较当前interval的左端点与前一个的右端点
+              if(last == null || curr.start > last.end){
+                  result.add(curr);
+                  last = curr;
+              } else {
+                  last.end = Math.max(curr.end, last.end);
+              }
+          }
+          return result;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-03T22:03:48.044Z"
+updatedAt: "2017-10-03T22:03:55.710Z"

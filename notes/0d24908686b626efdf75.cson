@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Two Sum"
 content: '''
   # Two Sum
+  ### Two Sum when input array is NOT sorted
   - Two Sum 的Brute Force Time Complexity是`O`(`N`<sup>`2`</sup>)
   - 如果直接用Two Sum由于先行sort了所以需要保存原来的index，不如直接用HashMap
   ```java
@@ -32,9 +33,42 @@ content: '''
       }
   }
   ```
+  
+  ### Two Sum <= target
+  Input array is sorted
+  ```java
+  public class Solution {
+      /*
+       * @param nums: an array of integer
+       * @param target: an integer
+       * @return: an integer
+       */
+      public int twoSum5(int[] nums, int target) {
+          // write your code here
+          int count = 0;
+          if(nums == null || nums.length == 0){
+              return count;
+          }
+          Arrays.sort(nums);
+          int left = 0;
+          int right = nums.length - 1;
+          while(left < right){
+              if(nums[left] + nums[right] <= target){
+                  //left 与 right 之间一共 right - left + 1 个数
+                  //left 能与除自己以外的 right - left 个数组成 right - left 个 pair
+                  count = count + right - left;
+                  left++;
+              } else{
+                  right--;
+              }
+          }
+          return count;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T18:18:22.509Z"
-updatedAt: "2017-09-08T20:21:02.296Z"
+updatedAt: "2017-10-06T18:29:31.024Z"

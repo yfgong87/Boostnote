@@ -5,13 +5,21 @@ content: '''
   # Random number
   ```java
   import java.util.Random;
+  
   Random rand = new Random();
   int  n = rand.nextInt(50) + 1;
-  //50 is the maximum and the 1 is our minimum 
+  //50 (50 - 1 + 1) is the maximum and the 1 is our minimum
+  
+  //七位数的randomInt怎么求
+  Random rand = new Random();
+  int num = rand.nextInt(9000000) + 1000000;
+  //The nextInt(n) method returns a random integer in the range 0 to n-1 inclusive
+  //So the lowest possible value of num is 0 + 1000000 = 1000000
+  //The highest possible value is 9000000 - 1 + 1000000 = 9999999, as desired.
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-24T19:38:47.640Z"
-updatedAt: "2017-09-24T19:39:12.972Z"
+updatedAt: "2017-10-09T23:18:32.960Z"

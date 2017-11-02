@@ -1,0 +1,54 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Maximum Width of Binary Tree"
+content: '''
+  # Maximum Width of Binary Tree
+  ```java
+  class Solution {
+      class returnType{
+          int label;
+          TreeNode node;
+          returnType(int label, TreeNode node){
+              this.label = label;
+              this.node = node;
+          }
+      }
+      public int widthOfBinaryTree(TreeNode root) {
+          if(root == null){
+              return 0;
+          }
+          Queue<returnType> queue = new LinkedList<>();
+          queue.offer(new returnType(0, root));  //root的index为0
+          //注意max最少为1(leaf node)
+          int max = 1;
+          while(!queue.isEmpty()){
+              int size = queue.size();
+              int left = 0;
+              int right = 0;
+              for(int i = 0; i < size; i++){
+                  returnType head = queue.poll();
+                  if(i == 0){
+                      left = head.label;
+                  }
+                  if(i == size - 1){
+                      right = head.label;
+                  }
+                  if(head.node.left != null){
+                      queue.offer(new returnType(2 * head.label + 1, head.node.left));
+                  }
+                  if(head.node.right != null){
+                      queue.offer(new returnType(2 * head.label + 2, head.node.right));
+                  }
+                  max = Math.max(max, right - left + 1);
+              }
+          }
+          return max;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-30T03:04:02.281Z"
+updatedAt: "2017-09-30T03:29:51.503Z"

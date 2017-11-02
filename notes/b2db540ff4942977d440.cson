@@ -1,0 +1,51 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Second Minimum Node in Binary Tree"
+content: '''
+  # Second Minimum Node in Binary Tree
+  返回树中第二小的值，如果数中所有数都相等，返回`-1`
+  ```java
+  /**
+   * Definition for a binary tree node.
+   * public class TreeNode {
+   *     int val;
+   *     TreeNode left;
+   *     TreeNode right;
+   *     TreeNode(int x) { val = x; }
+   * }
+   */
+  class Solution {
+      int firstMin = Integer.MAX_VALUE;
+      int secondMin = Integer.MAX_VALUE;
+      public int findSecondMinimumValue(TreeNode root) {
+          helper(root);
+          //如果树是空的，或者只有最小值却没有第二小，返回 -1
+          if(secondMin == Integer.MAX_VALUE){
+              return -1;
+          }
+          return secondMin;
+      }
+      
+      public void helper(TreeNode root){
+          if(root == null){
+              return;
+          }
+          helper(root.left);
+          helper(root.right);
+          //比最小值还小，更新最小值，同时把老的最小值更新给第二小
+          if(root.val < firstMin){  
+              secondMin = firstMin;
+              firstMin = root.val;
+            //比最小大，比第二小还小，只需更新第二小
+          } else if (root.val > firstMin && root.val < secondMin){  
+              secondMin = root.val;
+          } //其他情况包括出现重复值(等于最小值)时全部continue
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-27T20:31:53.426Z"
+updatedAt: "2017-10-27T20:36:38.179Z"

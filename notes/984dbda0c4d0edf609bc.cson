@@ -10,7 +10,7 @@ content: '''
   - A leaf node will have a height of 0.
   ### Binary Tree
   - `LeftChild` or `RightChild` can be `null`.
-  - `LeftChild` < `Root` < `RightChild`
+  - In `BST`,`LeftChild` < `Root` < `RightChild`
   - Space Complexity of Tree structure is `O(h)`, where h is the height of the tree. Worst case `O(n)`, best/average case `O(logn)`
   ### Traverse
   - Always `Left` -> `Right`, `In`/`Pre`/`Post`指的是`Root`的位置
@@ -122,4 +122,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T19:06:25.916Z"
-updatedAt: "2017-09-26T01:37:03.523Z"
+updatedAt: "2017-10-11T00:12:02.732Z"

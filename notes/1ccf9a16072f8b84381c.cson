@@ -3,6 +3,7 @@ folder: "403e789cfa873c1c2c82"
 title: "Math"
 content: '''
   # Math
+  `Math`有一个`private`的`constructor`，不允许新建`对象`，因为没有必要，其中包含的变量和方法都为`静态`
   ```java
   Integer A = new Integer(1);
   Integer B = new Integer(5);
@@ -22,4 +23,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-29T01:00:11.930Z"
-updatedAt: "2017-08-29T02:47:52.510Z"
+updatedAt: "2017-10-02T05:17:02.112Z"

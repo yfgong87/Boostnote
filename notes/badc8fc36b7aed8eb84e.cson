@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "3Sum"
+title: "3Sum & 4Sum"
 content: '''
-  # 3Sum
+  # 3Sum & 4Sum
   ```java
   public class Solution {
       /*
@@ -64,9 +64,75 @@ content: '''
       }
   }
   ```
+  ```java
+  public class Solution {
+      /*
+       * @param numbers: Give an array
+       * @param target: An integer
+       * @return: Find all unique quadruplets in the array which gives the sum of zero
+       */
+      public List<List<Integer>> fourSum(int[] numbers, int target) {
+          // write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(numbers == null || numbers.length < 4){
+              return results;
+          }
+          Arrays.sort(numbers);
+          for(int i = 0; i < numbers.length; i++){
+              //第一个数去重
+              if(i > 0 && numbers[i] == numbers[i - 1]){
+                  continue;
+              }
+              for(int j = i + 1; j < numbers.length; j++){
+                  //第二个数去重
+                  if(j > i + 1 && numbers[j] == numbers[j - 1]){
+                      continue;
+                  }
+                  int complement = target - numbers[i] - numbers[j];
+                  int left = j + 1;
+                  int right = numbers.length - 1;
+                  helper(results, numbers, left, right, complement, i, j);
+              }
+          }
+          return results;
+      }
+      private void helper (List<List<Integer>> results,
+                           int[] numbers,
+                           int left,
+                           int right,
+                           int target,
+                           int i,
+                           int j){
+          while(left < right) {
+              if(numbers[left] + numbers[right] > target){
+                  right--;
+              } else if (numbers[left] + numbers[right] < target){
+                  left++;
+              } else {
+                  List<Integer> solution = new ArrayList<Integer>();
+                  solution.add(numbers[i]);
+                  solution.add(numbers[j]);
+                  solution.add(numbers[left]);
+                  solution.add(numbers[right]);
+                  results.add(solution);
+                  left++;
+                  right--;
+                  //第三个数去重
+                  while(left < right && numbers[left] == numbers[left - 1]){
+                      left++;
+                  }
+                  //第四个数去重
+                  while(left < right && numbers[right] == numbers[right + 1]){
+                      right--;
+                  }
+              }
+          }
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T19:24:18.564Z"
-updatedAt: "2017-09-08T19:24:28.034Z"
+updatedAt: "2017-10-07T03:46:48.204Z"

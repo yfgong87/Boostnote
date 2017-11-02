@@ -1,0 +1,143 @@
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Inner Class & Local Class"
+content: '''
+  # Inner Class & Local Class
+  - `Inner Class` 提供了`封装性`: 对于一个`内部类`，出了其所在的`外部类`就无法被使用
+  ### Inner Class
+  - `非静态`的`内部类`可以访问`外部类`的`非静态` 属性和方法 (此时每一个`外部类对象`都有一个`内部类对象`)
+  - `非静态`的`内部类`, 出了其所在的`外部类`就无法被访问
+  ```java
+  public class Main{
+     private String str = "string";
+     class InnerClass{
+        str = "new string";  //OK，两者都是非静态时，内部类可以访问外部类
+     }
+  }
+  
+  public class Test{
+     InnerClass a = new InnerClass();  //WRONG，从外部不能访问非静态内部类
+  }
+  ```
+  - `静态`的`内部类 不`可以访问`外部类`的`非静态`属性和方法 (此时`内部类`成了一个独立于`外部类`的类，等价于`内部类`被挪到了外面)
+  - `静态`的`内部类`, 出了其所在的`外部类`仍然可以被访问，但这样就失去了`封装性`, 因此实际使用时，当`内部类`不需要与`外部类`有交流的时候可以将`内部类`定义为`private` `static`, 此时`内部类`出了其所在的`外部类`就无法被访问了, 这样的用法是合理的
+  ```java
+  public class Main{
+     private String str = "string";
+     private static class goodInnerClass{
+        str = "new string"; //WRONG，静态类不能访问非静态外部类
+     }
+     static class badInnerClass{
+        str = "new string"; //WRONG，静态类不能访问非静态外部类
+     }
+  }
+  
+  public class Test{
+     InnerClass a = new goodInnerClass();  //WRONG，从外部不可以访问 私有 + 静态 内部类
+     InnerClass a = new badInnerClass();  //OK，从外部可以访问静态内部类
+  }
+  ```
+  ### Local Class
+  - `局部类`定义在`函数`内部
+  ```java
+  public class Main{
+  
+     private String str = "string";
+     
+     public void test(){
+        //局部变量str1
+        final String str1 = null;
+        
+        //局部变量str3
+        String str3 = null;
+        
+        //局部类
+        class LocalClass{
+        
+            //局部类特性1
+            str = "new string"; //OK, 可以访问和修改方法所在的类的变量
+            foo();              //OK, 可以使用方法所在的类的其他方法
+            
+            //局部类特性2
+            System.out.println(str1); //OK，局部类可以访问局部变量(此时局部变量被默认为final)，这是局部类与内部类最大的区别
+            System.out.println(str2); //WRONG, 不能访问未经定义的局部变量，str2一定要先于局部类定义
+            
+            str1 = "new string";      //WRONG, Java规定局部类不能修改局部变量
+            System.out.println(str3); //WRONG, Java不允许局部类访问不是final或等价于final的局部变量
+            
+        }
+        
+        //局部变量str2
+        String str2 = null;
+        
+        //str3本来被默认为final，修改str3导致其不被Java默认为"effectively final"
+        String str3 = "new string";
+     }
+     
+     public void foo(){
+     
+     }
+     
+     public void test1(){
+        LocalClass test = new LocalClass(); //WRONG, 出了函数就无法使用局部类
+     }
+  }
+  ```
+  ### Anonymous Class
+  - `匿名类`属于`内部类`，定义了`匿名类`之后原地`new`出来
+  ```java
+  //Comparator类从生到死只产生了一个对象，所以可以使用匿名类定义
+  Arrays.sort(pairArray, new Comparator<Pair>() {
+        @Override
+        public int compare(Pair a, Pair b) {
+            return a.num - b.num;
+        } 
+  });
+  ```
+  - 与`内部类`一样，`匿名类`可以访问`局部`变量，但不能做修改
+  - Java 7 中，`内部/匿名类`不能访问所在`函数`的`参数`，必须将`参数`值传给`函数`所在`类`的变量或者`函数`的`局部`变量才能被`内部/匿名类`访问
+  - Java 8 中，`内部/匿名类`可以直接访问所在`函数`的`参数`
+  ```java
+  public class Solution {
+  
+      // Point global_origin; //写法一：Java 7 中必须要将 origin 作为函数所在类的变量传给匿名类Comparator
+      public Point[] kClosest(Point[] points, Point origin, int k) {
+          // write your code here
+          Point global_origin = origin; //写法二：Java 7 中必须要将 origin 作为局部变量传给匿名类Comparator
+          PriorityQueue<Point> pq = new PriorityQueue<Point>(new Comparator<Point>(){
+              public int compare(Point a, Point b){
+                  int dif = getDistance(b, global_origin) - getDistance(a, global_origin);
+                  if(dif == 0){
+                      dif = b.x - a.x;
+                  }
+                  if(dif == 0){
+                      dif = b.y - a.y;
+                  }
+                  return dif;
+              }
+          });
+          for(Point p : points){
+              pq.add(p);
+              if(pq.size() > k){
+                  pq.poll();
+              }
+          }
+          Point[] results = new Point[k];
+          for(int i = k - 1; i >= 0; i--){
+              results[i] = pq.poll();
+          }
+          return results;
+      }
+      
+      public int getDistance (Point a, Point b){
+          return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) ;
+      }
+  }
+  ```
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-03T05:01:50.939Z"
+updatedAt: "2017-10-25T07:13:19.427Z"

@@ -1,0 +1,58 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Pow(x, n)"
+content: '''
+  # Pow(x, n)
+  ```java
+  public class Solution {
+      /**
+       * @param x the base number
+       * @param n the power number
+       * @return the result
+       */
+      public double myPow(double x, int n) {
+          // Write your code here
+          if(x == 0){
+              return 0;
+          }
+          
+          //optional
+          if(x == 1){
+              return x;
+          }
+          
+          if(n == 0){
+              return 1;
+          }
+          
+          //optional
+          if(n == 1){
+              return x;
+          }
+          
+          if(n < 0){
+             if(n == Integer.MIN_VALUE){
+                 n = Integer.MAX_VALUE;
+             } else {
+                 n = -n;
+             }
+             double res = myPow(x, n);
+             return 1 / res;
+          }
+          
+          double res = myPow(x, n / 2);
+          res = res * res;
+          
+          if(n % 2 != 0){
+              res = res * x;
+          }
+          return res;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-04T20:11:50.313Z"
+updatedAt: "2017-10-04T20:22:17.568Z"

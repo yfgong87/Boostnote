@@ -12,7 +12,7 @@ content: '''
               return 0;
           }
           int sum = 0;
-          int min = 0;
+          int min = 0; //这里min初始值必须是0，因为 max = sum - min
           int max = Integer.MIN_VALUE;
           for(int i = 0; i < nums.length; i++){
               sum += nums[i];
@@ -101,6 +101,10 @@ content: '''
           //sum[i - j]要最大，s[j]一定要越小越好，而因为i - j >= k，j 一定 <= i - k
           //所以要在 0 到 i - k 的范围内寻找最小的sum
           int prefixMin = 0;
+          //如果循环的是 sum 数组一定要注意以下几点：
+          //首先在循环外面要初始化 sum[0]
+          //循环的范围从 1 开始, 到 n(包括n) 结束
+          //循环中使用公式 sum[i] = sum[i - 1] + num[i - 1]
           for (int i = 1; i <= n; i++) {
               sum[i] = sum[i - 1] + nums[i - 1];
               if (i >= k && sum[i] - prefixMin > result) {
@@ -142,4 +146,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T23:21:52.628Z"
-updatedAt: "2017-09-22T01:33:08.520Z"
+updatedAt: "2017-10-27T20:42:46.111Z"

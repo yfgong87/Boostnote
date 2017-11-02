@@ -41,7 +41,7 @@ content: '''
       /**
        * return the top of the stack
        */
-      public int top() {
+      public int peek() {
           moveItems();                //queue1只留最后一个数(最后加入的数)
           int item = queue1.poll();   //queue1最后一个数就是stack要pop/peek的数，queue1在poll()之后变为空queue
           swapQueues();               //交换1，2
@@ -52,10 +52,11 @@ content: '''
       /**
        * pop the top of the stack and return it
        */
-      public void pop() {
+      public int pop() {
           moveItems();
-          queue1.poll();
+          int item = queue1.poll();
           swapQueues();   //最后一个数不用还给queue1
+          return item;
       }
       
       /**
@@ -103,7 +104,7 @@ content: '''
           return stack2.pop();
       }
   
-      public int top() {
+      public int peek() {
           // write your code here
           if(stack2.empty() == true){
               move();
@@ -117,4 +118,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-19T18:54:54.539Z"
-updatedAt: "2017-09-19T20:43:33.065Z"
+updatedAt: "2017-10-08T05:34:51.836Z"

@@ -8,7 +8,19 @@ content: '''
   - These methods are `overloading` for all primitive value. (`Overloading` allows a class to have two or more methods having same name).
   - public static `int` `Arrays`.`binarySearch`(`Object`[ ] `array`, `Object` `key`): Searches the specified array of Object ( Byte, Int , double, etc.) for the specified value using the binary search algorithm. The array must be sorted prior to making this call. This returns index of the search key, if it is contained in the list; otherwise, it returns ( – (insertion point + 1)).
   - public static `void` `Arrays`.`fill`(`int`[ ] `array`, `int` `val`): Fill `array` with `val`
+  ```java
+  boolean[] boo = new boolean[10];
+  Arrays.fill(boo, true);
+  ```
   - public static `void` `Arrays`.`sort`(`Object`[ ] `array`): Sorts the specified array of objects into an ascending order
+  ```java
+  int[] a = new int[]{1,5,2,4,3};
+  Arrays.sort(a); //ascending sort
+  Arrays.sort(a, Collections.reverseOrder()); //descending sort
+  ```
+  - `Arrays`.`binarySearch`(int[ ] `a`, int `fromIndex`, int `toIndex`, int `target`)
+    - 如果`a`里有多个数等于`target`，不保证会返回固定的数
+    - 如果没找到，则返回 `-(insertion point) - 1`，`insertion point` 为第一个大于`target`的数，如果所有数都大于`target`，则`insertion point`为`toIndex`
   - `Arrays`.`equals`(`a`, `b`): `a`, `b` can be any array of `Objects`/`primitive`
   - `foreach` loop:
   ```java
@@ -124,4 +136,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-09-24T16:28:29.660Z"
+updatedAt: "2017-10-27T19:48:13.466Z"

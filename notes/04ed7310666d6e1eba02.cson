@@ -1,0 +1,416 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "坐标型动归"
+content: '''
+  # 坐标型动归
+  ### 动归四要素：
+  - 状态的意义(f方程里存什么)
+  - 状态转化方程
+  - 初始化
+  - 答案/返回值
+  ### 坐标型DP，坐标里存的是:
+  - 方案总数
+  - 可不可行
+  - 最优值
+  ### Triangle
+  只能向`下`和`右下`移动
+  ```java
+  public class Solution {
+      /*
+       * @param triangle: a list of lists of integers
+       * @return: An integer, minimum path sum
+       */
+      public int minimumTotal(int[][] triangle) {
+          // write your code here
+          if(triangle == null || triangle.length == 0 || triangle[0].length == 0){
+              return 0;
+          }
+          int n = triangle.length;
+          int[][] f = new int[n][n];
+          //初始化三角形的上顶点
+          f[0][0] = triangle[0][0];
+          //初始化三角形的左边和斜边
+          for(int i = 1; i < n; i++){
+              f[i][0] = triangle[i][0] + f[i - 1][0];
+              f[i][i] = triangle[i][i] + f[i - 1][i - 1];
+          }
+          //动归方程
+          for(int i = 1; i < n; i++){
+              for(int j = 1; j < i; j++){
+                  f[i][j] = Math.min(f[i - 1][j - 1], f[i - 1][j]) + triangle[i][j];
+              }
+          }
+          //在底边中找最小值
+          int min = Integer.MAX_VALUE;
+          for(int j = 0; j < n; j++){
+              if(f[n - 1][j] < min){
+                  min = f[n - 1][j];
+              }
+          }
+          return min;
+      }
+  }
+  ```
+  ### Minimum Path Sum
+  只能向`下`和向`右`移动
+  ```java
+  public class Solution {
+      /*
+       * @param grid: a list of lists of integers
+       * @return: An integer, minimizes the sum of all numbers along its path
+       */
+      public int minPathSum(int[][] grid) {
+          // write your code here
+          if(grid == null || grid.length == 0 || grid[0].length == 0){
+              return 0;
+          }
+          int m = grid.length;
+          int n = grid[0].length;
+          int[][] f = new int[m][n];
+          //初始化左上的点
+          f[0][0] = grid[0][0];
+          //初始化左边
+          for(int i = 1; i < m; i++){
+              f[i][0] = f[i - 1][0] + grid[i][0];
+          }
+          //初始化上边
+          for(int j = 1; j < n; j++){
+              f[0][j] = f[0][j - 1] + grid[0][j];
+          }
+          //动归方程
+          for(int i = 1; i < m; i++){
+              for(int j = 1; j < n; j++){
+                  f[i][j] = Math.min(f[i][j - 1], f[i - 1][j]) + grid[i][j];
+              }
+          }
+          return f[m - 1][n - 1];
+      }
+  }
+  ```
+  ### Unique Path
+  只能向`下`和向`右`，求可能的Path总数
+  ```java
+  public class Solution {
+      /*
+       * @param m: positive integer (1 <= m <= 100)
+       * @param n: positive integer (1 <= n <= 100)
+       * @return: An integer
+       */
+      public int uniquePaths(int m, int n) {
+          // write your code here
+          if(m == 0 || n == 0){
+              return 0;
+          }
+          int[][] f = new int[m][n];
+          //初始化第0行
+          for(int i = 0; i < m; i++){
+              f[i][0] = 1;
+          }
+          //初始化第0列
+          for(int j = 0; j < n; j++){
+              f[0][j] = 1;
+          }
+          //方程
+          for(int i = 1; i < m; i++){
+              for(int j = 1; j < n; j++){
+                  f[i][j] = f[i - 1][j] + f[i][j - 1];
+              }
+          }
+          //返回
+          return f[m - 1][n - 1];
+      }
+  }
+  ```
+  ### Unique Path II
+  只能向`下`和向`右`，求可能的Path总数，遇到`1`则路不通，遇到`0`则可以走·
+  ```java
+  public class Solution {
+      /*
+       * @param obstacleGrid: A list of lists of integers
+       * @return: An integer
+       */
+      public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+          // write your code here
+          if(obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0].length == 0){
+              return 0;
+          }
+          int m = obstacleGrid.length;
+          int n = obstacleGrid[0].length;
+          int[][] f = new int[m][n];
+          if(obstacleGrid[0][0] != 1){
+              f[0][0] = 1;
+          }
+          for(int i = 1; i < m; i++){
+              if(obstacleGrid[i][0] != 1){
+                  //如果左边是个0，即使当前点不是obstacle，Unique Path也是0
+                  f[i][0] = f[i - 1][0];
+              }
+          }
+          for(int j = 1; j < n; j++){
+              if(obstacleGrid[0][j] != 1){
+                  f[0][j] = f[0][j - 1];
+              }
+          }
+          for(int i = 1; i < m; i++){
+              for(int j = 1; j < n; j++){
+                  if(obstacleGrid[i][j] != 1){
+                      f[i][j] = f[i - 1][j] + f[i][j - 1];
+                  }
+              }
+          }
+          return f[m - 1][n - 1];
+      }
+  }
+  ```
+  ### Jump Game
+  Each element in the array represents your maximum jump length at that position.
+  求能否跳到最后一格
+  时间复杂度`O(n^2)`
+  ```java
+  public class Solution {
+      /*
+       * @param A: A list of integers
+       * @return: A boolean
+       */
+      public boolean canJump(int[] A) {
+          // write your code here
+          if(A == null || A.length == 0){
+              return false;
+          }
+          boolean[] f = new boolean[A.length];
+          f[0] = true;
+          for(int i = 1; i < A.length; i++){
+              for(int j = 0; j < i; j++){
+                  //j 本身能被到达，并且从 j 能跳到 i
+                  if(f[j] && A[j] >= i - j){
+                      f[i] = true;
+                      break; //只要有任意一个 j 使能到达 i 就可以 break 了
+                  }
+              }
+          }
+          return f[A.length - 1];
+      }
+  }
+  ```
+  ### Jump Game II
+  求跳到最后一格所需的`最小步数`
+  ```java
+  public class Solution {
+      /*
+       * @param A: A list of integers
+       * @return: An integer
+       */
+      public int jump(int[] A) {
+          // write your code here
+          if(A == null || A.length == 0){
+              return 0;
+          }
+          int[] f = new int[A.length];
+          f[0] = 0;
+          for(int i = 1; i < A.length; i++){
+              f[i] = Integer.MAX_VALUE;
+              for(int j = 0; j < i; j++){
+                  if(f[j] != Integer.MAX_VALUE && A[j] >= i - j){
+                      if(f[j] + 1 < f[i]){
+                          f[i] = f[j] + 1;
+                      }
+                  }
+              }
+          }
+          return f[A.length - 1];
+      }
+  }
+  ```
+  ### House Rober
+  `nums`里是每个house能抢的钱数，两个相邻的house不能都抢，必须选择一个，求`最多`能抢多少钱
+  ```java
+  class Solution {
+      public int rob(int[] nums) {
+          if(nums == null || nums.length == 0){
+              return 0;
+          }
+          if(nums.length == 1){
+              return nums[0];
+          }
+          int n = nums.length;
+          int[] f = new int[n];
+          f[0] = nums[0];
+          f[1] = Math.max(nums[0], nums[1]);
+          for(int i = 2; i < n; i++){
+              f[i] = Math.max(nums[i] + f[i - 2], f[i - 1]);
+          }
+          return f[n - 1];
+      }
+  }
+  ```
+  ### Longest Increasing Subsequence
+  Given a sequence of integers, find the longest increasing subsequence (`LIS`).
+  You code should return the length of the LIS.
+  For `[4, 2, 4, 5, 3, 7]`, the `LIS` is `[2, 4, 5, 7]`, return `4`
+  ```java
+  public class Solution {
+      /*
+       * @param nums: An integer array
+       * @return: The length of LIS (longest increasing subsequence)
+       */
+      public int longestIncreasingSubsequence(int[] nums) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return 0;
+          }
+          int n = nums.length;
+          //f表示从任意一点到当前点为止的LIS
+          int[] f = new int[n];
+          //初始化，每个点的LIS至少为 1
+          for(int i = 0; i < n; i++){
+              f[i] = 1;
+          }
+          for(int i = 1; i < n; i++){
+              for(int j = 0; j < i; j++){
+                  //num[j] < num[i] 且要找到到 j 为止的 Max LIS
+                  if(nums[j] < nums[i] && f[j] + 1 > f[i]){
+                      f[i] = f[j] + 1;
+                  }
+              }
+          }
+          //返回从 0 到 n - 1 的 Max LIS
+          int max = Integer.MIN_VALUE;
+          for(int i = 0; i < n; i++){
+              if(f[i] > max){
+                  max = f[i];
+              }
+          }
+          return max;
+      }
+  }
+  ```
+  ### Longest Divisible Subset
+  找到`最长`的`Subsequence`，其中每两个数都能满足`divisible`的关系
+  ```java
+  public class Solution {
+      /*
+       * @param nums: a set of distinct positive integers
+       * @return: the largest subset 
+       */
+      public List<Integer> largestDivisibleSubset(int[] nums) {
+          // write your code here
+          List<Integer> results = new ArrayList<Integer>();
+          if(nums == null || nums.length == 0){
+              return results;
+          }
+          Arrays.sort(nums);
+          int n = nums.length;
+          //f 数组记录从任意点到该点的 LDS 的长度
+          int[] f = new int[n];
+          //index 数组记录与该点一起组成 LDS 的前一个点的 index
+          int[] index = new int[n];
+          for(int i = 0; i < n; i++){
+              f[i] = 1; //每个点的 LDS 至少为 1
+              index[i] = i; //每个点至少可以和自己组成 LDS
+              for(int j = 0; j < i; j++){
+                  //动归方程
+                  if(nums[i] % nums[j] == 0 && f[j] + 1 > f[i]){
+                      f[i] = f[j] + 1;
+                      index[i] = j;
+                  }
+              }
+          }
+          //找到最长 LDS 及其最后一个数
+          int maxLen = 0;  //最长的 LDS 的长度
+          int maxIndex = 0;  //最长的 LDS 的最后(大)一个点
+          for(int i = 0; i < n; i++){
+              if(f[i] > maxLen){
+                  maxLen = f[i];
+                  maxIndex = i;
+              }
+          }
+          //从最后一个数通过index数组不断找前一个数，直到index数组存的是自己的index
+          results.add(0, nums[maxIndex]);
+          while(index[maxIndex] != maxIndex){
+              maxIndex = index[maxIndex];
+              results.add(0, nums[maxIndex]);
+          }
+          return results;
+      }
+  }
+  ```
+  ### Russian Doll Envelope
+  Given envelopes = `[[5,4],[6,4],[6,7],[2,3]]`, the maximum number of envelopes you can Russian doll is `3` (`[2,3]` => `[5,4]` => `[6,7]`).
+  ```java
+  public class Solution {
+      /*
+       * @param envelopes: a number of envelopes with widths and heights
+       * @return: the maximum number of envelopes
+       */
+      public int maxEnvelopes(int[][] envelopes) {
+          // write your code here
+          if(envelopes == null ||
+             envelopes.length == 0 ||
+             envelopes[0].length == 0 ||
+             envelopes[0].length != 2){
+                 return 0;
+             }
+          Arrays.sort(envelopes, new Comparator<int[]>(){
+              public int compare(int[] a, int[] b){
+                  int dif = a[0] - b[0];
+                  if(dif == 0){
+                      dif = a[1] - b[1];
+                  }
+                  return dif;
+              }
+          });
+          int n = envelopes.length;
+          int[] f = new int[n];
+          for(int i = 0; i < n; i++){
+              f[i] = 1;
+          }
+          for(int i = 1; i < n; i++){
+              for(int j = 0; j < i; j++){
+                  if(envelopes[j][0] < envelopes[i][0] &&
+                     envelopes[j][1] < envelopes[i][1] && 
+                     f[j] + 1 > f[i]){
+                      f[i] = f[j] + 1;
+                  }
+              }
+          }
+          int max = Integer.MIN_VALUE;
+          for(int i = 0; i < n; i++){
+              if(f[i] > max){
+                  max = f[i];
+              }
+          }
+          return max;
+      }
+  }
+  ```
+  ### Paint House
+  每个house不能和前一个同色，一共三种颜色`0`,`1`,`2`，每个house刷每一种颜色的`cost`存在`costs`里，求刷完所有house的`最小cost`
+  ```java
+  class Solution {
+      public int minCost(int[][] costs) {
+          if(costs == null || costs.length == 0 || costs[0].length == 0){
+              return 0;
+          }
+          int n = costs.length;
+          //每个house刷成某种颜色(保证满足不重色要求的前提下)的最小总cost
+          int[][] f = new int[n][3];
+          f[0][0] = costs[0][0];
+          f[0][1] = costs[0][1];
+          f[0][2] = costs[0][2];
+          for(int i = 1; i < n; i++){
+              //当前house刷成 0 的cost + 前一个house刷成 1 或者 2 的最小总cost
+              f[i][0] = costs[i][0] + Math.min(f[i - 1][1], f[i - 1][2]);
+              f[i][1] = costs[i][1] + Math.min(f[i - 1][0], f[i - 1][2]);
+              f[i][2] = costs[i][2] + Math.min(f[i - 1][0], f[i - 1][1]);
+          }
+          //返回
+          return Math.min(Math.min(f[n - 1][0], f[n - 1][1]), f[n - 1][2]);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-26T18:14:07.355Z"
+updatedAt: "2017-10-27T20:58:48.666Z"

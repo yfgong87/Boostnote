@@ -77,6 +77,7 @@ content: '''
   - Classic Comparator example.
   ```java
   //Example 1 - Java 7
+  //注意：                                    这个<>不能缺省
   Comparator<Point> comparator = new Comparator<Point>() {
   	@Override
   	public int compare(Point a, Point b) {
@@ -104,7 +105,7 @@ content: '''
   	}
   });
   ```
-  - Lambda expression equivalent.
+  - Lambda expression equivalent. 函数作为值传递
   ```java
   //Example 1 - Java 8
   Comparator<Point> comparator =
@@ -145,4 +146,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T17:01:32.776Z"
-updatedAt: "2017-09-22T18:28:58.738Z"
+updatedAt: "2017-10-25T05:40:18.488Z"

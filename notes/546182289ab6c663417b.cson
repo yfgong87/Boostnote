@@ -1,0 +1,27 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Merge Two Binary Tree"
+content: '''
+  # Merge Two Binary Tree
+  ```java
+  public class Solution {
+      public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+          if(t1 == null){
+              return t2;
+          }
+          if(t2 == null){
+              return t1;
+          }
+          t1.val += t2.val;
+          t1.left = mergeTrees(t1.left, t2.left);
+          t1.right = mergeTrees(t1.right, t2.right);
+          return t1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T02:02:31.746Z"
+updatedAt: "2017-10-01T02:02:40.158Z"

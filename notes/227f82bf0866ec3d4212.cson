@@ -1,0 +1,94 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Ugly Number I & II & III"
+content: '''
+  # Ugly Number I & II & III
+  检测一个数`num`是否是`Ugly Number`(`2`, `3`, `5`的倍数), `1`是`Ugly Number`
+  ```java
+  class Solution {
+      public boolean isUgly(int num) {
+          if(num <= 0){
+              return false;
+          }
+          num = helper(num, 2);
+          num = helper(num, 3);
+          num = helper(num, 5);
+          return num == 1;
+      }
+      public int helper(int num, int ugly){
+          while(num % ugly == 0){
+              num /= ugly;
+          }
+          return num;
+      }
+  }
+  ```
+  返回第`n`个`Ugly Number`(`2`, `3`, `5`的倍数), `1`是`Ugly Number`
+  ```java
+  public class Solution {
+      /*
+       * @param n: An integer
+       * @return: the nth prime number as description.
+       */
+      public int nthUglyNumber(int n) {
+          // write your code here
+          long[] primes = new long[3];
+          primes[0] = Long.valueOf(2);
+          primes[1] = Long.valueOf(3);
+          primes[2] = Long.valueOf(5);
+          
+          Set<Long> set = new HashSet<Long>();
+          PriorityQueue<Long> pq = new PriorityQueue<Long>();
+          long number = Long.valueOf(1);
+          pq.add(number);
+          
+          for(int i = 0; i < 3; i++){
+              set.add(primes[i]);
+              pq.add(primes[i]);
+          }
+          
+          for(int i = 0; i < n; i++){
+              number = pq.poll();
+              for(int j = 0; j < 3; j++){
+                  if(!set.contains(number * primes[j])){
+                      set.add(number * primes[j]);
+                      pq.add(number * primes[j]);
+                  }
+              }
+          }
+          return (int)number;
+      }
+  }
+  ```
+  返回第`n`个`Super Ugly Number`(给定质数数组`primes`中每一个质数的倍数), `1`是`Super Ugly Number`
+  ```java
+  public int nthSuperUglyNumber(int n, int[] primes) {
+          // write your code here
+          Set<Long> set = new HashSet<Long>();
+          PriorityQueue<Long> pq = new PriorityQueue<Long>();
+          long number = Long.valueOf(1);
+          pq.add(number);
+          
+          for(int i = 0; i < primes.length; i++){
+              set.add(Long.valueOf(primes[i]));
+              pq.add(Long.valueOf(primes[i]));
+          }
+          
+          for(int i = 0; i < n; i++){
+              number = pq.poll();
+              for(int j = 0; j < primes.length; j++){
+                  if(!set.contains(number * primes[j])){
+                      set.add(number * primes[j]);
+                      pq.add(number * primes[j]);
+                  }
+              }
+          }
+          return (int)number;
+      }
+      ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T06:06:21.385Z"
+updatedAt: "2017-10-24T18:42:58.721Z"

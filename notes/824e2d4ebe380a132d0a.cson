@@ -1,0 +1,54 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Palindrome LinkedList"
+content: '''
+  # Palindrome LinkedList
+  ```java
+  class Solution {
+      public boolean isPalindrome(ListNode head) {
+          if(head == null || head.next == null){
+              return true;
+          }
+          ListNode mid = getMid(head);
+          //这里必须以 mid.next 为 head 做翻转
+          //       slow               fast
+          //1   ->   2   ->    2   ->   1   ->   null
+          //        mid     mid.next
+          ListNode tail = reverse(mid.next);
+          while(tail != null){
+              if(head.val != tail.val){
+                  return false;
+              }
+              tail = tail.next;
+              head = head.next;
+          }
+          return true;
+      }
+      public ListNode reverse(ListNode head){
+          ListNode prev = null;
+          while(head != null){
+              ListNode temp = head.next;
+              head.next = prev;
+              prev = head;
+              head = temp;
+          }
+          return prev;
+      }
+      
+      public ListNode getMid(ListNode head){
+          ListNode slow = head;
+          ListNode fast = head.next;
+          while(fast != null && fast.next != null){
+              slow = slow.next;
+              fast = fast.next.next;
+          }
+          return slow;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T04:22:56.028Z"
+updatedAt: "2017-10-01T04:25:57.849Z"

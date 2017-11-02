@@ -1,0 +1,57 @@
+type: "MARKDOWN_NOTE"
+folder: "6e2623e3aff765e4a79c"
+title: "Perfect Squares"
+content: '''
+  # Perfect Squares
+  Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+  Given `n` = `12`, return `3` because `12` = `4` + `4` + `4`
+  Given `n` = `13`, return `2` because `13` = `4` + `9`
+  一共`n`的状态，每个状态BFS扩展都需要循环一遍squares。但是并不是每个状态都会处理到。所以我觉得时间复杂度是`O(n * sqrt(n))`的
+  ```java
+  public class Solution {
+      /*
+       * @param n: a positive integer
+       * @return: An integer
+       */
+      public int numSquares(int n) {
+          // write your code here
+          ArrayList<Integer> squares = new ArrayList<Integer>();
+          for(int i = 1; i * i <= n; i++){ //注意一定要有等号
+              squares.add(i * i);
+          }
+          Set<Integer> set = new HashSet<Integer>();
+          Queue<Integer> queue = new LinkedList<Integer>();
+          set.add(n);
+          queue.offer(n);
+          int level = 0;
+          while(!queue.isEmpty()){
+              level++;
+              int size = queue.size();
+              for(int i = 0; i < size; i++){
+                  int head = queue.poll();
+                  for(int square : squares){
+                      int remain = head - square;
+                      if(remain < 0){
+                          break;
+                      }
+                      if(remain == 0){
+                          return level;
+                      }
+                      if(set.contains(remain)){
+                          continue;
+                      }
+                      set.add(remain);
+                      queue.add(remain);
+                  }
+              }
+          }
+          return -1;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-27T18:42:35.542Z"
+updatedAt: "2017-11-02T23:39:22.309Z"

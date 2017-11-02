@@ -1,0 +1,57 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Binary Tree Vertical Order Traversal"
+content: '''
+  # Binary Tree Vertical Order Traversal
+  ```java
+  /* 3
+    / \\
+   9  20
+     /  \\
+    15   7  
+    
+  [[9], [3,15], [20], [7]]
+  */
+  class type{
+          int index;
+          TreeNode node;
+          type(int index, TreeNode node){
+              this.index = index;
+              this.node = node;
+          }
+      }
+      public List<List<Integer>> verticalOrder(TreeNode root) {
+          // write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(root == null){
+              return results;
+          }
+          //<index, List of TreeNode of level order>
+          Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+          Queue<type> queue = new LinkedList<type>();
+          queue.offer(new type(0, root));
+          while(!queue.isEmpty()){
+              type head = queue.poll();
+              if(!map.containsKey(head.index)){
+                  map.put(head.index, new ArrayList<Integer>());
+              }
+              map.get(head.index).add(head.node.val);
+              if(head.node.left != null){
+                  queue.offer(new type(head.index - 1, head.node.left));
+              }
+              if(head.node.right != null){
+                  queue.offer(new type(head.index + 1, head.node.right));
+              }
+          }
+          for(int i = Collections.min(map.keySet()); i <= Collections.max(map.keySet()); i++){
+              results.add(map.get(i));
+          }
+          return results;
+      }
+      ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-27T17:38:48.601Z"
+updatedAt: "2017-10-27T17:38:48.601Z"

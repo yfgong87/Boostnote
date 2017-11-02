@@ -1,0 +1,46 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Longest Consecutive Sequence"
+content: '''
+  # Longest Consecutive Sequence
+  ```java
+  public class Solution {
+      /*
+       * @param num: A list of integers
+       * @return: An integer
+       */
+      public int longestConsecutive(int[] num) {
+          // write your code here
+          Set<Integer> set = new HashSet<Integer>();
+          //hash两个作用：1.判断连续数是否存在于数组中
+          //2.判断某个数是否已经被检查过(检查过的数从hash拿掉)
+          for(int item : num){
+              set.add(item);
+          }
+          int max = 0;
+          for(int item : num){
+              if(set.contains(item)){
+                  set.remove(item);
+                  int pre = item - 1;
+                  int post = item + 1;
+                  while(set.contains(pre)){
+                      set.remove(pre);
+                      pre--;
+                  }
+                  while(set.contains(post)){
+                      set.remove(post);
+                      post++;
+                  }
+                  max = Math.max(max, post - pre - 1); //post和pre各倒回1格
+              }
+          }
+          return max;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-09T18:19:07.463Z"
+updatedAt: "2017-10-11T04:05:27.964Z"

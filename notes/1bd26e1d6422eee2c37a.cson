@@ -1,0 +1,68 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Sqrt I & II"
+content: '''
+  # Sqrt I & II
+  检测是否是 Perfect Square
+  ```java
+  class Solution {
+      public boolean isPerfectSquare(int num) {
+          long start = 0;
+          long end = num;
+          while(start + 1 < end){
+              long mid = start + (end - start) / 2;
+              if(mid * mid < num){
+                  start = mid;
+              } else if (mid * mid == num){
+                  end = mid;
+              } else {
+                  end = mid;
+              }
+          }
+          if(start * start == num){
+              return true;
+          }
+          if(end * end == num){
+              return true;
+          }
+          return false;
+      }
+  }
+  ```
+  Implement double sqrt(double x) and x >= 0.
+  ```java
+  public class Solution {
+      /**
+       * @param x a double
+       * @return the square root of x
+       */
+      private double PRECISION = 1e-10;
+      public double sqrt(double x) {
+          // Write your code here
+          double start = 0;
+          double end = x;
+          if (end < 1){
+              end = 1;
+          }
+          while (start + PRECISION < end){
+              double mid = start + (end - start) / 2;
+              if (mid * mid == x){
+                  end = mid;
+              } else if (mid * mid < x){
+                  start = mid;
+              } else {
+                  end = mid;
+              }
+          }
+          //此时 end 的大小为 target 或 target - PRECISION
+          return end;
+      }
+  }
+  ```
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-02T18:32:10.403Z"
+updatedAt: "2017-11-02T19:03:55.085Z"

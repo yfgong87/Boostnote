@@ -1,0 +1,100 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "QuickSelect"
+content: '''
+  # QuickSelect
+  注意最后左右指针之间可能有一个数，此时直接返回 `nums[k]`
+  左右指针之间也可能没有数
+  ```java
+  public int kthSmallest(int k, int[] nums) {
+          // write your code here
+          if(nums == null || nums.length < k){
+              return -1;
+          }
+          //注意第 k 个数的 index 是 k-1
+          return quickSelect(0, nums.length - 1, nums, k - 1);
+      }
+      public int quickSelect(int start, int end, int[] nums, int k){
+          if(start == end){
+              return nums[start];
+          }
+          int left = start;
+          int right = end;
+          int pivot = nums[(start + end) / 2];
+          while(left <= right){
+              while(left <= right && nums[left] < pivot){
+                  left++;
+              }
+              while(left <= right && nums[right] > pivot){
+                  right--;
+              }
+              if(left <= right){
+                  int temp = nums[left];
+                  nums[left] = nums[right];
+                  nums[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          if(k <= right && start <= right){
+              return quickSelect(start, right, nums, k);
+          }
+          if(k >= left && left <= end){
+              return quickSelect(left, end, nums, k);
+          }
+          return nums[k];
+      }
+      ```
+      
+  ### Median
+  ```java
+  public class Solution {
+      /*
+       * @param nums: A list of integers
+       * @return: An integer denotes the middle number of the array
+       */
+      public int median(int[] nums) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return -1;
+          }
+          return quickSelect(0, nums.length - 1, nums, (nums.length - 1) / 2);
+      }
+      public int quickSelect(int start, int end, int[] nums, int k){
+          if(start == end){
+              return nums[start];
+          }
+          int left = start;
+          int right = end;
+          int pivot = nums[(start + end) / 2];
+          while(left <= right){
+              while(left <= right && nums[left] < pivot){
+                  left++;
+              }
+              while(left <= right && nums[right] > pivot){
+                  right--;
+              }
+              if(left <= right){
+                  int temp = nums[left];
+                  nums[left] = nums[right];
+                  nums[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          if(k <= right && start <= right){
+              return quickSelect(start, right, nums, k);
+          }
+          if(k >= left && left <= end){
+              return quickSelect(left, end, nums, k);
+          }
+          return nums[k];
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-08T00:16:04.452Z"
+updatedAt: "2017-10-08T00:24:23.700Z"

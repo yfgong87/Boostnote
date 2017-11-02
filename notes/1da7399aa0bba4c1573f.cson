@@ -1,0 +1,53 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Min Stack"
+content: '''
+  # Min Stack
+  使用反向链表结构
+  ```java
+  class MinStack {
+      ListNode head;
+      /** initialize your data structure here. */
+      public MinStack() {
+          
+      }
+      //反向链表的结构，每次加入一个新head，head里面记录了最新的min
+      public void push(int x) {
+          if(head == null){
+              head = new ListNode(x, x);
+          } else {
+              ListNode newNode = new ListNode(x, Math.min(x, head.min));
+              newNode.next = head;
+              head = newNode;
+          }
+      }
+      //pop就是删除head
+      public void pop() {
+          head = head.next;
+      }
+      //top就是返回head的值
+      public int top() {
+          return head.val;
+      }
+      //getMin就是返回head中记录的min
+      public int getMin() {
+          return head.min;
+      }
+      
+      class ListNode {
+         int val;   //记录val
+         int min;   //记录从该点往前的最小值
+         ListNode next;
+         ListNode(int x, int m) { 
+             val = x;
+             min = m;
+         }
+     }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T05:19:10.751Z"
+updatedAt: "2017-10-01T05:21:28.404Z"

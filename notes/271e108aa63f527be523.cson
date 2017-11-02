@@ -1,0 +1,42 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Palindrome number"
+content: '''
+  # Palindrome number
+  All such operations require O(d) time where d is number of digits in given number x (say we are evaluating x mod y)
+  
+  Time complexity can also be written as O(1) if we consider any particuler data type on a particular machine like int on a machine is of 4 bytes.
+  ```java
+  public boolean isPalindrome(int num) {
+          // write your code here
+          // Special cases:
+          // As discussed above, when x < 0, x is not a palindrome.
+          // Also if the last digit of the number is 0, in order to be a palindrome, 
+          // the first digit of the number also needs to be 0.
+          // Only 0 satisfy this property.
+          if(num < 0 || (num % 10 == 0 && num != 0)) {
+              return false;
+          }
+          //reverse half of the number
+          int reverse = 0;
+          while(num > reverse){
+              reverse = reverse * 10 + num % 10;
+              num /= 10;
+          }
+          //1221: reverse = 12, num = 12
+          if(num == reverse){
+              return true;
+          }
+          //121: reverse = 12, num = 1
+          if(num == reverse / 10){
+              return true;
+          } 
+          return false;
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-23T02:27:33.876Z"
+updatedAt: "2017-10-23T02:34:56.482Z"

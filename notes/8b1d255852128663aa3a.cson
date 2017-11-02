@@ -145,10 +145,23 @@ content: '''
   String[] strArray = new String[3];
   strArray = arrayList.toArray();
   ```
-  - Sort `ArrayList`
+  - `ArrayList`
   ```java
+  Comparator<Integer> comparator = new Comparator<Integer>(){
+      public int compare (int a, int b){
+          return b - a;
+      }
+  };
   ArrayList<Integer> nums = new ArrayList<Integer>();
+  //写法一
   Collections.sort(nums);
+  
+  //写法二，with Comparator
+  Collections.sort(nums, comparator);
+  
+  //写法三
+  nums.sort(comparator);
+  
   ```
   
   ### LinkedList
@@ -182,4 +195,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-09-04T13:55:23.381Z"
+updatedAt: "2017-10-11T07:33:15.391Z"

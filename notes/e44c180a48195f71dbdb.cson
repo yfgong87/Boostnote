@@ -1,0 +1,39 @@
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "TreeMap & TreeSet"
+content: '''
+  # TreeMap & TreeSet
+  `O(logn)` for add, contains, next (`TreeSet`) and for get, containsKey, next (`TreeMap`)
+  ```java
+  Map<key, value> map = new TreeMap<key, value>();
+  NavigableMap<key, value> map = new TreeMap<key, value>();
+  
+  Set<value> set = new TreeSet<value>();
+  NavigableSet<value> set = new TreeSet<value>();
+  ```
+  ### TreeMap
+  - `K` `TreeMap`.`ceilingKey`(`K` `key`)
+  Returns the `least` key `greater` than or equal to the given key, or null if there is no such key.
+  - `Map.Entry<K, V>` `TreeMap`.`ceilingEntry`(`K` `key`)
+  - `K` `TreeMap`.`floorKey`(`K` `key`)
+  Returns the `greatest` key `less` than or equal to the given key, or null if there is no such key.
+  - `Map.Entry<K, V>` `TreeMap`.`floorEntry`(`K` `key`)
+  - `NavigableMap<K,V>` `TreeMap`.`subMap`(`K` `fromKey`, `boolean` `fromInclusive`, `K` `toKey`, `boolean` `toInclusive`)
+  Returns a view of the portion of this map whose keys range from `fromKey` to `toKey`.
+  ```java
+  for (Map.Entry<Integer, String> entry : map.subMap(start, true, end, true).entrySet()) {
+      //handle entry.getKey()
+      //handle entry.getValue()
+  }
+  ```
+  ### TreeSet
+  - `E` `TreeSet`.`ceiling`(`E` `e`)
+  Returns the `least` element in this set `greater` than or equal to the given element, or null if there is no such element.
+  - `E` `TreeSet`.`floor`(`E` `e`)
+  Returns the `greatest` element in this set `less` than or equal to the given element, or null if there is no such element.
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-02T04:21:16.760Z"
+updatedAt: "2017-11-02T04:38:41.105Z"

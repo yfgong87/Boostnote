@@ -22,8 +22,10 @@ content: '''
   ```java
   //This is a null array, where the object reference points to null
   int[] nullArray = null;
-  //This is an empty array, where there is no element in it
+  String str = null;
+  //This is an empty array/String, where there is no element in it
   int[] emptyArray = new int[0];
+  String emptyString = "";
   ```
   
   ### radix
@@ -45,9 +47,9 @@ content: '''
   ---
   - `short` data type is a 16-bit signed two's complement integer
   - `int` data type is a 32-bit signed two's complement integer.
-  - `Integer.MAX_VALUE`: 2<sup>31</sup>-1
-  - `Integer.MIN_VALUE`: -2<sup>31</sup>
-  - 注意：`Math.abs`(`Integer.MIN_VALUE`) 依然等于`Integer.MIN_VALUE`因为越界了，需要用`Math.abs`( (`long`)`Integer.MIN_VALUE`)
+  - `Integer.MAX_VALUE`: 2<sup>31</sup>-1，`2147483647`
+  - `Integer.MIN_VALUE`: -2<sup>31</sup>, `-2147483648`
+  - 注意：`Math.abs`(`Integer.MIN_VALUE`) 依然等于`Integer.MIN_VALUE`因为`2147483648`越界了，需要用`Math.abs`( (`long`)`Integer.MIN_VALUE`)
   ```java
   int max = Integer.MAX_VALUE;
   int min = Integer.MIN_VALUE;
@@ -102,4 +104,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:00:38.326Z"
-updatedAt: "2017-09-22T06:44:54.869Z"
+updatedAt: "2017-10-04T02:34:55.859Z"

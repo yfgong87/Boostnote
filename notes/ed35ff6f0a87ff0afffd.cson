@@ -1,0 +1,78 @@
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "Next & Prev Permutation"
+content: '''
+  # Next & Prev Permutation
+  ### Next Permutation
+  * `124653`
+  * 第一步，从后往前找第一个`降序`(比后一个数小)的数，找到`4`
+  * 第二步，从后往前找第一个比`4`还`大`的数，找到`5`
+  * 第三步，交换`4`和`5`，得到`125643`
+  * 第四步，将`5`之后的序列变为`升序`，得到`125346`
+  * 结束
+  
+  ### Perv Permutation
+  * `124635`
+  * 第一步，从后往前找第一个`升序`(比后一个数大)的数，找到`6`
+  * 第二步，从后往前找第一个比`6`还`小`的数，找到`5`
+  * 第三步，交换`6`和`5`，得到`124536`
+  * 第四步，将5之后的序列变为`降序`，得到`124563`
+  * 结束
+  
+  ```java
+  public class Solution {
+      /**
+       * @param num: an array of integers
+       * @return: return nothing (void), do not return anything, modify num in-place instead
+       */
+       
+      public void reverse(int[] num, int start, int end) {
+          for (int i = start, j = end; i < j; i++, j--) {
+              int temp = num[i];
+              num[i] = num[j];
+              num[j] = temp;
+          }
+      }
+      
+      public int[] nextPermutation(int[] num) {
+          // 从后往前找
+          int index = -1;
+          for (int i = num.length - 2; i >= 0; i--) {
+              //找到第一个比后一个数小的数index
+              if (num[i] < num[i + 1]) {
+                  index = i;
+                  break;
+              }
+          }
+          //如果没找到，将整个序列翻转
+          if (index == -1) {
+              reverse(num, 0, num.length - 1);
+              return num;
+          }
+          
+          // 从后往前找第一个比index还大的数
+          int biggerIndex = index + 1;
+          for (int i = num.length - 1; i > index; i--) {
+              if (num[i] > num[index]) {
+                  biggerIndex = i;
+                  break;
+              }
+          }
+          
+          // 交换两个数
+          int temp = num[index];
+          num[index] = num[biggerIndex];
+          num[biggerIndex] = temp;
+          
+          // 从index往后的所有数翻转
+          reverse(num, index + 1, num.length - 1);
+          return num;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-09-29T18:25:44.520Z"
+updatedAt: "2017-09-29T18:33:19.049Z"

@@ -8,9 +8,15 @@ content: '''
   
   # 空间复杂度
   - 链表的合并不需要额外的空间，为`O(1)`
+  
+  ### Number of subStrings in a string with `n` char
+  - `n * (n + 1) / 2`, e.g. `O(n^2)`
+  - `"abcd"`: 4 (`"a"`, `"b"`, `"c"`, `"d"`) + 3 (`"ab"`, `"bc"`, `"cd"`) + 2 (`"abc"`, `"bcd"`) + 1 (`"abcd"`) = `4 * (4 + 1) / 2`
+  - 注意`Substring`和`Subsequence/subset`的区别！`Substring`是`O(n^2)`，`Subsequence/subset`是`O(2^n)`
+  
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-02T20:46:20.441Z"
-updatedAt: "2017-09-02T20:48:03.332Z"
+updatedAt: "2017-10-26T23:46:10.237Z"

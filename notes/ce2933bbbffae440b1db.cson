@@ -8,10 +8,13 @@ content: '''
   <d2r, <deer, door>>
   <c2e, <cake>>
   <c2d, <card>>
-  isUnique("dear") // return false， 因为d2r对应的word在词典中不唯一
-  isUnique("cart") // return true，因为cart及其abbr在词典中不存在，所以唯一
-  isUnique("cane") // return false，因为cane的abbr在词典中对应的词不是自己
-  isUnique("make") // return true，因为make及其abbr在词典中不存在，所以唯一
+  isUnique("deer") // return false， 因为 d2r 在词典中对应的词虽然有自己(deer)，但不唯一
+  isUnique("cart") // return true，因为 cart 的 abbr 在词典中不存在，所以唯一
+  isUnique("cane") // return false，因为 c2e 在词典中对应的词不是自己(cane)
+  isUnique("make") // return true，因为 make 的 abbr 在词典中不存在，所以唯一
+  
+  <d2r, <deer>>
+  isUnique("dear") // return false, 因为 d2r 在词典中对应的词不是自己(dear)
   */
   public class ValidWordAbbr {
       Map<String, Set<String>> map;
@@ -45,13 +48,13 @@ content: '''
           String abbrWord = getAbbr(word);
           if(map.containsKey(abbrWord)){
               Set<String> set = map.get(abbrWord);
-              if(set.size() == 1 && set.contains(word)){
+              if(set.contains(word) && set.size() == 1){
                   return true; //如果word在dict里且其abbr所对应的词在字典里唯一，Unique
               } else {
                   return false;
               }
           } else {
-              return true; //如果word及其abbr根本就不在dict里，Unique
+              return true; //如果word的abbr根本就不在dict里，Unique
           }
       }
       
@@ -75,4 +78,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-22T20:03:11.105Z"
-updatedAt: "2017-09-22T20:07:13.997Z"
+updatedAt: "2017-10-04T02:20:50.139Z"

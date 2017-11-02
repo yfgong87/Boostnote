@@ -81,8 +81,17 @@ content: '''
      public static final String DEPARTMENT = "Development ";
   ```
   #### `Static` method CANNOT reference a `non-static` method or variable
+  - `静态`在有些IDE中以`斜体`表示
+  - 定义1：如果一个函数或变量为`静态`，则其被这个`类`的所有`对象`共享
+  - 定义2：`静态`函数或变量只属于`类`，不属于`对象`
+  - 何时用`静态`？当某个`类`只需要作为容器把一些相关的函数关联在一起时，并不需要建立`类`的`对象`，比如`Math`，`Math`的构造函数为`private`，并不允许建立`Math`类的对象
+  - 调用`静态`对象时使用`类`名而不是`对象`名
+  - `静态`函数不能访问`非静态`函数或变量，只能访问`静态`函数或变量，因为`静态`函数或变量被所有`对象`共享
+  - 反之，`非静态`函数可以调用`静态`函数或变量
+  - `Main`函数因为是程序的入口，所以是`静态`，由于`Main`是`静态`，`Main`中调用的所有方法都必须得定义为`静态`
   - `non-static` method or variables has to be called from an `instance` of class
   - You can't call something that doesn't exist. Since you haven't created an object, the `non-static` method doesn't exist yet. A `static` method (by definition) always exists.
+  - `static`还有个用法就是用于记录某一个`对象`被创建了多少个，可以用一个`static`的变量来记录
   ```java
   private int a = 0;
   static void staticMethod(){
@@ -115,4 +124,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T03:12:28.527Z"
-updatedAt: "2017-09-09T18:37:24.361Z"
+updatedAt: "2017-10-25T06:02:49.469Z"

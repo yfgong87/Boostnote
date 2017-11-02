@@ -3,6 +3,9 @@ folder: "c7615b6dcc7b2832aa16"
 title: "Interface"
 content: '''
   # Interface
+  - `Interface`里所有的方法默认是`public`
+  - `Interface`里所有的方法不需要实现(`Java8`之后允许实现，叫做`default`方法)
+  - `Interface`里的所有变量都是`常量`，不能定义`变量`
   ```java
   public interface Drivable{
     double PI = 3.14; //field in interface is CONSTANT and FINAL
@@ -58,4 +61,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-12T16:38:38.775Z"
-updatedAt: "2017-09-20T05:46:28.429Z"
+updatedAt: "2017-10-08T16:50:32.959Z"

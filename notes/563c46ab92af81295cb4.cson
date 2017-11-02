@@ -1,0 +1,35 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Product of Array Except itself"
+content: '''
+  # Product of Array Except itself
+  - Given `[1,2,3,4]`, return `[24,12,8,6]`.
+  - The idea is simply. The product basically is calculated using the numbers before the current number and the numbers after the current number. Thus, we can scan the array twice. First, we calcuate the running product of the part before the current number. Second, we calculate the running product of the part after the current number through scanning from the end of the array.
+  ```java
+  class Solution {
+      public int[] productExceptSelf(int[] nums) {
+          int n = nums.length;
+          int[] results = new int[n];
+          if(n == 0){
+              return results;
+          }
+          int prefixProduct = 1;
+          for(int i = 0; i < n; i++){
+              results[i] = prefixProduct;
+              prefixProduct *= nums[i];
+          }
+          prefixProduct = 1;
+          for(int i = n - 1; i >= 0; i--){
+              results[i] *= prefixProduct;
+              prefixProduct *= nums[i];
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-01T16:45:38.065Z"
+updatedAt: "2017-10-01T16:46:23.226Z"
