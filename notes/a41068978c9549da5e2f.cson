@@ -3,7 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Word Ladder"
 content: '''
   # Word Ladder
-  严格来说复杂度是`O(nL^2)`，`L`为字符串长度。`L^2`包含两个部分，一个是枚举最后一个单词的长度时的耗费`L`，然后枚举出一个单词之后，检查这个单词在hash表中是否存在，严格的说应该是需要耗费`O(L)`的，所以是`O(NL^2）`。但是建议这个hash表部分的复杂度，一定要明白的告诉面试官你是怎么计算的，否则某些水平不高的面试官可能会以为你算错了。
+  严格来说复杂度是`26 * O(NL^2)`，`N`为`dict`大小，`L`为字符串长度。`L^2`包含两个部分，一个是枚举最后一个单词的长度时的耗费`L`，然后枚举出一个单词之后，检查这个单词在hash表中是否存在，严格的说应该是需要耗费`O(L)`的，所以是`26 * O(NL^2）`。但是建议这个hash表部分的复杂度，一定要明白的告诉面试官你是怎么计算的，否则某些水平不高的面试官可能会以为你算错了。
   ```java
   public class Solution {
       public int ladderLength(String start, String end, Set<String> dict) {
@@ -14,7 +14,9 @@ content: '''
           if (start.equals(end)) {
               return 1;
           }
-          //必须先把起始和结束的word加到字典里
+          
+          //如果要求 start 和 end 也要在字典中，这步不能有
+          //如果只要求中间词一定要在字典中，那么必须先把 start 和 end 加到字典里
           //dict.add(start); //可以不加start，但必须加end
           dict.add(end);
   
@@ -80,4 +82,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T03:18:48.801Z"
-updatedAt: "2017-09-23T03:15:22.627Z"
+updatedAt: "2017-11-06T20:52:59.103Z"

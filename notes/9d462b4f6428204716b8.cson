@@ -12,30 +12,50 @@ content: '''
        */
       public double myPow(double x, int n) {
           // Write your code here
-          if(x == 0){
-              return 0;
-          }
-          
-          //optional
-          if(x == 1){
+          if(x == 0 || n == 1){
               return x;
           }
-          
-          if(n == 0){
+          if(x == 1 || n == 0){
               return 1;
+          }        
+          if(n < 0){
+             n = -n;
+             double res = myPow(x, n);
+             return 1 / res;
           }
           
-          //optional
-          if(n == 1){
+          double res = myPow(x, n / 2);
+          res = res * res;
+          
+          if(n % 2 != 0){
+              res = res * x;
+          }
+          return res;
+      }
+  }
+  ```
+  如何完美解决`Integer.MIN_VALUE`的overflow问题：
+  ```java
+  public class Solution {
+      /**
+       * @param x the base number
+       * @param n the power number
+       * @return the result
+       */
+      public double myPow(double x, int n){
+          long nn = n;
+          return myPow(x, nn);
+      }
+      public double myPow(double x, long n) {
+          // Write your code here
+          if(x == 0 || n == 1){
               return x;
           }
-          
+          if(x == 1 || n == 0){
+              return 1;
+          }        
           if(n < 0){
-             if(n == Integer.MIN_VALUE){
-                 n = Integer.MAX_VALUE;
-             } else {
-                 n = -n;
-             }
+             n = -n;
              double res = myPow(x, n);
              return 1 / res;
           }
@@ -55,4 +75,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-04T20:11:50.313Z"
-updatedAt: "2017-10-04T20:22:17.568Z"
+updatedAt: "2017-11-04T04:36:46.672Z"

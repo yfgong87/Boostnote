@@ -1,0 +1,37 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Longest Palindromic Subsequence"
+content: '''
+  # Longest Palindromic Subsequence
+  - 暴力解法为`O(2^n)`，DP解法为`O(n^2)`
+  - `f[i][j]`: the longest palindromic subsequence's length of substring(i, j)
+  - State transition: 
+    - `f[i][j] = f[i+1][j-1] + 2` if `s.charAt(i) == s.charAt(j)`
+    - otherwise, `f[i][j] = Math.max(f[i+1][j], f[i][j-1])`
+  - Initialization: `f[i][i] = 1`
+  - Return: `f[0][s.length() - 1]`
+  ```java
+  class Solution {
+      public int longestPalindromeSubseq(String s) {
+          int n = s.length();
+          int[][] f = new int[n][n];
+          for(int i = n - 1; i >= 0; i--){
+              f[i][i] = 1;
+              for(int j = i + 1; j < n; j++){
+                  if(s.charAt(i) == s.charAt(j)){
+                      f[i][j] = f[i + 1][j - 1] + 2;
+                  } else {
+                      f[i][j] = Math.max(f[i + 1][j], f[i][j - 1]);
+                  }
+              }
+          }
+          return f[0][n - 1];
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-04T04:04:48.778Z"
+updatedAt: "2017-11-04T04:07:43.262Z"

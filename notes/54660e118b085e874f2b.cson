@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Longest Palindromic Substring"
 content: '''
   # Longest Palindromic Substring
+  ### Brute Force, `O(n^3)`
   ```java
   public class Solution {
       /*
@@ -42,6 +43,7 @@ content: '''
       }
   }
   ```
+  ### Expanding, `O(n)`
   ```java
   public String longestPalindrome(String s) {
           // write your code here
@@ -70,13 +72,39 @@ content: '''
               leftPointer--;
               rightPointer++;
           }
-          //这样写可以保证expand(s,0,0) 和 expand(s,0,1)不越界
+          //这样写可以保证expand(s,0,0) 不越界
+          //因为当 left == right 的时候 leftPointer--, rightPointer++
           return rightPointer - leftPointer - 1;
       }
+  ```
+  ### Related: Count how many palindromic substring
+  ```java
+  class Solution {
+      int count = 0;
+      public int countSubstrings(String s) {
+          for(int i = 0; i < s.length(); i++){
+              expand (s, i, i);
+              expand (s, i, i + 1);
+          }
+          return count;
+      }
+      
+      public void expand (String s, int i, int j){
+          while(i >= 0 && j <= s.length() - 1){
+              if(s.charAt(i) != s.charAt(j)){
+                  break;
+              } else {
+                  count++;
+                  i--;
+                  j++;
+              }
+          }
+      }
+  }
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T23:36:01.852Z"
-updatedAt: "2017-09-14T04:14:53.868Z"
+updatedAt: "2017-11-03T22:55:19.817Z"

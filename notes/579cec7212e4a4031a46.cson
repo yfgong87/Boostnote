@@ -22,6 +22,28 @@ content: '''
           return max;
       }
   ```
+  ### (变化) Best time to sell a stock
+  ```java
+  class Solution {
+      public int maxProfit(int[] prices) {
+          if(prices == null || prices.length == 0){
+              return 0;
+          }
+          int maxProfit = Integer.MIN_VALUE;
+          int minPrice = prices[0];
+          for(int i = 0; i < prices.length; i++){
+  
+              if(prices[i] - minPrice > maxProfit){
+                  maxProfit = prices[i] - minPrice;
+              }
+              if(prices[i] < minPrice){
+                  minPrice = prices[i];
+              }
+          }
+          return maxProfit;
+      }
+  }
+  ```
   ### (变化) Minimum Subarray I
   ```java
   public int minSubArray(int[] nums) {
@@ -131,7 +153,9 @@ content: '''
           int max = nums[0];
           int result = nums[0];
           for(int i = 1; i < nums.length; i++){
-              //一定记得跟自己(nums[i])比
+              //要和 oldMin 和 oldMax 分别乘
+              //因为当 nums[i] 和 oldMin 都为负时， oldMin * nums[i] 可能为最大乘积
+              //一定记得跟自己(nums[i])比, 因为 oldMin/oldMax 可能为 0
               min = Math.min(nums[i], Math.min(nums[i] * oldMin, nums[i] * oldMax));
               max = Math.max(nums[i], Math.max(nums[i] * oldMin, nums[i] * oldMax));
               result = Math.max(result, max);
@@ -146,4 +170,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T23:21:52.628Z"
-updatedAt: "2017-10-27T20:42:46.111Z"
+updatedAt: "2017-11-05T20:23:38.176Z"

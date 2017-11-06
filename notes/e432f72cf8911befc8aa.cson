@@ -1,0 +1,14 @@
+type: "MARKDOWN_NOTE"
+folder: "8796d797cb901e033f4a"
+title: "数组Hash"
+content: '''
+  # 数组Hash
+  - `int[26]` for Letters 'a' - 'z' or 'A' - 'Z'
+  - `int[128]` for ASCII
+  - `int[256]` for Extended ASCII
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-04T02:19:10.458Z"
+updatedAt: "2017-11-04T02:19:37.737Z"

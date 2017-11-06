@@ -35,9 +35,32 @@ content: '''
       }
   }
   ```
+  # Insert Interval (interval array already sorted by start)
+  ```java
+  class Solution {
+      public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+          List<Interval> results = new ArrayList<Interval>();
+          int index = 0;
+          while(index < intervals.size() && intervals.get(index).start < newInterval.start){
+              index++;
+          }
+          intervals.add(index, newInterval);
+          Interval prev = null;
+          for(Interval i : intervals){
+              if(prev == null || prev.end < i.start){
+                  results.add(i);
+                  prev = i;
+              } else {
+                  prev.end = Math.max(prev.end, i.end);
+              }
+          }
+          return results;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T22:03:48.044Z"
-updatedAt: "2017-10-03T22:03:55.710Z"
+updatedAt: "2017-11-05T03:11:03.445Z"
