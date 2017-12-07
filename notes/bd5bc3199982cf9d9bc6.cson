@@ -86,6 +86,10 @@ content: '''
   return "" + a + b; //同上
   ```
   - `String` `String`.`trim`( ): Returns a copy of the string, with leading and trailing whitespace omitted.
+  
+  #### Replace
+  Replace is the ONLY way to remove char/substring from String
+  - `String` `String`.`replace`(`char` `oldChar`, `char` `newChar`): Replaces EACH match.
   - `String` `String`.`replaceAll`(`String` `regex`, `String` `replacement`): Replaces EACH match.
   - `String` `String`.`replaceFirst`(`String` `regex`, `String` `replacement`): Replaces FIRST match
   #### valueOf
@@ -158,4 +162,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-10-10T22:55:23.698Z"
+updatedAt: "2017-12-07T18:32:46.922Z"

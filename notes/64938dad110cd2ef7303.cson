@@ -20,8 +20,11 @@ content: '''
               int mid = start + (end - start) / 2;
               if(A[mid] < target){
                   start = mid;
-              } else {
+              } else if(A[mid] > target){
                   end = mid;
+              } else {
+                  end = mid; //为了找到第一个出现的target
+                  //start = mid; 为了找到最后一个出现的target
               }
           }
           //target的可能区间：
@@ -40,4 +43,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-24T18:00:36.391Z"
-updatedAt: "2017-11-02T19:36:25.881Z"
+updatedAt: "2017-11-30T16:21:09.889Z"

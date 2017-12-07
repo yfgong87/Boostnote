@@ -30,7 +30,7 @@ content: '''
           int pivot = A[(start + end) / 2];
   
           // key point 2: every time you compare left & right, it should be 
-          // left <= right not left < right (如果没有=则每次都漏掉了最后一个数)
+          // left <= right not left < right (如果pivot刚好是最大值，left 在向右前进时会跳过pivot直接到达array的末端，导致partition产生了一个和原来同样的数组和一个空数组，此时如果继续quickSort就会导致左边无限循环因为每一次的pivot都正好是最大值)
           while (left <= right) {
               // key point 3: A[left] < pivot not A[left] <= pivot
               while (left <= right && A[left] < pivot) {
@@ -243,4 +243,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-10-07T16:28:24.794Z"
+updatedAt: "2017-12-03T23:37:06.306Z"

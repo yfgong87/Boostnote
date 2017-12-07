@@ -12,6 +12,9 @@ content: '''
       public List<List<Integer>> getFactors(int n) {
           // write your code here
           List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(n == 1){
+              return results; // when n = 1, expected return = [ ], not [ [ ] ]
+          }
           dfs(results, new ArrayList<Integer>(), 2, n);
           return results;
       }
@@ -28,7 +31,8 @@ content: '''
           }
           
           for(int i = start; i < remain; i++){
-              // i * i > remain 则 break
+              // i * i > remain 则 break 
+              //(从此往后每个 start 都 > remain，没有继续循环的必要了)
               if(i > remain / i){
                   break;
               }
@@ -50,4 +54,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:19:05.939Z"
-updatedAt: "2017-10-09T18:19:05.939Z"
+updatedAt: "2017-11-07T00:04:01.031Z"

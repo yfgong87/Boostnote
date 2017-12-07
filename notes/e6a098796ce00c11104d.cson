@@ -25,9 +25,11 @@ content: '''
           if(root == null){
               return new returnType(0, true);
           }
+  /*								
           if(root.left == null && root.right == null){
               return new returnType(1, true);
           }
+  */
           returnType left = helper(root.left);
           returnType right = helper(root.right);
           boolean isBalanced = true;
@@ -45,4 +47,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T02:09:07.152Z"
-updatedAt: "2017-09-02T02:54:51.865Z"
+updatedAt: "2017-11-30T22:18:07.129Z"

@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Valid Parentheses"
 content: '''
   # Valid Parentheses
+  O(n)时间，O(n)空间
   ```java
       public boolean isValidParentheses(String s) {
           // write your code here
@@ -30,9 +31,40 @@ content: '''
           return stack.isEmpty();
       }
   ```
+  
+  # Valid Parentheses 加强版
+  How to check valid parenthesis w/ only `(` and `)`? Easy. Count each char from left to right. When we see `(`, `count`++; when we see `)` `count`--; if `count` < `0`, it is invalid (`)` is more than `(`); At last, `count` should == `0`.
+  This problem added `*` (wildcard). The easiest way is to try 3 possible ways when we see it. Return true if one of them is valid.
+  
+  Time Complexity: upper bond is `3^n`, `n` = number of `*`.
+  ```java
+  class Solution {
+      public boolean checkValidString(String s) {
+          return check(s, 0, 0);
+      }
+      
+      private boolean check(String s, int start, int count) {
+          if (count < 0) return false;
+          
+          for (int i = start; i < s.length(); i++) {
+              char c = s.charAt(i);
+              if (c == '(') {
+                  count++;
+              } else if (c == ')') {
+                  if (count <= 0) return false;
+                  count--;
+              } else if (c == '*') {
+                  return check(s, i + 1, count + 1) || check(s, i + 1, count - 1) || check(s, i + 1, count);
+              }
+          }
+          
+          return count == 0;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-05T17:33:29.500Z"
-updatedAt: "2017-09-05T17:33:49.517Z"
+updatedAt: "2017-11-30T20:24:17.484Z"

@@ -1,0 +1,65 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Partition to k equal sum subsets"
+content: '''
+  # Partition to k equal sum subsets
+  有重复数
+  Input: nums = [4, 3, 2, 3, 5, 2, 1], k = 4
+  Output: True
+  Explanation: It's possible to divide it into 4 subsets (5), (1, 4), (2,3), (2,3) with equal sums.
+  这题本质上还是个Combination的问题，因为答案不需要排序，所以还是需要用到 startIndex
+  ```java
+  class Solution {
+      public boolean canPartitionKSubsets(int[] nums, int k) {
+          int sum = 0;
+          for(int num : nums){
+              sum += num;
+          }
+          if(k <= 0 || sum % k != 0){
+              return false;
+          }
+          if(nums.length < k){
+              return false;
+          }
+          boolean[] visited = new boolean[nums.length];
+          //找到 k 个和为 sum / k 的 subsets
+          return canPartition(nums, k, visited, 0, sum / k, 0);
+      }
+      
+      public boolean canPartition (int[] nums,
+                                   int k,
+                                   boolean[] visited,
+                                   int startIndex,
+                                   int target,
+                                   int sum){
+          if(k == 1){
+              return true;
+          }
+        /*//如果 nums 里只有正数，则没有继续的必要，因为下一个 sum = sum + nums[i]
+          if(sum > target){
+              return false;
+          } */
+          //找到了一个满足条件的 subset，还要找剩下的 k - 1 个
+          if(sum == target){
+              return canPartition(nums, k - 1, visited, 0, target, 0);
+          }
+          for(int i = startIndex; i < nums.length; i++){
+              if(visited[i]){
+                  continue;
+              }
+              visited[i] = true;
+              if(canPartition(nums, k, visited, i + 1, target, sum + nums[i])){
+                  return true;
+              }
+              visited[i] = false;
+          }
+          return false;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-07T03:18:39.686Z"
+updatedAt: "2017-11-07T04:52:02.045Z"

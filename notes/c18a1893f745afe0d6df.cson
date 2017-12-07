@@ -86,7 +86,7 @@ content: '''
           public void union(int a, int b) {
               a = find(a);
               b = find(b);
-              //f[a],f[b]都是根，值都为负，值越小绝对值越大
+              //a 和 b 都是根，f[a] 和 f[b] 值都为负，值越小绝对值越大
               //值越小说明集合中包含元素越多
               //元素多的集合被选为合并集合的代表
               if (f[a] < f[b]) {
@@ -119,4 +119,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-12T17:37:21.149Z"
-updatedAt: "2017-09-12T18:32:33.426Z"
+updatedAt: "2017-12-03T00:24:53.364Z"

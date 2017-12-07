@@ -1,0 +1,69 @@
+type: "MARKDOWN_NOTE"
+folder: "1f1c0572d0e34f1a098c"
+title: "Binary Search of unknown size array"
+content: '''
+  # Binary Search of unknown size array
+  
+  Given an integer dictionary A of unknown size, where the numbers in the dictionary are sorted in ascending order, determine if a given target integer T is in the dictionary. Return the index of T in A, return -1 if T is not in A.
+  Assumptions
+  - dictionary A is not null
+  - dictionary.get(i) will return null(Java)/INT_MIN(C++) if index i is out of bounds
+  Examples
+  - A = {1, 2, 5, 9, ......}, T = 5, return 2
+  - A = {1, 2, 5, 9, 12, ......}, T = 7, return -1
+  
+  ### Summary:
+  My general solution is to use binary search. However because the size of the dictionary is unknown, I need to determine the boundary of the sub-dictionary in which I will perform binary search. The left boundary I call it “start”, which will start from index 0, the right boundary I call it “end”, which I will keep searching along the dictionary until I found an element that is greater than my target.
+  ```java
+  public class Solution {
+    public int search(Dictionary dict, int target) {
+  		int start = 0;	//left boundary start from index 0
+      int end = 1; //right boundary start from index 1
+      //While element in end is smaller than target, keep multiply it by 2
+      while(dictionary.get(end) != null && dictionary.get(end) < target){
+      		end *= 2;
+      }
+      //binary search
+      while(start + 1 < end){
+        int mid = start + (end - start) / 2;
+  			//If element in mid is null, it means I have gone out of bounds,need to search backwards
+        if(dictionary.get(mid) == null){
+          end = mid;
+          continue;
+        }
+        if(dictionary.get(mid) < target){
+  		    start = mid;
+        } else if (dictionary.get(mid) > target){
+          end = mid;
+        } else {
+          end = mid;
+        }
+      }
+      if(dictionary.get(start) != null && dictionary.get(start) == target){
+        return start;
+      } 
+      if(dictionary.get(end) != null && dictionary.get(end) == target){
+  		  return end;
+      }
+        return -1;
+    }
+  }
+  ```
+  Follow up:
+  
+  - The time complexity of the algorithms:
+  Time complexity will have two parts. 
+  -- Part one is to find the end index, assuming every iteration we are multiplying end index by 2, then the time complexity will be O(log2(target)) (读作”log of target to the base 2”). 
+  --	Part two is the binary search on the selected range from start to end index. Worst/Max time complexity will be O(log2(2 * target)) when the last iteration we happen to pick the end index as the left neighbor of target, which then got multiplied by 2 one more time.
+  
+  - Multiply by 10 vs multiply by 2:
+  T10 = log10(target) + log2(10 * target)
+  T2 = log2(target) + log2(2 * target)
+  Part two of T10 and T2 are both linear complexity, which are equal when target gets big. Part one of T10 is smaller than T2, so multiply by 10 is quicker than multiply by 2.
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-11-30T17:01:33.470Z"
+updatedAt: "2017-11-30T17:09:53.249Z"

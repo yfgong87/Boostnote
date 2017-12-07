@@ -1,0 +1,67 @@
+type: "MARKDOWN_NOTE"
+folder: "6e2623e3aff765e4a79c"
+title: "Union Find - Friend Circle"
+content: '''
+  # Union Find - Friend Circle
+  
+  ```java
+  public class Solution {
+      class UnionFind {
+  		//count 为集合的数目
+          private int count = 0;
+  		//parent[i] 中存储的是 i 的 parent 元素的 index
+  		//parent[i] 为负数代表 i 自己就是元素的代表数，此时 parent[i] 中存储集合中的元素个数的负数
+          private int[] parent;
+          
+          public UnionFind(int n) {
+              count = n;
+              parent = new int[n];
+              for (int i = 0; i < n; i++) {
+                  parent[i] = -1;
+              }
+          }
+          
+          public int find(int x) {
+  	        if(parent[x] < 0){
+  		        return x;
+  	        }
+  	        parent[x] = find(parent[x]);
+  	        return parent[x];
+          }
+          
+          public void union(int a, int b) {
+              a = find(a);
+              b = find(b);
+              if (parent[a] < parent[b]) {
+                  parent[a] += parent[b];
+                  parent[b] = a;
+              } else {
+                  parent[b] += parent[a];
+                  parent[a] = b;
+              }
+              count--;
+          }
+          
+          public int count() {
+              return count;
+          }
+      }
+      
+      public int findCircleNum(int[][] M) {
+          int n = M.length;
+          UnionFind uf = new UnionFind(n);
+          for (int i = 0; i < n - 1; i++) {
+              for (int j = i + 1; j < n; j++) {
+                  if (M[i][j] == 1) uf.union(i, j);
+              }
+          }
+          return uf.count();
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-02T23:45:34.510Z"
+updatedAt: "2017-12-03T00:29:14.665Z"

@@ -3,22 +3,23 @@ folder: "8d19d56ee029f3fa592b"
 title: "Subarray Sum"
 content: '''
   # Subarray Sum
+  Given an integer array, find a subarray where the sum of numbers is zero. Your code should return the index of the first number and the index of the last number. There is at least one subarray that it's sum equals to zero.
   ```java
   public ArrayList<Integer> subarraySum(int[] nums) {
           // write your code here
-          //Map存PrefixSum和其index
-          HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-          ArrayList<Integer> result = new ArrayList<Integer>();
+          List<Integer> result = new ArrayList<Integer>();
+  		//Map存PrefixSum和其index
+          Map<Integer, Integer> map = new HashMap<Integer, Integer>();
           int sum = 0;
-          map.put(0, -1);
-          for(int i = 0; i < nums.length; i++){
-              sum += nums[i];
+          map.put(0, 0);
+          for(int i = 1; i <= nums.length; i++){
+              sum += nums[i - 1];
               if(map.containsKey(sum)){
-                  result.add(map.get(sum) + 1);
-                  result.add(i);
+                  result.add(map.get(sum));
+                  result.add(i - 1);
                   return result;
               } else {
-                  map.put(sum, i);
+                  map.put(sum, i); //<sum, index + 1> 因为 i 从 1 开始
               }
           }
           return result;
@@ -29,4 +30,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-14T22:49:16.736Z"
-updatedAt: "2017-09-14T22:49:53.154Z"
+updatedAt: "2017-12-07T17:42:22.603Z"
