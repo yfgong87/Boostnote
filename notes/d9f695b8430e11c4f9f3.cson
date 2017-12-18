@@ -5,6 +5,36 @@ content: '''
   # Binary Tree Paths
   ```java
   public class Solution {
+      /*
+       * @param root: the root of the binary tree
+       * @return: all root-to-leaf paths
+       */
+      List<String> results = new ArrayList<String>();
+      public List<String> binaryTreePaths(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return results;
+          }
+          dfs(root, "");
+          return results;
+      }
+      
+      public void dfs(TreeNode root, String path){
+          if(root == null){
+              return;
+          }
+          String str = Integer.toString(root.val);
+          if(root.left == null && root.right == null){
+              results.add(path + str);
+          }
+          dfs(root.left, path + str + "->");
+          dfs(root.right, path + str + "->");
+      }
+  }
+  ```
+  根本不需要BackTracking！！
+  ```java
+  public class Solution {
       /**
        * @param root the root of the binary tree
        * @return all root-to-leaf paths
@@ -43,4 +73,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-31T20:17:40.813Z"
-updatedAt: "2017-08-31T20:19:00.158Z"
+updatedAt: "2017-12-17T01:23:44.287Z"

@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Word Search"
 content: '''
   # Word Search
+  以`board`中每个点作为出发点开始搜(`O(n * m)`)，`word`中每个字符都可以延伸出四个方向(`O(4^length of word)`)，复杂度是`O(n * m * 4^length of word)`
   ```java
   public class Solution {
       /*
@@ -77,4 +78,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-02T23:40:29.386Z"
-updatedAt: "2017-10-02T23:43:04.792Z"
+updatedAt: "2017-12-17T15:46:22.876Z"

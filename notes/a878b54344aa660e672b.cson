@@ -40,25 +40,58 @@ content: '''
   ```java
   class Solution {
       public boolean checkValidString(String s) {
-          return check(s, 0, 0);
+          return helper(s, 0, 0, 0);
       }
       
-      private boolean check(String s, int start, int count) {
-          if (count < 0) return false;
-          
-          for (int i = start; i < s.length(); i++) {
+      public boolean helper(String s, int index, int left, int right){
+          if(left < right){
+              return false;
+          }
+          for(int i = index; i < s.length(); i++){
+              if(left < right){
+                  return false;
+              }
               char c = s.charAt(i);
-              if (c == '(') {
-                  count++;
-              } else if (c == ')') {
-                  if (count <= 0) return false;
-                  count--;
-              } else if (c == '*') {
-                  return check(s, i + 1, count + 1) || check(s, i + 1, count - 1) || check(s, i + 1, count);
+              if(c == '('){
+                  left++;
+              } else if (c == ')'){
+                  right++;
+              } else if (c == '*'){
+                  return helper(s, i + 1, left, right) || 
+                         helper(s, i + 1, left + 1, right) || 
+                         helper(s, i + 1, left, right + 1);
               }
           }
-          
-          return count == 0;
+          return left == right;
+      }
+  }
+  ```
+  ```java
+  class Solution {
+      public boolean checkValidString(String s) {
+          return helper(s, 0, 0, 0);
+      }
+      
+      public boolean helper(String s, int index, int left, int right){
+          if(left < right){
+              return false;
+          }
+          for(int i = index; i < s.length(); i++){
+              char c = s.charAt(i);
+              if(c == '('){
+                  left++;
+              } else if (c == ')'){
+                  if(left <= right){
+                      return false;
+                  }
+                  right++;
+              } else if (c == '*'){
+                  return helper(s, i + 1, left, right) || 
+                         helper(s, i + 1, left + 1, right) || 
+                         helper(s, i + 1, left, right + 1);
+              }
+          }
+          return left == right;
       }
   }
   ```
@@ -67,4 +100,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-05T17:33:29.500Z"
-updatedAt: "2017-11-30T20:24:17.484Z"
+updatedAt: "2017-12-17T21:51:48.050Z"

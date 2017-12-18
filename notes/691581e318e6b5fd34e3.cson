@@ -37,6 +37,8 @@ content: '''
                             int index, 
                             int[] nums){
           //KEY3: DEEP COPY - add subset to result
+  		//如果不用 Deep Copy, 则并不是加入一个新的subset，是加入了subset的引用
+  		//后续对subset的改变，就会引起results中subset的改变
           result.add(new ArrayList<Integer>(subset));
           //KEY4: use startindex
           for(int i = index; i < nums.length; i++){
@@ -55,4 +57,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T14:47:38.610Z"
-updatedAt: "2017-08-30T14:51:21.988Z"
+updatedAt: "2017-12-16T18:46:45.607Z"

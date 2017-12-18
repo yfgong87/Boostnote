@@ -32,7 +32,8 @@ content: '''
       
       public ReturnType helper(TreeNode root){
           if(root == null){
-              return new ReturnType(0, 0, null);
+  			//这里(num, sum)必须是(0, 0),因为这样left node的(num, sum)为(1, root.val)
+              return new ReturnType(0, 0, null); 
           }
           ReturnType left = helper(root.left);
           ReturnType right = helper(root.right);
@@ -54,4 +55,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-31T15:42:07.287Z"
-updatedAt: "2017-10-12T04:08:24.027Z"
+updatedAt: "2017-12-10T18:02:35.130Z"

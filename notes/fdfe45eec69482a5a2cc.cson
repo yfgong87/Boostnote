@@ -1,0 +1,92 @@
+type: "MARKDOWN_NOTE"
+folder: "5e574262001b32e115d9"
+title: "Royal Names"
+content: '''
+  # Royal Names
+  ```java
+  import java.util.*;
+  
+  class RoyalName{
+      String name;
+      int num;
+      int index;
+      RoyalName(String name, int num, int index){
+          this.name = name;
+          this.num = num;
+          this.index = index; // index 记录原数组中的 index
+      }
+  }
+  
+  public class Main {
+      public static void main(String[] args) {
+          String[] names = {"Albert II","Polo IV","Alexander V","Elizabeth XXV",
+                  "Albert XL","Polo XLVI","William IX","Edward XXXIX",
+                  "Elizabeth XIX"};
+  
+          String[] sortedNames = sort(names);
+          print(sortedNames);
+      }
+  
+      private static String[] sort(String[] names) {
+          RoyalName[] royalNames = new RoyalName[names.length];
+          for(int i = 0; i < names.length; i++){
+              royalNames[i] = toRoyalName(names[i], i);
+          }
+          Arrays.sort(royalNames, new Comparator<RoyalName>() {
+              @Override
+              public int compare(RoyalName a, RoyalName b) {
+                  if(a.name.compareTo(b.name) == 0){
+                      return a.num - b.num;
+                  } else {
+                      return a.name.compareTo(b.name);
+                  }
+              }
+          });
+          String[] results = new String[names.length];
+          for(int i = 0; i < names.length; i++){
+              results[i] = names[royalNames[i].index];
+          }
+          return results;
+      }
+  
+      // 将 "Albert II" 转化成 name = "Albert", number = 2, index = 0
+      private static RoyalName toRoyalName(String s, int index){
+          String name = s.split(" ")[0];
+          String romanNumber = s.split(" ")[1];
+          int number = romanToInt(romanNumber);
+          return new RoyalName(name, number, index);
+      }
+  
+      // Roman to Integer
+      private static int romanToInt(String s) {
+          Map<Character, Integer> map = new HashMap<>();
+          map.put('I', 1);
+          map.put('V', 5);
+          map.put('X', 10);
+          map.put('L', 50);
+          char[] sc = s.toCharArray();
+          int sum = 0;
+          for(int i = 0; i < sc.length - 1; i++){
+              if(map.get(sc[i]) < map.get(sc[i + 1])){
+                  sum -= map.get(sc[i]);
+              } else {
+                  sum += map.get(sc[i]);
+              }
+          }
+          return sum += map.get(sc[sc.length - 1]);
+      }
+  
+      private static void print(String[] sortedNames) {
+          for(int i = 0; i < sortedNames.length; i++){
+              System.out.println(sortedNames[i]);
+          }
+      }
+  }
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-11T21:22:24.705Z"
+updatedAt: "2017-12-12T04:04:16.926Z"

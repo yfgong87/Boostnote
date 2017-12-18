@@ -1,8 +1,9 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Merge Interval"
+title: "Merge Interval, Insert Interval, Missing Interval"
 content: '''
-  # Merge Interval
+  # Merge Interval, Insert Interval, Missing Interval
+  ### Merge Interval
   ```java
   public class Solution {
       /*
@@ -35,7 +36,7 @@ content: '''
       }
   }
   ```
-  # Insert Interval (interval array already sorted by start)
+  ### Insert Interval (interval array already sorted by start)
   ```java
   class Solution {
       public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
@@ -58,9 +59,10 @@ content: '''
       }
   }
   ```
+  ### Missing Interval
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T22:03:48.044Z"
-updatedAt: "2017-11-05T03:11:03.445Z"
+updatedAt: "2017-12-16T17:17:38.971Z"

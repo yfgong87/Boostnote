@@ -21,39 +21,43 @@ content: '''
        * @return: True if the binary tree is BST, or false
        */
       public boolean isValidBST(TreeNode root) {
-          ResultType result = helper(root);
-          return result.isBST;
+          if(root == null){
+              return true;
+          }
+          return helper(root).isBST;
       }
       
       private ResultType helper(TreeNode root) {
           if (root == null) {
-              return new ResultType(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+              return null;
           }
           
           ResultType left = helper(root.left);
           ResultType right = helper(root.right);
           
+          int min = root.val;
+          int max = root.val;
           boolean isBST = true;
-          if (!left.isBST || !right.isBST) {
-              isBST = false;
+          if(left != null){
+              min = Math.min(min, left.min);
+              if(!left.isBST || root.val <= left.max){
+                  isBST = false;
+              }
           }
-          //注意必须保证left和right不是null，不然left.max就是Integer.MIN_VALUE
-          //如果root是Integer.MIN_VALUE, 且root没有child，则left.max == root.val, 通不过
-          if (root.left != null && left.max >= root.val || 
-              root.right != null && right.min <= root.val) {
-              isBST = false;
+          if(right != null){
+              max = Math.max(max, right.max);
+              if(!right.isBST || root.val >= right.min){
+                  isBST = false;
+              }
           }
           
-          return new ResultType(isBST,
-                                Math.max(root.val, right.max),
-                                Math.min(root.val, left.min));
+          return new ResultType(isBST, max, min);
       }
   }
-  
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-25T20:31:17.510Z"
-updatedAt: "2017-10-01T19:37:16.025Z"
+updatedAt: "2017-12-13T08:52:11.471Z"

@@ -1,0 +1,90 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Meeting Room"
+content: '''
+  # Meeting Room
+  暴力解法 `O(n^2)`
+  ```java
+  class Solution {
+      public boolean canAttendMeetings(Interval[] intervals) {
+  		//只跟自己后面的比，因为跟自己前面的在之前一个循环已经比过了
+  		//并且不能自己跟自己比，因为自己跟自己肯定 Overlap
+          for(int i = 0; i < intervals.length; i++){
+              for(int j = i + 1; j < intervals.length; j++){
+                  if(overlap(intervals[i], intervals[j])){
+                      return false;
+                  }
+              }
+          }
+          return true;
+      }
+      //The minimum end time of the two meetings (which is the end time of the earlier meeting) is smaller than or equal the maximum start time of the two meetings (which is the start time of the later meeting).
+      public boolean overlap(Interval a, Interval b){
+          return (Math.min(a.end, b.end) > Math.max(a.start, b.start));
+      }
+  }
+  ```
+  时间 `O(nlogn)`，空间 `O(1)`
+  ```java
+  class Solution {
+      public boolean canAttendMeetings(Interval[] intervals) {
+          if(intervals == null || intervals.length == 0){
+              return true;
+          }
+          Arrays.sort(intervals, new Comparator<Interval>(){
+              public int compare (Interval a, Interval b){
+                  return a.start - b.start;
+              }
+          });
+          for(int i = 0; i < intervals.length - 1; i++){
+              if(intervals[i].end > intervals[i + 1].start){
+                  return false;
+              }
+          }
+          return true;
+      }
+  }
+  ```
+  # Meeting Room II
+  [Lazy Release 解法](https://discuss.leetcode.com/topic/35253/explanation-of-super-easy-java-solution-beats-98-8-from-pinkfloyda)
+  minHeap 解法
+  ```java
+  class Solution {
+      public int minMeetingRooms(Interval[] intervals) {
+          if(intervals == null || intervals.length == 0){
+              return 0;
+          }
+          
+          Arrays.sort(intervals, new Comparator<Interval>(){
+              public int compare(Interval a, Interval b){
+                  return a.start - b.start;
+              }
+          });
+          
+          PriorityQueue<Interval> pq = new PriorityQueue<>(new Comparator<Interval>(){
+              public int compare(Interval a, Interval b){
+                  return a.end - b.end;
+              }
+          });
+          
+          pq.offer(intervals[0]);
+          for(int i = 1; i < intervals.length; i++){
+              Interval endSoon = pq.poll();
+  			//需要跟面试官确认是否 >= 还是 >，即当前一个会结束时间等于后一个会开始时间时，需不需要 new room
+              if(intervals[i].start >= endSoon.end){
+                  endSoon.end = intervals[i].end;
+              } else {
+                  pq.offer(intervals[i]);
+              }
+              pq.offer(endSoon);
+          }
+          return pq.size();
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-16T03:47:12.310Z"
+updatedAt: "2017-12-16T17:34:33.514Z"

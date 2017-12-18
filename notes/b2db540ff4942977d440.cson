@@ -32,6 +32,8 @@ content: '''
           }
           helper(root.left);
           helper(root.right);
+  		// first < second，root.val可以落在三个区间：< first, first < root.val < second, > second
+  		// 分类讨论
           //比最小值还小，更新最小值，同时把老的最小值更新给第二小
           if(root.val < firstMin){  
               secondMin = firstMin;
@@ -48,4 +50,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T20:31:53.426Z"
-updatedAt: "2017-10-27T20:36:38.179Z"
+updatedAt: "2017-12-10T20:32:57.904Z"

@@ -151,7 +151,7 @@ content: '''
               //要和 oldMin 和 oldMax 分别乘
               //因为当 nums[i] 和 oldMin 都为负时， oldMin * nums[i] 可能为最大乘积
   			//同理当 nums[i] 和 oldMax 一正一负时，oldMax * nums[i] 可能为最小值
-              //一定记得跟自己(nums[i])比, 因为 oldMin/oldMax 可能为 0
+              //一定记得跟自己(nums[i])比, 因为 oldMin/oldMax 可能为 0，或 -1
               min = Math.min(nums[i], Math.min(nums[i] * oldMin, nums[i] * oldMax));
               max = Math.max(nums[i], Math.max(nums[i] * oldMin, nums[i] * oldMax));
               result = Math.max(result, max);
@@ -166,4 +166,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T23:21:52.628Z"
-updatedAt: "2017-12-07T16:56:37.066Z"
+updatedAt: "2017-12-09T20:43:06.978Z"

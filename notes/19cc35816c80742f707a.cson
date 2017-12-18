@@ -1,6 +1,4 @@
 type: "MARKDOWN_NOTE"
-folder: "8d19d56ee029f3fa592b"
-title: "Maximum Depth of Binary Tree"
 content: '''
   # Maximum Depth of Binary Tree
   ```java
@@ -24,8 +22,11 @@ content: '''
   }
   ```
 '''
-tags: []
+title: "Maximum Depth of Binary Tree"
+folder: "6e2623e3aff765e4a79c"
+createdAt: "2017-12-10T20:06:04.598Z"
+updatedAt: "2017-12-10T20:06:04.598Z"
 isStarred: false
-isTrashed: false
-createdAt: "2017-09-01T01:46:57.309Z"
-updatedAt: "2017-09-01T01:48:13.523Z"
+isTrashed: true
+tags: []
+isPinned: false

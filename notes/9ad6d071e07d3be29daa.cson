@@ -1,0 +1,125 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Intersection of Two Arrays I"
+content: '''
+  # Intersection of Two Arrays I
+  Given two arrays, write a function to compute their intersection.
+  - 可以有重复数
+  - 数组没有排序
+  - 结果不能有重复数，结果无需排序
+  #### 解法一：HashSet，Time `O(m + n)`，Space `O(m)` or `O(n)`取决于先扫哪个数组
+  ```java
+  public class Solution {
+      public int[] intersection(int[] nums1, int[] nums2) {
+          // write your code here
+  		// 扫一遍数组1，放进HashSet
+          Set<Integer> set = new HashSet<Integer>();
+          for(int i = 0; i < nums1.length; i++){
+              set.add(nums1[i]);
+          }
+          // 扫一遍数组2，判断是否在HashSet，resultSet用于去重
+          Set<Integer> resultSet = new HashSet<Integer>();
+          for(int j = 0; j < nums2.length; j++){
+              if(set.contains(nums2[j]) && !resultSet.contains(nums2[j])){
+                  resultSet.add(nums2[j]);
+              }
+          }
+          
+          int[] result = new int[resultSet.size()];
+          int count = 0;
+          for(int num : resultSet){
+              result[count] = num;
+              count++;
+          }
+          return result;
+      }
+  };
+  ```
+  #### 解法二：Sort + Merge，Time `O(nlogn)`，Space `O(m)` or `O(n)`
+  ```java
+  public class Solution {
+      public int[] intersection(int[] nums1, int[] nums2) {
+          // write your code here
+          Arrays.sort(nums1);
+          Arrays.sort(nums2); //先排序
+          
+          int left = 0;
+          int right = 0;
+          int index = 0;
+          int[] temp = new int[nums1.length]; //此时并不知道intersection的大小
+          
+          while(left < nums1.length && right < nums2.length){
+  			//如果遇到了Intersection的数
+              if(nums1[left] == nums2[right]){
+  				//判断这个数是否已经遇到了
+                  if(index == 0 || nums1[left] != temp[index - 1]){
+                      temp[index++] = nums1[left];
+                  }
+                  left++;
+                  right++;
+              } else if (nums1[left] < nums2[right]){
+                  left++;
+              } else {
+                  right++;
+              }
+          }
+          
+          int[] result = new int[index];
+          for(int i = 0; i < index; i++){
+              result[i] = temp[i];
+          }
+          return result;
+      }
+  };
+  ```
+  #### 解法三：用 Binary Search 在数组一中找数组二中的每一个数，HashSet去重，数组一排序 `mlog(m)`，Binary Search 数组二中的每一个数 `n * log(m)`，最终时间复杂度为 `(m + n) * log(m)`，空间复杂度为 `O(n)` 的HashSet
+  
+  # Intersection of Two Arrays II
+  Given two arrays, write a function to compute their intersection.
+  - 可以有重复数
+  - 数组没有排序
+  - 结果`可以`有重复数，结果无需排序
+  ```java
+  public class Solution {
+      public int[] intersection(int[] nums1, int[] nums2) {
+  		// <num, count>
+          HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+          for(int i = 0; i < nums1.length; i++){
+              if(map.containsKey(nums1[i])){
+                  map.put(nums1[i], map.get(nums1[i]) + 1);
+              } else {
+                  map.put(nums1[i], 1);
+              }
+          }
+          
+          ArrayList<Integer> results = new ArrayList<Integer>();
+          for(int i = 0; i < nums2.length; i++){
+  			//只有当 count 大于 0 时才往结果里放
+              if(map.containsKey(nums2[i]) && map.get(nums2[i]) > 0){
+                  results.add(nums2[i]);
+                  map.put(nums2[i], map.get(nums2[i]) - 1); //发现一个数就从 Map 的 count 里去掉一个
+              } 
+          }
+          int size = results.size();
+          int[] ans = new int[size];
+          int count = 0;
+          for(int num : results){
+              ans[count++] = num;
+          }
+          return ans;
+      }
+  };
+  ```
+  #### Follow up:
+  - What if the given array is already sorted? How would you optimize your algorithm?
+  `Use Two Pointer，类似于上面的解法二，不需要判断去重。这样是 O(m) 或 O(n)`
+  - What if nums1's size is small compared to num2's size? Which algorithm is better?
+  `将nums1 的数据存进hash map，然后遍历nums2 查找是否在nums1中，好处是节省了空间，时间复杂度是一样的`
+  - What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+  `因为nums1是可以放到内存的，所以就把nums1放到hashmap里，然后从disk分多次取出nums2，判断一下就好了`
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-09T16:24:26.164Z"
+updatedAt: "2017-12-09T17:19:26.036Z"

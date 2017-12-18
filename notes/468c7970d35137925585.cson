@@ -3,15 +3,33 @@ folder: "8d19d56ee029f3fa592b"
 title: "Binary Tree Vertical Order Traversal"
 content: '''
   # Binary Tree Vertical Order Traversal
-  ```java
-  /* 3
-    / \\
-   9  20
-     /  \\
-    15   7  
+  Given binary tree {3,9,20,#,#,15,7}
+  
+  	   3
+  	  / \\
+  	 9  20
+  	    / \\
+  	  15   7
     
-  [[9], [3,15], [20], [7]]
-  */
+  Return its vertical order traversal as:
+  `[[9],[3,15],[20],[7]]`
+  
+  Given binary tree {3,9,8,4,0,1,7}
+  
+  	     3
+  	    / \\
+  	   9   8
+  	  / \\ / \\
+  	 4  0 1  7
+  	 
+  Return its vertical order traversal as:
+  `[[4],[9],[3,0,1],[8],[7]]`
+  
+  ### Summary
+  Assign a label to every node in the tree based on their relative horizontal position vs the root. The root is `0`, its left child is `-1`, its right child is `1`, etc.
+  Level Order Traversal the Tree and put every node into a `HashMap` under the key of its label. The `HashMap` will be storing `<index, list of TreeNode value with the same index>`
+  Sort the `HashMap` based on its key from small to large, then print
+  ```java
   class type{
           int index;
           TreeNode node;
@@ -54,4 +72,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T17:38:48.601Z"
-updatedAt: "2017-10-27T17:38:48.601Z"
+updatedAt: "2017-12-11T04:33:16.336Z"

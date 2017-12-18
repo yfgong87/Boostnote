@@ -35,7 +35,7 @@ content: '''
       // Used for sorting in ascending order
       @Override
       public int compare(Pair a, Pair b){
-          a.str.compareTo(b.str);
+          return a.str.compareTo(b.str);
       }
   }
   class Main{
@@ -146,4 +146,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T17:01:32.776Z"
-updatedAt: "2017-10-25T05:40:18.488Z"
+updatedAt: "2017-12-11T21:24:24.263Z"

@@ -4,6 +4,12 @@ title: "Subarray Anagram"
 content: '''
   # Subarray Anagram
   普通版
+  首先先`小String`中的每个`Char`出现次数存在`HashMap`里
+  然后枚举`大String`中长度等于`小String`的所有`SubString`，每个`SubString`中每个`Char`出现的次数也存在`HashMap`里
+  然后比较两个`HashMap`是否相等。每次存`HashMap`理论需要`O(l)`其中`l`为`小String`的长度
+  如果用一个大小为`256`的`Array`代替`HashMap`，并且用`Sliding Window`仅仅修改变动的那一个`Char`，则将`O(l)`简化为了`O(1)`
+  `Arrays.equals()` 复杂度为 `O(n)`
+  由于比较的是大小为`256`的两个`Array`，所以总复杂度为 `O(n * 256)`
   ```java
   public class Solution {
       /*
@@ -11,6 +17,12 @@ content: '''
        * @param p: a string
        * @return: a list of index
        */
+  	// idx:  01234
+  	//   s:  abcde
+  	//  s':  abc
+  	// s'':   bcd
+  	//s\''':    cde
+  	//   p:  acb
       public List<Integer> findAnagrams(String s, String p) {
           // write your code here
           List<Integer> result = new ArrayList<Integer>();
@@ -87,4 +99,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T22:47:43.819Z"
-updatedAt: "2017-09-21T22:51:04.417Z"
+updatedAt: "2017-12-11T02:30:30.094Z"

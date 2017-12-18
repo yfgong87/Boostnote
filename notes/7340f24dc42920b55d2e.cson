@@ -1,0 +1,37 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Repeating DNA Sequence"
+content: '''
+  # Repeating DNA Sequence
+  Given s = `"AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"`,
+  Return:
+  `["AAAAACCCCC", "CCCCCAAAAA"]`.
+  
+  Summary: 
+  Since I only need to look for SubStirng that is `10` char long, I will use a window of size 10, slide it from left to right of the DNA Sequence and store every SubString in a `HashMap`, once a Substring appeared at least twice in the `HashMap`, I will add it to the result List.
+  ```java
+  class Solution {
+      public List<String> findRepeatedDnaSequences(String s) {
+          List<String> results = new ArrayList<String>();
+          Map<String, Integer> map = new HashMap<String, Integer>();
+          for(int i = 0; i + 10 <= s.length(); i++){
+              String sub = s.substring(i, i + 10);
+              if(!map.containsKey(sub)){
+                  map.put(sub, 1);
+              } else {
+                  map.put(sub, map.get(sub) + 1);
+                  if(map.get(sub) == 2){
+                      results.add(sub);
+                  }
+              }
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-15T21:21:02.932Z"
+updatedAt: "2017-12-15T21:25:41.564Z"

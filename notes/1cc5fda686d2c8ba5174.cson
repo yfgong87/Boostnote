@@ -3,7 +3,29 @@ folder: "df7fbd4f413bd7e56cde"
 title: "Intersection of Two Linked Lists"
 content: '''
   # Intersection of Two Linked Lists
-  
+  - If the two linked lists have no intersection at all, return null.
+  - The linked lists must retain their original structure after the function returns.
+  - You may assume there are no cycles anywhere in the entire linked structure.
+  解法一：`O(m + n)` 时间 `O(n)` 空间
+  ```java
+  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+          // Write your code here
+          Set<ListNode> setA = new HashSet<>();
+          while(headA != null){
+              setA.add(headA);
+              headA = headA.next;
+          }
+          while(headB != null){
+              if(setA.contains(headB)){
+                  return headB;
+              }
+              headB = headB.next;
+          }
+          return null;
+      }  
+  ```
+  解法二：`O(m + n)` 时间 `O(1)` 空间
+  We can use two iterations to do that. In the first iteration, we will reset the pointer of one linkedlist to the head of another linkedlist after it reaches the tail node. In the second iteration, we will move two pointers until they points to the same node. Our operations in first iteration will help us counteract the difference. So if two linkedlist intersects, the meeting point in second iteration must be the intersection point. If the two linked lists have no intersection at all, then the meeting pointer in second iteration must be the tail node of both lists, which is null
   ```java
   public class Solution {
       public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
@@ -28,9 +50,10 @@ content: '''
       }
   }
   ```
+  
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T04:53:31.415Z"
-updatedAt: "2017-10-01T04:58:43.118Z"
+updatedAt: "2017-12-09T04:06:17.699Z"

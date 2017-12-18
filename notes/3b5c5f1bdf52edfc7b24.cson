@@ -1,0 +1,36 @@
+type: "MARKDOWN_NOTE"
+folder: "6e2623e3aff765e4a79c"
+title: "Partition List"
+content: '''
+  # Partition List
+  Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+  
+  You should `preserve the original relative order` of the nodes in each of the two partitions.
+  ```java
+  public class Solution {
+      public ListNode partition(ListNode head, int x) {
+          // write your code here
+          ListNode dummyLeft = new ListNode(0), left = dummyLeft;
+          ListNode dummyRight = new ListNode(0), right = dummyRight;
+          while(head != null){
+              if(head.val < x){
+                  left.next = head;
+                  left = left.next;
+              } else {
+                  right.next = head;
+                  right = right.next;
+              }
+              head = head.next;
+          }
+          right.next = null;
+          left.next = dummyRight.next;
+          return dummyLeft.next;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-09T17:44:24.094Z"
+updatedAt: "2017-12-09T17:47:03.677Z"

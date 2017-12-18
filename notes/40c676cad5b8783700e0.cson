@@ -3,6 +3,9 @@ folder: "8d19d56ee029f3fa592b"
 title: "Flatten Binary Tree to Linked List"
 content: '''
   # Flatten Binary Tree to Linked List
+  Flatten a binary tree to a fake "linked list" in pre-order traversal.
+  
+  Here we use the right pointer in TreeNode as the next pointer in ListNode.
   - `preorder` Traversal
   - 首先将`root.right`接到`root.left`的`最右下`的点
   - 然后将`root.left`整体挪到右边成为新的`root.right`
@@ -51,7 +54,8 @@ content: '''
               root.right = root.left;    //root.left接到root.right
               root.left = null;          //root.left成为null
           }
-          //注意顺序！！一定要先判断右边是否为null，因为是preorder，链表的最后一个一定是最右下的点
+          //注意顺序！！
+  		//要优先返回 bottom right node，which is "right"
           //if right is not null, right is the last element
           if (right != null){
               return right;
@@ -70,4 +74,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T17:15:04.366Z"
-updatedAt: "2017-09-28T21:29:31.446Z"
+updatedAt: "2017-12-13T03:54:07.804Z"

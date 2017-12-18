@@ -71,11 +71,11 @@ content: '''
   ```java
   class ResultType {
       public boolean a_exist, b_exist;
-      public TreeNode node;
+      public TreeNode lca;
       ResultType(boolean a, boolean b, TreeNode n) {
           a_exist = a;
           b_exist = b;
-          node = n;
+          lca = n;
       }
   }
   
@@ -89,7 +89,7 @@ content: '''
           // write your code here
           ResultType result = helper(root, A, B);
           if (result.a_exist && result.b_exist)
-              return result.node;
+              return result.lca;
           else
               return null;
       }
@@ -107,14 +107,14 @@ content: '''
           if (root == A || root == B)
               return new ResultType(a_exist, b_exist, root);
   
-          if (left.node != null && right.node != null)
+          if (left.lca != null && right.lca != null)
               return new ResultType(a_exist, b_exist, root);
               
-          if (left.node != null)
-              return new ResultType(a_exist, b_exist, left.node);
+          if (left.lca != null)
+              return new ResultType(a_exist, b_exist, left.lca);
               
-          if (right.node != null)
-              return new ResultType(a_exist, b_exist, right.node);
+          if (right.lca != null)
+              return new ResultType(a_exist, b_exist, right.lca);
   
           return new ResultType(a_exist, b_exist, null);
       }
@@ -150,4 +150,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T03:53:08.885Z"
-updatedAt: "2017-09-25T20:57:03.832Z"
+updatedAt: "2017-12-10T05:34:25.373Z"

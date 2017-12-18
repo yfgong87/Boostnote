@@ -8,9 +8,29 @@ content: '''
   ### `nums == null` vs `nums.length == 0`
   `num == null`的意思是，你没钱也没有钱包。（`nums`在内存中没有一个对应的空间，连存储`length`的地方都没有）
   `num.length == 0` 的意思是， 你有钱包，你钱包里没钱。（内存中开辟了一篇`nums`的空间，但是一个数都没放进去，但是这篇内存空间中存了`length`，且`length`的值是0）
+  
+  ### Call Stack 及递归的Space Complexity计算
+  [Call Stack](http://posts.careerengine.us/p/5970039c2738a5422f33444e)
+  `Call stack` 在 virtual memory 里其实就是一段连续的地址空间，靠一个叫做 SP 的寄存器（32-bit 叫 ESP，64-bit 叫 RSP）来指向栈顶。既然是连续的，于是它在使用上比我们理论课上讲的抽象的 stack 要更灵活一些，更接近 array 而不是 linked list，可以访问任意元素，而不仅仅是栈顶元素。（当然进栈出栈还是只能在栈顶进行。）这也就是为什么尽管它叫做 call stack，我们依然可以同时有不止一个参数和不止一个局部变量的原因
+  
+  ### Stack Frame
+  ```java
+  int fact(int n) {
+  	int result;
+  	if (n <= 1)
+  		result = 1;
+  	else
+  		result = n * fact(n - 1);
+  	return result;
+  }
+  ```
+  当 main() 调用了 fact(n)，fact(n) 又调用了 fact(n-1)，fact(n-1) 即将调用 fact(n-2) 的时候，它的 call stack 差不多是这样：（具体情况大同小异，和编译器优化有关。）
+  其中每个 procedure 分配的内存区域叫做它的 `stack frame`（通常译作“栈帧”，吕老师译作“梦境”）。这也就解释了为什么当我们分析递归函数调用的空间复杂度时，既需要考虑 recursion tree 的深度，也需要考虑每层所分配的局部变量的大小
+  ![Stack Frame](http://static.careerengine.us/api/aov2/http%3A_%7C__%7C_mmbiz.qpic.cn_%7C_mmbiz_png_%7C_fNahPhUj0Cu7CJBLNK5MT2FpMF7bmlP8qOosw5Io5OQEUCdAxkpQPJDbnmS7Pau3TnHKjibc0lXbZGw6UICv39w_%7C_0%3Fwx_fmt%3Dpng)
+  对于上述 fact() 函数，它的 recursion tree 的深度是 n，这就意味着总共有 n 个 stack frame。每个 stack frame 里面除了保存 return address 和一些寄存器的值之外，还需要保存参数 n 和局部变量 result，它们都是 O(1) 的。所以 fact() 总的空间复杂度是 O(n) 的。
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-19T21:19:38.134Z"
-updatedAt: "2017-09-29T04:35:56.915Z"
+updatedAt: "2017-12-10T18:23:20.088Z"

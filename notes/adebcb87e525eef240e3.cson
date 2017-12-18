@@ -3,6 +3,8 @@ folder: "8d19d56ee029f3fa592b"
 title: "Load Balancer"
 content: '''
   # Load Balancer
+  思路：
+  数据结构中满足`O(1)`的时间内做插入删除的有`Stack`, `LinkedList` 或 `HashMap`. 然而题目要求插入或删除给定`value`，必须在`O(1)`时间内找到`value`,所以只能用`HashMap`，`Map`的`Key`用于存`value`。而`HashMap`的`Key`是个`Set`，没有Position的概念，不好做Random，必须结合一个`Array`。做法是把`Map`的`Key`放进`Array`中，即`Array`中也存`value`，`Map`中同时存该`Key`在`Array`中的`Index`（`Map<value, index>`），然后随机取`Index`，`O(1)`时间通过`Index`找到并返回`Array`中存的`value`。但是因为`value`同时存在了`Map`和`Array`中，为了保证一致性，删除`value`时需要在两个数据结构同时删除，而`Array`删除是`O(n)`，解决办法是不直接删除，而是通过交换将要删除的`value`和`Array`的最后一个`value`交换，同时改变`Map`中此`value`的`Index`，而`Array`删除最后一个值是个`O(1)`的操作，因为不需要重新排列`Array`
   ```java
   public class LoadBalancer {
       Map<Integer, Integer> map;
@@ -57,9 +59,147 @@ content: '''
       }
   }
   ```
+  # Insert Delete GetRandom O(1)
+  ```java
+  public class RandomizedSet {
+      
+      Map<Integer, Integer> map;
+      List<Integer> list;
+      Random rand;
+      
+      public RandomizedSet() {
+          // do intialization if necessary
+          map = new HashMap<>();
+          list = new ArrayList<>();
+          rand = new Random();
+      }
+  
+      /*
+       * @param val: a value to the set
+       * @return: true if the set did not already contain the specified element or false
+       */
+      public boolean insert(int val) {
+          // write your code here
+          if(map.containsKey(val)){
+              return false;
+          }
+          list.add(val);
+          map.put(val, list.size() - 1);
+          return true;
+      }
+  
+      /*
+       * @param val: a value from the set
+       * @return: true if the set contained the specified element or false
+       */
+      public boolean remove(int val) {
+          // write your code here
+          if(!map.containsKey(val)){
+              return false;
+          }
+  		//通过Map找到要删除值在Array中的index，并从Map中删除这个值
+          int removeIndex = map.get(val);
+          map.remove(val);
+  		//只有当 removeIndex 本身不是最后一位时才需要做替换
+          if(removeIndex < list.size() - 1){
+  			//得到Array中最后一位的值
+              int lastElement = list.get(list.size() - 1);
+  			//将要删除值替换为最后一位的值
+              list.set(removeIndex, lastElement);
+  			//更新最后一位值在Array中的位置
+              map.put(lastElement, removeIndex);
+          }
+  		//删除最后一位
+          list.remove(list.size() - 1);
+          return true;
+      }
+  
+      /*
+       * @return: Get a random element from the set
+       */
+      public int getRandom() {
+          // write your code here
+          return list.get(rand.nextInt(list.size()));
+      }
+  }
+  ```
+  Follow Up: 允许出现重复值
+  ```java
+  public class RandomizedSet {
+      
+      Map<Integer, Set<Integer>> map;
+      List<Integer> list;
+      Random rand;
+      
+      public RandomizedSet() {
+          // do intialization if necessary
+          map = new HashMap<>();
+          list = new ArrayList<>();
+          rand = new Random();
+      }
+  
+      /*
+       * @param val: a value to the set
+       * @return: true if the set did not already contain the specified element or false
+       */
+      public boolean insert(int val) {
+          // write your code here
+          if(map.containsKey(val)){
+              return false;
+          }
+          list.add(val);
+          map.put(val, new HashSet<Integer>());
+          map.get(val).add(list.size() - 1);
+          return true;
+      }
+  
+      /*
+       * @param val: a value from the set
+       * @return: true if the set contained the specified element or false
+       */
+      public boolean remove(int val) {
+          // write your code here
+          if(!map.containsKey(val)){
+              return false;
+          }
+          
+          //get removeIndex
+          int removeIndex = map.get(val).iterator().next();
+          //remove removeIndex from map
+          map.get(val).remove(removeIndex);
+          if(map.get(val).isEmpty()){
+              map.remove(val);
+          }
+          
+          if(removeIndex < list.size() - 1){
+              //get lastElement
+              int lastElement = list.get(list.size() - 1);
+              //put lastElement at removeIndex
+              list.set(removeIndex, lastElement);
+          
+              //remove old index of lastElement from map
+              map.get(lastElement).remove(list.size() - 1);
+              //add new index of lastElement into map
+              map.get(lastElement).add(removeIndex);
+          }
+          
+          //remove lastElement from list
+          list.remove(list.size() - 1);
+          return true;
+      }
+  
+      /*
+       * @return: Get a random element from the set
+       */
+      public int getRandom() {
+          // write your code here
+          return list.get(rand.nextInt(list.size()));
+      }
+  }
+   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-04T13:46:06.132Z"
-updatedAt: "2017-10-04T13:46:13.893Z"
+updatedAt: "2017-12-09T03:12:22.274Z"

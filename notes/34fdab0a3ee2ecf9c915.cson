@@ -1,0 +1,37 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Minimum Absolute Difference in BST"
+content: '''
+  # Minimum Absolute Difference in BST
+  Since this is a BST, the inorder traversal of its nodes results in a sorted list of values. Thus, the minimum absolute difference must occur in any adjacently traversed nodes. I use the global variable "prev" to keep track of each node's inorder predecessor.
+  ```java
+  class Solution {
+      int minDif = Integer.MAX_VALUE;
+      TreeNode prev;
+      public int getMinimumDifference(TreeNode root) {
+          if(root == null){
+              return 0;
+          }
+          helper(root);
+          return minDif;
+      }
+      
+      public void helper(TreeNode root){
+          if(root == null){
+              return;
+          }
+          helper(root.left);
+          if(prev != null){
+              minDif = Math.min(minDif, Math.abs(prev.val - root.val));
+          }
+          prev = root;
+          helper(root.right);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-13T09:49:44.847Z"
+updatedAt: "2017-12-13T09:50:18.593Z"

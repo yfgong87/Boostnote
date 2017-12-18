@@ -1,0 +1,61 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Top K Frequent Word"
+content: '''
+  # Top K Frequent Word
+  Given a non-empty list of words, return the k most frequent elements.Your answer should be sorted by frequency from highest to lowest. If two words have the same frequency, then the word with the lower alphabetical order comes first.
+  
+  Input: `["i", "love", "leetcode", "i", "love", "coding"]`, k = `2`
+  Output: `["i", "love"]`
+  Explanation: `"i"` and `"love"` are the two most frequent words.
+  Note that `"i"` comes before `"love"` due to a lower alphabetical order.
+  
+  时间 `O(nlogk)`，空间 `O(n)`
+  ```java
+  class Solution {
+      public List<String> topKFrequent(String[] words, int k) {
+          List<String> result = new ArrayList<>();
+          Map<String, Integer> map = new HashMap<>();
+  		//统计每个 word 出现频率, O(n) 时间， O(n) 空间
+          for(String word : words){
+              if(!map.containsKey(word)){
+                  map.put(word, 1);
+              } else {
+                  map.put(word, map.get(word) + 1);
+              }
+          }
+  		
+  		//PriorityQueue with Comparator
+          PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(k, new Comparator<Map.Entry<String, Integer>>(){
+              public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b){
+  				//当 a 和 b 出现频率一样时，按 alphabet 倒序排列，因为最后 output 的时候是倒着出来
+                  if(a.getValue() - b.getValue() == 0){
+                      return b.getKey().compareTo(a.getKey());
+                  } else {
+                      return a.getValue() - b.getValue();
+                  }
+              }
+          });
+          
+  		//使用 PrioryQueue 排序，每次加入时间为 O(logk)，总时间 O(nlogk)，空间 O(n)
+          for(Map.Entry<String, Integer> entry : map.entrySet()){
+              pq.add(entry);
+              if(pq.size() > k){
+                  pq.poll();
+              }
+          }
+          
+  		//注意最后 output 的时候因为是 minHeap，最后出来的是出现频率最大的，要放在前面
+          while(!pq.isEmpty()){
+              result.add(0, pq.poll().getKey());
+          }
+          return result;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-15T22:01:45.523Z"
+updatedAt: "2017-12-15T22:07:29.183Z"

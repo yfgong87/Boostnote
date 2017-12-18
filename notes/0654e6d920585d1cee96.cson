@@ -34,12 +34,8 @@ content: '''
           if(root.left == null && root.right == null && target == 0){
               results.add(new ArrayList<Integer>(path));
           }
-          if(root.left != null){
-              dfs (results, path, root.left, target);
-          }
-          if(root.right != null){
-              dfs (results, path, root.right, target);
-          }
+          dfs (results, path, root.left, target);
+          dfs (results, path, root.right, target);
           path.remove(path.size() - 1);
       }
   ```
@@ -56,6 +52,7 @@ content: '''
           helper(results, root, target);
           return results;
       }
+  	
       //因为题目不限定path必须从root到leaf，所以helper以树中的每个点做为root做一遍search
       private void helper(List<List<Integer>> results,
                           TreeNode root, 
@@ -68,6 +65,7 @@ content: '''
           helper(results, root.left, target);
           helper(results, root.right, target);
       }
+  	
       private void dfs (List<List<Integer>> results,
                         List<Integer> path,
                         TreeNode root,
@@ -81,12 +79,8 @@ content: '''
           if(target == 0){
               results.add(new ArrayList<Integer>(path));
           }
-          if(root.left != null){
-              dfs (results, path, root.left, target);
-          }
-          if(root.right != null){
-              dfs (results, path, root.right, target);
-          }
+          dfs (results, path, root.left, target);
+          dfs (results, path, root.right, target);
           path.remove(path.size() - 1);
       }
   ```
@@ -126,13 +120,13 @@ content: '''
           if(target == 0){
               results.add(new ArrayList<Integer>(path));
           }
-          if(root.left != null && root.left != prev){
+          if(root.left != prev){
               dfs(results, path, root.left, root, target);
           }
-          if(root.right != null && root.right != prev){
+          if(root.right != prev){
               dfs(results, path, root.right, root, target);
           }
-          if(root.parent != null && root.parent != prev){
+          if(root.parent != prev){
               dfs(results, path, root.parent, root, target);
           }
           path.remove(path.size() - 1);
@@ -143,4 +137,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-15T19:42:12.227Z"
-updatedAt: "2017-09-29T15:06:03.897Z"
+updatedAt: "2017-12-17T01:38:39.424Z"

@@ -91,11 +91,11 @@ content: '''
           for (int i = 1; i <= n; i++) {
               sum[i] = sum[i - 1] + nums[i - 1];
               if (i >= k) {
-                  if(sum[i] - prefixMin > max){
-                      max = sum[i] - prefixMin;
+                  if(sum[i] - min > max){
+                      max = sum[i] - min;
                   }
                   //min 记录的是从 0 到 i - k 的最小 sum
-                  prefixMin = Math.min(prefixMin, sum[i + 1 - k]);
+                  min = Math.min(min, sum[i + 1 - k]);
               }
           }
           return max;
@@ -105,4 +105,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-24T19:58:31.726Z"
-updatedAt: "2017-12-07T17:57:45.512Z"
+updatedAt: "2017-12-09T19:21:20.432Z"

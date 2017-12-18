@@ -4,6 +4,7 @@ title: "Minimum & Maximum Depth of Binary Tree"
 content: '''
   # Minimum & Maximum Depth of Binary Tree
   ### Min Depth
+  写法一
   ```java
   //考虑特例怎么做，当root.left为空 depth = 0 时，root到底是 depth = 1 还是 depth = 2 (正解)
   /*      1
@@ -20,10 +21,6 @@ content: '''
           if(root == null){
               return 0;
           }
-          //leaf node depth is 1
-          if(root.left == null && root.right == null){
-              return 1;
-          }
           //注意与Maximum Depth区分，Min Depth时需要注意null子树
           int left = Integer.MAX_VALUE;
           int right = Integer.MAX_VALUE;
@@ -32,6 +29,34 @@ content: '''
           }
           if(root.right != null){
               right = minDepth(root.right);
+          }
+          return Math.min(left, right) + 1;
+      }
+  }
+  ```
+  写法二
+  ```java
+  public class Solution {
+      /*
+       * @param root: The root of binary tree
+       * @return: An integer
+       */
+      public int minDepth(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return 0;
+          }
+          int left = minDepth(root.left);
+          int right = minDepth(root.right);
+  		//当 left 或 right 为 null 时如果依然选 Math.min 则一定会选到 0
+  		//
+  		//   1
+  		//	/
+  		// 2
+  		//
+  		// 1 的 MinDepth 不是 0，而是 1，可以与面试官确认
+          if(root.left == null || root.right == null){
+              return Math.max(left, right) + 1;
           }
           return Math.min(left, right) + 1;
       }
@@ -55,4 +80,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T01:41:53.508Z"
-updatedAt: "2017-09-26T02:25:52.058Z"
+updatedAt: "2017-12-10T20:24:04.213Z"

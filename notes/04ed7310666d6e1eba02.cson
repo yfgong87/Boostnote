@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "坐标型动归"
+title: "坐标型动归 Dynamic Programming"
 content: '''
-  # 坐标型动归
+  # 坐标型动归 Dynamic Programming
   ### 动归四要素：
   - 状态的意义(f方程里存什么)
   - 状态转化方程
@@ -12,8 +12,58 @@ content: '''
   - 方案总数
   - 可不可行
   - 最优值
+  ### Climing Stairs
+  n层的楼梯，一次走一层或两层，一共多少种走法
+  状态的意义: 截止第 i 层共有多少种走法
+  ```java
+  public class Solution {
+      /**
+       * @param n: An integer
+       * @return: An integer
+       */
+      public int climbStairs(int n) {
+          // write your code here
+          if(n <= 0){
+              return 0;
+          }
+          int[] results = new int[n + 1];
+          results[0] = 1;
+          results[1] = 1;
+          for(int i = 2; i < n + 1; i++){
+              results[i] = results[i - 1] + results[i - 2];
+          }
+          return results[n];
+      }
+  }
+  ```
+  ### Climbing Stairs II
+  n层的楼梯，一次走一层或两层或三层，一共多少种走法
+  状态的意义: 截止第 i 层共有多少种走法
+  ```java
+  public class Solution {
+      /*
+       * @param n: An integer
+       * @return: An integer
+       */
+      public int climbStairs2(int n) {
+          // write your code here
+          if(n == 0 || n == 1){
+              return 1;
+          }
+          int[] f = new int[n + 1];
+          f[0] = 1;
+          f[1] = 1;
+          f[2] = 2;
+          for(int i = 3; i <= n; i++){
+              f[i] = f[i - 1] + f[i - 2] + f[i - 3];
+          }
+          return f[n];
+      }
+  };
+  ```
   ### Triangle
   只能向`下`和`右下`移动
+  状态的意义: 到 triangle[i][j] 的最小 sum
   ```java
   public class Solution {
       /*
@@ -53,6 +103,7 @@ content: '''
   ```
   ### Minimum Path Sum
   只能向`下`和向`右`移动
+  状态的意义: 到 grid[i][j] 的最小 sum
   ```java
   public class Solution {
       /*
@@ -89,6 +140,7 @@ content: '''
   ```
   ### Unique Path
   只能向`下`和向`右`，求可能的Path总数
+  状态的意义: 到 [i][j] 的 path 数
   ```java
   public class Solution {
       /*
@@ -140,12 +192,14 @@ content: '''
           if(obstacleGrid[0][0] != 1){
               f[0][0] = 1;
           }
+  		//初始化第0行
           for(int i = 1; i < m; i++){
               if(obstacleGrid[i][0] != 1){
                   //如果左边是个0，即使当前点不是obstacle，Unique Path也是0
                   f[i][0] = f[i - 1][0];
               }
           }
+  		//初始化第0列
           for(int j = 1; j < n; j++){
               if(obstacleGrid[0][j] != 1){
                   f[0][j] = f[0][j - 1];
@@ -166,6 +220,7 @@ content: '''
   Each element in the array represents your maximum jump length at that position.
   求能否跳到最后一格
   时间复杂度`O(n^2)`
+  状态的意义: 是否能跳到 [i][j] 
   ```java
   public class Solution {
       /*
@@ -194,6 +249,7 @@ content: '''
   ```
   ### Jump Game II
   求跳到最后一格所需的`最小步数`
+  状态的意义: 跳到 [i][j] 的最小步数
   ```java
   public class Solution {
       /*
@@ -413,4 +469,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-26T18:14:07.355Z"
-updatedAt: "2017-10-27T20:58:48.666Z"
+updatedAt: "2017-12-11T19:38:16.117Z"

@@ -3,6 +3,9 @@ folder: "8d19d56ee029f3fa592b"
 title: "Number of Island"
 content: '''
   # Number of Island
+  - Traverse the entire matrix, when I found a `true` point, I use that as my starting point in a bfs method to mark all other connected point that also has a `true` value. 
+  - Since in the worst case every element in the matrix will be visited once, time complexity is `O(n * m)`
+  - Why use BFS, not DFS? Because DFS will stack over flow in certain cases (a matrix full of `1`)
   ```java
   public class Solution {
       /**
@@ -71,4 +74,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-06T02:21:39.808Z"
-updatedAt: "2017-09-06T02:21:52.124Z"
+updatedAt: "2017-12-17T16:20:33.040Z"

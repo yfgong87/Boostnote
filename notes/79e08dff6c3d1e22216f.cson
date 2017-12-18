@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Insert into Cyclic sorted List"
 content: '''
   # Insert into Cyclic sorted List
+  分两种情况讨论：一，插入中间；二，插入值为整个链表的最大值或最小值
   ```java
   public class Solution {
       /**
@@ -42,4 +43,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T05:32:05.776Z"
-updatedAt: "2017-09-10T05:32:22.076Z"
+updatedAt: "2017-12-09T03:28:34.417Z"

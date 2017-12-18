@@ -39,18 +39,49 @@ content: '''
           }
               int sum = 0;
               for(int i = 0; i < nums.length - 1; i++){
-                  //比后面数大就加上，比后面数小就减掉
+                  //比后面数大就加上，比如 VI
+  				//比后面数小就减掉, 比如 IV
                   if(nums[i] >= nums[i + 1]){
                       sum += nums[i];
                   } else {
                       sum -= nums[i];
                   }
               }
+  			//最后一位罗马数字无论如何都是加上
               return sum += nums[nums.length - 1];
       }
   }
   ```
-  
+  HashMap写法
+  ```java
+  public class Solution {
+      /*
+       * @param s: Roman representation
+       * @return: an integer
+       */
+      public int romanToInt(String s) {
+          // write your code here
+          Map<Character, Integer> map = new HashMap<>();
+          map.put('I', 1);
+          map.put('V', 5);
+          map.put('X', 10);
+          map.put('L', 50);
+          map.put('C', 100);
+          map.put('D', 500);
+          map.put('M', 1000);
+          char[] sc = s.toCharArray();
+          int sum = 0;
+          for(int i = 0; i < sc.length - 1; i++){
+              if(map.get(sc[i]) < map.get(sc[i + 1])){
+                  sum -= map.get(sc[i]);
+              } else {
+                  sum += map.get(sc[i]);
+              }
+          }
+          return sum += map.get(sc[sc.length - 1]);
+      }
+  }
+  ```
   # Integer to Roman
   ```java
   public class Solution {
@@ -61,6 +92,7 @@ content: '''
       public String intToRoman(int n) {
           // write your code here
           StringBuilder sb = new StringBuilder();
+  		//从大到小依次除
           int[] numeral = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
           String[] roman = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
           for(int i = 0; i < 13; i++){
@@ -81,4 +113,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T16:10:54.480Z"
-updatedAt: "2017-10-03T16:28:22.581Z"
+updatedAt: "2017-12-11T21:07:59.256Z"

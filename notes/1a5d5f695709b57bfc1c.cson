@@ -1,0 +1,63 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Binary Tree Leaf Order Traversal"
+content: '''
+  # Binary Tree Leaf Order Traversal
+  Given binary tree:
+  
+            1
+           / \\
+          2   3
+         / \\     
+        4   5    
+  	  
+  Returns `[[4, 5, 3], [2], [1]]`.
+  
+  ### Summary
+  First traverse the tree and ssigning a depth label to all nodes. Leaf Node depth will be `1`. Use a `HashMap` to store `<depth, list of node with same depth>`. Then sort the `HashMap` based on `depth` from small to big. Print the sorted `HashMap`
+  ```java
+  public class Solution {
+      /*
+       * @param root: the root of binary tree
+       * @return: collect and remove all leaves
+       */
+      Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+      public List<List<Integer>> findLeaves(TreeNode root) {
+          // write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(root == null){
+              return results;
+          }
+          getDepth(root);
+          /*for(int i = Collections.min(map.keySet()); i <= Collections.max(map.keySet()); i++){
+              results.add(map.get(i));
+          }*/
+          List<Integer> keys = new ArrayList<Integer>(map.keySet());
+          Collections.sort(keys);
+          for(int key : keys){
+              results.add(map.get(key));
+          }
+          return results;
+      }
+      //Assign depth label to all node of the tree
+      public int getDepth(TreeNode root){
+          if(root == null){
+              return 0;
+          }
+          int left = getDepth(root.left);
+          int right = getDepth(root.right);
+          int depth = Math.max(left, right) + 1;
+          if(!map.containsKey(depth)){
+              map.put(depth, new ArrayList<Integer>());
+          }
+          map.get(depth).add(root.val);
+          return depth;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-11T06:01:46.814Z"
+updatedAt: "2017-12-11T06:13:36.175Z"

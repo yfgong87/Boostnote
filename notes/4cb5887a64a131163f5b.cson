@@ -1,0 +1,69 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Insert into a BST"
+content: '''
+  # Insert into a BST
+  ```java
+  public class Solution {
+      /*
+       * @param root: The root of the binary search tree.
+       * @param node: insert this node into the binary search tree
+       * @return: The root of the new binary search tree.
+       */
+      public TreeNode insertNode(TreeNode root, TreeNode node) {
+          // write your code here
+          if(root == null){
+              return node;
+          }
+          if(node.val < root.val){
+              root.left = insertNode(root.left, node);
+          } else {
+              root.right = insertNode(root.right, node);
+          }
+          return root;
+      }
+  }
+  ```
+  # Delete from a BST
+  Recursively find the node that has the same value as the key, while setting the left/right nodes equal to the returned subtree
+  Once the node is found, have to handle the below 3 cases
+  - node only has left subtree- return the left subtree
+  - node only has right subtree- return the right subtree
+  - node has both left and right - find the minimum value in the right subtree, set that value to the currently found node, then recursively delete the minimum value in the right subtree
+  ```java
+  class Solution {
+      public TreeNode deleteNode(TreeNode root, int key) {
+          if(root == null){
+              return root;
+          }
+          if(root.val > key){
+              root.left = deleteNode(root.left, key);
+          } else if(root.val < key){
+              root.right = deleteNode(root.right, key);
+          } else {
+              if(root.left == null){
+                  return root.right;
+              }
+              if(root.right == null){
+                  return root.left;
+              }
+              root.val = getMin(root.right);
+              root.right = deleteNode(root.right, root.val);
+          }
+          return root;
+      }
+      
+      public int getMin(TreeNode root){
+          while(root.left != null){
+              root = root.left;
+          }
+          return root.val;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-13T19:37:31.620Z"
+updatedAt: "2017-12-13T20:35:37.781Z"

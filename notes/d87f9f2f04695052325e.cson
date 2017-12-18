@@ -10,9 +10,6 @@ content: '''
   ```java
   public ListNode reverse(ListNode head) {
           // write your code here
-          if(head == null){
-              return head;
-          }
           ListNode prev = null;
           while(head != null){
               ListNode temp = head.next;
@@ -40,4 +37,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-09T15:53:49.558Z"
-updatedAt: "2017-09-09T16:54:02.314Z"
+updatedAt: "2017-12-09T04:30:48.435Z"

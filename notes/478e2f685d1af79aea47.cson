@@ -131,9 +131,22 @@ content: '''
   一个 n 个数的数组， 变成了 prefix Sum 数组之后，会多一个数出来
   
   ### `Arrays`.`asList`(`int`[ ] `array`)
+  
+  ### Array `Search` vs `Access` Big O
+  Let's imagine a street, we'll call this List Street. On list street, there are houses. The Address of the first house is 101 List Street. The address of the second house is 102 List Street. So on and so forth.
+  
+  Let's say that we know that our friend Element lives at the 4th house on List Street, well then we know that Element must live at 104 List Street. We can immediately access their house, because we know exactly where it is on the street. We only need to access 1 house in order to find Element.
+  
+  But what if we didn't know what house Element lived in? We would have to knock on the door of each house and ask if Element lives there. In this case, we would need to access 4 houses until we got to 104 List Street to find Element.
+  
+  The same idea applies to arrays. An array stores data types. Each data type is of the same size, for example an int is usually 4 bytes. If an int array starts at memory address 0x0001 and we wanted to access any element, it takes the same amount of time to access array[2] as it does array[102] as it does array[9999]. Because we know the starting address, and we know the size of each data type, we can immediately jump to that location in memory. O(1)
+  
+  However, if you're trying to search for a specific element, then you need to access each element and test if it's the element you're looking for, until you reach the desired element. For an array with 5 elements, you might have to search 5 times. O(5). For an array with 900 elements, you might have to search 900 times until you find your desired element. O(900). For an array with n elements, you would search n times. O(n)
+  
+  
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T17:45:09.897Z"
-updatedAt: "2017-10-27T19:48:13.466Z"
+updatedAt: "2017-12-08T16:30:27.177Z"

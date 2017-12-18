@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Subarray Sum"
+title: "Subarray Sum (to zero)"
 content: '''
-  # Subarray Sum
+  # Subarray Sum (to zero)
   Given an integer array, find a subarray where the sum of numbers is zero. Your code should return the index of the first number and the index of the last number. There is at least one subarray that it's sum equals to zero.
   ```java
   public ArrayList<Integer> subarraySum(int[] nums) {
@@ -25,9 +25,58 @@ content: '''
           return result;
   }
   ```
+  
+  # Subarray Sum Closest (to zero)
+  ```java
+  class PrefixSum{
+      int sum;
+      int index;
+      PrefixSum(int sum, int index){
+          this.sum = sum;
+          this.index = index;
+      }
+  }
+  public class Solution {
+      /*
+       * @param nums: A list of integers
+       * @return: A list of integers includes the index of the first number and the index of the last number
+       */
+      public int[] subarraySumClosest(int[] nums) {
+          // write your code here
+          int[] result = new int[2];
+          
+          PrefixSum[] sums = new PrefixSum[nums.length + 1];
+          sums[0] = new PrefixSum(0, 0);
+          int sum = 0;
+          for(int i = 1; i <= nums.length; i++){
+              sum += nums[i - 1];
+              sums[i] = new PrefixSum(sum, i);
+          }
+          
+          Arrays.sort(sums, new Comparator<PrefixSum>(){
+              public int compare(PrefixSum a, PrefixSum b){
+                  return a.sum - b.sum;
+              }
+          });
+          
+          int min = Integer.MAX_VALUE;
+          for(int i = 1; i <= nums.length; i++){
+  			//之所以不用 Math.abs 因为 sums 已经排序了, sums[i].sum - sums[i - 1].sum 一定大于0
+              if(min > sums[i].sum - sums[i - 1].sum){
+                  min = sums[i].sum - sums[i - 1].sum;
+                  int[] temp = new int[]{sums[i].index - 1, sums[i - 1].index - 1};
+                  Arrays.sort(temp);
+                  result[0] = temp[0] + 1;
+                  result[1] = temp[1];
+              }
+          }
+          return result;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-14T22:49:16.736Z"
-updatedAt: "2017-12-07T17:42:22.603Z"
+updatedAt: "2017-12-08T01:21:46.394Z"
