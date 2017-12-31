@@ -6,6 +6,10 @@ content: '''
   - Is a `minHeap`: Pull out element with lowest priority first
   - If priority are the same, element will be pulled out based on the heap structure
   - `PriorityQueue` use the `compareTo` method in class to determine priority
+  ### Time Complexity:
+  - `PriorityQueue`的`heapify`是用`siftDown`实现的
+  - 初始化一个`PriorityQueue`花费`O(n)`
+  - 一次`poll`操作花费`O(logn)`
   ### Constructor
   In Java 8, both constructor below are Valid
   ```java
@@ -131,4 +135,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T03:58:01.305Z"
-updatedAt: "2017-10-10T21:17:18.041Z"
+updatedAt: "2017-12-22T22:28:24.653Z"

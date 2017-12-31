@@ -15,10 +15,12 @@ content: '''
   //HashMap Solution
   public class Solution {
       public int[] twoSum(int[] nums, int target) {
+  		//<value, index>
           Map<Integer, Integer> map = new HashMap<Integer,Integer>();
           for (int i = 0; i < nums.length; i++){ 
               int answer = target - nums[i];
               if(map.containsKey(answer)){
+  				//这里顺序可以保证，因为 map.get(answer) 一定是之前就先被放进了 Map，一定有 map.get(answer) < i
                   return new int[]{map.get(answer),i};
               }
               //put(key,value)
@@ -33,4 +35,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-01T03:28:05.334Z"
-updatedAt: "2017-10-01T04:26:29.656Z"
+updatedAt: "2017-12-18T19:47:06.192Z"

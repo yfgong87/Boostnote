@@ -1,0 +1,40 @@
+createdAt: "2017-12-26T04:06:32.636Z"
+updatedAt: "2017-12-26T04:08:31.438Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Count and Say"
+content: '''
+  # Count and Say
+  `1`
+  `11` (one `1`)
+  `21` (two `1`)
+  `1211`(one `2` one `1`)
+  `111221`(one `1` one `2` two `1`)
+  ```java
+  class Solution {
+      //  1   2   1   1
+      // 11
+      public String countAndSay(int n) {
+          String s = "1";
+          String temp = "";
+          for(int i = 1; i < n; i++){
+              int count = 1;
+              for(int j = 0; j < s.length(); j++){
+                  if(j != s.length() - 1 && s.charAt(j) == s.charAt(j + 1)){
+                      count++;
+                      continue;
+                  } 
+                  temp = temp + Integer.toString(count) + s.charAt(j);
+                  count = 1;
+              }
+              s = temp;
+              temp = "";
+          }
+          return s;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

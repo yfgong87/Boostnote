@@ -7,12 +7,19 @@ content: '''
   Give a string, you can choose to split the string after `one` character or `two` adjacent characters, and make the string to be composed of only one character or two characters. Output all possible results.
   Given the string `"123"`
   return `[["1","2","3"],["12","3"],["1","23"]]`
+  
+  树的最坏高度为`n`(每次只走一个`char`的情况)，每一层有两种走法（走一格或两格），总复杂度为`2^n`
   ```java
   public class Solution {
       /*
        * @param : a string to be split
        * @return: all possible split string array
        */
+  	//							123
+  	//				1,							12,						
+  	//		  1,2,       1,23,			        12,3,
+  	//	     1,2,3,
+  	
       public List<List<String>> splitString(String s) {
           // write your code here
           List<List<String>> results = new ArrayList<List<String>>();
@@ -35,11 +42,11 @@ content: '''
               results.add(new ArrayList<String>(solution));
               return;
           }
-          for(int i = startIndex; i < s.length(); i++){
+          for(int i = startIndex; i < s.length() && i < startIndex + 2; i++){
               String subString = s.substring(startIndex, i + 1);
-              if(subString.length() > 2){
+              /*if(subString.length() > 2){
                   continue;
-              }
+              }*/
               solution.add(subString);
               helper(s, i + 1, solution, results);
               solution.remove(solution.size() - 1);
@@ -55,12 +62,19 @@ content: '''
     ["aa","b"],
     ["a","a","b"]
   ]`
+  
+  树的高度为`n = s.length()`，第一层有`n`种可能，第二层`n - 1`种，...总复杂度`n * n - 1 * n - 2 * ... * 1 = n!`  
+  但是，如果理解成在每个间隔选择切或者不切，则是`2^n`，产生的所有`substring`进行回文判断耗费`n`，总复杂度`n * 2^n`
   ```java
   public class Solution {
       /**
        * @param s: A string
        * @return: A list of lists of string
        */
+      //                          aab
+      //          a,              aa,         aab,(X)
+      //   a,a,   a,ab,(X)       aa,b(X) 
+      //  a,a,b
       public List<List<String>> partition(String s) {
           // write your code here
           List<List<String>> results = new ArrayList<List<String>>();
@@ -106,4 +120,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-18T05:14:34.245Z"
-updatedAt: "2017-12-18T05:17:38.543Z"
+updatedAt: "2017-12-24T22:02:08.653Z"

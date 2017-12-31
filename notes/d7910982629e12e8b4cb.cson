@@ -3,6 +3,10 @@ folder: "8d19d56ee029f3fa592b"
 title: "Roman to Integer"
 content: '''
   # Roman to Integer
+  `IV` -> `4`
+  `XII` -> `12`
+  `XXI` -> `21`
+  `XCIX` -> `99`
   ```java
   public class Solution {
       /*
@@ -113,4 +117,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T16:10:54.480Z"
-updatedAt: "2017-12-11T21:07:59.256Z"
+updatedAt: "2017-12-25T04:33:56.128Z"

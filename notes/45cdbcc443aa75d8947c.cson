@@ -3,35 +3,33 @@ folder: "8d19d56ee029f3fa592b"
 title: "Add Two numbers"
 content: '''
   # Add Two numbers
-  ### `6 -> 1 -> 7` = `716`
+  ### Two Number stored in `LinkedList`
+  #### `6 -> 1 -> 7` = `716`
   ```java
-  public ListNode addLists(ListNode l1, ListNode l2) {
+  public class Solution {
+      /*
+       * @param l1: the first list
+       * @param l2: the second list
+       * @return: the sum list of l1 and l2 
+       */
+      public ListNode addLists(ListNode l1, ListNode l2) {
           // write your code here
-          int x = 0;
-          int y = 0;
-          int sum = 0;
-          int carry = 0;
           ListNode dummy = new ListNode(0), curr = dummy;
+          int carry = 0;
           while(l1 != null || l2 != null){
-              if(l1 == null){
-                  x = 0;
-              } else {
-                  x = l1.val;
-              }
-              if(l2 == null){
-                  y = 0;
-              } else {
-                  y = l2.val;
-              }
-              sum = x + y + carry;
-              carry = sum / 10;
-              curr.next = new ListNode(sum % 10);
+              int sum = 0;
               if(l1 != null){
+                  sum += l1.val;
                   l1 = l1.next;
               }
               if(l2 != null){
+                  sum += l2.val;
                   l2 = l2.next;
               }
+              sum += carry;
+              carry = sum / 10;
+              ListNode newNode = new ListNode(sum % 10);
+              curr.next = newNode;
               curr = curr.next;
           }
           if(carry != 0){
@@ -39,8 +37,9 @@ content: '''
           }
           return dummy.next;
       }
+  }
   ```
-  ### `6 -> 1 -> 7` = `617`
+  #### `6 -> 1 -> 7` = `617`
   ```java
   public class Solution {
       /*
@@ -102,11 +101,42 @@ content: '''
       }
   }
   ```
-  
+  ### Two `binary` number stored in `String`
+  a = `"11"`
+  b = `"1"`
+  Return `"100"`.
+  ```java
+  class Solution {
+      public String addBinary(String a, String b) {
+          StringBuilder sb = new StringBuilder();
+          int i = a.length() - 1;
+          int j = b.length() - 1;
+          int carry = 0;
+          while(i >= 0 || j >= 0){
+              int sum = 0;
+              if(i >= 0){
+                  sum += a.charAt(i) - '0';
+                  i--;
+              }
+              if(j >= 0){
+                  sum += b.charAt(j) - '0';
+                  j--;
+              }
+              sum += carry;
+              carry = sum / 2;
+              sb.insert(0, sum % 2);
+          }
+          if(carry != 0){
+              sb.insert(0, carry);
+          }
+          return sb.toString();
+      }
+  }
+  ```
   
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-24T23:51:25.050Z"
-updatedAt: "2017-10-24T23:52:48.771Z"
+updatedAt: "2017-12-27T01:09:38.480Z"

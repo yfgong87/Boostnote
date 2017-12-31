@@ -1,0 +1,62 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Nearest Exit"
+content: '''
+  # Nearest Exit
+  多源BFS，所有`0`同时出发
+  ```java
+  public class Solution {
+      /*
+       * @param rooms: m x n 2D grid
+       * @return: nothing
+       */
+      class Point{
+          int x;
+          int y;
+          Point(int x, int y){
+              this.x = x;
+              this.y = y;
+          }
+      }
+      
+      static final int INF = 2147483647;
+      
+      public void wallsAndGates(int[][] rooms) {
+          // write your code here
+          if(rooms.length == 0 || rooms[0].length == 0){
+              return;
+          }
+          Queue<Point> queue = new LinkedList<Point>();
+          for(int i = 0; i < rooms.length; i++){
+              for(int j = 0; j < rooms[0].length; j++){
+                  if(rooms[i][j] == 0){
+                      queue.offer(new Point(i, j));
+                  }
+              }
+          }
+          
+          int[] directionX = {0, 0, 1, -1};
+          int[] directionY = {1, -1, 0, 0};
+          while(!queue.isEmpty()){
+              Point head = queue.poll();
+              for(int i = 0; i < 4; i++){
+                  Point adj = new Point(head.x + directionX[i], head.y + directionY[i]);
+                  if(inBound(rooms, adj) && rooms[adj.x][adj.y] == INF){
+                      rooms[adj.x][adj.y] = rooms[head.x][head.y] + 1;
+                      queue.offer(adj);
+                  }
+              }
+          }
+      }
+      
+      public boolean inBound(int[][] rooms, Point a){
+          return a.x >= 0 && a.x < rooms.length && a.y >= 0 && a.y < rooms[0].length;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-22T03:32:55.728Z"
+updatedAt: "2017-12-22T03:47:50.232Z"

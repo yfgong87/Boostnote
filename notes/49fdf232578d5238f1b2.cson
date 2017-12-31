@@ -41,9 +41,89 @@ content: '''
       }
   }
   ```
+  ```java
+  public int strStr(String source, String target) {
+          // write your code here
+          if(source == null || target == null){
+              return -1;
+          }
+          if(source != null && target.length() == 0){
+              return 0;
+          }
+          for(int i = 0; i < source.length() - target.length() + 1; i++){
+              int j = 0;
+              for(j = 0; j < target.length(); j++){
+                  if(source.charAt(i + j) != target.charAt(j)){
+                      break;
+                  }
+              }
+              if(j == target.length()){
+                  return i;
+              }
+          }
+          return -1;
+      }
+  ```
+  `O(n + m)`
+  ```java
+  public class Solution {
+      /**
+       * @param source a source string
+       * @param target a target string
+       * @return an integer as index
+       */
+      int BASE = 10^6;
+      public int strStr2(String source, String target) {
+          // Write your code here
+          if(target == null){
+              return -1;
+          }
+          if(source != null && target.length() == 0){
+              return 0;
+          }
+          if(source == null || source.length() == 0){
+              return -1;
+          }
+          //hash of target
+          int hashTarget = 0;
+          int hashcode = 0;
+          for(int i = 0; i < target.length(); i++){
+              hashTarget = (hashTarget * 31 + target.charAt(i)) % BASE;
+              hashcode = (hashcode * 31 + source.charAt(i)) % BASE;
+          }
+          if(source.substring(0, target.length()).equals(target)){
+              return 0;
+          }
+          //power
+          int power = 1;
+          for(int i = 0; i < target.length(); i++){
+              power = power * 31 % BASE;
+          }
+          
+          // 012345
+          // abcdef   source.length() = 6
+          //  bcd     target.length() = 3
+          //    i 
+          //
+          for(int i = target.length(); i < source.length(); i++){
+              hashcode = (hashcode * 31 + source.charAt(i)) % BASE;
+              hashcode = (hashcode - power * source.charAt(i - target.length()) % BASE) % BASE;
+              if(hashcode < 0){
+                  hashcode += BASE;
+              }
+              if(hashcode == hashTarget){
+                  if(source.substring(i - target.length() + 1, i + 1).equals(target)){
+                      return i - target.length() + 1;
+                  }
+              }
+          }
+          return -1;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T14:14:22.315Z"
-updatedAt: "2017-08-04T14:14:44.788Z"
+updatedAt: "2017-12-28T01:48:51.351Z"

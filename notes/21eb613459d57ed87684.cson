@@ -1,0 +1,68 @@
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "MineSweeper"
+content: '''
+  # MineSweeper
+  ```java
+  class Solution {
+      class Point{
+          int x;
+          int y;
+          Point(int x, int y){
+              this.x = x;
+              this.y = y;
+          }
+      }
+      public char[][] updateBoard(char[][] board, int[] click) {
+          int m = board.length;
+          int n = board[0].length;
+  		//如果是地雷('M')，改为有雷(`X`)，结束
+  		if(board[click[0]][click[1]] == 'M'){
+              board[click[0]][click[1]] = 'X';
+              return board;
+          }
+  		//如果不是雷，该点放入queue，进入BFS
+          Queue<Point> queue = new LinkedList<>();
+          queue.offer(new Point(click[0], click[1]));
+          int[] directionX = {0, 0, -1, 1, 1, -1, 1, -1};
+          int[] directionY = {-1, 1, 0, 0, 1, 1, -1, -1};
+          while(!queue.isEmpty()){
+              Point head = queue.poll();
+  			//统计该点周围的八个点有多少雷
+              int count = 0;
+              for(int i = 0; i < 8; i++){
+                  Point adj = new Point(head.x + directionX[i], head.y + directionY[i]);
+                  if(inBound(adj, board) && (board[adj.x][adj.y] == 'M' || board[adj.x][adj.y] == 'X')){
+                      count++;
+                  }
+              }
+  			//如果周围有至少一个雷，该点显示周围雷的数目，这里是BFS的终点
+              if(count > 0){
+                  board[head.x][head.y] = (char) (count + '0');
+              } else { //如果周围没有雷，将该点改为已访问('B')，将周围所有点放入queue
+                  board[head.x][head.y] = 'B';
+                  for(int i = 0; i < 8; i++){
+                      Point adj = new Point(head.x + directionX[i], head.y + directionY[i]);
+  					//如果相邻点未访问过('B')，则放入Queue，并标记为已访问('B')
+  					//注意这里一定要判断，因为虽然上面已经判断过不可能为'M'或'X'了，但有可能是'B'
+                      if(inBound(adj, board) && board[adj.x][adj.y] != 'B'){
+                          queue.offer(adj); //满足条件的点只能是'E'
+                          board[adj.x][adj.y] = 'B';
+                      }
+                  }
+              }   
+          }
+          return board;
+      }
+      
+      public boolean inBound (Point a, char[][] board){
+          return a.x >= 0 && a.x < board.length && a.y >= 0 && a.y < board[0].length;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-22T15:53:43.744Z"
+updatedAt: "2017-12-22T16:25:34.611Z"

@@ -1,0 +1,51 @@
+createdAt: "2017-12-23T21:16:08.825Z"
+updatedAt: "2017-12-23T21:36:33.976Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Longest Increasing Path in a Matrix"
+content: '''
+  # Longest Increasing Path in a Matrix
+  ```java
+  class Solution {
+      int max = 0;
+      public int longestIncreasingPath(int[][] matrix) {
+          if(matrix == null || matrix.length == 0 || matrix[0].length == 0){
+              return 0;
+          }
+          int m = matrix.length;
+          int n = matrix[0].length;
+          for(int i = 0; i < m; i++){
+              for(int j = 0; j < n; j++){
+                  helper(matrix, i, j, new int[m][n], 1); //最短 Path = 1 (自己)
+              }
+          }
+          return max;
+      }
+      
+      public void helper(int[][] matrix, int x, int y, int[][] visited, int len){
+          if(len > max){
+              max = len;
+          }
+          int[] directionX = {0, 0, 1, -1};
+          int[] directionY = {1, -1, 0, 0};
+          for(int i = 0; i < 4; i++){
+              int adjX = x + directionX[i];
+              int adjY = y + directionY[i];
+              if(!inBound(matrix, adjX, adjY) || visited[adjX][adjY] == 1 || matrix[x][y] >= matrix[adjX][adjY]){
+                  continue;
+              }
+              visited[adjX][adjY] = 1;
+              helper(matrix, adjX, adjY, visited, len + 1);
+              visited[adjX][adjY] = 0;
+          }
+      }
+      
+      public boolean inBound(int[][] matrix, int i, int j){
+          return i >= 0 && i < matrix.length && j >= 0 && j < matrix[0].length;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

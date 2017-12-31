@@ -3,6 +3,8 @@ folder: "8d19d56ee029f3fa592b"
 title: "Topological Sorting"
 content: '''
   # Topological Sorting
+  ### 经典拓扑排序
+  `O(V + E)`
   ```java
   /**
    * Definition for Directed graph.
@@ -59,9 +61,94 @@ content: '''
       }
   }
   ```
+  ### Six degrees
+  ```java
+  public class Solution {
+      /*
+       * @param graph: a list of Undirected graph node
+       * @param s: Undirected graph node
+       * @param t: Undirected graph nodes
+       * @return: an integer
+       */
+      public int sixDegrees(List<UndirectedGraphNode> graph, UndirectedGraphNode s, UndirectedGraphNode t) {
+          // write your code here
+          if(s == t){
+              return 0;
+          }
+          Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+          Set<UndirectedGraphNode> set = new HashSet<>();
+          queue.offer(s);
+          set.add(s);
+          int degree = 0;
+          while(!queue.isEmpty()){
+              degree++;
+              int size = queue.size();
+              for(int i = 0; i < size; i++){
+                  UndirectedGraphNode head = queue.poll();
+  				if(set.contains(head)){
+                          continue;
+                      }
+  				set.add(head);
+                  for(UndirectedGraphNode neighbor : head.neighbors){
+                      /*判断重复可以放在内层循环，也可以放在外层循环
+  					if(set.contains(neighbor)){
+                          continue;
+                      }
+  					set.add(neighbor);
+  					*/
+                      if(neighbor.label == t.label){
+                          return degree;
+                      }
+                      queue.offer(neighbor);
+                  }
+              }
+              
+          }
+          return -1;
+      }
+  }
+  ```
+  
+  ### Connected Component in Undirected Graph
+  ```java
+  public class Solution {
+      /**
+       * @param nodes a array of Undirected graph node
+       * @return a connected set of a Undirected graph
+       */
+      public List<List<Integer>> connectedSet(ArrayList<UndirectedGraphNode> nodes) {
+          // Write your code here
+          List<List<Integer>> results = new ArrayList<>();
+          Set<UndirectedGraphNode> set = new HashSet<>();
+          Queue<UndirectedGraphNode> queue = new LinkedList<>();
+          for(UndirectedGraphNode n : nodes){
+              if(set.contains(n)){
+                  continue;
+              }
+              set.add(n);
+              queue.offer(n);
+              List<Integer> connection = new ArrayList<>();
+              while(!queue.isEmpty()){
+                  UndirectedGraphNode head = queue.poll();
+                  connection.add(head.label);
+                  for(UndirectedGraphNode neighbor : head.neighbors){
+                      if(set.contains(neighbor)){
+                          continue;
+                      }
+                      set.add(neighbor);
+                      queue.offer(neighbor);
+                  }
+              }
+              Collections.sort(connection);
+              results.add(connection);
+          }
+          return results;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-17T02:20:51.205Z"
-updatedAt: "2017-09-17T02:26:52.102Z"
+updatedAt: "2017-12-21T21:34:42.564Z"

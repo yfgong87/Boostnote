@@ -13,18 +13,17 @@ content: '''
       void selectionSort(int arr[])
       {
           int n = arr.length;
-          int temp = 0;
           // One by one move boundary of unsorted subarray
-          for (int i = 0; i < n-1; i++)
+          for (int i = 0; i < n - 1; i++)
           {
               // Find the minimum element in unsorted array
               int minIndex = i;
-              for (int j = i+1; j < n; j++)
+              for (int j = i + 1; j < n; j++)
                   if (arr[j] < arr[minIndex])
                       minIndex = j;
    
               // Swap the found minimum element with the first element
-              temp = arr[minIndex];
+              int temp = arr[minIndex];
               arr[minIndex] = arr[i];
               arr[i] = temp;
           }
@@ -37,7 +36,6 @@ content: '''
   ![](https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif)
   ```java
   public void bubbleSort(int[] A) {
-          int temp = 0;
           // right pointer
           for(int i = A.length - 1; i > 0; i--){
               //left pointer
@@ -46,7 +44,7 @@ content: '''
                   //ascending, keep pushing the largest number to the right
                   if(A[j] > A[j + 1]){
                       //swap
-                      temp = A[j];
+                      int temp = A[j];
                       A[j] = A[j + 1];
                       A[j + 1] = temp;
                   }
@@ -62,18 +60,17 @@ content: '''
   ![](https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif)
   ```java
   public static int[] insertionSort(int[] array){
-          int temp = 0; //Do not create new variable inside loop
           //1 2 3  5    4
           //      j-1  i/j
           for (int i = 1; i < array.length; i++) {
               for(int j = i ; j > 0 ; j--){
                   //如果后一个数小于前一个数，swap
                   //不断把最小数挪到数组最左边
-                  if(array[j] < array[j-1]){
+                  if(array[j] < array[j - 1]){
                       //swap
-                      temp = array[j];
-                      array[j] = array[j-1];
-                      array[j-1] = temp;
+                      int temp = array[j];
+                      array[j] = array[j - 1];
+                      array[j - 1] = temp;
                   }
               }
           }
@@ -81,6 +78,8 @@ content: '''
       }
       
   //Insertion Sort a LinkedList
+  //新建一个链表，把旧链表的 head 不断向新链表插入 node
+  //每次插入时都跟新链表的所有 node 比较直到找到最后一个比 head.val 小的 node，再插入
   public class Solution {
       /*
        * @param head: The first node of linked list.
@@ -97,7 +96,7 @@ content: '''
               while(curr.next != null && curr.next.val < head.val){
                   curr = curr.next;
               }
-              //把 head 插到 curr 后面
+              //curr -> head -> curr.next
               ListNode temp = head.next;
               head.next = curr.next;
               curr.next = head;
@@ -113,4 +112,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-11T03:23:12.937Z"
-updatedAt: "2017-10-24T16:22:14.750Z"
+updatedAt: "2017-12-21T01:20:23.711Z"

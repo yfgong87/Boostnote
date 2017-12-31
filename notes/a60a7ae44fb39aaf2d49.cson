@@ -16,12 +16,8 @@ content: '''
   public class Solution {
       List<Integer> results = new ArrayList<Integer>();
       public List<Integer> rightSideView(TreeNode root) {
-          helper(root);
-          return this.results;
-      }
-      private void helper (TreeNode root){
           if(root == null){
-              return;
+              return results;
           }
           Queue<TreeNode> queue = new LinkedList<TreeNode>();
           queue.offer(root);
@@ -40,12 +36,15 @@ content: '''
                   }
               }      
           }
+          return results;
       }
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T19:39:19.960Z"
-updatedAt: "2017-10-01T19:40:05.419Z"
+updatedAt: "2017-12-30T21:54:59.319Z"

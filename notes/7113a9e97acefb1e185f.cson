@@ -1,0 +1,59 @@
+createdAt: "2017-12-25T01:29:43.786Z"
+updatedAt: "2017-12-25T01:34:59.023Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Generate Abbreviation"
+content: '''
+  # Generate Abbreviation
+  一共`n`个`char`，每个`char`有两种可能，keep or abbreviation，总复杂度`2^n`，如果考虑`sb.toString`的复杂度，则总复杂度为`n * 2^n`
+  ```java
+  class Solution {
+      //                                                               word
+      //                  1ord                             w1rd                           wo1d            wor1
+      //     11rd(2rd)    1o1d        1or1          w11d(w2d)    w1r1                 wo11(wo2)
+      // 21d(3d)   2r1   1o11(1o2)                  w21(w3)  
+      //   4
+      //
+      // keep running count for digit
+      // next recursion level, start from the index where the last digit switch happened
+      // when last digit switch == str.length(), stop recursion
+      
+      public List<String> generateAbbreviations(String word) {
+          List<String> results = new ArrayList<String>();
+          dfs(results, new StringBuilder(), word, 0, 0);
+          return results;
+      }
+      
+      public void dfs(List<String> results,
+                      StringBuilder sb,
+                      String word,
+                      int index,
+                      int digitCount){
+          if(index == word.length()){
+              if(digitCount != 0){
+                  sb.append(digitCount);
+              }
+              results.add(sb.toString());
+              return;
+          }
+          
+          int len = sb.length();
+          
+          //abbrev the char
+          dfs(results, sb, word, index + 1, digitCount + 1);
+          sb.setLength(len); //虽然 sb 在当前层没有被修改，但是在下一层递归 sb.append 修改了 sb，所以一定要 backtrack
+          
+          //keep the char
+          if(digitCount != 0){
+              sb.append(digitCount);
+          }
+          sb.append(word.charAt(index));
+          dfs(results, sb, word, index + 1, 0);
+          sb.setLength(len);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

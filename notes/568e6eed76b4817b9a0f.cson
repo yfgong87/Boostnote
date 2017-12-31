@@ -1,0 +1,51 @@
+createdAt: "2017-12-31T02:57:40.960Z"
+updatedAt: "2017-12-31T03:04:15.527Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Search Range in BST"
+content: '''
+  # Search Range in BST
+  Print all `x` such that `k1 <= x <= k2`
+  If `k1` = `10` and `k2` = `22`, then your function should return `[12, 20, 22]`.
+  
+          20
+         /  \\
+        8   22
+       / \\
+      4   12
+  ```java
+  public class Solution {
+      /*
+       * @param root: param root: The root of the binary search tree
+       * @param k1: An integer
+       * @param k2: An integer
+       * @return: return: Return all keys that k1<=key<=k2 in ascending order
+       */
+      List<Integer> result = new ArrayList<Integer>();
+      public List<Integer> searchRange(TreeNode root, int k1, int k2) {
+          // write your code here
+          helper(root, k1, k2);
+          return result;
+      }
+      
+      public void helper(TreeNode root, int k1, int k2){
+          if(root == null){
+              return;
+          }
+  		// 三个 if 的顺序影响的是输出的顺序，如果想要按从小到大输出，必须用 Inorder Traversal
+          if(root.val > k1){
+              helper(root.left, k1, k2);
+          }
+          if(root.val >= k1 && root.val <= k2){
+              result.add(root.val);
+          }
+          if(root.val < k2){
+              helper(root.right, k1, k2);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

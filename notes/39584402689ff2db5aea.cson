@@ -1,0 +1,97 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "N Queen"
+content: '''
+  # N Queen
+  ![DFS Tree](http://dl2.iteye.com/upload/attachment/0048/6298/84d26802-8906-35b1-b9c3-7e381dd4125a.jpg)
+  
+  树的高度为`n`，每一层都有`n`种摆放可能，总复杂度`n^n`
+  ```java
+  public class Solution {
+      /*
+       * @param n: The number of queens
+       * @return: All distinct solutions
+       */
+      //      Q..        .Q.          ..Q
+      //      ...        ...          ...
+      //      ...        ...          ...
+      //
+      //      Q..                     ..Q    
+      //      ..Q                     Q..
+      //      ...                     ...
+  
+      public List<List<String>> solveNQueens(int n) {
+          // write your code here
+          List<List<String>> results = new ArrayList<List<String>>();
+          dfs(results, new ArrayList<Integer>(), n);
+          return results;
+      }
+      // ..Q.  2
+      // Q...  0
+      // ...Q  3
+      // .Q..  1
+      //List<Integer> solution : {2, 0, 3, 1}
+      public void dfs(List<List<String>> results,
+                      List<Integer> solution,
+                      int n){
+          if(solution.size() == n){
+              List<String> ans = printSolution(solution);
+              results.add(ans);
+              return;
+          }
+          //循环当前行的每一个 Column Index
+          for(int currCol = 0; currCol < n; currCol++){
+              //检查是否符合条件
+              if(!isValid(solution, currCol)){
+                  continue;
+              }
+              solution.add(currCol);
+              dfs(results, solution, n);
+              solution.remove(solution.size() - 1);
+              
+          }
+      }
+      
+      public boolean isValid(List<Integer> solution, int currCol){
+          int currRow = solution.size();
+          for(int prevRow = 0; prevRow < solution.size(); prevRow++){
+              int prevCol = solution.get(prevRow);
+              //Column Index在之前已经被选过了，会直线攻击
+              if(currCol == prevCol){
+                  return false;
+              }
+              //Column Index与之前的某个Column Index在同一对角线上
+              if(currRow + currCol == prevRow + prevCol){
+                  return false;
+              }
+              if(currRow - currCol == prevRow - prevCol){
+                  return false;
+              }
+          }
+          return true;
+      }
+      
+      public List<String> printSolution(List<Integer> solution){
+          List<String> results = new ArrayList<String>();
+          for(int row = 0; row < solution.size(); row++){
+              StringBuilder sb = new StringBuilder();
+              for(int col = 0; col < solution.size(); col++){
+                  int queenIndex = solution.get(row);
+                  if(col == queenIndex){
+                      sb.append("Q");
+                  } else {
+                      sb.append(".");
+                  }
+              }
+              results.add(sb.toString());
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-23T04:17:46.883Z"
+updatedAt: "2017-12-24T04:37:59.634Z"

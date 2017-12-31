@@ -1,0 +1,71 @@
+createdAt: "2017-12-24T23:50:21.020Z"
+updatedAt: "2017-12-24T23:52:51.093Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Find Missing Number II"
+content: '''
+  # Find Missing Number II
+  Giving a string with number from `1` - `n` in random order, but miss `1` number. Find that number.
+  Given n = `20`, str = `19201234567891011121314151618`
+  return `17`
+  限定条件为`n <= 30`
+  
+  树的高度为`n`，每一层有两种可能(走一格或两格)，总复杂度为`2^n`
+  ```java
+  public class Solution {
+      /*
+       * @param n: An integer
+       * @param str: a string with number from 1-n in random order and miss one number
+       * @return: An integer
+       */
+      // n = 5
+      //                               1235
+      //                     1,                    12,(X)      最多走两格   
+      //           1,2,             1,23,(X)
+      //    1,2,3,    1,2,35,(X)
+      // 1,2,3,5,
+      //
+      //Set: {1,2,3,4,5}  -> {4}  stop when set has only 1 element
+      int ans = 0;
+      public int findMissing2(int n, String str) {
+          // write your code here
+          Set<Integer> set = new HashSet<Integer>();
+          for(int i = 1; i <= n; i++){
+              set.add(i);
+          }
+          dfs(set, str, n, 0);
+          return ans;
+      }
+      
+      public void dfs(Set<Integer> set, String str, int n, int index){
+          if(index == str.length()){
+              if(set.size() == 1){
+                  ans = set.iterator().next();
+                  return;
+              }
+              return;
+          }
+          for(int i = index; i < str.length() && i < index + 2; i++){
+              int digit = toDigit(str.substring(index, i + 1));
+              if(digit > n || !set.contains(digit)){
+                  continue;
+              }
+              set.remove(digit);
+              dfs(set, str, n, i + 1);
+              set.add(digit);
+          }
+      }
+      
+      public int toDigit(String s){
+          if(s.length() == 1){
+              return s.charAt(0) - '0';
+          } else {
+              return (s.charAt(0) - '0') * 10 + (s.charAt(1) - '0');
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

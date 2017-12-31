@@ -1,0 +1,44 @@
+createdAt: "2017-12-23T22:56:48.832Z"
+updatedAt: "2017-12-23T23:14:52.685Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Letter Combination of Phone number"
+content: '''
+  # Letter Combination of Phone number
+  ![panel](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png)
+  Input:Digit string `"23"`
+  Output: `["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]`.
+  树的高度为`n = digits.length()`，每一层可能性`3`或`4`或`0`，平均按`3`算，总复杂度为`O(3^n)`
+  ```java
+  class Solution {
+      // "23"
+      //                           ""
+      //          "a"              "b"              "c"
+      //  "ad"  "ae"   "af"   "bd" "be" "bf"   "cd" "ce" "cf"
+      //
+      List<String> result = new ArrayList<String>();
+      public List<String> letterCombinations(String digits) {
+          if(digits.length() == 0){
+              return result;
+          }
+          String[] phone = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+          dfs(digits, "", 0, phone);
+          return result;
+      }
+      
+      public void dfs(String digits, String path, int index, String[] phone){
+          if(index == digits.length()){
+              result.add(path);
+              return;
+          }
+          int digitIndex = digits.charAt(index) + '0';
+          for(char c : phone[digitIndex].toCharArray()){
+              dfs(digits, path + c, index + 1, phone);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

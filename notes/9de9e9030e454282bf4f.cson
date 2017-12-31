@@ -3,6 +3,17 @@ folder: "df7fbd4f413bd7e56cde"
 title: "Cut off Tree From Golf Field"
 content: '''
   # Cut off Tree From Golf Field
+  - `0` represents the obstacle can't be reached.
+  - `1` represents the ground can be walked through.
+  - The place with number `bigger than 1` represents a `tree` can be walked through, and this positive number represents the tree's height.
+  - You are asked to cut off `all` the trees in this forest in the order of tree's height - always cut off the tree with lowest height first. And after cutting, the original place has the tree will become a grass (value 1).
+  - You will start from the point `(0, 0)` and you should output the `minimum` steps you need to walk to cut off all the trees. If you can't cut off all the trees, output `-1` in that situation.
+  
+  Summary:
+  1. Find all the trees (>1)，put them in a PriorityQueue from low to high
+  2. Start from point (0,0), find the steps needed to reach the next lowest tree in the PriorityQueue
+  3. If cannot reach this tree, return -1, otherwise set the found tree as the new start point, then find the next lowest tree...
+  4. To find the next lowest tree, use BFS to find 4 adjacent point of start point, stop if the adjacent point has been visited before, or it is an obstacle, or it is out of boundary
   ```java
   class Solution {
       class Tree{
@@ -80,7 +91,7 @@ content: '''
                           continue;
                       }
                       queue.offer(adj);
-                      visited[adj.x][adj.y] = true;
+                      visited[adj.x][adj.y] = true;//注意这里并不需要改动 forest 里的数据，因为这题不走回头路
                   }
               }
               //上下左右都没找到目标树，则步数加一
@@ -99,4 +110,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T18:38:07.997Z"
-updatedAt: "2017-09-21T18:43:36.037Z"
+updatedAt: "2017-12-22T22:13:57.955Z"

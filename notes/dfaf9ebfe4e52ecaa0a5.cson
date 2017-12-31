@@ -1,0 +1,51 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Knight Shortest Path"
+content: '''
+  # Knight Shortest Path
+  ```java
+      public int shortestPath(boolean[][] grid, Point source, Point destination) {
+          // write your code here
+          if(grid.length == 0 || grid[0].length == 0 || destination == null || source == null){
+              return -1;
+          }
+          
+          int[] directionX = {1, 1, -1, -1, 2, 2, -2, -2};
+          int[] directionY = {2, -2, 2, -2, 1, -1, 1, -1};
+          Queue<Point> queue = new LinkedList<Point>();
+          queue.offer(source);
+          int step = 0;
+          while(!queue.isEmpty()){
+              step++;
+              int size = queue.size();
+              for(int i = 0; i < size; i++){
+                  Point head = queue.poll();
+                  for(int j = 0; j < 8; j++){
+                      Point adj = new Point(head.x + directionX[j], head.y + directionY[j]);
+                      if(!inBound(grid, adj) || grid[adj.x][adj.y]){
+                          continue;
+                      }
+                      if(adj.x == destination.x && adj.y == destination.y){
+                          return step;
+                      }
+                      queue.offer(adj);
+                      grid[adj.x][adj.y] = true;
+                  }
+              }
+          }
+          return -1;
+      }
+      
+      public boolean inBound(boolean[][] grid, Point a){
+          return a.x >= 0 && a.x < grid.length && a.y >= 0 && a.y < grid[0].length;
+      }
+      
+      
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-22T19:48:08.083Z"
+updatedAt: "2017-12-22T19:48:21.344Z"

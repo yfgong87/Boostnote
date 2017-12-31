@@ -3,7 +3,19 @@ folder: "8d19d56ee029f3fa592b"
 title: "Word Abbreviation Set"
 content: '''
   # Word Abbreviation Set
+  Summary:
+  I will use a map to store <abbr, List of word that has the same abbr>
+  - When the given word's abbr is not found in the map, return `true`
+  - Otherwise search the list of word, if the given word cannot be found in the list, return `false`
+  - Otherwise, check if the list of the word has only the given word, if not, it means the abbr is not unique, return `false`
+  时间复杂度：
+  - `O(1)` to get abbr
+  - `O(n)` to put all word in map
+  - `O(1)` to check if unique
+  空间复杂度：
+  - `O(n)` + `O(number of unique abbr)`
   ```java
+  
   /*
   <d2r, <deer, door>>
   <c2e, <cake>>
@@ -24,18 +36,14 @@ content: '''
           // do intialization if necessary
           //<d2r, <deer, door>>
           map = new HashMap<String, Set<String>>();
-          for(String s : dictionary){
-              String abbr = getAbbr(s);
+          for(String word : dictionary){
+              String abbr = getAbbr(word);
               if(!map.containsKey(abbr)){
                   Set<String> set = new HashSet<String>();
-                  set.add(s);
                   map.put(abbr, set);
-              } else {
-                  Set<String> set = map.get(abbr);
-                  if(!set.contains(s)){
-                     set.add(s); 
-                  }
               }
+              Set<String> set = map.get(abbr);
+              set.add(word);
           }
       }
   
@@ -45,17 +53,15 @@ content: '''
        */
       public boolean isUnique(String word) {
           // write your code here
-          String abbrWord = getAbbr(word);
-          if(map.containsKey(abbrWord)){
-              Set<String> set = map.get(abbrWord);
-              if(set.contains(word) && set.size() == 1){
-                  return true; //如果word在dict里且其abbr所对应的词在字典里唯一，Unique
-              } else {
-                  return false;
-              }
-          } else {
-              return true; //如果word的abbr根本就不在dict里，Unique
+          String abbr = getAbbr(word);
+          if(!map.containsKey(abbr)){  //如果word的abbr根本就不在dict里，Unique
+              return true;
           }
+          Set<String> set = map.get(abbr);
+          if(set.contains(word)){
+              return set.size() == 1; //如果word在dict里且其abbr所对应的词在字典里唯一，Unique
+          }
+          return false;
       }
       
       public String getAbbr(String s){
@@ -63,7 +69,7 @@ content: '''
               return s;
           }
           char[] sc = s.toCharArray();
-          return "" + sc[0] + sc.length - 2 + sc[sc.length - 1];
+          return "" + sc[0] + (sc.length - 2) + sc[sc.length - 1];
       }
   }
   
@@ -72,10 +78,11 @@ content: '''
    * ValidWordAbbr obj = new ValidWordAbbr(dictionary);
    * boolean param = obj.isUnique(word);
    */
+  
    ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-22T20:03:11.105Z"
-updatedAt: "2017-10-04T02:20:50.139Z"
+updatedAt: "2017-12-25T02:56:29.841Z"

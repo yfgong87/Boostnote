@@ -1,9 +1,43 @@
 type: "MARKDOWN_NOTE"
 folder: "c42c8fd92533ad636543"
 title: "Java是传值还是传引用"
-content: "[Java是传值还是传引用](https://www.zhihu.com/question/31203609)"
+content: '''
+  [Java是传值还是传引用](https://www.zhihu.com/question/31203609)
+  
+  ### 调用方法时发生了什么？参数传递基本上就是赋值操作。
+  第一个例子：基本类型
+  ```java
+  void foo(int value) {
+      value = 100;
+  }
+  foo(num); // num 没有被改变
+  ```
+  第二个例子：没有提供改变自身方法的引用类型
+  ```java
+  void foo(String text) {
+      text = "windows";
+  }
+  foo(str); // str 也没有被改变
+  ```
+  第三个例子：提供了改变自身方法的引用类型
+  ```java
+  StringBuilder sb = new StringBuilder("iphone");
+  void foo(StringBuilder builder) {
+      builder.append("4");
+  }
+  foo(sb); // sb 被改变了，变成了"iphone4"。
+  ```
+  第四个例子：提供了改变自身方法的引用类型，但是不使用，而是使用赋值运算符。
+  ```java
+  StringBuilder sb = new StringBuilder("iphone");
+  void foo(StringBuilder builder) {
+      builder = new StringBuilder("ipad");
+  }
+  foo(sb); // sb 没有被改变，还是 "iphone"。
+  ```
+'''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-18T04:41:21.157Z"
-updatedAt: "2017-12-18T04:41:39.594Z"
+updatedAt: "2017-12-24T06:02:22.750Z"

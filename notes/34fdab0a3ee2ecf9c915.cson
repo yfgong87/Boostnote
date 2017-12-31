@@ -24,7 +24,7 @@ content: '''
           if(prev != null){
               minDif = Math.min(minDif, Math.abs(prev.val - root.val));
           }
-          prev = root;
+          prev = root; // 一定要在 if 外面
           helper(root.right);
       }
   }
@@ -34,4 +34,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-13T09:49:44.847Z"
-updatedAt: "2017-12-13T09:50:18.593Z"
+updatedAt: "2017-12-31T01:50:43.410Z"

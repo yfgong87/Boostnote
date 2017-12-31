@@ -1,0 +1,68 @@
+createdAt: "2017-12-25T04:46:19.627Z"
+updatedAt: "2017-12-28T16:07:36.451Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "String Manipulation"
+content: '''
+  # String Manipulation
+  ### Reverse String
+  ```java
+  class Solution {
+      public String reverseString(String s) {
+          char[] sc = s.toCharArray();
+          int i = 0;
+          int j = sc.length - 1;
+          while(i < j){
+              char temp = sc[i];
+              sc[i] = sc[j];
+              sc[j] = temp;
+              i++;
+              j--;
+          }
+          return new String(sc); // char[] to String
+      }
+  }
+  ```
+  ### Reverse String in every k chars
+  Input: `s` = `"abcdefg"`, `k` = `2`
+  Output: `"bacdfeg"`
+  ```java
+  class Solution {
+      public String reverseStr(String s, int k) {
+          char[] sc = s.toCharArray();
+          for(int i = 0; i < sc.length; i += 2 * k){
+              int left = i;
+              int right = i + k - 1;
+              if(right > sc.length - 1){
+                  right = sc.length - 1;
+              }
+              while(left < right){
+                  char temp = sc[left];
+                  sc[left] = sc[right];
+                  sc[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          return String.valueOf(sc);
+      }
+  }
+  ```
+  ### Reverse Words in String
+  ```java
+  public class Solution {
+      public String reverseWords(String s) {
+          String[] words = s.trim().split("\\\\s+"); //.split() cost O(n) where n = number of char
+          String result = "";
+  		//O(w) where w = number of words
+          for(int i = words.length - 1; i >= 0; i--){
+              result += words[i] + " ";
+          }
+          return result.substring(0, result.length() - 1);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

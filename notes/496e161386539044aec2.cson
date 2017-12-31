@@ -8,7 +8,7 @@ content: '''
   * `Map<Integer, Set<Integer>>` 放edges
   * 遍历seqs里的每一个数组，遍历该数组的每一个数，如果该数在前一个数的edges中不存在，把该数加进edges，其degree++
   * 将degree为0的数全部加进queue
-  * 对该数的所有edges，degree--，减到0则加入queue；另外一旦这个数与org中对应位数的数不想等，直接return false
+  * 对该数的所有edges，degree--，减到0则加入queue；另外一旦这个数与org中对应位数的数不相等，直接return false
   * 最后判断拓扑排序产生的序列长度是否等于org中数的个数，不等则false
   ```java
   public class Solution {
@@ -18,28 +18,31 @@ content: '''
        * @return: true if it can be reconstructed only one or false
        */
       public boolean sequenceReconstruction(int[] org, int[][] seqs) {
-          // Write your code here
-          Map<Integer, Set<Integer>> edges = new HashMap<Integer, Set<Integer>>();
-          Map<Integer, Integer> indegree = new HashMap<Integer, Integer>();
-  		
-          for (int num : org) {
+          //初始化 degree
+  		Map<Integer, Integer> indegree = new HashMap<Integer, Integer>();
+  		for (int num : org) {
               edges.put(num, new HashSet<Integer>());
               indegree.put(num, 0);
           }
-  
+  		//初始化 edge
+  		Map<Integer, Set<Integer>> edges = new HashMap<Integer, Set<Integer>>();
           int n = org.length;
           int count = 0;
           for (int[] seq : seqs) {
               count += seq.length;
               //Corner Case: org == [1], seqs = {[1], [1000000]}
+  			//seq 是否有第 0 位？第 0 位是否在合法 range 内？
               if (seq.length >= 1 && (seq[0] <= 0 || seq[0] > n))
                   return false;
               for (int i = 1; i < seq.length; i++) {
                   //Corner Case: org == [1], seqs = {[1], [1, 1000000]}
+  				//seq 的第 i 位是否在合法 range 内？
                   if (seq[i] <= 0 || seq[i] > n)
                       return false;
-                  if (edges.get(seq[i - 1]).add(seq[i]))
+                  if (!edges.get(seq[i - 1]).contains(seq[i])){
+                      edges.get(seq[i - 1]).add(seq[i]);
                       indegree.put(seq[i], indegree.get(seq[i]) + 1);
+                  }
               }
           }
   
@@ -53,20 +56,25 @@ content: '''
                   queue.add(key);
   		
           int cnt = 0;
-          while (queue.size() == 1) {
-              int head = queue.poll();
+  		//如果 queue.size() 不等于 1，代表下一个数可以有多种可能，结果不唯一
+          while (!queue.isEmpty()) {
+  			//判断1：组成的 org 序列是否唯一
+  			if(queue.size() != 1){
+  				return false;
+  			}
+  			
+  			//判断2：组成的序列中数字顺序是否与 org 一致
+  			int head = queue.poll();
+              if (head != org[cnt]) {
+                  return false;
+              }
+  			cnt++;
               for (int next : edges.get(head)) {
                   indegree.put(next, indegree.get(next) - 1);
                   if (indegree.get(next) == 0) queue.add(next);
               }
-              //优化，可以不加
-              //if (head != org[cnt]) {
-                  //return false;
-              //}
-              cnt++;
           }
-  		
-          return cnt == org.length;
+          return true;
       }
   }
   ```
@@ -75,4 +83,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-28T16:44:15.236Z"
-updatedAt: "2017-09-28T16:44:34.898Z"
+updatedAt: "2017-12-23T04:14:03.023Z"

@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "最大公约数"
+title: "最大公约数 GCD"
 content: '''
-  # 最大公约数
+  # 最大公约数 GCD
   ```java
   static int gcd(int a, int b)
   {
@@ -21,4 +21,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-13T17:28:49.525Z"
-updatedAt: "2017-09-13T17:29:34.575Z"
+updatedAt: "2017-12-30T05:17:31.896Z"

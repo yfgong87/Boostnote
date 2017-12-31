@@ -1,0 +1,276 @@
+createdAt: "2017-12-28T03:01:33.517Z"
+updatedAt: "2017-12-29T23:53:51.484Z"
+type: "MARKDOWN_NOTE"
+folder: "ca7b6b3755f93c46a5f8"
+title: "Heap & Heap Sort"
+content: '''
+  # Heap & Heap Sort
+  Heapify复杂度：
+  
+  第三层：   `2^(h-2)` 个点 * `2` 两次比较
+  第二层：   `2^(h-1)` 个点 * `1` 一次比较
+  第一层：	    `2^h` 个点 * `0` 不做 heapify
+  
+  由于 `2^(h) + 2^(h-1) + 2(h-2)` = `n/2 + n/4 + n/8` = `0.875 n`
+  最底下三层已经包含了 90% 的点，总复杂度是 `O(n)` 级别的
+  
+  ### Heap Implementation
+  ```java
+  public class MaxHeap {
+  
+  	private int[] arr;
+  	int size;
+  
+  	public MaxHeap(int[] array) {
+  		if (array == null || array.length == 0) {
+  			return;
+  		}
+  		arr = array;
+  		size = array.length;
+  		heapify();
+  	}
+  	
+  	//   		7
+  	//		3		6
+  	//	  1	  2   4  
+  	//
+  	// {7, 3, 6, 1, 2, 4}
+  	//
+  	// left child index : 2 * n + 1
+  	// right child index : 2 * n + 2
+  	// parent index : (child index - 1) / 2
+  	// index of the last parent node: n / 2 - 1
+  	
+  	void heapify() {
+  		for (int i = size / 2 - 1; i >= 0; i--) {
+  			siftDown(i);
+  		}
+  	}
+  
+  	void siftDown(int index) {
+  		// index <= size / 2 - 1 保证 index 不是 leaf node
+  		// 只要没到 leaf node 就继续 siftDown，这样同时保证了不越界
+  		while(index <= size / 2 - 1){
+  			int largest = index;
+  			int leftIndex = index * 2 + 1;
+  			int rightIndex = index * 2 + 2;
+  			
+  			// If left child is larger than root
+            	if (leftIndex < size && arr[leftIndex] > arr[largest])
+                	largest = leftIndex;
+   
+            	// If right child is larger than largest so far
+            	if (rightIndex < size && arr[rightIndex] > arr[largest])
+                	largest = rightIndex;
+   
+            	// If largest is root, break
+            	if (largest == index) break;
+            	// If largest is not root, swap
+            	swap(arr, largest, index);
+            	
+            	// 继续检验换过去的root是不是该subtree里的最大
+            	index = largest;
+  			
+  			/*int targetIndex = -1;
+  			if(rightIndex >= size){
+  				targetIndex = leftIndex;
+  			} else{
+  				targetIndex = arr[leftIndex] > arr[rightIndex] ? leftIndex : rightIndex;
+  			}
+  			
+  			if(arr[index] > arr[targetIndex]){
+  				break;
+  			} 
+  			swap(arr, targetIndex, index);
+  			index = targetIndex; //这步不能漏，更新 index 并继续 siftDown*/
+  		}
+  	}
+  	
+  	// parent index : (child index - 1) / 2
+  	void siftUp(int index){
+  		// 只要没到 root node 就继续 siftUp，这样同时保证了不越界
+  		while(index > 0){
+  			int targetIndex = index;
+  			int parentIndex = (index - 1) / 2;
+  			if(arr[targetIndex] > arr[parentIndex]){
+  				swap(arr, targetIndex, parentIndex);
+  				index = parentIndex; //这步不能漏，更新 index 并继续 siftUp
+  			} else {
+  				return;
+  			}
+  		}
+  	}
+  
+  	public void swap(int[] arr, int index1, int index2) {
+  
+  		int tmp = arr[index1];
+  		arr[index1] = arr[index2];
+  		arr[index2] = tmp;
+  	}
+  	
+  	public int peek(){		
+  		if(size <= 0){
+  			return -1;
+  		}		
+  		return arr[0];		
+  	}
+  	
+  	public int poll(){		
+  		if(size == 0){
+  			throw new ArrayIndexOutOfBoundsException();
+  		}
+  		int result = arr[0]; // root 保存作为返回值
+  		arr[0] = arr[size - 1]; // array 的最后一位填给 root
+  		arr[size - 1] = 0; // array 最后一位删掉
+  		size--; // size--
+  		siftDown(0); // array 最后一位 siftDown
+  		return result;
+  	}
+  	
+  	public void offer(int element){
+  		// array 扩容
+  		if(size == arr.length){
+  			int[] newArr = new int[size * 2];
+  			for(int i = 0; i < size; i++){
+  				newArr[i] = arr[i];
+  			}
+  			arr = newArr;
+  		}
+  		arr[size] = element; // 新元素放在 array 最后一位
+  		siftUp(size); // siftUp 新元素
+  		size++;
+  	}
+  	
+  	public int update(int index, int value){
+  		if(index < 0 || index >= size){
+  			return -1;
+  		}
+  		int oldValue = arr[index];
+  		arr[index] = value;
+  		if(value < oldValue){
+  			siftDown(index);
+  		} else {
+  			siftUp(index);
+  		}
+  		return 0;
+  	}
+  }
+  ```
+  
+  ### Heap Sort
+  - 工业界不用 Heap Sort 的原因是因为每次找到最大（小）值后要和数组的头（尾）互换，两个地址可能隔得很远
+  - `Sort Ascending`: 使用 `Max Heap`, 每次 Heapify 结束后最`大`值都在第 `0` 位，第 `0` 位与最末位互换，然后 Array size - 1，仍然以第 `0` 位为 `root`, 继续 Heapify 
+  - `Sort Descending`: 使用 `Min Heap`, 每次 Heapify 结束后最`小`值都在第 `0` 位，第 `0` 位与最末位互换，然后 Array size - 1，仍然以第 `0` 位为 `root`, 继续 Heapify 
+  
+  | Best TC | Average TC | Worst TC | Space C |
+  | ------- | ---------  | -------- | ------- |
+  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(1)` |
+  ![](https://upload.wikimedia.org/wikipedia/commons/1/1b/Sorting_heapsort_anim.gif)
+  ```java      
+  public void sort(int arr[])
+      {
+          int n = arr.length;
+   
+          // Build heap (rearrange array)
+          for (int i = n / 2 - 1; i >= 0; i--)
+              heapify(arr, n, i);
+   
+          // One by one extract an element from heap
+          for (int i=n-1; i>=0; i--)
+          {
+              // Move current root (arr[0]) to end
+              int temp = arr[0];
+              arr[0] = arr[i];
+              arr[i] = temp;
+   
+              // call max heapify on the reduced heap
+              heapify(arr, i, 0);
+          }
+      }
+      /*
+      Does this satisfy the head-order property?
+  
+                      20
+              5              10
+          12    15        8      2
+        6   2  9
+  
+  
+      Note that this can also be written an array format as:
+          20 5 10 12 15 8 2 6 2 9
+  
+      No, but   12      15    are heaps.
+               6  2    9
+      */
+      // To heapify a subtree rooted with node i which is
+      // an index in arr[]. n is size of heap
+      void heapify(int arr[], int n, int i)
+      {
+          int largest = i;  // Initialize largest as root
+          int l = 2*i + 1;  // left = 2*i + 1
+          int r = 2*i + 2;  // right = 2*i + 2
+   
+          // If left child is larger than root
+          if (l < n && arr[l] > arr[largest])
+              largest = l;
+   
+          // If right child is larger than largest so far
+          if (r < n && arr[r] > arr[largest])
+              largest = r;
+   
+          // If largest is not root
+          if (largest != i)
+          {
+              int swap = arr[i];
+              arr[i] = arr[largest];
+              arr[largest] = swap;
+   
+              // Recursively heapify the affected sub-tree
+              heapify(arr, n, largest);
+          }
+      }
+  ```
+  `Non-recursive` version
+  Actually, building a heap with repeated calls of `siftDown` has a complexity of `O(n)` whereas building it with repeated calls of `siftUp` has a complexity of `O(nlogn)`.
+  
+  This is due to the fact that when you use `siftDown`, the time taken by each call `decreases` with the depth of the node because these nodes are closer to the leaves. When you use `siftUp`, the number of swaps `increases` with the depth of the node because if you are at full depth, you may have to swap all the way to the root. As the number of nodes grows exponentially with the depth of the tree, using siftUp gives a more expensive algorithm.
+  ```java
+  void siftdown(int arr[], int n, int i)
+      {
+          //i 是当前子树的根
+          while(i <= n / 2 - 1){
+            int largest = i;  // Initialize largest as root
+            int l = 2*i + 1;  // left = 2*i + 1
+            int r = 2*i + 2;  // right = 2*i + 2
+   
+            // If left child is larger than root
+            if (l < n && arr[l] > arr[largest])
+                largest = l;
+   
+            // If right child is larger than largest so far
+            if (r < n && arr[r] > arr[largest])
+                largest = r;
+   
+            // If largest is root, break
+            if (largest == i) break;
+            // If largest is not root, swap
+            int swap = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = swap;
+            // 继续检验换过去的root是不是该subtree里的最大
+            i = largest;
+          }
+      }
+      
+  public void heapify(int[] A) {
+        int n = A.length;
+        //这里没有 -1 也能过，但是 n / 2 是没有叶子节点的，所以没有必要进入循环，n / 2 - 1 更好
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            siftdown(A, n, i);
+        } 
+    }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

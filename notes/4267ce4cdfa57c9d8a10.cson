@@ -1,0 +1,58 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Remove Substring"
+content: '''
+  # Remove Substring
+  Given s = `ccdaabcdbb`, substrs = `["ab", "cd"]`
+  Return `2`
+  
+  Explanation: 
+  `ccdaabcdbb` -> `ccdacdbb` -> `cabb` -> `cb` (length = `2`)
+  
+  Time Complexity: 
+  Worst Case 下，`aaaaa`中删除`a`，每个`char`都有删或不删两种可能，每种可能和`min`比大小，`O(2^n)`
+  ```java
+  public class Solution {
+      /*
+       * @param s: a string
+       * @param dict: a set of n substrings
+       * @return: the minimum length
+       */
+      public int minLength(String s, Set<String> dict) {
+          // write your code here
+          if(s.length() == 0 || dict.size() == 0){
+              return s.length();
+          }
+          int min = Integer.MAX_VALUE;
+          Set<String> set = new HashSet<String>();
+          Queue<String> queue = new LinkedList<String>();
+          queue.offer(s);
+          set.add(s);
+          while(!queue.isEmpty()){
+              String head = queue.poll();
+              int index = -1;
+              for(String sub : dict){
+                  index = head.indexOf(sub);
+                  while(index != -1){
+                      String newString = head.substring(0, index) + head.substring(index + sub.length(), head.length());
+                      if(!set.contains(newString)){
+                          if(newString.length() < min){
+                              min = newString.length();
+                          }
+                          set.add(newString);
+                          queue.offer(newString);
+                      }
+                      index = head.indexOf(sub, index + 1);
+                  }
+              }
+          }
+          return min;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-22T20:49:07.877Z"
+updatedAt: "2017-12-22T21:06:02.867Z"

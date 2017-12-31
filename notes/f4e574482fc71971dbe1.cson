@@ -90,9 +90,141 @@ content: '''
   Combination: `O(n * 2^n)`, 解的个数`2^n`(`n`个数每个数取或者不取两种可能)，递归每一层打印每个解的复杂度`O(n)`
   Permutation: `O(n * n!)`, 解的个数`n!`(`n` * `n - 1` * `n - 2` *...* `1`)，递归每一层打印每个解的复杂度`O(n)`
   
+  ### Combination
+  Given two integers `n` and `k`, return all possible combinations of `k` numbers out of `1 ... n`.
+  If `n` = `4` and `k` = `2`, a solution is:
+  `[[2,4],[3,4],[2,3],[1,2],[1,3],[1,4]]`
+  
+  这题本质上是个`subset`问题
+  树的高度为`k`，每一层有`n`种可能，复杂度为`k^n`
+  ```java
+  public class Solution {
+      /*
+       * @param n: Given the range of numbers
+       * @param k: Given the numbers of combinations
+       * @return: All the combinations of k numbers out of 1..n
+       */
+      //n: {1, 2, 3, 4}
+      //                             []
+      //       [1]             [2]        [3]      [4]
+      // [1,2][1,3][1,4]    [2,3][2,4]   [3,4]
+  
+      public List<List<Integer>> combine(int n, int k) {
+          // write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          helper(results, new ArrayList<Integer>(), n, k, 1);
+          return results;
+      }
+      
+      public void helper(List<List<Integer>> results,
+                         List<Integer> solution,
+                         int n,
+                         int k,
+                         int startIndex){
+          if(solution.size() == k){
+              results.add(new ArrayList<Integer>(solution));
+              return;
+          }
+          for(int i = startIndex; i <= n; i++){
+              solution.add(i);
+              helper(results, solution, n, k, i + 1);
+              solution.remove(solution.size() - 1);
+          }
+      }
+  }
+  ```
+  ### Permutation
+  ```java
+  public class Solution {
+      /*
+       * @param nums: A list of integers.
+       * @return: A list of permutations.
+       */
+      // [1,2,3]
+      //                     []
+      //      [1]           [2]               [3]
+      //  [1,2][1,3]     [2,1][2,3]       [3,1][3,2] 
+      //[1,2,3][1,3,2] [2,1,3][2,3,1]    [3,1,2][3,2,1]
+  
+      public List<List<Integer>> permute(int[] nums) {
+          // write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          helper(results, new ArrayList<Integer>(), nums, new int[nums.length]);
+          return results;
+      }
+      
+      public void helper(List<List<Integer>> results,
+                         List<Integer> solution,
+                         int[] nums,
+                         int[] visited){
+          if(solution.size() == nums.length){
+              results.add(new ArrayList<Integer>(solution));
+              return;
+          }
+          for(int i = 0; i < nums.length; i++){
+              if(visited[i] == 1){
+                  continue;
+              }
+              visited[i] = 1;
+              solution.add(nums[i]);
+              helper(results, solution, nums, visited);
+              visited[i] = 0;
+              solution.remove(solution.size() - 1);
+          }
+      }
+  }
+  ```
+  ### Permutation II 
+  有重复数
+  ```java
+  class Solution {
+      /**
+       * @param nums: A list of integers.
+       * @return: A list of unique permutations.
+       */
+      // [1,2a,2b]
+      //                     []
+      //        [1]               [2a]                   [2b]
+      //  [1,2a]   [1,2b]     [2a,1][2a,2b]          [2b,1][2b,2a] 
+      //[1,2a,2b] [1,2b,2a] [2a,1,2b][2a,2b,1]     [2b,1,2a][2b,2a,1]
+      // [1,2,2]   [1,2,2]   [2,1,2]  [2,2,1]       [2,1,2]  [2,2,1]
+      //   pick                pick     pick
+      public List<List<Integer>> permuteUnique(int[] nums) {
+          // Write your code here
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          Arrays.sort(nums); //区分2a,2b
+          helper(results, new ArrayList<Integer>(), nums, new int[nums.length]);
+          return results;
+          
+      } 
+      private void helper(List<List<Integer>> results,
+                          ArrayList<Integer> solution, 
+                          int[] nums,
+                          int[] visited){
+          if(solution.size() == nums.length){
+              results.add(new ArrayList<Integer>(solution));
+              return;
+          }
+          for(int i = 0; i < nums.length; i++){
+              if(visited[i] == 1){
+                  continue;
+              }
+              if(i >= 1 && nums[i] == nums[i - 1] && visited[i - 1] == 1){
+                  continue;
+              }
+              visited[i] = 1;
+              solution.add(nums[i]);
+              helper(results, solution, nums, visited);
+              solution.remove(solution.size() - 1);
+              visited[i] = 0;
+              
+          }
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-19T17:47:51.066Z"
-updatedAt: "2017-09-29T17:23:00.115Z"
+updatedAt: "2017-12-23T23:26:31.552Z"

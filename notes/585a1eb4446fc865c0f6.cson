@@ -1,5 +1,7 @@
+createdAt: "2017-09-01T20:28:15.762Z"
+updatedAt: "2017-12-19T18:36:43.301Z"
 type: "MARKDOWN_NOTE"
-folder: "0ef4dc321cdc22cb8b00"
+folder: "c7615b6dcc7b2832aa16"
 title: "Merge Sort"
 content: '''
   # Merge Sort
@@ -98,6 +100,7 @@ content: '''
       //recursive method
       private ListNode mergeSort(ListNode head){
           //这里head和head.next都不能为null
+  		//如果 head.next == null 不返回的话会死循环
           if(head == null || head.next == null){
               //注意这里是return head而不是return null!!!
               return head;
@@ -135,5 +138,3 @@ content: '''
 tags: []
 isStarred: false
 isTrashed: false
-createdAt: "2017-09-01T20:28:15.762Z"
-updatedAt: "2017-12-09T04:21:29.831Z"

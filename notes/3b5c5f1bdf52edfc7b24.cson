@@ -1,8 +1,126 @@
 type: "MARKDOWN_NOTE"
 folder: "6e2623e3aff765e4a79c"
-title: "Partition List"
+title: "Partition 问题"
 content: '''
-  # Partition List
+  # Partition 问题
+  ### Partition Array - Partition into `two` parts
+  ```java
+  public class Solution {
+      /*
+       * @param nums: The integer array you should partition
+       * @param k: An integer
+       * @return: The index after partition
+       */
+      public int partitionArray(int[] nums, int k) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return 0;
+          }
+          int left = 0;
+          int right = nums.length - 1;
+          while(left <= right){
+              while(left <= right && nums[left] < k){
+                  left++;
+              }
+              while(left <= right && nums[right] >= k){
+                  right--;
+              }
+              if(left <= right){
+                  int temp = nums[left];
+                  nums[left] = nums[right];
+                  nums[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          return left;
+      }
+  }
+  ```
+  ### Sort Color - Partition into `three` parts
+  ```java
+  class Solution {
+      /**
+       * @param nums: A list of integer which is 0, 1 or 2 
+       * @return: nothing
+       */
+      public void sortColors(int[] nums) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return;
+          }
+          int left = 0;
+          int right = nums.length - 1;
+          int index = 0;
+          while(index <= right){
+              if(nums[index] == 0){
+                  swap(nums, left, index);
+                  left++;
+                  index++; //跟左边换完之后 index 可以走，因为换回来的数一定是 1
+              } else if (nums[index] == 1){
+                  index++;
+              } else {
+  				//注意跟右边换完之后 index 不能走，因为换回来的数并没有检验过
+                  swap(nums, index, right);
+                  right--;
+              }
+          }
+      }
+      
+      public void swap(int[] nums, int i, int j){
+          int temp = nums[i];
+          nums[i] = nums[j];
+          nums[j] = temp;
+      }
+  }
+  ```
+  ### Partition Array II - Partition into `three` parts
+  Partition an unsorted integer array into three parts:
+  - The front part < low
+  - The middle part >= low & <= high
+  - The tail part > high
+  
+  Given `[4,3,4,1,2,3,1,2]`, and low = `2` and high = `3`.
+  Change to `[1,1,2,3,2,3,4,4]`.
+  (`[1,1,2,2,3,3,4,4]` is also a correct answer, but `[1,2,1,2,3,3,4,4]` is not)
+  ```java
+  public class Solution {
+      /*
+       * @param nums: an integer array
+       * @param low: An integer
+       * @param high: An integer
+       * @return: 
+       */
+      public void partition2(int[] nums, int low, int high) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return;
+          }
+          int left = 0;
+          int right = nums.length - 1;
+          int index = 0;
+          while(index <= right){
+              if(nums[index] < low){
+                  swap(nums, index, left);
+                  left++;
+  				index++;
+              } else if(nums[index] > high){
+                  swap(nums, index, right);
+                  right--; //注意跟右边换完之后 index 不能走，因为换回来的数并没有检验过
+              } else {
+  				index++;
+  			}
+          }
+      }
+      
+      public void swap(int[] nums, int i, int j){
+          int temp = nums[i];
+          nums[i] = nums[j];
+          nums[j] = temp;
+      }
+  }
+  ```
+  ### Partition List
   Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
   
   You should `preserve the original relative order` of the nodes in each of the two partitions.
@@ -33,4 +151,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-09T17:44:24.094Z"
-updatedAt: "2017-12-09T17:47:03.677Z"
+updatedAt: "2017-12-19T06:55:33.699Z"

@@ -6,7 +6,7 @@ content: '''
   Flatten a binary tree to a fake "linked list" in pre-order traversal.
   
   Here we use the right pointer in TreeNode as the next pointer in ListNode.
-  - `preorder` Traversal
+  - divide and conquer
   - 首先将`root.right`接到`root.left`的`最右下`的点
   - 然后将`root.left`整体挪到右边成为新的`root.right`
   - 然后将新的`root.left`变成`null`
@@ -74,4 +74,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T17:15:04.366Z"
-updatedAt: "2017-12-13T03:54:07.804Z"
+updatedAt: "2017-12-30T23:58:57.104Z"

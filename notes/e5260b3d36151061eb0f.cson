@@ -1,0 +1,73 @@
+createdAt: "2017-12-24T00:27:15.274Z"
+updatedAt: "2017-12-24T00:51:30.271Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Restore IP Address"
+content: '''
+  # Restore IP Address
+  IPv4的特点:
+  - 由`4`段数字组成, 其中有三个`'.'`符号
+  - 每个数字的范围都在`0~255`之间
+  - 每个数都是合法的数字(`没有前导零`)
+  
+  树的高度一定为`3`，因为要填`3`个`'.'`，每一层有`n`个位置可以选择，总复杂度为`O(n^3)`
+  ```java
+  class Solution {
+      //                           11111
+      //        1.1111                         11.111               111.11
+      //  1.11.11      1.1.111             11.1.11  11.11.1   111.1.1            
+      //1.11.1.1  1.1.1.11 1.1.11.1    11.1.1.1
+      
+      public List<String> restoreIpAddresses(String s) {
+          List<String> results = new ArrayList<String>();
+  		//优化，这步可以没有
+  		if(s.length() < 4 || s.length() > 12)
+              return result;
+  			
+          helper(results, new ArrayList<String>(), s, 0);
+          return results;
+      }
+      
+      public void helper(List<String> results, List<String> solution, String s, int index){
+          if(solution.size() == 4){
+  			//已经分出了 4 个 segment，s 里还剩下东西没用完
+              if(index != s.length()){
+                  return;
+              }
+              StringBuilder sb = new StringBuilder();
+              for(String str : solution){
+                  sb.append(str).append(".");
+              }
+              sb.deleteCharAt(sb.length() - 1);
+              results.add(sb.toString());
+              return;
+          }
+          //  1     1     1      1
+          // idx    i        | idx + 3
+          //| segment |
+          for(int i = index; i < s.length() && i < index + 3; i++){
+              String segment = s.substring(index, i + 1);
+              if(!isValid(segment)){
+                  continue;
+              }
+              solution.add(segment);
+              helper(results, solution, s, i + 1);
+              solution.remove(solution.size() - 1);
+          }
+      }
+      
+      public boolean isValid(String str){
+  		//规则：不能有前导零
+          if(str.charAt(0) == '0'){
+              return str.equals("0");
+          }
+  		//规则：[0,255] 之间
+          int digit = Integer.valueOf(str);
+          return digit >= 0 && digit <= 255;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

@@ -11,7 +11,9 @@ content: '''
         2   3             2 - 3
        / \\               /
       4   5             4 - 5
-  	 
+  
+  Time Complexity: `O(height of tree)`
+  
   Non-Recursion
   Starting from the bottom left node, Traverse the tree in the order of `left -> root`
   ```java
@@ -64,10 +66,29 @@ content: '''
       }
   }
   ```
-  
+  类似的递归：Reverse LinkedList 的递归写法
+  ```java
+  public class Solution {
+      /*
+       * @param head: n
+       * @return: The new head of reversed linked list.
+       */
+      public ListNode reverse(ListNode head) {
+          // write your code here
+          if(head == null || head.next == null){
+              return head;
+          }
+          ListNode newHead = reverse(head.next);
+          head.next.next = head;
+          head.next = null;
+          return newHead;
+          
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:19:00.092Z"
-updatedAt: "2017-12-13T04:39:07.379Z"
+updatedAt: "2017-12-31T00:16:20.780Z"

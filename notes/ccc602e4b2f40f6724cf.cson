@@ -1,17 +1,17 @@
 type: "MARKDOWN_NOTE"
-folder: "6e2623e3aff765e4a79c"
+folder: "df7fbd4f413bd7e56cde"
 title: "Boundary of Binary Tree"
 content: '''
   # Boundary of Binary Tree
   One simple approach is to divide this problem into three subproblems- left boundary, leaves and right boundary.
   
-  - Left Boundary: We keep on traversing the tree towards the left and keep on adding the nodes in the resres array, provided the current node isn't a leaf node. If at any point, we can't find the left child of a node, but its right child exists, we put the right child in the resres and continue the process. The following animation depicts the proces
+  - Left Boundary: We keep on traversing the tree towards the left and keep on adding the nodes in the result array, provided the current node isn't a leaf node. If at any point, we can't find the left child of a node, but its right child exists, we put the right child in the resres and continue the process. 
   - Leaf Nodes: We make use of a recursive function `leaves(root)`, in which we change the root node for every recursive call. If the current root node happens to be a leaf node, it is added to the resres array. Otherwise, we make the recursive call using the left child of the current node as the new root. After this, we make the recursive call using the right child of the current node as the new root. 
   - Right Boundary: We perform the same process as the left boundary. But, this time, we traverse towards the right. If the right child doesn't exist, we move towards the left child. Also, instead of putting the node in a preOrder way, we put them in a postOrder way
   
-  Time complexity : `O(n) + 2 * O(depth of tree)` One complete traversal for leaves and two traversals upto depth of binary tree for left and right boundary.
+  Time complexity : `O(n) + 2 * O(height of tree)` One complete traversal for leaves and two traversals upto depth of binary tree for left and right boundary.
   
-  Space complexity : `O(n)`
+  Space complexity : `O(n)` to store results, `O(heigh of tree)` for recursive calls
   
   ```java
   /**
@@ -24,17 +24,18 @@ content: '''
    * }
    */
   class Solution {
-      List<Integer> nodes = new ArrayList<>();
+      List<Integer> results = new ArrayList<>();
       public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-          if(root == null) return nodes;
+          if(root == null) return results;
           //逆时针打印Boundary
-          nodes.add(root.val);
+          results.add(root.val);
           leftBoundary(root.left);
+  		//这里 leaves 要对左右子树分别调用，不然如果 root 就是个 leaf node，root 在这一步被多打印了一次
           leaves(root.left);
           leaves(root.right);
           rightBoundary(root.right);
       
-          return nodes;
+          return results;
       }
       
       public void leftBoundary(TreeNode root) {
@@ -45,7 +46,7 @@ content: '''
           if(root.left == null && root.right == null){
               return;
           }
-          nodes.add(root.val);
+          results.add(root.val);
           if(root.left == null){
               leftBoundary(root.right);
           } else {
@@ -66,7 +67,7 @@ content: '''
           } else {
               rightBoundary(root.right);
           }
-          nodes.add(root.val); //由于是逆时针，所以右侧是从下往上打印，需要用 post order
+          results.add(root.val); //由于是逆时针，所以右侧是从下往上打印，需要用 post order
       }
       
       public void leaves(TreeNode root) {
@@ -74,7 +75,7 @@ content: '''
   			return;
   		}
           if(root.left == null && root.right == null) {
-              nodes.add(root.val);
+              results.add(root.val);
               return;
           }
   		// 这里 preOrder 或 postOrder 都无所谓
@@ -84,8 +85,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-10T21:28:08.929Z"
-updatedAt: "2017-12-10T21:38:13.807Z"
+updatedAt: "2017-12-30T21:54:51.345Z"

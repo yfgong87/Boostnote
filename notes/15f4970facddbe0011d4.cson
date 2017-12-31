@@ -3,6 +3,10 @@ folder: "8d19d56ee029f3fa592b"
 title: "Subtree"
 content: '''
   # Subtree
+  Solution: 
+  Traverse the tree T1 in `preorder` fashion. For every visited node in the traversal, see if the subtree rooted with this node is identical to S.
+  
+  Time Complexity: `O(mn)`
   ```java
   public class Solution {
       /*
@@ -39,4 +43,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-12T21:54:02.735Z"
-updatedAt: "2017-09-12T21:54:10.513Z"
+updatedAt: "2017-12-30T16:15:11.564Z"

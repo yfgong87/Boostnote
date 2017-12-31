@@ -1,11 +1,20 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Two Sum"
+title: "Two Sum 总结"
 content: '''
-  # Two Sum
-  ### Two Sum when input array is NOT sorted
-  - Two Sum 的Brute Force Time Complexity是`O`(`N`<sup>`2`</sup>)
-  - 如果直接用Two Sum由于先行sort了所以需要保存原来的index，不如直接用HashMap
+  # Two Sum 总结
+  - 首先，问清楚是否已经排好序。
+  - 然后确定是否需要返回`index`还是返回`value`，对于`index`，可以选择不用`two pointer`而是用`HashMap`，或者使用一个`ReturnType`记录`index`，再使用`two pointer`. 
+  - 最后确定是否有重复数存在，如果有，是否需要返回`Unique Pairs`，如果需要，则进行去重(注意去重一定是在 `if(nums[left] + nums[right] == target)` 的情况下去重，不然会漏掉 `0 + 0 + 0 = 0` 这种解)
+  - 时间复杂度:
+    - 对`Two Sum`, 在排好序的前提下，使用`Two Pointer`将复杂度从`O(n^2)`降至`O(n)`
+    - 对`3 Sum`, 使用`Two Pointer`将复杂度从`O(n^3)`降至`O(n^2)`
+    - 对`4 Sum`, 使用`Two Pointer`将复杂度从`O(n^4)`降至`O(n^3)`
+  
+  ### 1. Two Sum when input array is NOT sorted
+  - Two Sum 的Brute Force Time Complexity是`O`(`N`<sup>`2`</sup>)，因为一共有 `(n - 1) * n / 2` 个 pairs
+  - 如果直接用Two Sum (`O(nlogn)`) 由于先行sort了所以需要保存原来的index，不如直接用HashMap (`O(n)`)
+  #### HashMap 解法：
   ```java
   public class Solution {
       /*
@@ -15,27 +24,183 @@ content: '''
        */
       public int[] twoSum(int[] numbers, int target) {
           // write your code here
-          HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-          for(int i = 0; i < numbers.length; i++){
-              //key = number, value = index
-              map.put(numbers[i], i);
-          }
+          //<value, index>
+          Map<Integer, Integer> map = new HashMap<>();
           for(int i = 0; i < numbers.length; i++){
               int complement = target - numbers[i];
-              if(map.containsKey(complement)){
-                  int[] results = new int[2];
-                  results[0] = i + 1;
-                  results[1] = map.get(complement) + 1;
-                  return results;
+              if(map.get(complement) != null){
+  				// 因为 complement 先放进 map，所以 map.get(complement) < i
+                  return new int[]{map.get(complement), i};
+              }
+              map.put(numbers[i], i);
+          }
+          return new int[2];
+      }
+  }
+  ```
+  #### 直接 Two Sum 解法
+  ```java
+  class IndexNum{
+      int index;
+      int num;
+      IndexNum(int index, int num){
+          this.index = index;
+          this.num = num;
+      }
+  }
+  public class Solution {
+      /*
+       * @param numbers: An array of Integer
+       * @param target: target = numbers[index1] + numbers[index2]
+       * @return: [index1 + 1, index2 + 1] (index1 < index2)
+       */
+      public int[] twoSum(int[] numbers, int target) {
+          // write your code here
+          if(numbers == null || numbers.length < 2){
+              return new int[2];
+          }
+          IndexNum[] indexNum = new IndexNum[numbers.length];
+          for(int i = 0; i < numbers.length; i++){
+              indexNum[i] = new IndexNum(i, numbers[i]);
+          }
+          Arrays.sort(indexNum, new Comparator<IndexNum>(){
+              public int compare(IndexNum a, IndexNum b){
+                  return a.num - b.num;
+              }
+          });
+          int left = 0;
+          int right = numbers.length - 1;
+          while(left < right){
+              if(indexNum[left].num + indexNum[right].num < target){
+                  left++;
+              } else if (indexNum[left].num + indexNum[right].num > target){
+                  right--;
+              } else {
+                  int[] result = new int[2];
+                  result[0] = indexNum[left].index;
+                  result[1] = indexNum[right].index;
+                  if(result[0] > result[1]){
+                      int temp = result[0];
+                      result[0] = result[1];
+                      result[1] = temp;
+                  }
+                  return result;
               }
           }
-          return null;
+          return new int[2];
+      }
+  }
+  ```
+  ### 2. Two Sum - Data structure design
+  Design and implement a TwoSum class. It should support the following operations: `add` and `find`.
+  - `add` - Add the number to an internal data structure.
+  - `find` - Find if there exists any pair of numbers which sum is equal to the value.
+  这题之所以要在`map`中记录出现次数是因为 target 可以等于 `num * 2`，此时需要判断`map`中够不够两个 `num` 
+  Time Complexity：add: `O(1)`，find: `O(n)`
+  ```java
+  public class TwoSum {
+      //<value, occurence>
+      Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+      // Add the number to an internal data structure.
+      public void add(int number) {
+          // Write your code here
+          if(map.containsKey(number)){
+              map.put(number, map.get(number) + 1);
+          } else {
+              map.put(number, 1);
+          }
+      }
+  
+      // Find if there exists any pair of numbers which sum is equal to the value.
+      public boolean find(int value) {
+          // Write your code here
+          for(int key : map.keySet()){
+              int complement = value - key;
+              if(key == complement && map.get(key) > 1){
+                  return true;
+              }
+              if(key != complement && map.containsKey(complement)){
+                  return true;
+              }
+          }
+          return false;
+      }
+  }
+  ```
+  ### 3. 经典 Two Sum
+  Input array is sorted!
+  ```java
+  public class Solution {
+      /*
+       * @param nums: an array of Integer
+       * @param target: target = nums[index1] + nums[index2]
+       * @return: [index1 + 1, index2 + 1] (index1 < index2)
+       */
+      public int[] twoSum(int[] nums, int target) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return new int[2];
+          }
+          int left = 0;
+          int right = nums.length - 1;
+          while(left < right){
+              if(nums[left] + nums[right] < target){
+                  left++;
+              } else if (nums[left] + nums[right] > target){
+                  right--;
+              } else {
+                  return new int[]{left + 1, right + 1};
+              }
+          }
+          return new int[2];
+      }
+  }
+  ```
+  ### 4. Two Sum - Closest to Target
+  Given an array nums of n integers, find two integers in nums such that the sum is closest to a given number, target.Return the difference between the sum of the two integers and the target.
+  Given array nums = `[-1, 2, 1, -4]`, and target = `4`.
+  The minimum difference is `1`. `(4 - (2 + 1) = 1)`.
+  ```java
+  public class Solution {
+      /*
+       * @param nums: an integer array
+       * @param target: An integer
+       * @return: the difference between the sum and the target
+       */
+      public int twoSumClosest(int[] nums, int target) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return 0;
+          }
+          int min = Integer.MAX_VALUE;
+          Arrays.sort(nums);
+          int left = 0;
+          int right = nums.length - 1;
+          while(left < right){
+              int dif = nums[left] + nums[right] - target;
+  			if(Math.abs(dif) < min){
+                  min = Math.abs(dif);
+              }
+              if(dif > 0){
+                  right--;
+              } else {
+                  left++;
+              }
+          }
+          return min;
       }
   }
   ```
   
-  ### Two Sum <= target
-  Input array is sorted
+  ### 5. Two Sum <= target
+  Given an array of integers, find how many pairs in the array such that their sum is `less than or equal` to a specific target number. Please return the number of pairs.
+  Given nums = `[2, 7, 11, 15]`, target = `24`. 
+  Return `5`. 
+  2 + 7 < 24
+  2 + 11 < 24
+  2 + 15 < 24
+  7 + 11 < 24
+  7 + 15 < 25
   ```java
   public class Solution {
       /*
@@ -66,9 +231,161 @@ content: '''
       }
   }
   ```
+  ### 变形 - Triangle Count
+  找出数组中满足 `a + b > c` 的 `{a, b, c}`有多少个
+  - 将数组排序
+  - 枚举`c`，为保证至少有两个比`c`小的数，`c`的起始`index`为`2`
+  - 在`c`的左边（所有比`c`小的数中），枚举`a`和`b`，一旦发现一组`a + b > c`，当前`b`和`a`之间包括`a`的所有数（一共 `b - a` 个）都满足条件
+  - `O(n)`
+  ```java
+  public class Solution {
+      /*
+       * @param S: A list of integers
+       * @return: An integer
+       */
+      public int triangleCount(int[] S) {
+          // write your code here
+          if(S == null || S.length < 3){
+              return 0;
+          }
+          Arrays.sort(S);
+          int count = 0;
+          for(int i = 2; i < S.length; i++){
+              int left = 0;
+              int right = i - 1;
+              while(left < right){
+                  if(S[left] + S[right] > S[i]){
+                      count = count + right - left;
+                      right--;
+                  } else {
+                      left++;
+                  }
+              }
+          }
+          return count;
+      }
+  }
+  ```
+  ### 6. Two Sum - Unique Pairs
+  数组中有重复数，找出 sum = target 并且组成元素不同的 Pairs
+  Given an array of integers, find how many unique pairs in the array such that their sum is equal to a specific target number. Please return the number of pairs.
+  Given nums = `[1,1,2,45,46,46]`, target = `47`
+  return `2`
+  
+  1 + 46 = 47
+  2 + 45 = 47
+  ```java
+  public class Solution {
+      /**
+       * @param nums an array of integer
+       * @param target an integer
+       * @return an integer
+       */
+      public int twoSum6(int[] nums, int target) {
+          // Write your code here
+          if(nums == null || nums.length < 2){
+              return 0;
+          }
+          Arrays.sort(nums);
+          int left = 0;
+          int right = nums.length - 1;
+          int count = 0;
+          while (left < right){
+              if(nums[left] + nums[right] == target){
+                  count++;
+                  left++;
+                  right--;
+                  while(left < right && nums[right] == nums[right + 1]){
+                      right--;
+                  }
+                  while(left < right && nums[left] == nums[left - 1]){
+                      left++;
+                  }
+              } else if (nums[left] + nums[right] < target){
+                  left++;
+              } else {
+                  right--;
+              }
+          }
+          return count;
+      }
+  }
+  ```
+  ### 7. Two Sum - Difference equal to target
+  Given an array of integers, find two numbers that their difference equals to a target value.
+  where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are NOT zero-based.
+  Given nums = `[2, 7, 15, 24]`, target = `5`
+  return `[1, 2]` `(7 - 2 = 5)`
+  
+  同向双指针
+  ```java
+  class IndexNum {
+      public int idx, num;
+      public IndexNum(int i, int n) {
+          this.idx = i;
+          this.num = n;
+      }
+  }
+  
+  public class Solution {
+      /*
+       * @param nums an array of Integer
+       * @param target an integer
+       * @return [index1 + 1, index2 + 1] (index1 < index2)
+       */
+      public int[] twoSum7(int[] nums, int target) {
+          // write your code here
+          int[] result = new int[2];
+          if (nums == null || nums.length < 2)
+              return result;
+  
+          int n = nums.length;
+          IndexNum[] idxNum = new IndexNum[n];
+          for (int i = 0; i < n; ++i)
+              idxNum[i] = new IndexNum(i, nums[i]);
+  
+          Arrays.sort(idxNum, new Comparator<IndexNum>(){
+              public int compare(IndexNum a, IndexNum b){
+                  return a.num - b.num;
+              } 
+          });
+          
+  		// 千万不能忘记这一步！！
+          if (target < 0)
+              target = -target;
+          // 0        1       1      target = 0
+          // i        j                
+          int i = 0;
+          int j = i + 1;
+          while (i < n && j < n) {
+              if(i == j){
+                  j++;
+                  if(j == n){
+                      break;
+                  }
+              }
+              if (idxNum[j].num - idxNum[i].num < target){
+                  j++;
+              } else if (idxNum[j].num - idxNum[i].num > target){
+                  i++;
+              } else {
+                  result[0] = idxNum[i].idx + 1;
+                  result[1] = idxNum[j].idx + 1;
+                  if (result[0] > result[1]) {
+                      int temp = result[0];
+                      result[0] = result[1];
+                      result[1] = temp;
+                  }
+                  return result;
+              }
+          }
+          return result;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T18:18:22.509Z"
-updatedAt: "2017-10-06T18:29:31.024Z"
+updatedAt: "2017-12-28T20:40:30.441Z"

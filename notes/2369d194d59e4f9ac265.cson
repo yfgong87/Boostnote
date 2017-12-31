@@ -1,0 +1,88 @@
+createdAt: "2017-12-31T00:57:57.349Z"
+updatedAt: "2017-12-31T01:01:05.895Z"
+type: "MARKDOWN_NOTE"
+folder: "6e2623e3aff765e4a79c"
+title: "Is Complete Tree"
+content: '''
+  # Is Complete Tree
+  Check if a given binary tree is completed. A complete binary tree is one in which every level of the binary tree is completely filled except possibly the last level. Furthermore, all nodes are as far left as possible.
+  
+  ```java
+  // NOT a complete tree:
+  // example 1
+          5
+        /   \\
+      3       8
+    /   \\       \\
+   1     4       11
+  
+  // example 2 			
+          5
+        /   \\
+      3       4   
+    /        /  \\
+   1        4    3
+  
+  // example 3
+          5
+        /   \\
+      3      8
+               \\
+                11
+   
+  // IS a complete tree
+  // example 4
+          5
+        /   \\
+      3      4   
+    /   \\      
+   1     4    
+  ```
+  ```java
+  
+  public class Solution {
+  
+  public boolean isCompleted(TreeNode root) {    
+        	
+  if(root == null){
+         		return true;
+        	}
+  
+        	boolean meetNull = false;
+       	Queue<TreeNode> queue = new LinkedList<>();
+        	queue.offer(root);
+  
+        	while(!queue.isEmpty()){
+          	TreeNode head = queue.poll();
+          	if(head.left != null){
+            		queue.offer(head.left);
+         		 }
+  
+          	if(head.right != null){
+            		queue.offer(head.right);
+          	}
+          	//排除example1的情况，左边null右边非null
+  		//Since all nodes has to be as far left as possible, when left child is already null, right child cannot be null
+          	if(head.left == null && head.right != null){
+            		return false;
+         		}
+          	//排除example2和3的情况，之前的节点已经有null child，之后的节点又出现了非null的child
+          	if(meetNull && (head.right != null || head.left != null)){
+            		return false;
+          	}
+          	
+          	if(head.left == null || head.right == null){
+            		meetNull = true;
+          	}
+        	}
+  
+        	return true;
+  
+    	}
+   
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

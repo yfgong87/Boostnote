@@ -3,7 +3,9 @@ folder: "8d19d56ee029f3fa592b"
 title: "Word Ladder"
 content: '''
   # Word Ladder
-  严格来说复杂度是`26 * O(NL^2)`，`N`为`dict`大小，`L`为字符串长度。`L^2`包含两个部分，一个是枚举最后一个单词的长度时的耗费`L`，然后枚举出一个单词之后，检查这个单词在hash表中是否存在，严格的说应该是需要耗费`O(L)`的，所以是`26 * O(NL^2）`。但是建议这个hash表部分的复杂度，一定要明白的告诉面试官你是怎么计算的，否则某些水平不高的面试官可能会以为你算错了。
+  `O(25 * wordLength * dict.size)`
+  - BFS一共遍历了`dict.size`个词，每个词`getNextWord`花费`25 * wordLength`
+  - 在dict中找词的复杂度如果精确计算应该为`25 * wordLength * wordLength`，因为HashMap耗费`O(size of the key)`而不是`O(1)`
   ```java
   public class Solution {
       public int ladderLength(String start, String end, Set<String> dict) {
@@ -59,10 +61,9 @@ content: '''
           for (char c = 'a'; c <= 'z'; c++) {
               //将word中的每一位依次换成从a到z的char(除了原本的char)
               for (int i = 0; i < word.length(); i++) {
-                  /* 这一步优化可以不加
                   if (c == word.charAt(i)) {
                       continue;
-                  }*/
+  				}
                   //将String s中的第index位的char换成c
                   StringBuilder sb = new StringBuilder(word);
                   sb.setCharAt(i, c);
@@ -77,9 +78,93 @@ content: '''
       }
   }
   ```
+  ### Word Ladder II
+  ```java
+  class Solution {
+      Set<String> dict = new HashSet<String>();
+      Map<String, List<String>> neighbors = new HashMap<String, List<String>>();
+      Map<String, Integer> distance = new HashMap<String, Integer>();
+      
+      public List<List<String>> findLadders(String start, String end, List<String> wordList) {
+          List<List<String>> results = new ArrayList<List<String>>();
+          for(String s : wordList){
+              dict.add(s);
+              neighbors.put(s, new ArrayList<String>());
+          }         
+          bfs(start, end);                 
+          dfs(start, end, new ArrayList<String>(), results);   
+          return results;
+      }
+      
+      public void bfs(String start, String end) {
+  
+          dict.add(end);
+          
+          Queue<String> queue = new LinkedList<String>();
+          queue.offer(start);
+          distance.put(start, 0);
+          
+          while(!queue.isEmpty()) {
+              int size = queue.size();
+              for (int i = 0; i < size; i++) {
+                  String word = queue.poll();
+                  int currDistance = distance.get(word);
+                  for (String nextWord: getNextWords(word, dict)) {
+                      neighbors.get(word).add(nextWord);
+                      if (distance.containsKey(nextWord)) {
+                          continue;
+                      }
+                      distance.put(nextWord, currDistance + 1);
+                      if (nextWord.equals(end)) {
+                          return;
+                      }
+                      queue.offer(nextWord);
+                  }
+                  
+              }
+          }
+      }
+   
+      private ArrayList<String> getNextWords(String word, Set<String> dict) {
+          ArrayList<String> nextWords = new ArrayList<String>();
+          //技巧：可以直接for循环26个字母
+          for (char c = 'a'; c <= 'z'; c++) {
+              //将word中的每一位依次换成从a到z的char(除了原本的char)
+              for (int i = 0; i < word.length(); i++) {
+                  if (c == word.charAt(i)) {
+                      continue;
+                  }
+                  //将String s中的第index位的char换成c
+                  StringBuilder sb = new StringBuilder(word);
+                  sb.setCharAt(i, c);
+                  String nextWord = sb.toString();
+                  if (dict.contains(nextWord)) {
+                      //如果换了一位后的word在字典中存在就返回
+                      nextWords.add(nextWord);
+                  }
+              }
+          }
+          return nextWords;
+      }
+          
+      private void dfs(String start, String end, ArrayList<String> solution, List<List<String>> results) {
+          if (end.equals(start)) {
+              results.add(new ArrayList<String>(solution));
+              return;
+          } 
+          for (String neighbor : neighbors.get(start)) {
+              solution.add(start);
+              if (distance.get(neighbor) == distance.get(start) + 1) {
+                   dfs(neighbor, end, solution, results);
+              }
+              solution.remove(solution.size() - 1);
+          }         
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T03:18:48.801Z"
-updatedAt: "2017-11-06T20:52:59.103Z"
+updatedAt: "2017-12-25T04:22:35.240Z"

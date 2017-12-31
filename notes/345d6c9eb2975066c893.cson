@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "链表的递归"
+title: "Recursion on LinkedList 链表的递归"
 content: '''
-  # 链表的递归
+  # Recursion on LinkedList 链表的递归
   ### Insert a value in a sorted linked list.
   
   Examples
@@ -99,4 +99,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-04T20:50:04.971Z"
-updatedAt: "2017-12-05T00:32:49.739Z"
+updatedAt: "2017-12-19T20:50:40.011Z"

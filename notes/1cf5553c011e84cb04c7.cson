@@ -68,10 +68,77 @@ content: '''
       private boolean isInBound(boolean[][] grid, Coordinate coor){
           return coor.x >=0 && coor.x < grid.length && coor.y >=0 && coor.y < grid[0].length;
       }
-    ```
+   ```
+   
+   ### Number of Distinct Island
+   ```java
+   public class Solution {
+      /**
+       * @param grid a boolean 2D matrix
+       * @return an integer
+       */
+      class Coordinate{
+          int x;
+          int y;
+          Coordinate(int x, int y){
+              this.x = x;
+              this.y = y;
+          }
+      }
+      public int numDistinctIslands(int[][] grid) {
+          if (grid == null || grid.length == 0 || grid[0].length == 0){
+              return 0;
+          }
+  		//Set记录path并去重
+          Set<String> set = new HashSet<>();
+          for (int i = 0; i < grid.length; i++){
+              for (int j = 0; j < grid[0].length; j++){
+                  if(grid[i][j] == 1){
+                      String path = search (grid, i, j);
+                      set.add(path);
+                  }
+              }
+          }
+          return set.size();
+      }
+      
+      private String search (int[][] grid, int x, int y){
+  		//记录path
+          StringBuilder sb = new StringBuilder();
+          
+          int[] directionX = {-1, 1, 0, 0};
+          int[] directionY = {0, 0, -1, 1};
+          
+          Queue<Coordinate> queue = new LinkedList<Coordinate>();
+          queue.offer(new Coordinate(x, y));
+          while (!queue.isEmpty()){
+              Coordinate head = queue.poll();
+              for(int i = 0; i < 4; i++){
+                 Coordinate adj = new Coordinate(head.x + directionX[i], head.y + directionY[i]);
+                 if(!isInBound(grid, adj)){
+                     continue;
+                 }
+                 if(grid[adj.x][adj.y] == 1){
+                     grid[adj.x][adj.y] = 0;
+                     queue.offer(adj);
+                     //record path
+                     sb.append(i);
+                 }
+              }
+  			//这里必须有是因为 1,23 和 12,3代表了不同的形状，如果不隔开就少算了一个 island
+              sb.append(',');
+          }
+          return sb.toString();
+      }
+      
+      private boolean isInBound(int[][] grid, Coordinate coor){
+          return coor.x >=0 && coor.x < grid.length && coor.y >=0 && coor.y < grid[0].length;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-06T02:21:39.808Z"
-updatedAt: "2017-12-17T16:20:33.040Z"
+updatedAt: "2017-12-23T00:39:26.609Z"

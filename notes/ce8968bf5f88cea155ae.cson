@@ -4,6 +4,14 @@ title: "Lowest Common Ancester"
 content: '''
   # Lowest Common Ancester
   基本型：提供`root`，并且保证`TreeNode A`和`TreeNode B` 一定存在于树中
+  
+  Time complexity: `O(n)`
+  Space complexity: `O(1)`
+  
+  The idea is to traverse the tree starting from root. Since LCA is always has the largest depth, we use `postOrder Traversal` to look at the nodes with largest depth first, then traverse back to root.
+  
+  The node which has one key present in its left subtree and the other key present in right subtree is the LCA. If both keys lie in left subtree, then left subtree has LCA, otherwise LCA lies in right subtree.
+  
   ```java
   public class Solution {
       /*
@@ -38,6 +46,14 @@ content: '''
   变种1：
   不提供`root`, 但是每个`TreeNode`都有一个`parent`
   并且保证`TreeNode A`和`TreeNode B` 一定存在于树中
+  
+  Time complexity: `O(n)`, tree is traversed twice
+  Space complexity: `O(2 * height of the tree)` to store the two paths
+  
+  Summary:
+  1) Find path from root to A and store it in an ArrayList.
+  2) Find path from root to B and store it in another ArrayList.
+  3) Traverse both paths till the values in arrays are `NOT` the same. Return the common element just before the mismatch.
   ```java
   public ParentTreeNode lowestCommonAncestorII(ParentTreeNode A,
                                                ParentTreeNode B) {
@@ -57,6 +73,9 @@ content: '''
           return pathA.get(indexA + 1);
       }
       //找到从node到path的路径
+  	//路径从 A/B 开始，到 root 结束
+  	// A -> X -> Y -> root
+  	// 	    B -> Y -> root
       private ArrayList<ParentTreeNode> findPathToRoot (ParentTreeNode node){
           ArrayList<ParentTreeNode> path = new ArrayList<ParentTreeNode>();
           while (node != null){
@@ -68,6 +87,9 @@ content: '''
   ```
   变种2：
   `不`保证`TreeNode A`和`TreeNode B` 一定存在于树中
+  
+  We assumes that both keys are present in Binary Tree. If one key is present and other is absent, then the traversal method will returns the present key as LCA (which ideally should have returned `NULL`).
+  We can extend this method to handle all cases by passing two boolean variables `a_exist` and `b_exist`. `a_exist` is set as true when `a` is present in tree and `b_exist` is set as true if `b` is present in tree.
   ```java
   class ResultType {
       public boolean a_exist, b_exist;
@@ -150,4 +172,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T03:53:08.885Z"
-updatedAt: "2017-12-10T05:34:25.373Z"
+updatedAt: "2017-12-30T15:33:24.303Z"

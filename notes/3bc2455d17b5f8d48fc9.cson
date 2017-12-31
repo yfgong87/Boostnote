@@ -108,6 +108,7 @@ content: '''
           }
           int newCapacity = hashTable.length * 2;
           ListNode[] newTable = new ListNode[newCapacity];
+  		//loop through the old hashtable
           for(int i = 0; i < hashTable.length; i++){
               ListNode head = hashTable[i];
               while(head != null){
@@ -116,9 +117,10 @@ content: '''
                   //-3 % 5 = -3
                   int newIndex =
                   (head.val % newCapacity + newCapacity) % newCapacity;
+  				//如果自己是 null，直接加入新 node
                   if(newTable[newIndex] == null){
                       newTable[newIndex] = new ListNode(head.val);
-                  } else {
+                  } else { // 不然就找到尾巴，再加入新 node
                       ListNode curr = newTable[newIndex];
                       while(curr.next != null){
                           curr = curr.next;
@@ -137,4 +139,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:12:33.653Z"
-updatedAt: "2017-10-10T20:43:32.375Z"
+updatedAt: "2017-12-28T02:53:07.576Z"

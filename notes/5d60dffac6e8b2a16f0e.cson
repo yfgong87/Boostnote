@@ -4,6 +4,9 @@ title: "Binary Tree Longest Consecutive Sequence I, II, III"
 content: '''
   # Binary Tree Longest Consecutive Sequence I, II, III
   I: 最长路线必须从`parent`到`child`
+  
+  Summary:
+  A helper method return the length of the Longest Consecutive Path of the current root, including the root itself.
   ```java
   public class Solution {
       /**
@@ -45,7 +48,7 @@ content: '''
   II: 最长路径可以从任意点开始，任意点结束
   - `max_dec`记录的是，不包括该点自己，比该点小的点组成的连续序列最长的长度
   - `max_inc`记录的是，不包括该点自己，比该点大的点组成的连续序列最长的长度
-  - `max`记录的是，包括该点自己，比该点大和小的点组成的连续序列最长的长度
+  - `max`记录的是，以该点为 root 的子树中所能形成的最长连续序列的长度，相当于一个全局的 `max`
   - `null`节点的`(max_dec, max_inc, max)`为`(0, 0, 0)`
   - `leaf`节点的`(max_dec, max_inc, max)`为`(0, 0, 1)`
   ```java
@@ -77,21 +80,27 @@ content: '''
           int inc = 0;
   		
   		// Compare with the original dec/inc to decide which path (left/right) has the longest LCS
-          if(root.left != null && root.left.val == root.val - 1){
-              dec = Math.max(dec, left.max_dec + 1);
+          if(root.left != null){
+  			if(root.left.val == root.val - 1){
+  				dec = Math.max(dec, left.max_dec + 1);
+  			}
+              if(root.left.val == root.val + 1){
+              	inc = Math.max(inc, left.max_inc + 1);
+          	}
           }
-          if(root.left != null && root.left.val == root.val + 1){
-              inc = Math.max(inc, left.max_inc + 1);
-          }
-          if(root.right != null && root.right.val == root.val - 1){
-              dec = Math.max(dec, right.max_dec + 1);
-          }
-          if(root.right != null && root.right.val == root.val + 1){
-              inc = Math.max(inc, right.max_inc + 1);
+  		
+  		if(root.right != null){
+  			if(root.right.val == root.val - 1){
+  				dec = Math.max(dec, right.max_dec + 1);
+  			}
+              if(root.right.val == root.val + 1){
+              	inc = Math.max(inc, right.max_inc + 1);
+          	}
           }
   		
           int max = dec + 1 + inc;
           //注意还要再跟 left 和 right 的最大值比较，分治的最后一步
+  		//(如果 root 跟左右子树都不连续，其 max = 1, 此时如果左右子树的 max > 1, 则全局 max 不应该为 root.max)
           max = Math.max(max, Math.max(left.max, right.max));
           return new returnType(dec, inc, max);
       }
@@ -134,8 +143,10 @@ content: '''
     }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T02:48:00.281Z"
-updatedAt: "2017-12-11T15:14:01.440Z"
+updatedAt: "2017-12-30T22:15:57.541Z"

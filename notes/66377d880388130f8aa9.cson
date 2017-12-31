@@ -3,8 +3,27 @@ folder: "0ef4dc321cdc22cb8b00"
 title: "QuickSelect"
 content: '''
   # QuickSelect
+  
+  我们来算一个理想状况，假如每次都平分，这样时间复杂度展开是 O(n + n/2 + n/4 + ... .+1) = O(2n) = O(n)。因为算法是，挑选一个pivot之后，O(n)时间进行partition，然后判断一下第k大在左边还是在右边。然后继续往下进行，那么理想情况下，无论去左边还是去右边，规模都从 n 变成了 n / 2。所以 `T(n) = T(n/2) + O(n) = O(2n) = O(n)`
+  
+  T(n)
+  T(n/2) + O(n)
+  T(n/4) + O(n/2)
+   .
+   .
+   .
+  T(1)
+  `n + n/2 + n/4 + ... + 1 = 2n`
+  
+  如果不理想的情况，运气很不好的话，每次的pivot 都取到了最大或者最小的值，那么复杂度展开是 O(n + n-1 + n-2 + n-3 ... + 1) = O(n^2)。那么我们应该怎么衡量这个算法的时间复杂度呢？类似快速排序我们认为是 O(nlogn)的，因为我们算的是平均时间复杂度，也就是平摊一下各种情况的概率和时间复杂度。因为并不一定每次都运气那么不好，比如你用随机的方式挑选 pivot的话，这样我们认为 quick select 的时间复杂度均摊是 `O(n)`的
+  
   注意最后左右指针之间可能有一个数，此时直接返回 `nums[k]`
   左右指针之间也可能没有数
+  
+  时间复杂度比较：
+  - Sort Array (`O(nlogn)`) -> print the kth number (`O(1)`) = `O(nlogn)`
+  - Min Heap Heapify (`O(n)`) -> poll k times (k * logn) = `O(n + klogn)`
+  - quick Select = `O(n)`
   ```java
   public int kthSmallest(int k, int[] nums) {
           // write your code here
@@ -44,7 +63,7 @@ content: '''
           }
           return nums[k];
       }
-      ```
+  ```
       
   ### Median
   ```java
@@ -97,4 +116,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-08T00:16:04.452Z"
-updatedAt: "2017-10-08T00:24:23.700Z"
+updatedAt: "2017-12-29T04:09:18.085Z"

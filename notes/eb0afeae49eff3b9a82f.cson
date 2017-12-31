@@ -17,12 +17,12 @@ content: '''
               if(head.val == val){
                   //remove head, 删除了 head 之后 pre 依然在 head 的前一位，所以不用动
                   prev.next = head.next;
+  				head = head.next;
               } else{
-                  //skip head
-                  prev = head;
+                  //skip this node
+                  prev = prev.next;
+  				head = head.next;
               }
-              //move head to next
-              head = head.next;
           }
           //return dummy
           return dummy.next;
@@ -55,17 +55,20 @@ content: '''
           // write your code here
           ListNode dummy = new ListNode(0), pre = dummy;
           dummy.next = head;
+  		//让 head 先走 n 步
           for(int i = 0; i < n; i++){
               if(head == null){     //如果n越界了
                   return head;
               }
               head = head.next;
           }
+  		//prev 和 head 同时走直到 head 走到尾巴
           while(head != null){
               pre = pre.next;
               head = head.next;
           }
-          pre.next = pre.next.next; //此时 pre 在要删除的节点前一位
+  		//此时 pre 在要删除的节点前一位
+          pre.next = pre.next.next; 
           return dummy.next;
       }
   ```
@@ -74,4 +77,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-21T14:47:13.295Z"
-updatedAt: "2017-10-21T15:15:19.234Z"
+updatedAt: "2017-12-20T07:34:23.844Z"

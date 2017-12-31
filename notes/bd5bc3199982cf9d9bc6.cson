@@ -154,12 +154,35 @@ content: '''
   ### transform
   - `String` `Character`.`toString`( )
   ```java
-  char[] charArray = oldString.toCharArray();
-  String newString = new String(charArray);
+  //String to char[]
+  char[] sc = s.toCharArray();
+  //char[] to String
+  String s = new String(sc);
+  String s = String.valueOf(sc);
+  String s = sc.toString(); // This one sometimes generate problems???
+  ```
+  ### `int` to `char`
+  - Here, we used `'0'` because chars are actually represented by ASCII values. `'0'` is a char and represented by value of `48`.
+  - We typed `(a + '0')` and in order to add these up, Java converted `'0'` to its ASCII value which is `48` and a is `1` so the sum is `49`. Then what we did is: `(char)(49)`
+  - We casted int to char. ASCII equivalent of `49` is `'1'`. You can convert any digit to char this way and is smarter and better way than using `.toString()` method and then substracting the digit by `.charAt()` method.
+  ```java
+  //'0' 的 ASCII = 48
+  //a + 48 = 49
+  //ASCII 49 = '1'
+  int a = 1;
+  char b = (char)(a + '0');
+  ```
+  ### `char` to `int`
+  ```java
+  //'1' 的 ASCII = 49
+  //'0'的 ASCII = 48
+  //49 - '0' = 49 - 48 = 1
+  char a = '1';
+  int b = a - '0'; // b = 1
   ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-12-07T18:32:46.922Z"
+updatedAt: "2017-12-27T02:45:22.773Z"

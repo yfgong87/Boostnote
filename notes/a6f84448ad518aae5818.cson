@@ -1,0 +1,16 @@
+type: "MARKDOWN_NOTE"
+folder: "8796d797cb901e033f4a"
+title: "BFS"
+content: '''
+  # BFS
+  ### 记录已经访问的点
+  棋盘类BFS可以用两种方法记录已经访问过的点
+  - 新建一个 `visited` `boolean` 数组，每访问过一个点后更新为`true`
+  - 直接修改棋盘(`matrix`)上的值，修改为一个不与游戏规则冲突的值代表已经访问过了
+  - 注意不能用`HashMap/HashSet`，因为每次`new`出来的`Point adj`都是一个新地址，下一次访问到`x`和`y`相同的点时，即使里面的值一样，这个点也会被当成一个新的点
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-22T22:29:32.892Z"
+updatedAt: "2017-12-22T22:35:04.940Z"

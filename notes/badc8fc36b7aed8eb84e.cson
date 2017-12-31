@@ -3,6 +3,9 @@ folder: "8d19d56ee029f3fa592b"
 title: "3Sum & 4Sum"
 content: '''
   # 3Sum & 4Sum
+  ### 3Sum
+  数组排序 -> 枚举第一个数 -> 在第一个数往后的`subArray`中用`Two sum`找第二和第三个数
+  注意去重
   ```java
   public class Solution {
       /*
@@ -64,6 +67,76 @@ content: '''
       }
   }
   ```
+  ### 3Sum Closest
+  ```java
+  public class Solution {
+      /*
+       * @param numbers: Give an array numbers of n integer
+       * @param target: An integer
+       * @return: return the sum of the three integers, the sum closest target.
+       */
+      int min = Integer.MAX_VALUE;
+      int sum = 0;
+      public int threeSumClosest(int[] numbers, int target) {
+          // write your code here
+          Arrays.sort(numbers);
+          for(int i = 0; i < numbers.length; i++){
+              int complement = target - numbers[i];
+              int left = i + 1;
+              int right = numbers.length - 1;
+              helper(numbers, left, right, complement, numbers[i]);
+          }
+          return sum;
+      }
+      
+      public void helper(int[] numbers, int left, int right, int complement, int num){
+          while(left < right){
+              int dif = numbers[left] + numbers[right] - complement;
+              if(Math.abs(dif) < min){
+                  min = Math.abs(dif);
+                  sum = numbers[left] + numbers[right] + num;
+              }
+              if(dif < 0){
+                  left++;
+              } else{
+                  right--;
+              }
+          }
+      }
+  }
+  ```
+  ### 3Sum Smaller
+  ```java
+  class Solution {
+      int count = 0;
+      public int threeSumSmaller(int[] nums, int target) {
+          if(nums == null || nums.length < 3){
+              return count;
+          }
+          Arrays.sort(nums);
+          for(int i = 0; i < nums.length; i++){
+              int left = i + 1;
+              int right = nums.length - 1;
+              int complement = target - nums[i];
+              helper(nums, left, right, complement);
+          }
+          return count;
+      }
+      
+      public void helper(int[] nums, int left, int right, int complement){
+          while(left < right){
+              int dif = nums[left] + nums[right] - complement;
+              if(dif < 0){
+                  count += right - left;
+                  left++;
+              } else {
+                  right--;
+              }
+          }
+      }
+  }
+  ```
+  ### 4Sum
   ```java
   public class Solution {
       /*
@@ -135,4 +208,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T19:24:18.564Z"
-updatedAt: "2017-10-07T03:46:48.204Z"
+updatedAt: "2017-12-29T02:16:41.534Z"

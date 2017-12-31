@@ -1,0 +1,66 @@
+createdAt: "2017-12-30T17:40:38.931Z"
+updatedAt: "2017-12-30T21:55:03.684Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Binary Tree Maxmum Node"
+content: '''
+  # Binary Tree Maxmum Node
+  类似于 `siftDown` 的解法
+  ```java
+  public class Solution {
+      /*
+       * @param root: the root of tree
+       * @return: the max node
+       */
+      public TreeNode maxNode(TreeNode root) {
+          // write your code here
+          if(root == null){
+              return root;
+          }
+          TreeNode node = root;
+          TreeNode left = maxNode(root.left);
+          TreeNode right = maxNode(root.right);
+          if(left != null && left.val > node.val){
+              node = left;
+          }
+          if(right != null && right.val > node.val){
+              node = right;
+          }
+          return node;
+      }
+  }
+  ```
+  postOrder + 打擂台解法
+  ```java
+  public class Solution {
+      /*
+       * @param root: the root of tree
+       * @return: the max node
+       */
+      int max = Integer.MIN_VALUE;
+      TreeNode node;
+      public TreeNode maxNode(TreeNode root) {
+          // write your code here
+          helper(root);
+          return node;
+      }
+      
+      public void helper(TreeNode root){
+          if(root == null){
+              return;
+          }
+          helper(root.left);
+          helper(root.right);
+          if(root.val > max){
+              max = root.val;
+              node = root;
+          }
+      }
+  }
+  ```
+'''
+tags: [
+  "Binary_Tree"
+]
+isStarred: false
+isTrashed: false

@@ -18,7 +18,11 @@ content: '''
           }
           return true;
       }
-      //The minimum end time of the two meetings (which is the end time of the earlier meeting) is smaller than or equal the maximum start time of the two meetings (which is the start time of the later meeting).
+  	//	       minEnd
+  	// [	      ]
+  	//      [		     ]
+  	//   maxStart
+      // Overlap: minEnd > maxStart
       public boolean overlap(Interval a, Interval b){
           return (Math.min(a.end, b.end) > Math.max(a.start, b.start));
       }
@@ -47,26 +51,84 @@ content: '''
   ```
   # Meeting Room II
   [Lazy Release 解法](https://discuss.leetcode.com/topic/35253/explanation-of-super-easy-java-solution-beats-98-8-from-pinkfloyda)
+  暴力解法
+  时间：`O(n^2)`
+  空间：`O(1)`
+  ```java
+  /**
+   * Definition for an interval.
+   * public class Interval {
+   *     int start;
+   *     int end;
+   *     Interval() { start = 0; end = 0; }
+   *     Interval(int s, int e) { start = s; end = e; }
+   * }
+   */
+  class Solution {
+      public int minMeetingRooms(Interval[] intervals) {
+          if(intervals == null || intervals.length == 0){
+              return 0;
+          }
+          if(intervals.length == 1){
+              return 1;
+          }
+          Arrays.sort(intervals, new Comparator<Interval>(){
+              public int compare(Interval a, Interval b){
+                  return a.start - b.start;
+              }
+          });
+          //  [    ]			intervals[0]
+          //    []            intervals[1]
+          //      [    ]      intervals[2]
+  		// 1 和 0 比，1.start < 0.end, 有 overlap， count++
+  		// 2 和 0 比，2.start < 0.end，有overlap
+  		// 2 和 1 比，2.start >= 1.end，合并 2 和 1
+          int count = 1;
+          for(int i = 1; i < intervals.length; i++){
+              boolean foundRoom = false;
+              for(int j = 0; j < i; j++){
+                  if(intervals[j] == null){
+                      continue;
+                  }
+                  if(intervals[i].start >= intervals[j].end){
+                      intervals[j].end = intervals[i].end;
+                      intervals[i] = null;
+                      foundRoom = true;
+                      break;
+                  }
+              }
+              if(!foundRoom){
+                  count++;
+              }
+          }
+          return count;
+      }
+  }
+  ```
   minHeap 解法
+  时间：`O(nlogn)`
+  空间：`O(n)`
   ```java
   class Solution {
       public int minMeetingRooms(Interval[] intervals) {
           if(intervals == null || intervals.length == 0){
               return 0;
           }
-          
+          // O(nlogn)
           Arrays.sort(intervals, new Comparator<Interval>(){
               public int compare(Interval a, Interval b){
                   return a.start - b.start;
               }
           });
-          
+          // O(n)
           PriorityQueue<Interval> pq = new PriorityQueue<>(new Comparator<Interval>(){
               public int compare(Interval a, Interval b){
                   return a.end - b.end;
               }
           });
-          
+          // worst case: every time pq.offer(intervals[i])
+  		//时间：O(nlogn)
+  		//空间：O(n)
           pq.offer(intervals[0]);
           for(int i = 1; i < intervals.length; i++){
               Interval endSoon = pq.poll();
@@ -87,4 +149,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-16T03:47:12.310Z"
-updatedAt: "2017-12-16T17:34:33.514Z"
+updatedAt: "2017-12-29T03:19:40.731Z"

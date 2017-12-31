@@ -1,0 +1,52 @@
+createdAt: "2017-12-25T02:09:53.883Z"
+updatedAt: "2017-12-25T02:22:25.555Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Check Word Abbreviation"
+content: '''
+  # Check Word Abbreviation
+  Given s = `"internationalization"`, abbr = `"i12iz4n"`:
+  Return `true`.
+  
+  暴力解法枚举 `s` 的所有缩写，复杂度为 `2^n`，再判断是否等于 `abbr`，总复杂度为`n * 2^n`
+  双指针解法复杂度为 `O(n + m)`
+  ```java
+  public class Solution {
+      /*
+       * @param word: a non-empty string
+       * @param abbr: an abbreviation
+       * @return: true if string matches with the given abbr or false
+       */
+      public boolean validWordAbbreviation(String word, String abbr) {
+          // write your code here
+          int i = 0;
+          int j = 0;
+          char[] w = word.toCharArray();
+          char[] a = abbr.toCharArray();
+          while(i < w.length && j < a.length){
+              if(Character.isDigit(a[j])){
+                  if(a[j] == '0'){
+                      return false;
+                  }
+                  int move = 0;
+                  while(j < a.length && Character.isDigit(a[j])){
+                      move = move * 10 + a[j] - '0';
+                      j++;
+                  }
+                  i += move;
+              } else {
+                  if(w[i] != a[j]){
+                      return false;
+                  }
+                  i++;
+                  j++;
+              }
+          }
+          return i == w.length && j == a.length;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

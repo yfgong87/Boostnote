@@ -1,0 +1,115 @@
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Swap Nodes"
+content: '''
+  # Swap Nodes
+  ### Swap nodes in pairs
+  Given `1->2->3->4`, you should return the list as `2->1->4->3`
+  ```java
+  public class Solution {
+      /*
+       * @param head: a ListNode
+       * @return: a ListNode
+       */
+      public ListNode swapPairs(ListNode head) {
+          // write your code here
+          //curr -> n1 -> n2 -> ... -> null
+          ListNode dummy = new ListNode(0), curr = dummy;
+          dummy.next = head;
+          while(curr.next != null && curr.next.next != null){
+              ListNode n1 = curr.next;
+              ListNode n2 = curr.next.next;
+              
+  			//注意先后顺序！
+              curr.next = n2;
+              n1.next = n2.next;
+              n2.next = n1;
+  
+              curr = n1;
+          }
+          return dummy.next;
+      }
+  }
+  ```
+  ### Swap Two nodes in LinkedList
+  ```java
+  /**
+   * Definition for singly-linked list.
+   * public class ListNode {
+   *     int val;
+   *     ListNode next;
+   *     ListNode(int x) { val = x; }
+   * }
+   */
+  
+  
+  /**
+   * Definition for singly-linked list.
+   * public class ListNode {
+   *     int val;
+   *     ListNode next;
+   *     ListNode(int x) { val = x; }
+   * }
+   */
+  
+  public class Solution {
+      /*
+       * @param head: a ListNode
+       * @param v1: An integer
+       * @param v2: An integer
+       * @return: a new head of singly-linked list
+       */
+      public ListNode swapNodes(ListNode head, int v1, int v2) {
+          // write your code here
+          ListNode dummy = new ListNode(0), curr = dummy;
+          dummy.next = head;
+          ListNode node1Prev = null, node2Prev = null;
+          //找到 node1Prev 和 node2Prev
+          while(curr.next != null){
+              if(curr.next.val == v1){
+                  node1Prev = curr;
+              }
+              if(curr.next.val == v2){
+                  node2Prev = curr;
+              }
+              curr = curr.next;
+          }
+          //如果 node1 或 node2 不存在，或者 node1 == node2，结束
+          if(node1Prev == node2Prev || node1Prev == null || node2Prev == null){
+              return head;
+          }
+          //保证 node1 一定在 node2 前面
+          if(node2Prev.next == node1Prev){
+              ListNode temp = node2Prev;
+              node2Prev = node1Prev;
+              node1Prev = temp;
+          }
+          
+          ListNode node1 = node1Prev.next;
+          ListNode node2 = node2Prev.next;
+          
+          //特殊情况：node1Prev -> node2Prev -> node2
+          if (node1Prev.next == node2Prev) {
+              ListNode node2Next = node2.next;
+              node1Prev.next = node2;
+              node2.next = node2Prev;
+              node2Prev.next = node2Next;
+          } else { //普通情况 node1Prev -> node1 -> node2Prev -> node2
+              ListNode node2Next = node2.next;
+              node1Prev.next = node2;
+              node2.next = node1.next;
+              
+              node2Prev.next = node1;
+              node1.next = node2Next;
+          }
+  
+          return dummy.next;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-12-20T01:05:32.929Z"
+updatedAt: "2017-12-20T22:17:56.260Z"

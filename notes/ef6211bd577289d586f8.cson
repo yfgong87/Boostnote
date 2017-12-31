@@ -17,6 +17,46 @@ content: '''
               return true;
           }
           int maxLength = getMaxLength(dict);
+          boolean[] f = new boolean[s.length() + 1];
+          f[0] = true;
+  		// s.length() + 1 个间隔
+          for(int i = 1; i < s.length() + 1; i++){
+              for(int j = (i - maxLength) > 0 ? i - maxLength : 0; j < i; j++){
+  				//如果到 j 为止可以分割，并且 j 到 i 的 word 存在于 dict 中，则到 i 为止可以被分割
+  				//只要有一种分割的可能，就无需再枚举，直接 break 掉
+                  if(f[j] && dict.contains(s.substring(j, i))){
+                      f[i] = true;
+                      break;
+                  }
+              }
+          }
+          return f[s.length()];
+      }
+      
+      public int getMaxLength(Set<String> dict){
+          int maxLength = Integer.MIN_VALUE;
+          for(String s : dict){
+              if(s.length() > maxLength){
+                  maxLength = s.length();
+              }
+          }
+          return maxLength;
+      }
+  }
+  ```
+  ```java
+  public class Solution {
+      /*
+       * @param s: A string
+       * @param dict: A dictionary of words dict
+       * @return: A boolean
+       */
+      public boolean wordBreak(String s, Set<String> dict) {
+          // write your code here
+          if(s == null || s.length() == 0){
+              return true;
+          }
+          int maxLength = getMaxLength(dict);
           //breakable数组比String 多一位
           boolean[] breakable = new boolean[s.length() + 1];
           breakable[0] = true;
@@ -55,4 +95,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-29T18:59:25.330Z"
-updatedAt: "2017-09-29T19:51:20.481Z"
+updatedAt: "2017-12-20T07:16:48.146Z"

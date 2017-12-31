@@ -1,8 +1,10 @@
+createdAt: "2017-08-21T13:19:26.494Z"
+updatedAt: "2017-12-29T19:58:51.134Z"
 type: "MARKDOWN_NOTE"
-folder: "0ef4dc321cdc22cb8b00"
-title: "Quick Sort, Heap Sort"
+folder: "c7615b6dcc7b2832aa16"
+title: "Quick Sort"
 content: '''
-  # Quick Sort, Heap Sort
+  # Quick Sort
   ### Quick Sort
   | Best TC | Average TC | Worst TC | Space C |
   | ------- | ---------  | -------- | ------- |
@@ -10,7 +12,11 @@ content: '''
   - `logn` space complexity because of stack use in recursion
   ![](https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif)
   
-  ### 快排九章模板
+  #### 快排复杂度分析
+  快排的时间复杂度是：`T(n)` = `2T(n/2)` + `O(n)`
+  极端情况：`T[n]` = `T[n-1]` + `T[1]` + `O(n)`，这一次的划分白玩了，划分之后一边是一个，一边是n-1个，这种极端情况的时间复杂度就是`O(n^2)`.
+  
+  #### 快排九章模板
   - 为什么要用`left<=right`? (`注意`: 所有partition类问题都适用)
   因为我们不希望等于的时候停下来，而是partition成两份，正在意义上分开，所以用了`left <= right` 使得结束的时候`right`一定小于`left`
   - 为什么这里是`A[left] < pivot` 而不是 `A[left] <= pivot` ?
@@ -19,6 +25,7 @@ content: '''
   同理，因为如果pivot刚好是最小值，那么我们对n个元素进行partition就会出现左边得到0个，右边得到n个元素的情况，这样右边继续递归下去有可能始终都是n（每次取出pivot都是最小值），那么会出现无限递归。
   - 为什么在while内部还要检测`left <= right`?
   防止`A[left] < pivot` 或者 `A[right] > pivot` 越界
+  - 一遍 Partition 过后，`pivot`可能在左侧，也可能在右侧
   ```java
   private void quickSort(int[] A, int start, int end) {
           if (start >= end) {
@@ -29,9 +36,12 @@ content: '''
           // key point 1: pivot is the value, not the index
           int pivot = A[(start + end) / 2];
   
-          // key point 2: every time you compare left & right, it should be 
-          // left <= right not left < right (如果pivot刚好是最大值，left 在向右前进时会跳过pivot直接到达array的末端，导致partition产生了一个和原来同样的数组和一个空数组，此时如果继续quickSort就会导致左边无限循环因为每一次的pivot都正好是最大值)
+          // key point 2: every time you compare left & right, it should be left <= right not left < right 
           while (left <= right) {
+  			//A[left] < pivot，不能 <=，因为如果pivot刚好是最大值
+  			//left 在向右前进时会跳过pivot直接到达array的末端
+  			//导致partition产生了一个和原来同样的数组和一个空数组
+  			//此时如果继续quickSort就会导致左边无限循环因为每一次的pivot都正好是最大值)
               // key point 3: A[left] < pivot not A[left] <= pivot
               while (left <= right && A[left] < pivot) {
                   left++;
@@ -54,7 +64,95 @@ content: '''
           quickSort(A, left, end);
       }
   ```
-  彩虹排序🌈
+  ### List 的 QuickSort
+  ```java
+  /**
+   * Definition for ListNode.
+   * public class ListNode {
+   *     int val;
+   *     ListNode next;
+   *     ListNode(int val) {
+   *         this.val = val;
+   *         this.next = null;
+   *     }
+   * }
+   */
+  
+  
+  public class Solution {
+      /*
+       * @param head: The head of linked list.
+       * @return: You should return the head of the sorted linked list, using constant space complexity.
+       */
+      public ListNode sortList(ListNode head) {
+          // write your code here
+          if(head == null || head.next == null){
+              return head;
+          }
+          
+          ListNode dummyLeft = new ListNode(0), currLeft = dummyLeft;
+          ListNode dummyMid = new ListNode(0), currMid = dummyMid;
+          ListNode dummyRight = new ListNode(0), currRight = dummyRight;
+          
+          ListNode mid = getMid(head);
+          
+          while(head != null){
+              if(head.val < mid.val){
+                  currLeft.next = head;
+                  currLeft = currLeft.next;
+              } else if(head.val > mid.val){
+                  currRight.next = head;
+                  currRight = currRight.next;
+              } else {
+                  currMid.next = head;
+                  currMid = currMid.next;
+              }
+              head = head.next;
+          }
+          
+          currLeft.next = null;
+          currMid.next = null;
+          currRight.next = null;
+          
+          ListNode left = sortList(dummyLeft.next);
+          ListNode right = sortList(dummyRight.next);
+          
+          return concat(left, dummyMid.next, right);
+      }
+      
+      public ListNode getMid(ListNode head){
+          ListNode slow = head;
+          ListNode fast = head.next;
+          while(fast != null && fast.next != null){
+              slow = slow.next;
+              fast = fast.next.next;
+          }
+          return slow;
+      }
+      
+      public ListNode concat(ListNode left, ListNode mid, ListNode right){
+          ListNode dummy = new ListNode(0), tail = dummy;
+  		//tail.next = left; tail = getTail(left);
+          //tail.next = mid; tail = getTail(mid);
+  		//上面的写法错误，因为left有可能为null，如果left==null，那么tail=getTail(left)后tail也就等于了null，再之后的tail.next = middle，就会出现NULL POINT EXCEPTION
+          tail.next = left; tail = getTail(tail);
+          tail.next = mid; tail = getTail(tail);
+          tail.next = right;
+          return dummy.next;
+      }
+      
+      public ListNode getTail(ListNode head){
+          if(head == null){
+              return head;
+          }
+          while(head.next != null){
+              head = head.next;
+          }
+          return head;
+      }
+  }
+  ```
+  ### 彩虹排序🌈
   Non-randomly Picking the `Pivot`
   这里 `while (l <= r && colors[l] <= colorMid)`
   对于这个while循环为什么是<= 不是 < , 它为什么和快排不一样呢 ？
@@ -96,7 +194,8 @@ content: '''
           rainbowSort(colors, left, end, colorMid + 1, colorTo);
       }
   ```
-  🌈彩虹排序的`HashMap`做法(`O(k)` extra memory)
+  ### Counting Sort
+  🌈彩虹排序的`HashMap`做法(`O(k)` extra memory) 
   ```java
   class Solution {
       /**
@@ -133,6 +232,8 @@ content: '''
   ```
   
   ### Heap Sort
+  工业界不用 Heap Sort 的原因是因为每次找到最大（小）值后要和数组的头（尾）互换，两个地址可能隔得很远
+  
   | Best TC | Average TC | Worst TC | Space C |
   | ------- | ---------  | -------- | ------- |
   | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(1)` |
@@ -202,6 +303,9 @@ content: '''
       }
   ```
   `Non-recursive` version
+  Actually, building a heap with repeated calls of `siftDown` has a complexity of `O(n)` whereas building it with repeated calls of `siftUp` has a complexity of `O(nlogn)`.
+  
+  This is due to the fact that when you use `siftDown`, the time taken by each call `decreases` with the depth of the node because these nodes are closer to the leaves. When you use `siftUp`, the number of swaps `increases` with the depth of the node because if you are at full depth, you may have to swap all the way to the root. As the number of nodes grows exponentially with the depth of the tree, using siftUp gives a more expensive algorithm.
   ```java
   void siftdown(int arr[], int n, int i)
       {
@@ -242,5 +346,3 @@ content: '''
 tags: []
 isStarred: false
 isTrashed: false
-createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-12-03T23:37:06.306Z"
