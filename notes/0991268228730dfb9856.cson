@@ -1,0 +1,26 @@
+createdAt: "2018-01-08T01:37:37.348Z"
+updatedAt: "2018-01-08T01:38:13.623Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Is Same Tree"
+content: '''
+  # Is Same Tree
+  ```java
+  class Solution {
+      public boolean isSameTree(TreeNode p, TreeNode q) {
+          if(p == null && q == null){
+              return true;
+          }
+          if(p == null || q == null){
+              return false;
+          }
+          return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+      }
+  }
+  ```
+'''
+tags: [
+  "Binary_Tree"
+]
+isStarred: false
+isTrashed: false

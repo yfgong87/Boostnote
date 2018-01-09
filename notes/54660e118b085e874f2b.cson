@@ -43,7 +43,7 @@ content: '''
       }
   }
   ```
-  ### Expanding, `O(n)`
+  ### Expanding, `O(n^2)`
   ```java
   public String longestPalindrome(String s) {
           // write your code here
@@ -63,18 +63,20 @@ content: '''
           }
           return s.substring(start, end + 1); //右边不包含
       }
-      
-      public int expand(String s, int left, int right){
-          int leftPointer = left;
-          int rightPointer = right;
-          while(leftPointer >= 0 && rightPointer < s.length() 
-                && (s.charAt(leftPointer) == s.charAt(rightPointer))){
-              leftPointer--;
-              rightPointer++;
+  	
+  	public int expand (String s, int start, int end){
+          while(start >= 0 && end <= s.length() - 1){
+              if(s.charAt(start) != s.charAt(end)){
+                  break;
+              } else {
+                  start--;
+                  end++;
+              }
           }
-          //这样写可以保证expand(s,0,0) 不越界
-          //因为当 left == right 的时候 leftPointer--, rightPointer++
-          return rightPointer - leftPointer - 1;
+  		//各倒退一格
+  		start++;
+  		end--;
+          return end - start + 1;
       }
   ```
   ### Related: Count how many palindromic substring
@@ -107,4 +109,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T23:36:01.852Z"
-updatedAt: "2017-11-03T22:55:19.817Z"
+updatedAt: "2018-01-03T00:49:36.566Z"

@@ -1,0 +1,53 @@
+createdAt: "2018-01-07T17:46:45.714Z"
+updatedAt: "2018-01-07T17:54:45.709Z"
+type: "MARKDOWN_NOTE"
+folder: "d244500e287747fe254a"
+title: "Ternery Expression to Binary Tree"
+content: '''
+  # Ternery Expression to Binary Tree
+  Input : expression =  `a?b?c:d:e`
+  
+  Output :
+  ```java
+               a
+             /  \\
+            b    e
+          /  \\
+         c    d
+  ```
+  Solution: 
+  总体的遍历顺序是 preOrder
+  ```java
+  TreeNode convertExpression(char[] expression)
+  	{
+  		if(expression == null || expression.length == 0){
+  		    return null;
+  		}
+  		TreeNode root = new TreeNode(expression[0]);
+  		Stack<TreeNode> stack = new Stack<>();
+  		stack.push(root);
+  		for(int i = 1; i < expression.length; i = i + 2){
+  		    TreeNode node = new TreeNode(expression[i + 1]);
+  		    if(expression[i] == '?'){
+  		        stack.peek().left = node;
+  		    } else {
+  				// pop the left node that share the same root
+  		        stack.pop(); 
+  				// 如果当前 root 已经有 right node 了，pop 掉
+  		        while(stack.peek().right != null){
+  		            stack.pop();
+  		        }
+  		        stack.peek().right = node;
+  		    }
+  		    stack.push(node);
+  		}
+  		return root;
+  	}
+  ```
+'''
+tags: [
+  "PocketGem"
+  "Binary_Tree"
+]
+isStarred: false
+isTrashed: false

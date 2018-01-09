@@ -4,10 +4,22 @@ title: "Partition to k equal sum subsets"
 content: '''
   # Partition to k equal sum subsets
   有重复数
-  Input: nums = [4, 3, 2, 3, 5, 2, 1], k = 4
-  Output: True
+  Input: nums = `[4, 3, 2, 3, 5, 2, 1]`, `k` = `4`
+  Output: `true`
   Explanation: It's possible to divide it into 4 subsets (5), (1, 4), (2,3), (2,3) with equal sums.
   这题本质上还是个Combination的问题，因为答案不需要排序，所以还是需要用到 startIndex
+  
+  Solution:
+  
+  Coner Cases:
+  - `nums.length < k` or `k <= 0` : impossible
+  - `sum % k != 0`, If sum of array is not divisible by K, then it is not possible to divide the array.
+  - Starting from the first element, we add its value to sum, if `sum > target`, we backtrack
+  - if `sum == target`, means we found a valid subset, now we do `k - 1` and start searching from the beginning of the input array
+  - we use a `visited[]` to check whether an element is already used or not
+  - `k == 1` means we have the answer, when we find a subset, we do `k - 1`
+  - dfs will return a `boolean`, whenever we found a possible partition, we return true, no need to process every possibility
+  
   ```java
   class Solution {
       public boolean canPartitionKSubsets(int[] nums, int k) {
@@ -32,13 +44,16 @@ content: '''
                                    int startIndex,
                                    int target,
                                    int sum){
-          if(k == 1){
+          // If sum % k == 0 and you’ve already found three subsets
+  		// Then the sum of the remain elements will also equal to the target
+  		// k == 0 is also acceptable
+  		if(k == 1){
               return true;
           }
-        /*//如果 nums 里只有正数，则没有继续的必要，因为下一个 sum = sum + nums[i]
+          //如果 nums 里只有正数，则没有继续的必要，因为下一个 sum = sum + nums[i]
           if(sum > target){
               return false;
-          } */
+          }
           //找到了一个满足条件的 subset，还要找剩下的 k - 1 个
           if(sum == target){
               return canPartition(nums, k - 1, visited, 0, target, 0);
@@ -58,8 +73,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Backtracking"
+  "DFS"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-07T03:18:39.686Z"
-updatedAt: "2017-11-07T04:52:02.045Z"
+updatedAt: "2018-01-04T18:41:42.991Z"

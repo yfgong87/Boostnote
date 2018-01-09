@@ -231,7 +231,7 @@ content: '''
       }
   }
   ```
-  ### 变形 - Triangle Count
+  ### 变形 - Triangle Count / Valid Triangle Number
   找出数组中满足 `a + b > c` 的 `{a, b, c}`有多少个
   - 将数组排序
   - 枚举`c`，为保证至少有两个比`c`小的数，`c`的起始`index`为`2`
@@ -383,9 +383,45 @@ content: '''
       }
   }
   ```
+  ### 8. Two Sum - Input is a Binary Search Tree
+  Solution:
+  Transform the BST into a sorted array, then use classic two pointers
+  Time complexity: `O(n)` + `O(n)`
+  Space Complexity: `O(n)`
+  ```java
+  class Solution {
+      ArrayList<Integer> list = new ArrayList<>();
+      public boolean findTarget(TreeNode root, int target) {
+          inOrderTraverse(root);
+          int left = 0;
+          int right = list.size() - 1;
+          while(left < right){
+              if(list.get(left) + list.get(right) < target){
+                  left++;
+              } else if (list.get(left) + list.get(right) > target){
+                  right--;
+              } else {
+                  return true;
+              }
+          }
+          return false;
+      }
+      
+      public void inOrderTraverse(TreeNode root){
+          if(root == null){
+              return;
+          }
+          inOrderTraverse(root.left);
+          list.add(root.val);
+          inOrderTraverse(root.right);
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T18:18:22.509Z"
-updatedAt: "2017-12-28T20:40:30.441Z"
+updatedAt: "2018-01-08T03:25:54.282Z"

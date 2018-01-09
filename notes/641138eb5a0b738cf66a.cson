@@ -5,51 +5,55 @@ content: '''
   # Permutation II
   ```java
   class Solution {
+      //{1(1), 1(2), 2}
+      //                                         []
+      //            [1(1)]                      [1(2)]                          [2]
+      //    #[1(1),1(2)] [1(1),2]        [1(2),1(1)]  [1(2),2]             [2,1(1)] [2,1(2)]
+      //               #[1(1),2,1(2)]  [1(2),1(1),2] [1(2),2,1(1)]  #[2,1(1),1(2)] [2,1(2),1(1)]                                   
+  
       public List<List<Integer>> permuteUnique(int[] nums) {
           List<List<Integer>> results = new ArrayList<List<Integer>>();
-          if(nums == null){
-              return results;
-          }
-          List<Integer> solution = new ArrayList<Integer>();
-          if(nums.length == 0){
-              results.add(solution);
+          if(nums == null || nums.length == 0){
               return results;
           }
           Arrays.sort(nums);
-          int[] visited = new int[nums.length];
-          helper(results, solution, nums, visited);
+          dfs(nums, results, new ArrayList<Integer>(), new boolean[nums.length]);
           return results;
       }
-      private void helper (List<List<Integer>> results,
-                           List<Integer> solution,
-                           int[] nums,
-                           int[] visited){
-          //当集合大小等于数组大小时完成当前solution
+      
+      public void dfs(int[] nums,
+                      List<List<Integer>> results,
+                      List<Integer> solution,
+                      boolean[] visited){
           if(solution.size() == nums.length){
               results.add(new ArrayList<Integer>(solution));
+              return;
           }
-          //无需startIndex，每次都从第一个数开始找
+  		//无需startIndex，每次都从第一个数开始找
           for(int i = 0; i < nums.length; i++){
-              //当前数已经用过
-              if(visited[i] == 1){
+              if(visited[i]){
                   continue;
               }
-              //选代表
-              if(i != 0 && nums[i] == nums[i - 1] && visited[i - 1] == 0){
+  			// 选代表
+  			// 写成 i > 0 && nums[i] == nums[i - 1] && !visited[i - 1] 则第一次出现的重复数会出现在集合前面
+              if(i > 0 && nums[i] == nums[i - 1] && visited[i - 1]){
                   continue;
               }
-              visited[i] = 1;
+              visited[i] = true;
               solution.add(nums[i]);
-              helper(results, solution, nums, visited);
+              dfs(nums, results, solution, visited);
+              visited[i] = false;
               solution.remove(solution.size() - 1);
-              visited[i] = 0;
           }
       }
   }
   ```
 '''
-tags: []
+tags: [
+  "DFS"
+  "backtracking"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T18:29:42.817Z"
-updatedAt: "2017-08-30T18:30:37.486Z"
+updatedAt: "2018-01-02T02:58:01.356Z"

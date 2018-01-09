@@ -1,0 +1,54 @@
+createdAt: "2018-01-08T03:38:10.477Z"
+updatedAt: "2018-01-08T03:43:58.738Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Convert Binary Search Tree to a Greater Tree"
+content: '''
+  # Convert Binary Search Tree to a Greater Tree
+  
+  Given a binary search Tree `{5,2,13}`:
+  
+                5
+              /   \\
+             2     13
+  Return the root of new tree
+  
+               18
+              /   \\
+            20     13
+  		
+  ### Solution: 
+  Since for a node, the value that is greater than it lies to its right side. So we should process the right most node first, then root, then left node. Thus we can use a reverse InOrder traversal algorithm, and process every node in the tree in the order of `right` -> `root` -> `left`
+  
+  ### Complexity
+  Time: `O(n)`, Space: `O(h)`
+  ```java
+  public class Solution {
+      /*
+       * @param root: the root of binary tree
+       * @return: the new root
+       */
+      int sum = 0;
+      public TreeNode convertBST(TreeNode root) {
+          // write your code here
+          reverseInorder(root);
+          return root;
+      }
+      
+      public void reverseInorder (TreeNode root){
+          if(root == null){
+              return;
+          }
+          reverseInorder(root.right);
+          sum += root.val;
+          root.val = sum;
+          reverseInorder(root.left);
+      }
+  }
+  ```
+'''
+tags: [
+  "Binary_Tree"
+]
+isStarred: false
+isTrashed: false

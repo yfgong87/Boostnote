@@ -20,7 +20,8 @@ content: '''
           int max = 0;
           while(end < s.length()){
   			//遇到了一个 Repeating Character
-              if(map[s.charAt(end)] > 0){
+  			// map[s.charAt(end)] > 0
+              if(map[s.charAt(end)] == 1){
                   count++;
               }
   			map[s.charAt(end)]++;
@@ -28,12 +29,14 @@ content: '''
   			//SubString 中一旦有 Repeating Char
   			//向右移动 start 直到这个 Char 被移出 SubString
               while(count > 0){
-                  if(map[s.charAt(start)] > 1){
+  				// map[s.charAt(start)] > 1
+                  if(map[s.charAt(start)] == 2){
                       count--;
                   }
                   map[s.charAt(start)]--;
                   start++; 
               }
+  			// end - start 是因为 end 在上面 ++ 了，要退回一格
               max = Math.max(max, end - start);
           }
           return max;
@@ -130,9 +133,61 @@ content: '''
       }
   }
   ```
+  ### Minimum Window Substring
+  Given a string source and a string target, find the minimum window in source which will contain all the characters in target.
+  Should the characters in minimum window has the same order in target? `NO`
+  For source = `"CDBAC"`, target = `"ABC"`, the minimum window is `"BAC"`
+  ```java
+  public class Solution {
+      /*
+       * @param source : A string
+       * @param target: A string
+       * @return: A string denote the minimum window, return "" if there is no such a string
+       */
+      public String minWindow(String source , String target) {
+          // write your code here
+          int[] map = new int[256];
+          for(int i = 0; i < target.length(); i++){
+              map[target.charAt(i)]++;
+          }
+          int start = 0;
+          int end = 0;
+  		//count 代表 target 中已经被放进 Substring 的 char 的数目
+          int count = 0; 
+          int min = Integer.MAX_VALUE;
+          int minStart = start;
+          int minEnd = end;
+          while(end < source.length()){
+              if(map[source.charAt(end)] > 0){
+                  count++;
+              }
+              map[source.charAt(end)]--;
+              end++;
+  			//当 Substring 中已经包含了 target 中所有的 Char
+  			//向右移动 start 寻找最小 Substring，直到某个 Char 被移出 Substring
+              while(count == target.length()){
+                  if(end - start < min){
+                      minStart = start;
+                      minEnd = end;
+                      min = end - start;
+                  }
+                  map[source.charAt(start)]++;
+                  if(map[source.charAt(start)] > 0){
+                      count--;
+                  }
+                  start++;
+              }
+          }
+          return source.substring(minStart, minEnd);
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "Sliding_Window"
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-03T23:38:44.423Z"
-updatedAt: "2017-12-15T00:45:52.993Z"
+updatedAt: "2018-01-03T15:05:55.779Z"

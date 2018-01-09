@@ -26,13 +26,13 @@ content: '''
           if(n <= 0){
               return 0;
           }
-          int[] results = new int[n + 1];
-          results[0] = 1;
-          results[1] = 1;
+          int[] f = new int[n + 1];
+          f[0] = 1; // 原地不动有几种走法？一种
+          f[1] = 1; // 跳到第一层有几种走法？一种
           for(int i = 2; i < n + 1; i++){
-              results[i] = results[i - 1] + results[i - 2];
+              f[i] = f[i - 1] + f[i - 2];
           }
-          return results[n];
+          return f[n];
       }
   }
   ```
@@ -101,6 +101,44 @@ content: '''
       }
   }
   ```
+  ### Decode ways
+  `'A'` -> `1`
+  `'B'` -> `2`
+  `'L'` -> `12`
+  `'Z'` -> `26`
+  
+  given `12` - > `AB` or `L`
+  ```java
+  class Solution {
+      public int numDecodings(String s) {
+          if(s == null || s.length() == 0){
+              return 0;
+          }
+          char[] sc = s.toCharArray();
+          int n = sc.length;
+          int[] f = new int[n + 1];
+          f[0] = 1;
+          f[1] = s.charAt(0) == '0' ? 0 : 1; // 取决于第一位是否为 0
+          
+          // idx    0   1
+          // sc[] | 1 | 2 | 
+          // f[]  1   1   2
+          // idx  0   1   2   
+          
+          for(int i = 2; i < n + 1; i++){
+              if(sc[i - 1] != '0'){
+                  f[i] += f[i - 1];
+              }
+              int val = (sc[i - 1] - '0') + 10 * (sc[i - 2] - '0');
+              if(val >= 10 && val <= 26){
+                  f[i] += f[i - 2];
+              }
+          }
+          return f[n];
+      }
+  }
+  ```
+  
   ### Minimum Path Sum
   只能向`下`和向`右`移动
   状态的意义: 到 grid[i][j] 的最小 sum
@@ -350,6 +388,38 @@ content: '''
       }
   }
   ```
+  ### House Rober II
+  所有房子首尾相连
+  
+  ```java
+  class Solution {
+      public int rob(int[] nums) {
+          if(nums == null || nums.length == 0){
+              return 0;
+          }
+          if(nums.length == 1){
+              return nums[0];
+          }
+          int n = nums.length;
+  		// f1 代表从第一栋房子开始抢，因此最后返回 f1[n - 1] 因为最后一栋房子与第一栋相邻，肯定不能抢
+          int[] f1 = new int[n + 1]; 
+          f1[0] = 0;
+          f1[1] = nums[0];
+          // f2 代表从第二栋房子开始抢，因此最后返回 f2[n] 因为最后一栋房子可以抢
+          int[] f2 = new int[n + 1];
+          f2[0] = 0;
+          f2[1] = 0;
+          
+          for(int i = 2; i < n + 1; i++){
+              f1[i] = Math.max(nums[i - 1] + f1[i - 2], f1[i - 1]);
+              f2[i] = Math.max(nums[i - 1] + f2[i - 2], f2[i - 1]);
+          }
+          
+          return Math.max(f1[n - 1], f2[n]);
+      }
+  }
+  ```
+  
   ### Longest Increasing Subsequence
   Given a sequence of integers, find the longest increasing subsequence (`LIS`).
   You code should return the length of the LIS.
@@ -515,9 +585,41 @@ content: '''
       }
   }
   ```
+  ### Delete and Earn
+  Given an array nums of integers, you can perform operations on the array.
+  In each operation, you pick any `nums[i]` and delete it to earn `nums[i]` points. After, you must delete every element equal to `nums[i] - 1` or `nums[i] + 1`.
+  You start with 0 points. Return the maximum number of points you can earn by applying such operations.
+  The length of nums is at most `20000`.
+  Each element `nums[i]` is an integer in the range`[1, 10000]`.
+  
+  Solution:
+  - If you choose a number, you cannot choose the numbers besides this number.
+  - Since one number can appear many times in `nums[]`, we calculate a sum for each unique number in the - `nums[]`, put these sums in a `bucket[]`
+  - 状态的意义：`f[i]` = the maximum points we can get when `i` is the max number in `nums[]`
+  - 状态转移方程：`f[i]` = `Math.max(bucket[i] + f[i - 2], f[i - 1])` (要么选自己和不相邻的前一个数，要么选前一个数)
+  ```java
+  class Solution {
+      public int deleteAndEarn(int[] nums) {
+          int n = 10001;
+          int[] bucket = new int[n];
+          for(int num : nums){
+              bucket[num] += num;
+          }
+          int[] f = new int[n];
+          f[0] = bucket[0];
+          f[1] = Math.max(bucket[0], bucket[1]);
+          for(int i = 2; i < n; i++){
+              f[i] = Math.max(f[i - 2] + bucket[i], f[i - 1]);
+          }
+          return f[n - 1];
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "Dynamic_Programming"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-26T18:14:07.355Z"
-updatedAt: "2017-12-22T20:45:48.328Z"
+updatedAt: "2018-01-07T01:45:14.157Z"

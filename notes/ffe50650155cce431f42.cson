@@ -7,6 +7,12 @@ content: '''
   Given s = `"foo"`, t = `"bar"`, return `false`.
   Given s = `"paper"`, t = `"title"`, return `true`.
   (You may assume both `s` and `t` have the same length)
+  
+  Solution:
+  
+  The int value of each `char` in `s` will be the index / key of the hashmap. At each index, the Map will store the `char` at the same index in `t`. This way we build a 1 to 1 mapping between `s` and `t` at the same index. 
+  
+  Then we scan the `s` array from left and right...
   ```java
   public boolean isIsomorphic(String s, String t) {
           // write your code here
@@ -23,7 +29,7 @@ content: '''
               }
           }
           //必须正反各扫一遍，不然 foo -> bar 能过，bar -> foo 过不了
-          int[] map2 = new int[256];
+          int[] map2 = new int[256]; // 一定要记得清空 map
           for(int i = 0; i < t.length(); i++){
               if(map2[tc[i]] == 0){
                   map2[tc[i]] = sc[i];
@@ -42,4 +48,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-02T18:45:39.080Z"
-updatedAt: "2017-10-02T18:49:58.660Z"
+updatedAt: "2018-01-04T04:08:07.531Z"

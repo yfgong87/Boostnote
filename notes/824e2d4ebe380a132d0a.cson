@@ -11,9 +11,19 @@ content: '''
           }
           ListNode mid = getMid(head);
           //这里必须以 mid.next 为 head 做翻转
+  		// Case 1:
           //       slow               fast
           //1   ->   2   ->    2   ->   1   ->   null
           //        mid     mid.next
+  		// 1 -> 2 -> ...
+  		// 1 -> 2 -> null
+  		//
+  		// Case 2:
+  		// 1  ->   2   ->   1   ->   null
+  		//	      mid    mid.next
+  		// 1 -> 2 -> ..
+  		// 1 -> null
+  		
           ListNode tail = reverse(mid.next);
           while(tail != null){
               if(head.val != tail.val){
@@ -51,4 +61,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T04:22:56.028Z"
-updatedAt: "2017-12-20T22:36:32.336Z"
+updatedAt: "2017-12-31T16:56:44.639Z"

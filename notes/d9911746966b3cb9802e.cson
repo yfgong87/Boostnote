@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Longest Palindromic Subsequence"
 content: '''
   # Longest Palindromic Subsequence
+  - NOTE: `Subsequence` 可以随意组合 `char`
   - 暴力解法为`O(2^n)`，DP解法为`O(n^2)`
   - `f[i][j]`: the longest palindromic subsequence's length of substring(i, j)
   - State transition: 
@@ -34,4 +35,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-04T04:04:48.778Z"
-updatedAt: "2017-11-04T04:07:43.262Z"
+updatedAt: "2018-01-03T00:04:19.462Z"

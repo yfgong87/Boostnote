@@ -21,6 +21,7 @@ content: '''
           f[0] = true;
   		// s.length() + 1 个间隔
           for(int i = 1; i < s.length() + 1; i++){
+  			// 注意 j 始终从 0 开始
               for(int j = (i - maxLength) > 0 ? i - maxLength : 0; j < i; j++){
   				//如果到 j 为止可以分割，并且 j 到 i 的 word 存在于 dict 中，则到 i 为止可以被分割
   				//只要有一种分割的可能，就无需再枚举，直接 break 掉
@@ -95,4 +96,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-29T18:59:25.330Z"
-updatedAt: "2017-12-20T07:16:48.146Z"
+updatedAt: "2018-01-01T17:48:15.742Z"

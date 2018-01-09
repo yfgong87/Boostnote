@@ -29,6 +29,9 @@ content: '''
   Assign a label to every node in the tree based on their relative horizontal position vs the root. The root is `0`, its left child is `-1`, its right child is `1`, etc.
   Level Order Traversal the Tree and put every node into a `HashMap` under the key of its label. The `HashMap` will be storing `<index, list of TreeNode value with the same index>`
   Sort the `HashMap` based on its key from small to large, then print
+  
+  Time Complexity: `O(n)` to traverse and label every tree node, `O(nlogn)` to sort the `HashMap` key, `nlogn` in total
+  Space Complexity: `O(n)` for the HashMap
   ```java
   class type{
           int index;
@@ -66,10 +69,24 @@ content: '''
           }
           return results;
       }
-      ```
+  ```
+  ### Binary Tree Top/Bottom View
+  Given binary tree {3,9,20,#,#,15,7}
+  
+  	   3
+  	  / \\
+  	 9  20
+  	    / \\
+  	  15   7
+    
+  Return its vertical order traversal as:
+  Top: 	`[[9],[3],[20],[7]]`
+  Bottom: `[[9],[15],[20],[7]]`
+  
+  Same as above except only adding the first/last element of the map value.
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T17:38:48.601Z"
-updatedAt: "2017-12-11T04:33:16.336Z"
+updatedAt: "2018-01-07T07:52:05.226Z"

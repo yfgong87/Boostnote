@@ -4,15 +4,6 @@ title: "Reverse node in K group"
 content: '''
   # Reverse node in K group
   ```java
-  // version 1:
-  /**
-   * Definition for singly-linked list.
-   * public class ListNode {
-   *     int val;
-   *     ListNode next;
-   *     ListNode(int x) { val = x; }
-   * }
-   */
   public class Solution {
       /**
        * @param head a ListNode
@@ -30,13 +21,13 @@ content: '''
           return dummy.next;
       }
       
-      // head -> n1 -> n2 ... nk -> nk+1
+      // dummy -> n1 -> n2 ... nk -> nk+1
       // =>
-      // head -> nk -> nk-1 .. n1 -> nk+1
+      // dummy -> nk -> nk-1 .. n1 -> nk+1
       // return n1
-      public ListNode reverseK(ListNode head, int k) {
+      public ListNode reverseK(ListNode dummy, int k) {
           //首先找到nk及nk+1
-          ListNode nk = head;
+          ListNode nk = dummy;
           for(int i = 0; i < k; i++){
               nk = nk.next;
               //如果剩下的不够k个数,return null
@@ -47,7 +38,7 @@ content: '''
           ListNode nkplus = nk.next;
           
           //从n1起reverse
-          ListNode n1 = head.next;
+          ListNode n1 = dummy.next;
           ListNode prev = null;
           ListNode curr = n1;
           //curr最后一定是在nk+1，类似于reverse LinkedList中curr最后一定是null
@@ -59,7 +50,7 @@ content: '''
           }
           
           //连接首尾
-          head.next = nk;
+          dummy.next = nk;
           n1.next = nkplus;
           
           return n1;
@@ -67,8 +58,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-09T17:31:19.402Z"
-updatedAt: "2017-09-12T21:31:41.814Z"
+updatedAt: "2018-01-02T03:00:36.590Z"

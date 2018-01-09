@@ -10,7 +10,13 @@ content: '''
   Explanation: `"i"` and `"love"` are the two most frequent words.
   Note that `"i"` comes before `"love"` due to a lower alphabetical order.
   
-  时间 `O(nlogk)`，空间 `O(n)`
+  Solution:
+  - First use a `HashMap` to count the occurrence of each word
+  - Then use a PriorityQueue which is of size k, traverse through each `<key value>` pairs in the `HashMap` and keep the top K frequent pair
+  - The priorityQueue will be a `minHeap` in order to keep the top k, in the end we print the PriorityQueue
+  
+  时间 `O(n)` + `O(nlogk)`，空间 `O(n)` + `O(k)`
+  最终复杂度：时间 `O(nlogk)`，空间 `O(n)`
   ```java
   class Solution {
       public List<String> topKFrequent(String[] words, int k) {
@@ -53,9 +59,44 @@ content: '''
       }
   }
   ```
+  ### Top K Frequent Number
+  ```java
+  class Solution {
+      public List<Integer> topKFrequent(int[] nums, int k) {
+          List<Integer> results = new ArrayList<>();
+          if(nums == null || nums.length == 0){
+              return results;
+          }
+          Map<Integer, Integer> map = new HashMap<>();
+          for(int num : nums){
+              if(!map.containsKey(num)){
+                  map.put(num, 1);
+              } else {
+                  map.put(num, map.get(num) + 1);
+              }
+          }
+          PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<Map.Entry<Integer, Integer>>(
+              (Map.Entry<Integer, Integer> a, Map.Entry<Integer, Integer> b) -> a.getValue() - b.getValue());
+          for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+              pq.add(entry);
+              if(pq.size() > k){
+                  pq.poll();
+              }
+          }
+          while(!pq.isEmpty()){
+              results.add(0, pq.poll().getKey());
+          }
+          return results;
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "PocketGem"
+  "PriorityQueue"
+  "HashMap"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-15T22:01:45.523Z"
-updatedAt: "2017-12-15T22:07:29.183Z"
+updatedAt: "2018-01-07T02:46:56.919Z"

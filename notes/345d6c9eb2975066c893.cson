@@ -75,10 +75,11 @@ content: '''
   			//每一层都返回更小的那个节点
   			return one;
   		}
-  		if(two.val < one.val){
+  		if(two.val <= one.val){
   			two.next = merge(two.next, one);
   			return two;
   		}
+  		return null;
   	}
   }
   ```
@@ -99,4 +100,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-04T20:50:04.971Z"
-updatedAt: "2017-12-19T20:50:40.011Z"
+updatedAt: "2018-01-03T17:54:22.569Z"

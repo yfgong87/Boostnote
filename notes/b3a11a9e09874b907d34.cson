@@ -1,0 +1,37 @@
+createdAt: "2018-01-07T02:17:32.678Z"
+updatedAt: "2018-01-07T02:22:41.633Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Sliding Window Maximum"
+content: '''
+  # Sliding Window Maximum
+  Brute Force 解法：PriorityQueue
+  时间复杂度：`k * logk + (n - k) * (k + logk)`，`pq.remove()` 耗时 `O(k)`，`pq.add()` 耗时 `O(logk)`
+  空间复杂度：`k`
+  ```java
+  class Solution {
+      public int[] maxSlidingWindow(int[] nums, int k) {
+          if(nums == null || nums.length < k || k <= 0){
+              return new int[0];
+          }
+          int[] results = new int[nums.length - k + 1];
+          PriorityQueue<Integer> pq = new PriorityQueue<Integer>((Integer a, Integer b) -> b - a);
+  		// k * logk
+          for(int i = 0; i < k; i++){
+              pq.add(nums[i]);
+          }
+  		// (n - k) * (k + logk)
+          results[0] = pq.peek();
+          for(int i = k; i < nums.length; i++){
+              pq.remove(nums[i - k]);
+              pq.add(nums[i]);
+              results[i - k + 1] = pq.peek();
+          }
+          return results;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

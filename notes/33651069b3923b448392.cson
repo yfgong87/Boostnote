@@ -40,22 +40,23 @@ content: '''
           }
           String[] vals = data.split(",");
           //使用一个ArrayList，利用index来记录当前进行操作的父亲节点
-          ArrayList<TreeNode> queue = new ArrayList<TreeNode>();
+          ArrayList<TreeNode> list = new ArrayList<TreeNode>();
           TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
-          queue.add(root);
+          list.add(root);
           boolean isLeftChild = true;
           //index用于找到当前左右儿子对应的父亲，每次右儿子结束后就要转到下一个父亲
           int index = 0;
           for(int i = 1; i < vals.length; i++){
               if(!vals[i].equals("#")){   //空节点不操作，但是index还是得加
                   TreeNode node = new TreeNode(Integer.parseInt(vals[i]));
+  				list.add(node); //一定要记得把新节点加进queue
                   if(isLeftChild){
-                      queue.get(index).left = node;
+                      list.get(index).left = node;
                   } else {
-                      queue.get(index).right = node;
+                      list.get(index).right = node;
                   }
-                  queue.add(node); //一定要记得把新节点加进queue
               }
+  			//空节点不操作，但是index还是得加
               //每当右儿子结束，index++
               if(!isLeftChild){
                   index++;
@@ -72,4 +73,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T02:46:26.990Z"
-updatedAt: "2017-09-28T04:50:08.350Z"
+updatedAt: "2018-01-03T03:26:36.247Z"

@@ -1,0 +1,71 @@
+createdAt: "2018-01-02T23:26:58.715Z"
+updatedAt: "2018-01-02T23:40:34.158Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Find Celebrity"
+content: '''
+  # Find Celebrity
+  Brute Force `O(n^2)`
+  - If a knows b, a cannot be a celebrity
+  - If !(a knows b), b cannot be a celebrity
+  ```java
+  /* The knows API is defined in the parent class Relation.
+        boolean knows(int a, int b); */
+  
+  public class Solution extends Relation {
+      /**
+       * @param n a party with n people
+       * @return the celebrity's label or -1
+       */
+      public int findCelebrity(int n) {
+          // Write your code here
+          int candidate = 0;
+          for(int i = 1; i < n; i++){
+              if(knows(candidate, i)){
+                  candidate = i;
+              }
+          }
+  
+          for(int i = 0; i < candidate; i++){
+              if(knows(candidate, i) || !knows(i, candidate)){
+                  return -1;
+              }
+          }
+          //因为candidate已经和比他大的所有数比过 knows(candidate, i) 了
+          for(int i = candidate + 1; i < n; i++){
+              if(!knows(i, candidate)){
+                  return -1;
+              }
+          }
+          return candidate;
+      }
+  }
+  ```
+  ```java
+  /* The knows API is defined in the parent class Relation.
+        boolean knows(int a, int b); */
+  
+  public class Solution extends Relation {
+      public int findCelebrity(int n) {
+          int celebrity = 0;
+          for(int i = 1; i < n; i++){
+              if(knows(celebrity, i)){
+                  celebrity = i;
+              }
+          }
+          for(int i = 0; i < n; i++){
+              if(i == celebrity){
+                  continue;
+              }
+              if(knows(celebrity, i) || !knows(i, celebrity)){
+                  return -1;
+              }
+          }
+          return celebrity;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

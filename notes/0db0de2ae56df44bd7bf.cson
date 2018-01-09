@@ -27,6 +27,7 @@ content: '''
           //Find a combination
           if(target == 0){
               results.add(new ArrayList<Integer>(subset));
+  			return;
           }
           //递归的出口，没有这步会太慢，TimeLimitExceed
           if(target < 0){
@@ -50,4 +51,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T17:53:12.543Z"
-updatedAt: "2017-08-30T17:59:57.163Z"
+updatedAt: "2018-01-08T23:08:57.059Z"

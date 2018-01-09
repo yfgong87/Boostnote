@@ -12,7 +12,7 @@ content: '''
   ### Append & Insert
   - `StringBuilder`.`append`(`argument`)
   NOTE: `argument` could be `boolean`, `char`, `char[]`, `double`, `long`, `int`, `float`, `String`, `Object`
-  注意：这里没有必要做类型转换！！！
+  `注意`：这里没有必要做类型转换！！！
   ```java
   sb.append("String1").append("String2");
   ```
@@ -24,9 +24,9 @@ content: '''
   ```
   ### Delete
   - `StringBuilder`.`delete`(`int` `start`, `int` `end`)
-  用于 reset StringBuilder，如果`length` < 当前 StringBuilder 长度，则掐掉多余的尾巴
-  - `StringBuilder`.`setLength`(`int` `length`)
   NOTE: deletes the subsequence from `start` to `end` (`EXCLUSIVE`)
+  - `StringBuilder`.`setLength`(`int` `length`)
+  用于 reset StringBuilder，如果`length` < 当前 StringBuilder 长度，则掐掉多余的尾巴
   - `StringBuilder`.`deleteCharAt`(`int` `index`)
   ### Replace
   - `StringBuilder`.`replace`(`int` `start`, `int` `end`, `String` `s`)
@@ -46,4 +46,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-18T04:59:12.457Z"
-updatedAt: "2017-12-27T01:08:04.096Z"
+updatedAt: "2018-01-04T19:03:20.759Z"

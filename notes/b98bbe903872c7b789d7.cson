@@ -1,0 +1,66 @@
+createdAt: "2018-01-02T05:42:05.353Z"
+updatedAt: "2018-01-02T05:42:13.992Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Can place flowers"
+content: '''
+  # Can place flowers
+  ```java
+  class Solution {
+      public boolean canPlaceFlowers(int[] flowerbed, int n) {
+          int m = flowerbed.length;
+          int count = 0;
+          for(int i = 0; i < m; i++){
+              if(flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0) && (i == m - 1 || flowerbed[i + 1] == 0)){
+                  flowerbed[i] = 1;
+                  count++;
+              }
+              if(count >= n){
+                  return true;
+              }
+          }
+          return false;
+      }
+  }
+  ```
+  ```java
+  class Solution {
+      public boolean canPlaceFlowers(int[] flowerbed, int n) {
+          int m = flowerbed.length;
+          int count = 0;
+          if(m == 1){
+              count = flowerbed[0] == 0 ? 1 : 0;
+              return count >= n;
+          }
+          for(int i = 0; i < m; i++){
+              if(flowerbed[i] == 1){
+                  continue;
+              }
+              if(i == 0){
+                  if(flowerbed[i + 1] == 0){
+                      flowerbed[i] = 1;
+                      count++;
+                  }
+              } else if(i == m - 1){
+                  if(flowerbed[i - 1] == 0){
+                      flowerbed[i] = 1;
+                      count++;
+                  }
+              } else {
+                  if(flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0){
+                      flowerbed[i] = 1;
+                      count++;
+                  }
+              }
+          }
+          return count >= n;
+          
+      }
+  }
+  ```
+'''
+tags: [
+  "Array"
+]
+isStarred: false
+isTrashed: false

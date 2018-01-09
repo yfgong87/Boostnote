@@ -1,0 +1,113 @@
+createdAt: "2018-01-09T03:00:29.428Z"
+updatedAt: "2018-01-09T04:17:22.210Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Word Ladder II"
+content: '''
+  # Word Ladder II
+  Solution：
+  - Use BFS to get the shortest distance to start for all the words in dictionary
+  - During BFS, also build a connection graph between all these words
+  - Use DFS, start from `start`, find the next word that has `+1` distance to start than the current word, add the word into path, then keep going until reach `end`, then store this path
+  
+  Time Complexity: 
+  BFS: 制图 `O(n^2)` + 计算 distance `O(n * 25 * L)`, `L` 为单词长度
+  DFS: `O(n * L)` 对每一个 word，遍历其到 end 的路径，路径的最坏长度为单词长度 `L`
+  ```java
+  public class Solution {
+      public List<List<String>> findLadders(String start, String end,
+              Set<String> dict) {
+          List<List<String>> results = new ArrayList<>();
+          // <word, neighbors of word>
+          Map<String, List<String>> neighbors = new HashMap<>();
+          // <word, distance of word to start word>
+          Map<String, Integer> distance = new HashMap<>();
+  
+          dict.add(start);
+          dict.add(end);
+   
+          bfs(neighbors, distance, start, dict);
+          
+          dfs(results, new ArrayList<String>(), start, end, distance, neighbors);
+  
+          return results;
+      }
+  
+      void dfs(List<List<String>> results, 
+               List<String> path, 
+               String word,
+               String end, 
+               Map<String, Integer> distance,
+               Map<String, List<String>> neighbors) {
+          if (word.equals(end)) {
+              ArrayList<String> temp = new ArrayList<String>(path);
+              temp.add(word);
+              results.add(temp);
+              return;
+          } 
+          
+          for (String neighbor : neighbors.get(word)) {
+  			// word 的 neighbor 可能离 start 更近，也可能更远，要选择离的更远且只远一步的那个
+              if (distance.containsKey(neighbor) && 
+                  distance.get(neighbor) == distance.get(word) + 1) { 
+                  path.add(word);
+                  dfs(results, path, neighbor, end, distance, neighbors);
+                  path.remove(path.size() - 1);
+              }
+          }           
+          
+      }
+  
+      void bfs(Map<String, List<String>> neighbors, 
+               Map<String, Integer> distance,
+               String start, 
+               Set<String> dict) {
+          Queue<String> queue = new LinkedList<String>();
+          queue.offer(start);
+          distance.put(start, 0);
+          for (String s : dict) {
+              neighbors.put(s, new ArrayList<String>());
+          }
+          
+          while (!queue.isEmpty()) {
+              String word = queue.poll();
+  
+              for (String nextWord : getNextWords(word, dict)) {
+  				// 制图这一步是 n^2
+                  neighbors.get(word).add(nextWord);
+  				// distance 同时还去重了
+                  if (!distance.containsKey(nextWord)) {
+                      distance.put(nextWord, distance.get(word) + 1);
+                      queue.offer(nextWord);
+                  }
+              }
+          }
+      }
+  
+      private ArrayList<String> getNextWords(String word, Set<String> dict) {
+          ArrayList<String> nextWords = new ArrayList<String>();
+          //技巧：可以直接for循环26个字母
+          for (char c = 'a'; c <= 'z'; c++) {
+              //将word中的每一位依次换成从a到z的char(除了原本的char)
+              for (int i = 0; i < word.length(); i++) {
+                  if (c == word.charAt(i)) {
+                      continue;
+                  }
+                  //将String s中的第index位的char换成c
+                  StringBuilder sb = new StringBuilder(word);
+                  sb.setCharAt(i, c);
+                  String nextWord = sb.toString();
+                  if (dict.contains(nextWord)) {
+                      //如果换了一位后的word在字典中存在就返回
+                      nextWords.add(nextWord);
+                  }
+              }
+          }
+          return nextWords;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

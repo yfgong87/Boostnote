@@ -164,6 +164,7 @@ content: '''
           int min = nums[0];
           int max = nums[0];
           int result = nums[0];
+  		// 注意从 1 开始循环
           for(int i = 1; i < nums.length; i++){
               //要和 oldMin 和 oldMax 分别乘
               //因为当 nums[i] 和 oldMin 都为负时， oldMin * nums[i] 可能为最大乘积
@@ -179,8 +180,11 @@ content: '''
       }
   ```
 '''
-tags: []
+tags: [
+  "Sliding_Window"
+  "Array"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T23:21:52.628Z"
-updatedAt: "2017-12-18T20:15:46.395Z"
+updatedAt: "2018-01-02T02:59:57.667Z"

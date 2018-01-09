@@ -72,7 +72,11 @@ content: '''
   }
   
   ```
-  
+  ### 如何handle Overflow
+  ```java
+  a < b ? - 1 : 1 //minHeap / sort ascending
+  a > b ? - 1 : 1 //maxHeap / sort descending
+  ```
   ### Java 7 vs Java 8 Comparator
   - Classic Comparator example.
   ```java
@@ -146,4 +150,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-26T17:01:32.776Z"
-updatedAt: "2017-12-11T21:24:24.263Z"
+updatedAt: "2018-01-07T06:57:45.594Z"

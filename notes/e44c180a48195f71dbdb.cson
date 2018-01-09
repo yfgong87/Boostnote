@@ -3,7 +3,7 @@ folder: "ca7b6b3755f93c46a5f8"
 title: "TreeMap & TreeSet"
 content: '''
   # TreeMap & TreeSet
-  `O(logn)` for add, contains, next (`TreeSet`) and for get, containsKey, next (`TreeMap`)
+  `O(logn)` for add, contains, next, remove (`TreeSet`) and for get, containsKey, next (`TreeMap`)
   ```java
   Map<key, value> map = new TreeMap<key, value>();
   NavigableMap<key, value> map = new TreeMap<key, value>();
@@ -36,4 +36,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T04:21:16.760Z"
-updatedAt: "2017-11-02T04:38:41.105Z"
+updatedAt: "2018-01-08T04:21:28.691Z"

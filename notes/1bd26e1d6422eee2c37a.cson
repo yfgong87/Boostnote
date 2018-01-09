@@ -3,10 +3,11 @@ folder: "8d19d56ee029f3fa592b"
 title: "Sqrt I & II"
 content: '''
   # Sqrt I & II
-  检测是否是 Perfect Square
+  ### Valid Perfect Square
   ```java
   class Solution {
       public boolean isPerfectSquare(int num) {
+  		// 如果 num 过大，mid * mid 可能越界，注意用 long 兜住
           long start = 0;
           long end = num;
           while(start + 1 < end){
@@ -29,6 +30,35 @@ content: '''
       }
   }
   ```
+  ### `int` 作为输入
+  ```java
+  class Solution {
+      public int mySqrt(int x){
+          long xx = x;
+          return (int) mySqrt(xx);
+      }
+  	// overloading method
+      public long mySqrt(long x) {
+          long start = 0;
+          long end = x;
+          while(start + 1 < end){
+              long mid = start + (end - start) / 2;
+              if(mid * mid < x){
+                  start = mid;
+              } else if(mid * mid > x){
+                  end = mid;
+              } else {
+                  return mid;
+              }
+          }
+          if(start * start < x){
+              return start;
+          }
+          return end;
+      }
+  }
+  ```
+  ### `double`作为输入
   Implement double sqrt(double x) and x >= 0.
   ```java
   public class Solution {
@@ -54,15 +84,17 @@ content: '''
                   end = mid;
               }
           }
-          //此时 end 的大小为 target 或 target - PRECISION
+          //此时无论是 start 还是 end 与 target 的绝对值只差都 <= PRECISION
           return end;
       }
   }
   ```
   
 '''
-tags: []
+tags: [
+  "Binary_Search"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T18:32:10.403Z"
-updatedAt: "2017-11-02T19:03:55.085Z"
+updatedAt: "2018-01-02T02:59:17.722Z"

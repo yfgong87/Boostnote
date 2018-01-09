@@ -32,9 +32,91 @@ content: '''
           return slow;
       }
   ```
+  
+  ### 找尾巴
+  ```java
+  public ListNode getTail(ListNode head){
+          if(head == null){
+              return null;
+          }
+          while(head.next != null){
+              head = head.next;
+          }
+          return head;
+      }
+  ```
+  
+  ### 求长度 
+  ```java
+  private int getLength(ListNode head){
+          int length = 0;
+          while(head != null){
+              length++;
+              head = head.next;
+          }
+          return length;
+      }
+  ```
+  
+  ### 连接 Concat
+  ```java
+  public ListNode concat(ListNode left, ListNode mid, ListNode right){
+          ListNode dummy = new ListNode(0), tail = dummy;
+  		//tail.next = left; tail = getTail(left);
+          //tail.next = mid; tail = getTail(mid);
+  		//上面的写法错误，因为left有可能为null，如果left==null，那么tail=getTail(left)后tail也就等于了null，再之后的tail.next = middle，就会出现NULL POINT EXCEPTION
+          tail.next = left; tail = getTail(tail);
+          tail.next = mid; tail = getTail(tail);
+          tail.next = right;
+          return dummy.next;
+      }
+  	```
+  ### Partition
+  ```java
+  class Solution {
+      public ListNode partition(ListNode head, int x) {
+          if(head == null || head.next == null){
+              return head;
+          }
+          ListNode dummyLeft = new ListNode(0), currLeft = dummyLeft;
+          ListNode dummyRight = new ListNode(0), currRight = dummyRight;
+          while(head != null){
+              if(head.val < x){
+                  currLeft.next = head;
+                  currLeft = currLeft.next;
+              } else {
+                  currRight.next = head;
+                  currRight = currRight.next;
+              }
+              head = head.next;
+          }
+          currLeft.next = null;
+          currRight.next = null;
+          
+          return concat(dummyLeft.next, dummyRight.next);
+      }
+      
+      public ListNode concat(ListNode left, ListNode right){
+          ListNode dummy = new ListNode(0), curr = dummy;
+          curr.next = left; curr = getTail(curr);
+          curr.next = right;
+          return dummy.next;
+      }
+      
+      public ListNode getTail(ListNode head){
+          if(head == null){
+              return null;
+          }
+          while(head.next != null){
+              head = head.next;
+          }
+          return head;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-09T15:53:49.558Z"
-updatedAt: "2017-12-09T04:30:48.435Z"
+updatedAt: "2017-12-31T22:23:35.824Z"

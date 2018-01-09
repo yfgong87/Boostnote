@@ -80,7 +80,8 @@ content: '''
   - `Number`.`equals`(`argument`): Return `true` if equal, `false` if not.
   - `Number`.`valueOf`(`primitive`)`: Return a Number object holding the value of the specified primitive value.
   ```java
-  Integer x =Integer.valueOf(9);
+  Integer x = Integer.valueOf(9);
+  Integer y = Integer.valueOf("9");
   ```
   - `toString()`: Returns a `String` object representing the value of a specified `int` or `Integer`.
   ```java
@@ -89,6 +90,10 @@ content: '''
   Integer.toString(12); //return '12'
   ```
   - `parseInt`(`String`): Returns an `int` representing the value of a `String` containing primitive `int` value.
+  ```java
+  String str = "1";
+  int a = Integer.parseInt(str);
+  ```
   - `parseDouble`(`String`): Returns an `double` representing the value of a `String` containing primitive `double` value.
   - `Math`.`abs`(`int`, `float`, `long`, `double`, `short`, `byte`): Returns the absolute value of the argument.
   - `Math`.`ceil`(`argument`): Returns the smallest `int` >= `argument` (Find the ceilling)
@@ -99,9 +104,10 @@ content: '''
   ```java
   Math.ceil(125.9); //125
   ```
+  - `Math`.`sqrt`(`argument`): 注意返回值为 `double`！
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:00:38.326Z"
-updatedAt: "2017-10-04T02:34:55.859Z"
+updatedAt: "2018-01-02T20:14:24.192Z"

@@ -1,0 +1,43 @@
+createdAt: "2018-01-03T21:47:52.242Z"
+updatedAt: "2018-01-03T21:56:13.885Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Maximum Size Subarray Sum Equals k"
+content: '''
+  # Maximum Size Subarray Sum Equals k
+  The HashMap stores the `sum` of all elements before index `i` as key, and `i` as value. For each `i`, check not only the `current sum` but also `(currentSum - previousSum)` to see if there is any that equals k, and update max length.
+  ```java
+  class Solution {
+      public int maxSubArrayLen(int[] nums, int target) {
+          if(nums == null || nums.length == 0){
+              return 0;
+          }
+          int maxLen = 0;
+          int sum = 0;
+          // <sum, index>
+          Map<Integer, Integer> map = new HashMap<>();
+          for(int i = 0; i < nums.length; i++){
+              sum += nums[i];
+              if(!map.containsKey(sum)){
+                  map.put(sum, i);
+              }
+              if(sum == target){
+                  maxLen = i + 1; // 从 0 到 i 一共 i + 1 个 element
+              } else {
+                  if(map.containsKey(sum - target)){
+  					// 从 map.get(sum - target) + 1 到 i
+                      maxLen = Math.max(maxLen, i - (map.get(sum - target) + 1) + 1);
+                  }
+              }
+          }
+          return maxLen;
+      }
+  }
+  ```
+'''
+tags: [
+  "Hash"
+  "PrefixSum"
+]
+isStarred: false
+isTrashed: false

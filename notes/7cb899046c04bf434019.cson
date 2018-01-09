@@ -7,9 +7,11 @@ content: '''
   
   For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
   
+  ### Solution:
   For a height balanced tree, the root node is always the middle number in a sorted list. So find the mid first, assign it as the root, then recursion to its left and right subtree. 
-  `T(n) = 2 * T(n / 2) + O(1)`
-  Time complexity: `O(n)`
+  
+  ### Complexity
+  Time complexity: `O(n)`，`T(n) = 2 * T(n / 2) + O(1)`
   Space complexity: `O(logn)`
   ```java
   class Solution {
@@ -20,6 +22,7 @@ content: '''
           return helper(nums, 0, nums.length - 1);
       }
       
+  	// start 和 end 是 inclusive 的
       public TreeNode helper(int[] nums, int start, int end){
   		// 注意递归的出口，如果用 start == end 会导致 Stack Overflow
           if(start > end){
@@ -70,8 +73,12 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+  "Array"
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-13T16:19:12.355Z"
-updatedAt: "2017-12-31T02:19:29.344Z"
+updatedAt: "2018-01-08T02:18:51.458Z"

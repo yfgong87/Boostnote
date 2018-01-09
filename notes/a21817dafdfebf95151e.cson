@@ -80,6 +80,22 @@ content: '''
   //Insertion Sort a LinkedList
   //新建一个链表，把旧链表的 head 不断向新链表插入 node
   //每次插入时都跟新链表的所有 node 比较直到找到最后一个比 head.val 小的 node，再插入
+  //head
+  //  5 -> 2 -> 3 -> 4 -> 1 -> null
+  //  ins
+  // dummy -> null
+  //
+  //      head
+  //        2 -> 3 -> 4 -> 1 -> null
+  //  ins
+  // dummy -> 5 -> null
+  //
+  //                     temp
+  //            head   head.next
+  //              3   ->   4   ->   1  ->  null
+  //          ins
+  //  dummy -> 2 -> 5 -> null
+  
   public class Solution {
       /*
        * @param head: The first node of linked list.
@@ -91,15 +107,15 @@ content: '''
           ListNode dummy = new ListNode(0);
           while(head != null){
               //每次都从新链表的第一个节点往后找
-              ListNode curr = dummy;
+              ListNode ins = dummy;
               //找到比 head 小的最后一个节点，设为 curr
-              while(curr.next != null && curr.next.val < head.val){
-                  curr = curr.next;
+              while(ins.next != null && ins.next.val < head.val){
+                  ins = ins.next;
               }
-              //curr -> head -> curr.next
+              // ins -> head -> ins.next
               ListNode temp = head.next;
-              head.next = curr.next;
-              curr.next = head;
+              head.next = ins.next;
+              ins.next = head;
               head = temp;
           }
           return dummy.next;
@@ -112,4 +128,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-11T03:23:12.937Z"
-updatedAt: "2017-12-21T01:20:23.711Z"
+updatedAt: "2017-12-31T17:54:48.473Z"

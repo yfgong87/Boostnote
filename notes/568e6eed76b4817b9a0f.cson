@@ -1,5 +1,5 @@
 createdAt: "2017-12-31T02:57:40.960Z"
-updatedAt: "2017-12-31T03:04:15.527Z"
+updatedAt: "2018-01-02T03:01:00.174Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Search Range in BST"
@@ -46,6 +46,9 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "BST"
+  "Tree"
+]
 isStarred: false
 isTrashed: false

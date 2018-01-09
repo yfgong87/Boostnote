@@ -1,5 +1,5 @@
 createdAt: "2017-12-23T22:56:48.832Z"
-updatedAt: "2017-12-23T23:14:52.685Z"
+updatedAt: "2018-01-02T03:02:02.979Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Letter Combination of Phone number"
@@ -39,6 +39,9 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Backtracking"
+  "DFS"
+]
 isStarred: false
 isTrashed: false

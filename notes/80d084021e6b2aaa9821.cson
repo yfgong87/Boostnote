@@ -60,9 +60,46 @@ content: '''
   }
   ```
   ### Missing Interval
+  ```java
+  public class Solution {
+      /*
+       * @param nums: a sorted integer array
+       * @param lower: An integer
+       * @param upper: An integer
+       * @return: a list of its missing ranges
+       */
+      public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+          // write your code here
+          List<String> results = new ArrayList<String>();
+          if(nums.length == 0){
+              add(results, lower, upper);
+              return results;
+          }
+          add(results, lower, (long)nums[0] - 1);
+          for(int i = 1; i < nums.length; i++){
+              add(results, (long)nums[i - 1] + 1, (long)nums[i] - 1);
+          }
+          add(results, (long)nums[nums.length - 1] + 1, upper);
+          return results;
+      }
+      
+      public void add(List<String> results, long start, long end){
+          if(start > end){
+              return;
+          }
+          if(start == end){
+              results.add(String.valueOf(start));
+          } else {
+              results.add("" + start + "->" + end);
+          }
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "Interval"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T22:03:48.044Z"
-updatedAt: "2017-12-16T17:17:38.971Z"
+updatedAt: "2018-01-02T02:59:12.651Z"

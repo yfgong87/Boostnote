@@ -29,9 +29,64 @@ content: '''
       }
   }
   ```
+  优化做法：
+  The key point is that it is not doing hash, it is doing the exact coding of a `10-letter sequence` into a `20 bits` number, which is simply not possible for any generic string, but is possible for strings in this problem because they can have only 4 differfent characters.
+  
+  - 0 = 00 (bits in binary number system) = ‘A’
+  - 1 = 01 (bits in binary number system) = ‘T’
+  - 2 = 10 (bits in binary number system) = ‘G’
+  - 3 = 11 (bits in binary number system) = ‘C’
+  
+  Note that since there 10 letters and each letter requires only 2 bits, we will need only 10 * 2 = `20 bits` to code the string (which is less then size of integer in java (as well as in all othere popular languages), which is 4 bytes = 32 bits).
+  
+  A  T  G  C 
+  00 01 10 11 00011011 (binary) = 16 + 8 + 2 + 1 = 27 (decimal)
+  ```java
+  class Solution {
+      public List<String> findRepeatedDnaSequences(String s) {
+          List<String> results = new ArrayList<>();
+          if(s == null || s.length() == 0){
+              return results;
+          }
+          Map<Integer, Integer> map = new HashMap<>();
+          for(int i = 0; i + 10 <= s.length(); i++){
+              String sub = s.substring(i, i + 10);
+              int subHash = strHash(sub);
+              if(!map.containsKey(subHash)){
+                  map.put(subHash, 1);
+              } else {
+                  map.put(subHash, map.get(subHash) + 1);
+                  if(map.get(subHash) == 2){
+                      results.add(sub);
+                  }
+              }
+          }
+          return results;
+      }
+      
+      public int strHash(String s){
+          int[] map = new int[26];
+          map['A' - 'A'] = 0;
+          map['T' - 'A'] = 1;
+          map['G' - 'A'] = 2;
+          map['C' - 'A'] = 3;
+          char[] sc = s.toCharArray();
+          int num = 0;
+          for(int i = 0; i < s.length(); i++){
+              num <<= 2;
+              num |= map[sc[i] - 'A'];
+          }
+          return num;
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "String"
+  "Bit"
+  "Hash"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-15T21:21:02.932Z"
-updatedAt: "2017-12-15T21:25:41.564Z"
+updatedAt: "2018-01-03T20:21:23.196Z"

@@ -37,10 +37,12 @@ content: '''
   ```
   ### String.substring(startIndex, endIndex)
   - `String`.`substring`(`startIndex`, `endIndex`): `endIndex` is NOT inclusive
+  - 当 `startIndex` == `endIndex` 时返回 `""`
   ```java
   String str = "smiles"
   str.substring(1, 5); // returns "mile"
   str.substring(0, str.length()); //return "smiles", str.length() = 6
+  str.substring(1,1); // return ""
   ```
   
   ### Compare String
@@ -185,4 +187,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2017-12-27T02:45:22.773Z"
+updatedAt: "2018-01-07T18:53:36.960Z"

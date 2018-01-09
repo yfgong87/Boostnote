@@ -36,7 +36,7 @@ content: '''
   		// 分类讨论
           //比最小值还小，更新最小值，同时把老的最小值更新给第二小
           if(root.val < firstMin){  
-              secondMin = firstMin;
+              secondMin = firstMin;  // 注意顺序！！！！！！先更新 second
               firstMin = root.val;
             //比最小大，比第二小还小，只需更新第二小
           } else if (root.val > firstMin && root.val < secondMin){  
@@ -50,4 +50,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T20:31:53.426Z"
-updatedAt: "2017-12-10T20:32:57.904Z"
+updatedAt: "2018-01-04T18:23:59.414Z"

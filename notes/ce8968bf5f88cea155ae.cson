@@ -5,9 +5,11 @@ content: '''
   # Lowest Common Ancester
   基本型：提供`root`，并且保证`TreeNode A`和`TreeNode B` 一定存在于树中
   
+  ### Complexity
   Time complexity: `O(n)`
-  Space complexity: `O(1)`
+  Space complexity: `O(h)`
   
+  ### Solution
   The idea is to traverse the tree starting from root. Since LCA is always has the largest depth, we use `postOrder Traversal` to look at the nodes with largest depth first, then traverse back to root.
   
   The node which has one key present in its left subtree and the other key present in right subtree is the LCA. If both keys lie in left subtree, then left subtree has LCA, otherwise LCA lies in right subtree.
@@ -142,6 +144,7 @@ content: '''
       }
   }
   ```
+  ### Lowest Common Ancestor of Binary Search Tree
   变种3：在`BST`中找`LCA`
   ```java
   /*         4
@@ -168,8 +171,12 @@ content: '''
   
   ```
 '''
-tags: []
+tags: [
+  "PocketGem"
+  "Linkedin"
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T03:53:08.885Z"
-updatedAt: "2017-12-30T15:33:24.303Z"
+updatedAt: "2018-01-08T02:37:41.066Z"

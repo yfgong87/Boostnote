@@ -1,0 +1,63 @@
+createdAt: "2018-01-07T03:03:29.246Z"
+updatedAt: "2018-01-07T03:11:08.847Z"
+type: "MARKDOWN_NOTE"
+folder: "d244500e287747fe254a"
+title: "Minimum Cost of Ropes/Rods"
+content: '''
+  # Minimum Cost of Ropes/Rods
+  Given unsorted array of int, each element is the length of a rod, return the minimum total cost of combining all rods.
+  Cost of combining two rods = length of the combined rod.
+  Example: `[3, 4, 6]`
+  Combine `3` `4`, get rod `7`, cost = `7`
+  Combine `7` `6`, get rod `13`, cost = `13`
+  total cost = `7 + 13` = `20`
+  
+  Solution: Always add two smallest number together first
+  - Use a minHeap to store all numbers - (heapify: `O(n)`)
+  - poll two numbers out at a time and add them, put the sum back to minHeap
+  - Loop until there is only one number in minHeap
+  
+  ```java
+  static int minCost(int arr[], int n){
+  	if(arr == null || arr.length < n){
+  		return 0;
+  	}
+  	
+  	if(n == 1){
+  		return arr[0];
+  	}
+  	
+      // Create a priority queue
+      PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+  	// Adding items to the pQueue
+      for(int i = 0; i < n; i++){
+  		pq.add(arr[i]);
+      }
+   
+      // Initialize sum
+      int sum = 0;
+   
+      // While size of priority queue 
+      // is more than 1
+      while (pq.size() > 1)
+      {
+          // Extract shortest two ropes from pq
+          int first = pq.poll();
+          int second = pq.poll();
+   
+          // Connect the ropes: update result
+          // and insert the new rope to pq
+          sum += first + second;
+          pq.add(sum);
+      }
+   
+      return sum;
+  }
+  ```
+'''
+tags: [
+  "PocketGem"
+  "PriorityQueue"
+]
+isStarred: false
+isTrashed: false

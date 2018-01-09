@@ -11,8 +11,42 @@ content: '''
   
   Given `word1` = `“coding”`, `word2` = `“practice”`, return `3`.
   Given `word1` = `"makes"`, `word2` = `"coding"`, return `1`.
-  
-  - Two Pointer 解法
+  - 记录所有 index + Two Pointer 解法
+  时间 `O(n)` + `O(x + y)`，空间 `O(x + y)`
+  ```java
+  class Solution {
+      public int shortestDistance(String[] words, String word1, String word2) {
+          List<Integer> list1 = new ArrayList<>();
+          List<Integer> list2 = new ArrayList<>();
+          for(int i = 0; i < words.length; i++){
+              if(words[i].equals(word1)){
+                  list1.add(i);
+              }
+              if(words[i].equals(word2)){
+                  list2.add(i);
+              }
+          }
+          int i = 0;
+          int j = 0;
+          int min = Integer.MAX_VALUE;
+          while(i < list1.size() && j < list2.size()){
+              int index1 = list1.get(i);
+              int index2 = list2.get(j);
+              int distance = Math.abs(index1 - index2);
+              if(distance < min){
+                  min = distance;
+              }
+              if(index1 < index2){
+                  i++;
+              } else {
+                  j++;
+              }
+          }
+          return min;
+      }
+  }
+  ```
+  - Two Pointer 遍历解法
   Time Complexity `O(n)`, Space `O(1)`
   ```java
   class Solution {
@@ -38,7 +72,7 @@ content: '''
   ### Short Word Distance III
   当`word1`可以等于`word2`时, You may assume word1 and word2 are both in the list.
   - HashMap + Two Pointer 解法
-  Time `O(n + x + y)`, Space `O(n + x + y)` 
+  Time `O(n + x + y)`, Space `O(n + x + y)`，`x` 和 `y` 为 `word1` 和 `word2`出现的次数
   ```java
   class Solution {
       public int shortestWordDistance(String[] words, String word1, String word2) {
@@ -79,7 +113,7 @@ content: '''
       }
   }
   ```
-  - Two Pointer 解法
+  - Two Pointer 遍历解法
   Time Complexity `O(n)`, Space `O(1)`
   ```java
   class Solution {
@@ -175,7 +209,7 @@ content: '''
       }
   }
   ```
-  - Two Pointer 解法
+  - Two Pointer 遍历解法
   Time: `O(n * m)`, Space: `O(n)`
   ```java
   class WordDistance {
@@ -211,4 +245,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-25T19:33:54.599Z"
-updatedAt: "2017-12-13T03:00:08.100Z"
+updatedAt: "2018-01-02T19:12:17.245Z"

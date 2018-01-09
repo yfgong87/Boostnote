@@ -58,7 +58,7 @@ content: '''
   		//让 head 先走 n 步
           for(int i = 0; i < n; i++){
               if(head == null){     //如果n越界了
-                  return head;
+                  return dummy.next;
               }
               head = head.next;
           }
@@ -73,8 +73,10 @@ content: '''
       }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-21T14:47:13.295Z"
-updatedAt: "2017-12-20T07:34:23.844Z"
+updatedAt: "2018-01-02T03:00:32.257Z"

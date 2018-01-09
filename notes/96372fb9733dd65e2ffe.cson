@@ -4,6 +4,13 @@ title: "Word Search"
 content: '''
   # Word Search
   以`board`中每个点作为出发点开始搜(`O(n * m)`)，`word`中每个字符都可以延伸出四个方向(`O(4^length of word)`)，复杂度是`O(n * m * 4^length of word)`
+  
+  Solution:
+  
+  - Check every cell of the matrix, if the cell has the first `char` of the word, search all `4` directions of that cell using a recursive function
+  - The recursive method will return a `boolean`, meaning whether or not we can find the word. If we were able to find `ONE` path that match the entire word, we return `true`, meaning we stop the recursion when we found all the `char` in the word
+  - We also need to mark the cells that we have already taken to avoid a looped path
+  - When the next `char` is out of boundary or does not match the next `char` in the word, we return `false`, meaning we have a failed path, we also restore the mark of the cells along that failed path to allow them to be selected again 
   ```java
   public class Solution {
       /*
@@ -74,8 +81,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "DFS"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-02T23:40:29.386Z"
-updatedAt: "2017-12-17T15:46:22.876Z"
+updatedAt: "2018-01-05T17:30:55.135Z"

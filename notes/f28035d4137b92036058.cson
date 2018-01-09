@@ -3,6 +3,74 @@ folder: "8d19d56ee029f3fa592b"
 title: "K Closest Numbers in Sorted Array"
 content: '''
   # K Closest Numbers in Sorted Array
+  My Solution
+  - 先二分找最接近target的值，然后左右两个指针一共移动k次，每次挑最接近target的数放进result，如果与target同样接近，放更小的数。
+  - 注意一：要用continue来防止越界，左边越界则把右边剩下的数放进result，右边越界则把左边剩下的数放进result
+  - 注意二：因为差值相等时选更小的数，在二分找index的时候一定要保证选取start和end中更小的那个
+  ```java
+  public class Solution {
+      /*
+       * @param A: an integer array
+       * @param target: An integer
+       * @param k: An integer
+       * @return: an integer array
+       */
+      public int[] kClosestNumbers(int[] A, int target, int k) {
+          // write your code here
+          int[] results = new int[k];
+          if(A == null || A.length == 0){
+              return A;
+          }
+          if(k > A.length){
+              return A;
+          }
+          int start = 0;
+          int end = A.length - 1;
+          int mid = 0;
+          while(start + 1 < end){
+              mid = start + (end - start) / 2;
+              if(A[mid] < target){
+                  start = mid;
+              } else {
+                  end = mid;
+              }
+          }
+          //注意二!!!!!
+          int index = Math.min(start, end);
+          int left = index;
+          int right = index + 1;
+          for(int i = 0; i < k; i++){
+              //注意一!!!!!处理越界
+              if(left < 0){
+                  results[i] = A[right];
+                  right++;
+                  continue;
+              }
+              if(right == A.length){
+                  results[i] = A[left];
+                  left--;
+                  continue;
+              }
+              if(Math.abs(A[left] - target) < Math.abs(A[right] - target)){
+                  results[i] = A[left];
+                  left--;
+              } else if (Math.abs(A[left] - target) > Math.abs(A[right] - target)){
+                  results[i] = A[right];
+                  right++;
+              } else {
+                  if(A[left] < A[right]){
+                      results[i] = A[left];
+                      left--;
+                  } else {
+                      results[i] = A[right];
+                      right++;
+                  }
+              }
+          }
+          return results;
+      }
+  }
+  ```
   ```java
   public class Solution {
       /*
@@ -71,77 +139,11 @@ content: '''
       }
   }
   ```
-  My Solution
-  - 先二分找最接近target的值，然后左右两个指针一共移动k次，每次挑最接近target的数放进result，如果与target同样接近，放更小的数。
-  - 注意一：要用break来防止越界，左边越界则把右边剩下的数放进result，右边越界则把左边剩下的数放进result
-  - 注意二：因为差值相等时选更小的数，在二分找index的时候一定要保证选取start和end中更小的那个
-  ```java
-  public class Solution {
-      /*
-       * @param A: an integer array
-       * @param target: An integer
-       * @param k: An integer
-       * @return: an integer array
-       */
-      public int[] kClosestNumbers(int[] A, int target, int k) {
-          // write your code here
-          int[] results = new int[k];
-          if(A == null || A.length == 0){
-              return A;
-          }
-          if(k > A.length){
-              return A;
-          }
-          int start = 0;
-          int end = A.length - 1;
-          int mid = 0;
-          while(start + 1 < end){
-              mid = start + (end - start) / 2;
-              if(A[mid] < target){
-                  start = mid;
-              } else {
-                  end = mid;
-              }
-          }
-          //注意二!!!!!
-          int index = Math.min(start, end);
-          int left = index;
-          int right = index + 1;
-          for(int i = 0; i < k; i++){
-              //注意一!!!!!
-              if(left < 0){
-                  results[i] = A[right];
-                  right++;
-                  continue;
-              }
-              if(right == A.length){
-                  results[i] = A[left];
-                  left--;
-                  continue;
-              }
-              if(Math.abs(A[left] - target) < Math.abs(A[right] - target)){
-                  results[i] = A[left];
-                  left--;
-              } else if (Math.abs(A[left] - target) > Math.abs(A[right] - target)){
-                  results[i] = A[right];
-                  right++;
-              } else {
-                  if(A[left] < A[right]){
-                      results[i] = A[left];
-                      left--;
-                  } else {
-                      results[i] = A[right];
-                      right++;
-                  }
-              }
-          }
-          return results;
-      }
-  }
-  ```
 '''
-tags: []
+tags: [
+  "Binary_Search"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T02:50:21.744Z"
-updatedAt: "2017-09-08T03:27:12.546Z"
+updatedAt: "2018-01-02T23:54:09.051Z"

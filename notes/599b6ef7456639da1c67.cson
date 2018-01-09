@@ -1,5 +1,5 @@
 type: "MARKDOWN_NOTE"
-folder: "6e2623e3aff765e4a79c"
+folder: "8d19d56ee029f3fa592b"
 title: "Split String + Palindrome Partitioning"
 content: '''
   # Split String + Palindrome Partitioning
@@ -63,6 +63,9 @@ content: '''
     ["a","a","b"]
   ]`
   
+  Solution：
+  The idea is to go through every substring starting from first character, check if it is palindrome. If yes, then add the substring to solution and recur for remaining part.
+  
   树的高度为`n = s.length()`，第一层有`n`种可能，第二层`n - 1`种，...总复杂度`n * n - 1 * n - 2 * ... * 1 = n!`  
   但是，如果理解成在每个间隔选择切或者不切，则是`2^n`，产生的所有`substring`进行回文判断耗费`n`，总复杂度`n * 2^n`
   ```java
@@ -120,4 +123,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-18T05:14:34.245Z"
-updatedAt: "2017-12-24T22:02:08.653Z"
+updatedAt: "2018-01-04T19:14:27.253Z"

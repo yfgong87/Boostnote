@@ -1,10 +1,72 @@
 createdAt: "2017-12-30T01:11:19.256Z"
-updatedAt: "2017-12-31T01:26:19.759Z"
+updatedAt: "2018-01-04T20:15:52.811Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Iterator 题型"
 content: '''
   # Iterator 题型
+  ### Flatten Nested List Iterator
+  以 `[1, [4, [6]]` 为例，使用一个 `Deque`，将所有数放进 `Deque` 中，每次从头部取出，如果是`int`，直接返回，如果不是`int`，取出整个`NestedInteger`, 从最后一个到第一个元素放回 Deque 的头部，然后递归调用`next()`，直到下次遇到一个`int`
+  - `next()` -> 取出`1`，直接返回
+  - `next()` -> 取出`[4, [6]]`，先将`[6]`放回头部，再将`4`放回头部, 递归调用`next()`，取出`4`，直接返回
+  - `next()` -> 取出`6`，直接返回
+  
+  如果不优化，无法通过含有嵌套 `[]` 的 input
+  优化方法是保证当 `Deque` 中只剩下`[]`时， `hasNext` 返回 `false`. 这是就需要在 `hasNext()` 内部调用`next()`，如果只剩下`[]`, `next()`会返回`null`, 这时`hasNext()`返回`false`. 然而当 `Deque`中仍然有 `int`时，`hasNext()`中调用`next()`会`return`掉一个`int`，这时要使用一个额外的 `stack` 存储取出来的那个`int`
+  ```java
+  import java.util.Iterator;
+  
+  public class NestedIterator implements Iterator<Integer> {
+  
+      //Stack<Integer> stack;
+      Deque<NestedInteger> deque;
+      public NestedIterator(List<NestedInteger> nestedList) {
+          // Initialize your data structure here.
+          deque = new ArrayDeque<>(nestedList);
+          //stack = new stack<>();
+      }
+  
+      // @return {int} the next element in the iteration
+      @Override
+      public Integer next() {
+          // Write your code here
+          // if (!stack.isEmpty()){
+          //     return stack.pop();
+          // }
+          if (deque.isEmpty()){
+              return null;
+          }
+          NestedInteger ni = deque.removeFirst();
+          if (ni.isInteger()){
+              return ni.getInteger();
+          } else {
+              List<NestedInteger> list = ni.getList();
+              if(list != null){
+                  for (int i = list.size() - 1; i >= 0; i--){
+                      deque.addFirst(list.get(i));
+                  }
+              }
+              return next();
+          }
+      }
+  
+      // @return {boolean} true if the iteration has more element or false
+      @Override
+      public boolean hasNext() {
+          // // Write your code here
+          // Integer ans = next();
+          // if (ans == null){
+          //     return false;
+          // }
+          // stack.push(ans);
+          // return true;
+          return !deque.isEmpty();
+      }
+  
+      @Override
+      public void remove() {}
+  }
+  ```
   ### Zigzag Iterator
   v1 = `[1, 2]`
   v2 = `[3, 4, 5, 6]`

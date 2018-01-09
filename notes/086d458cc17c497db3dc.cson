@@ -1,0 +1,63 @@
+createdAt: "2018-01-03T01:19:06.404Z"
+updatedAt: "2018-01-03T03:40:44.388Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Validate Number"
+content: '''
+  # Validate Number
+  All we need is to have a couple of flags so we can process the string in linear time:
+  We start with trimming.
+  
+  - If we see `[0-9]` we reset the number flags.
+  - We can only see `.` if we didn’t see `e` or `.`.
+  - We can only see `e` if we didn’t see `e` but we did see a number. We reset number flag.
+  - We can only see `+` and `-` in the beginning and after an `e`
+  - any other character break the validation.
+  
+  At the and it is only valid if there was at least 1 number and if we did see an e then a number after it as well.
+  
+  So basically the number should match this regular expression:
+  
+  `[-+]?(([0-9]+(.[0-9]*)?)|.[0-9]+)(e[-+]?[0-9]+)?`
+  ```java
+  class Solution {
+      public boolean isNumber(String s) {
+          // Valid: 
+          // 2e10, 2e-10, 0.1, +2, -2, 2e+2, 46.e3, 
+          // InValid: 
+          // e9
+          boolean hasDot = false;
+  		boolean hasE = false;
+          boolean hasNum = false;
+          s = s.trim();
+          char[] sc = s.toCharArray();
+          for(int i = 0; i < s.length(); i++){
+              if(sc[i] == '.'){
+                  if(hasDot || hasE){
+                      return false;
+                  }
+                  hasDot = true;
+              } else if(sc[i] == 'e'){
+                  if(hasE || !hasNum){
+                      return false;
+                  }
+                  hasE = true;
+                  hasNum = false;
+              } else if(sc[i] <= '9' && sc[i] >= '0'){
+                  hasNum = true;
+              } else if(sc[i] == '+' || sc[i] == '-'){
+                  if(i != 0 && sc[i - 1] != 'e'){
+                      return false;
+                  }
+              } else {
+                  return false;
+              }
+          }
+          return hasNum;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

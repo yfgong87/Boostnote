@@ -6,9 +6,9 @@ content: '''
   ```java
   class Solution {
       public int[][] multiply(int[][] A, int[][] B) {
-          int m = A.length;
-          int n = B[0].length;
-          int t = A[0].length;
+          int m = A.length;    // m = A 的 row
+          int n = B[0].length; // n = B 的 col
+          int t = A[0].length; // t = A 的 col = B 的 row
           int[][] C = new int[m][n];
           for(int i = 0; i < m; i++){
               for(int k = 0; k < t; k++){
@@ -72,4 +72,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-05T19:55:51.769Z"
-updatedAt: "2017-11-05T19:56:42.425Z"
+updatedAt: "2018-01-04T04:59:21.658Z"

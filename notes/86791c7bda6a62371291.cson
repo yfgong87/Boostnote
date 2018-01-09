@@ -16,9 +16,15 @@ content: '''
     return a + b; 
   }
   ```
+  ```java
+  public int getGCD(int x, int y) {
+      if (y == 0) return x;
+      return getGCD(y, x % y);
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-13T17:28:49.525Z"
-updatedAt: "2017-12-30T05:17:31.896Z"
+updatedAt: "2018-01-03T16:49:57.795Z"

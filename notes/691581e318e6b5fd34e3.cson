@@ -5,6 +5,34 @@ content: '''
   # Subsets
   ```java
   class Solution {
+      // {1,2,3}
+      //                  []
+      //         [1]      [2]       [3]
+      //     [1,2][1,3]  [2,3]
+      //    [1,2,3]
+      
+      public List<List<Integer>> subsets(int[] nums) {
+          List<List<Integer>> results = new ArrayList<>();
+          List<Integer> solution = new ArrayList<>();
+          dfs(results, solution, nums, 0);
+          return results;
+      }
+      
+      public void dfs(List<List<Integer>> results,
+                      List<Integer> solution,
+                      int[] nums,
+                      int startIndex){
+          results.add(new ArrayList<Integer>(solution));
+          for(int i = startIndex; i < nums.length; i++){
+              solution.add(nums[i]);
+              dfs(results, solution, nums, i + 1);
+              solution.remove(solution.size() - 1);
+          }
+      }
+  }
+  ```
+  ```java
+  class Solution {
       /**
        * @param S: A set of numbers.
        * @return: A list of lists. All valid subsets.
@@ -23,8 +51,8 @@ content: '''
               result.add(subset);
               return result;
           }
-          //KEY2: Sort array to ensure no duplication
-          Arrays.sort(nums);
+          //KEY2: Sort array to make answers in ascending order, not necessary
+          //Arrays.sort(nums);
           //Call recursion methods
           addSubset(result, subset, 0, nums);
           //return
@@ -57,4 +85,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T14:47:38.610Z"
-updatedAt: "2017-12-16T18:46:45.607Z"
+updatedAt: "2018-01-09T02:47:54.858Z"

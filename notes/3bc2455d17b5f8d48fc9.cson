@@ -68,7 +68,7 @@ content: '''
         }
         //用key找value
         public int get(int key) {
-              //整数的 hashcode 直接取 %
+              //整数的 hashcode 直接取 %，MAP_SIZE 最好是个质数
               int hashcode = (key % MAP_SIZE);
               //当 hashcode 对应的位置不为空，且该位置存的 key 与当前 key 不相等
               //此时说明发生了collision，往下一个位置找
@@ -139,4 +139,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:12:33.653Z"
-updatedAt: "2017-12-28T02:53:07.576Z"
+updatedAt: "2017-12-31T04:22:41.174Z"

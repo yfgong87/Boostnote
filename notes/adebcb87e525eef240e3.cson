@@ -124,6 +124,7 @@ content: '''
   }
   ```
   Follow Up: 允许出现重复值
+  使用了一个 `HashSet` 来记录`val`相同的数在 `List` 中的所有位置
   ```java
   public class RandomizedSet {
       
@@ -165,7 +166,7 @@ content: '''
           
           //get removeIndex
           int removeIndex = map.get(val).iterator().next();
-          //remove removeIndex from map
+          // 从 HashSet 里 remove removeIndex
           map.get(val).remove(removeIndex);
           if(map.get(val).isEmpty()){
               map.remove(val);
@@ -202,4 +203,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-04T13:46:06.132Z"
-updatedAt: "2017-12-09T03:12:22.274Z"
+updatedAt: "2018-01-03T22:23:26.338Z"

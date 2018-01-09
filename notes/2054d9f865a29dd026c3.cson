@@ -14,7 +14,7 @@ content: '''
   StringBuffer sb = new StringBuffer("Hi mom");
   StringBuffer sb2 = new StringBuffer(sb); // copying an object.
   ```
-  - In short, an assignment of a reference to a variable whose type is a reference type is "copying a value" where the value is the object reference. To copy an object, something needs to use new, either explicitly or under the hood.
+  - In short, an assignment of a reference to a variable whose type is a reference type is "copying a value" where the value is the object reference. To copy an object, something needs to use `new`, either explicitly or under the hood.
   ---
   ### shallow copy vs deep copy
   - Shallow copying generally means copying only one level of an object, while deep copying generally means copying more than one level. 
@@ -23,4 +23,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-02T02:47:30.261Z"
-updatedAt: "2017-08-03T18:25:59.864Z"
+updatedAt: "2018-01-04T21:52:43.731Z"

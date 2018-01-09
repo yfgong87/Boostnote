@@ -4,7 +4,12 @@ title: "Product of Array Except itself"
 content: '''
   # Product of Array Except itself
   - Given `[1,2,3,4]`, return `[24,12,8,6]`.
-  - The idea is simply. The product basically is calculated using the numbers before the current number and the numbers after the current number. Thus, we can scan the array twice. First, we calcuate the running product of the part before the current number. Second, we calculate the running product of the part after the current number through scanning from the end of the array.
+  - Brute Force is `O(n^2)`
+  - An intuitive thoughts is scan from left to right once, store the running product in a new array, then scan from left to right again and divide the running product by the number at that index
+  - Final solution: 
+  	- Since the product basically is calculated using the numbers before the current number and the numbers after the current number. Thus, we can scan the array twice. 
+  	- First, we calcuate the running product from left to right, but each `index` of the running product array stores the running product up to `index - 1`. 
+  	- Second, we calculate the running product from right to left, each `index` of the running product array stores the product of the original value and the running product up to `index + 1`
   ```java
   class Solution {
       public int[] productExceptSelf(int[] nums) {
@@ -27,9 +32,46 @@ content: '''
       }
   }
   ```
+  ### Brute Force
+  ```java
+  class Solution {
+      public int[] productExceptSelf(int[] nums) {
+          int n = nums.length;
+          int[] results = new int[n];
+          for(int i = 0; i < n; i++){
+              int result = 1;
+              for(int j = 0; j < n; j++){
+                  if(i == j){
+                      continue;
+                  }
+                  result *= nums[j];
+              }
+              results[i] = result;
+          }
+          return results;
+      }
+  }
+  ```
+  ### O(n) 遍历求 product, 然后再 O(n) 遍历 除以每一个数
+  ```java
+  class Solution {
+      public int[] productExceptSelf(int[] nums) {
+          int n = nums.length;
+          int[] results = new int[n];
+          int product = 1;
+          for(int i = 0; i < n; i++){
+              product *= nums[i];
+          }
+          for(int i = 0; i < n; i++){
+              results[i] = product / nums[i];
+          }
+          return results;
+      }
+  }
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T16:45:38.065Z"
-updatedAt: "2017-10-01T16:46:23.226Z"
+updatedAt: "2018-01-03T18:19:41.863Z"

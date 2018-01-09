@@ -1,0 +1,117 @@
+createdAt: "2018-01-07T08:06:45.499Z"
+updatedAt: "2018-01-08T04:28:53.170Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Contains Duplicates"
+content: '''
+  # Contains Duplicates
+  ### Contains Duplicates I
+  查看一个数组中是否有重复数
+  解法一：`HashSet`，时间复杂度`O(n)`，空间复杂度`O(n)`
+  ```java
+  class Solution {
+      public boolean containsDuplicate(int[] nums) {
+          Set<Integer> set = new HashSet<>();
+          for(int num : nums){
+              if(set.contains(num)){
+                  return true;
+              }
+              set.add(num);
+          }
+          return false;
+      }
+  }
+  ```
+  解法二：排序再遍历，时间复杂度 `O(logn + n)`，空间复杂度`O(1)`
+  ```java
+  class Solution {
+      public boolean containsDuplicate(int[] nums) {
+          Arrays.sort(nums);
+          for(int i = 0; i < nums.length; i++){
+              if(i > 0 && nums[i] == nums[i - 1]){
+                  return true;
+              }
+          }
+          return false;
+      }
+  }
+  ```
+  解法三：Brute Force，时间复杂度 `O(n^2)`，空间复杂度`O(1)`
+  ```java
+  class Solution {
+      public boolean containsDuplicate(int[] nums) {
+  		// 注意：两两比较时，j 从 i + 1 开始可以节省时间
+          for(int i = 0; i < nums.length; i++){
+              for(int j = i + 1; j < nums.length; j++){
+                  if(nums[i] == nums[j]){
+                      return true;
+                  }
+              }
+          }
+          return false;
+      }
+  }
+  ```
+  ### Contains Duplicates II
+  查看一个数组中是否有重复数，且重复数的 index 之差的绝对值 <= k
+  时间复杂度 `O(n)`，空间复杂度`O(n)`
+  ```java
+  class Solution {
+      public boolean containsNearbyDuplicate(int[] nums, int k) {
+          Map<Integer, Integer> map = new HashMap<>();
+          for(int i = 0; i < nums.length; i++){
+              if(map.containsKey(nums[i])){
+                  int dif = Math.abs(map.get(nums[i]) - i);
+                  if(dif <= k){
+                      return true;
+                  }
+              }
+              map.put(nums[i], i);
+          }
+          return false;
+      }
+  }
+  ```
+  ### Contains Duplicates III
+  查看一个数组中是否有两个数满足 `Math.abs(nums[i] - nums[j]) <= t` && `Math.abs(i - j) <= k`
+  
+  Solution: 
+  - Initialize an empty `TreeSet`
+  - Loop through the array, for each element `x`:
+    - Find the smallest element `ceiling` in set that is greater than or equal to `x`, return true if `ceiling - x ≤ t`
+    - Find the greatest element `floor` in set that is smaller than or equal to `x`, return true if `x - floor ≤ t`
+    - Put `x` in set
+  - If the size of the set is larger than `k`, remove the oldest item.
+  
+  Time Complexity:
+  Since `TreeSet` of size `k` need `logk` for `insert`, `get`, `remove`, Total complexity is `n * logk`
+  ```java
+  class Solution {
+      public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+          TreeSet<Integer> set = new TreeSet<>();
+          for(int i = 0; i < nums.length; i++){
+              Integer ceiling = set.ceiling(nums[i]);
+              if(ceiling != null && ceiling - nums[i] <= t){
+                  return true;
+              }
+              Integer floor = set.floor(nums[i]);
+              if(floor != null && nums[i] - floor <= t){
+                  return true;
+              }
+              set.add(nums[i]);
+              if(set.size() > k){
+                  set.remove(nums[i - k]);
+              }
+          }
+          return false;
+      }
+  }
+  ```
+'''
+tags: [
+  "PocketGem"
+  "HashMap"
+  "TreeSet"
+]
+isStarred: false
+isTrashed: false

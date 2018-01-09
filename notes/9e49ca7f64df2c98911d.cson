@@ -116,20 +116,17 @@ content: '''
       
   //直接删除重复点的做法
   public ListNode deleteDuplicates(ListNode head) {
-          // write your code here
-          if(head == null){
-              return head;
-          }
-          ListNode curr = head;
-          while(curr.next != null){
-              if(curr.val == curr.next.val){
+          ListNode dummy = new ListNode(0), curr = dummy;
+          dummy.next = head;
+          while(curr.next != null && curr.next.next != null){
+              if(curr.next.val == curr.next.next.val){
   				// 一定要注意，删除节点后curr已经指向了下一个节点，不需要再curr = curr.next
                   curr.next = curr.next.next;
               } else {
-                  curr = curr.next; 
+                  curr = curr.next;
               }
           }
-          return head;
+          return dummy.next;
       }
   ```
   ### Remove Duplicate in List II
@@ -190,8 +187,11 @@ content: '''
       }
       ```
 '''
-tags: []
+tags: [
+  "Array"
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-06T18:18:09.235Z"
-updatedAt: "2017-12-29T20:07:26.131Z"
+updatedAt: "2018-01-02T03:00:07.133Z"

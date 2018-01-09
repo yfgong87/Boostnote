@@ -3,8 +3,16 @@ folder: "8d19d56ee029f3fa592b"
 title: "Combination Sum"
 content: '''
   # Combination Sum
+  如果不用 sort + startIndex, 返回的结果会包括 Sequences consist of same numbers
   ```java
   class Solution {
+      // {2,3,6,7}        target = 7
+      //                                          []
+      //                              [2]                  [3]        [6]  [7]
+      //                     [2,2]   [2,3]  #[2,6]     [3,3]#[3,6]
+      //            [2,2,2][2,2,3]#[2,2,6]
+      //          #[2,2,2,2]
+  	
       public List<List<Integer>> combinationSum(int[] candidates, int target) {
           List<List<Integer>> results = new ArrayList<List<Integer>>();
           if(candidates == null){
@@ -27,6 +35,7 @@ content: '''
           //Find a combination
           if(target == 0){
               results.add(new ArrayList<Integer>(subset));
+  			return;
           }
           //递归的出口，没有这步会StackOverFlow，因为这里不用 i + 1
           if(target < 0){
@@ -46,4 +55,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T17:35:01.017Z"
-updatedAt: "2017-08-30T17:37:39.421Z"
+updatedAt: "2018-01-08T23:21:44.251Z"

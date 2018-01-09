@@ -1,5 +1,5 @@
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2017-12-29T19:58:51.134Z"
+updatedAt: "2018-01-06T19:28:13.337Z"
 type: "MARKDOWN_NOTE"
 folder: "c7615b6dcc7b2832aa16"
 title: "Quick Sort"
@@ -110,6 +110,7 @@ content: '''
               head = head.next;
           }
           
+  		// 彻底 Partition 三部分
           currLeft.next = null;
           currMid.next = null;
           currRight.next = null;
@@ -153,6 +154,8 @@ content: '''
   }
   ```
   ### 彩虹排序🌈
+  待确认：时间复杂度为 `O(nlogk)`, `k`为 `color`的数目
+  
   Non-randomly Picking the `Pivot`
   这里 `while (l <= r && colors[l] <= colorMid)`
   对于这个while循环为什么是<= 不是 < , 它为什么和快排不一样呢 ？
@@ -195,7 +198,7 @@ content: '''
       }
   ```
   ### Counting Sort
-  🌈彩虹排序的`HashMap`做法(`O(k)` extra memory) 
+  🌈彩虹排序的`HashMap`做法(`O(k)` extra memory)， `O(n)`时间复杂度 
   ```java
   class Solution {
       /**
@@ -343,6 +346,8 @@ content: '''
     }
   ```
 '''
-tags: []
+tags: [
+  "PocketGem"
+]
 isStarred: false
 isTrashed: false

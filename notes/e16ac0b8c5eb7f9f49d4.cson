@@ -3,8 +3,9 @@ folder: "8d19d56ee029f3fa592b"
 title: "Sum of Square Number"
 content: '''
   # Sum of Square Number
-  ### 最优解
-  - Two Pointer解法，Two Point 本身`O(sqrt(c))`，Math.sqrt(c)最坏复杂度为`O(log(c))`，由于 `sqrt(c)` >> `log(c)`，最终复杂度为`O(sqrt(c))`
+  ### 最优解 (14ms)
+  - Two Pointer解法，复杂度为`O(sqrt(c)) + O(log(c)`
+  - Two Point 本身`O(sqrt(c))`，`Math.sqrt(c)`最坏复杂度为`O(log(c))`，由于 `sqrt(c)` >> `log(c)`，最终复杂度为`O(sqrt(c))`
   ```java
   class Solution {
       public boolean judgeSquareSum(int c) {
@@ -27,23 +28,23 @@ content: '''
       }
   }
   ```
-  ### 最慢解
-  - Brute Force, `O(sqrt(c) * sqrt(c))` = `O(c)`
+  ### 中间解I (18ms)
+  - 使用自带的`Math.sqrt()`代替二分
+  `O(sqrt(c) * log(c))`，外面for循环一共`sqrt(c)`，里面`Math.sqrt()`每次`log(c)`
   ```java
   class Solution {
       public boolean judgeSquareSum(int c) {
           for(long a = 0; a * a <= c; a++){
-              for(long b = 0; b * b <= c; b++){
-                  if(a * a + b * b == c){
-                      return true;
-                  }
+              double b = Math.sqrt(c - a * a);
+              if(b == (int) b){
+                  return true;
               }
           }
           return false;
       }
   }
   ```
-  ### 中间解I
+  ### 中间解II (96ms)
   - Binary Search，`O(sqrt(c) * log(c))`，外面for循环一共`sqrt(c)`，里面二分每次`log(c)`
   ```java
   class Solution {
@@ -74,25 +75,30 @@ content: '''
       }
   }
   ```
-  ### 中间解II
-  - 使用自带的`Math.sqrt()`代替二分
-  `O(sqrt(c) * log(c))`，外面for循环一共`sqrt(c)`，里面`Math.sqrt()`每次`log(c)`
+  ### 最慢解 (TLE)
+  - Brute Force, `O(sqrt(c) * sqrt(c))` = `O(c)`
   ```java
   class Solution {
       public boolean judgeSquareSum(int c) {
           for(long a = 0; a * a <= c; a++){
-              double b = Math.sqrt(c - (int) (a * a));
-              if(b == (int) b){
-                  return true;
+              for(long b = 0; b * b <= c; b++){
+                  if(a * a + b * b == c){
+                      return true;
+                  }
               }
           }
           return false;
       }
   }
   ```
+  ### sqrt(N) will increase a lot more than log2(N)
+  ![sqrtVSlog](https://i.stack.imgur.com/0oZZQ.png)
+  
 '''
-tags: []
+tags: [
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T20:55:59.403Z"
-updatedAt: "2017-11-02T23:38:57.601Z"
+updatedAt: "2018-01-04T17:41:32.712Z"

@@ -5,8 +5,15 @@ content: '''
   # Balanced Binary Tree 
   Check if a given binary tree is balanced. A balanced binary tree is one in which the depths of every node’s left and right subtree differ by at most 1.
   
-  My general solution is to recursively traverse every node in the tree, and check for every node, whether the absolute difference of depth between its left and right child is not greater than 1. The helper function will recursively be ran on every node and return two values: 1) the max depth of a node and 2) whether the tree that root from this node is balanced or not.
+  ### Solution:
+  - My general solution is to recursively traverse every node in the tree in a `postOrder` fashion, and check for every node, whether the absolute difference of depth between its left and right child is not greater than 1. 
+  - For every node, we also need to check whether both of its left and right subtree are balanced. 
+  - Therefore in each recursive call, we need to return two values to the upper level: 
+    - the max depth of a node
+    - whether the tree that root from this node is balanced or not.
   
+  ### Complexity
+  Time `O(n)`, Space `O(h)`
   ```java
   class returnType{
       int depth;
@@ -51,4 +58,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T02:09:07.152Z"
-updatedAt: "2017-12-13T04:42:55.153Z"
+updatedAt: "2018-01-08T01:55:12.270Z"

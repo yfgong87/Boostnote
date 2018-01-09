@@ -1,8 +1,59 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Factorization"
+title: "Factorization (Factor Combination)"
 content: '''
-  # Factorization
+  # Factorization (Factor Combination)
+  Time Complexity:
+  - 粗略计算：一个数大约有`logn`个约数，递归树最多`logn`层，每层有最多`n`种分叉可能，复杂度为`n^(logn)`
+  - 对于loop到`n`，大约是`O((logn)! * n ^ (logn))`
+  - 对于loop到`sqrt(n)`即剪枝情况，大约是`O((logn)! * sqrt(n) ^ (logn))`
+  - `(logn)!`为解的个数：就如combination 的解的个数为`n!`一样，如果一个数可能的约数有`logn`个，那么全组合有`(logn)!`个解
+  - 在计算每个解的时候，一共递归`logn`层，每一层中都有一个`n`的循环，`n ^ (logn)`
+  ```java
+  // 8                                                      (remain % i != 0)
+  //          [2,4]            #[3,?]        [4,2]         #[5,?] #[6?] #[7,?]   #[8,1](solution.size() == 1)
+  // [2,2,2] #[2,3?] [2,4,1]         #[4,4,](start = 4 > 2)
+  //[2,2,2,1]
+  ```
+  ```java
+  class Solution {  
+      public List<List<Integer>> getFactors(int n) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(n == 1){
+              return results;
+          }
+          dfs(results, new ArrayList<Integer>(), 2, n);
+          return results;
+      }
+      
+      public void dfs(List<List<Integer>> results,
+                      List<Integer> solution,
+                      int start,
+                      int remain){
+          if(remain == 1){
+              if(solution.size() != 1){
+                  results.add(new ArrayList<Integer>(solution));
+              }
+              return;
+          }
+          for(int i = start; i <= remain; i++){
+              if(remain % i == 0){
+                  solution.add(i);
+  				// 注意下一个 dfs 以 i 为 start
+                  dfs(results, solution, i, remain / i);
+                  solution.remove(solution.size() - 1);
+              }
+          }
+      }
+  }
+  ```
+  剪枝
+  ```java
+  // 8                                                      
+  //          [2,4]            		#[8,1] (i = remain 的情况必须单独加入dfs，solution.size() == 1)
+  // [2,2,2]       [2,4,1] (i = remain 的情况必须单独加入dfs)         
+  //[2,2,2,1] (i = remain 的情况必须单独加入dfs)   
+  ```
   ```java
   public class Solution {
       /*
@@ -30,10 +81,10 @@ content: '''
               return;
           }
           
-          for(int i = start; i < remain; i++){
+          for(int i = start; i <= remain; i++){
               // i * i > remain 则 break 
               //(从此往后每个 start 都 > remain，没有继续循环的必要了)
-              if(i > remain / i){
+              if(i * i > remain){
                   break;
               }
               if(remain % i == 0){
@@ -54,4 +105,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:19:05.939Z"
-updatedAt: "2017-11-07T00:04:01.031Z"
+updatedAt: "2018-01-02T22:04:13.125Z"

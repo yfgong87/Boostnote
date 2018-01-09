@@ -3,26 +3,70 @@ folder: "8d19d56ee029f3fa592b"
 title: "Inorder Successor of BST"
 content: '''
   # Inorder Successor of BST
+  `8` -> `10`
+  `14` -> `20`
   ```java
-  public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+  		 20
+  	    /  \\
+  	   8   22
+  	  / \\
+  	 4	 12
+  	     / \\
+  		10  14
+  ```
+  解法一：用 `parent` node
+  - If right subtree of node is not `NULL`, then successor is in right subtree. Go to right subtree and return the node with minimum value in right subtree, which is the left most leaf node of the right subtree. `8` -> `10`
+  - If right subtree of node is `NULL`, then successor is one of the ancestors. Travel up using the parent pointer until we see a node which is left child of it’s parent. The parent of such a node is the successor. `14` -> `20`
+  
+  Time Complexity: `O(h)`
+  ```java
+  public TreeNode inorderSuccessor(TreeNode root, TreeNode node) {
+   	// step 1 of the above algorithm 
+      if (node.right != null) {
+  		TreeNode current = node.right;
+          while(current.left != null){
+  			current = current.left;
+  		}
+  		return current;
+      }
+   
+      // step 2 of the above algorithm
+      TreeNode parent = node.parent;
+      while (parent != null && parent.left != node) {
+          node = parent;
+          parent = parent.parent;
+      }
+      return parent;
+  }
+  ```
+  
+  解法二：不用 `parent` node
+  - If `root.val` <= `node.val`, search in the right subtree
+  - If `root.val` > `node.val`, search in the left subtree, if cannot find, root is the inorder successor
+  
+  Time Complexity: `O(h)`
+  ```java
+  public TreeNode inorderSuccessor(TreeNode root, TreeNode node) {
       // write your code here
-      if(root == null || p == null){
+      if(root == null || node == null){
           return null;
       }
-      
-      if(root.val == p.val + 1){
-          return root;
-      } 
-  	//注意等号位置，root.val即使等于p.val，successor一定在右边，而不会等于root自己
-  	if(root.val <= p.val){
-          return inorderSuccessor(root.right, p);
+  	//注意等号位置，root.val即使等于node.val，successor一定在右边，而不会等于root自己
+  	if(root.val <= node.val){
+          return inorderSuccessor(root.right, node);
       }
-  	return inorderSuccessor(root.left, p);
+  	TreeNode left = inorderSuccessor(root.left, node);
+      if(left != null){
+          return left;
+      }
+      return root;
   }
   ```
 '''
-tags: []
+tags: [
+  "PocketGem"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:19:01.842Z"
-updatedAt: "2017-12-31T01:38:30.252Z"
+updatedAt: "2018-01-08T20:19:43.930Z"

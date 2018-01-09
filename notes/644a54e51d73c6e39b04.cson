@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Rorate LinkedList"
+title: "Rotate LinkedList"
 content: '''
-  # Rorate LinkedList
+  # Rotate LinkedList
   Given a list, rotate the list to the right by k places, where k is non-negative.
   Given `1->2->3->4->5` and k = `2`, return `4->5->1->2->3`.
   ```java
@@ -19,21 +19,20 @@ content: '''
           }
           int length = getLength(head);
           k %= length;
-          ListNode dummy = new ListNode(0);
+          ListNode dummy = new ListNode(0), tail = dummy;
           dummy.next = head;
-          head = dummy;
-          ListNode tail = head;
+          ListNode preK = dummy;
           for(int i = 0; i < k; i++){
-              head = head.next;
-          }
-          while(head.next != null){
-              head = head.next;
               tail = tail.next;
           }
-          head.next = dummy.next;
-          dummy.next = tail.next;
-          tail.next = null;
-          return dummy.next;
+          while(tail.next != null){
+              tail = tail.next;
+              preK = preK.next;
+          }
+          tail.next = head;
+          ListNode newHead = preK.next;
+          preK.next = null;
+          return newHead;
           
       }
       private int getLength(ListNode head){
@@ -79,8 +78,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-21T01:29:57.034Z"
-updatedAt: "2017-12-21T01:50:39.670Z"
+updatedAt: "2018-01-02T03:00:17.226Z"

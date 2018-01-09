@@ -1,0 +1,60 @@
+createdAt: "2018-01-08T22:38:51.683Z"
+updatedAt: "2018-01-08T22:57:11.923Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Combination Sum III"
+content: '''
+  # Combination Sum III
+  Find all possible combinations of `k` numbers that add up to a number `n`, given that only numbers from `1` to `9` can be used and each combination should be a unique set of numbers.
+  Input: `k` = `3`, `n` = `7`
+  Output: `[[1,2,4]]`
+  
+  树的高度为`k`，每一层有最多`9`，实际 `9` / `8` / `7`... 个 branch
+  总复杂度：`9` * `8` * ... * `9 - k + 1` (共 `k` 层)
+  ```java
+  class Solution {
+      //  k = 3, n = 7
+      //                                              []
+      //                              [1]                  [2]   [3]   [4]   [5]    [6]
+      //                     [1,2]        [1,3]...[1,6]
+      //                [1,2,3][1,2,4]   
+  
+      public List<List<Integer>> combinationSum3(int k, int n) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(k < 1 || k > n || n > k * 9){
+              return results;
+          }
+          dfs(results, new ArrayList<Integer>(), 1, k, n, 0);
+          return results;
+      }
+      
+      public void dfs(List<List<Integer>> results,
+                      List<Integer> solution,
+                      int startIndex,
+                      int k,
+                      int n,
+                      int sum){
+          if(sum == n){
+              if(solution.size() == k){
+                  results.add(new ArrayList<Integer>(solution));
+              }
+  			return;
+          }
+          for(int i = startIndex; i <= 9; i++){
+              if(sum + i > n){
+                  break;
+              }
+              solution.add(i);
+              dfs(results, solution, i + 1, k, n, sum + i);
+              solution.remove(solution.size() - 1);
+          }
+      }
+  }
+  ```
+'''
+tags: [
+  "Backtracking"
+  "DFS"
+]
+isStarred: false
+isTrashed: false

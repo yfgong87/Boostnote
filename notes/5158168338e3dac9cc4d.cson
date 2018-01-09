@@ -1,0 +1,86 @@
+createdAt: "2018-01-07T07:07:02.895Z"
+updatedAt: "2018-01-07T18:33:57.975Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Increasing Triplet SubSequence"
+content: '''
+  # Increasing Triplet SubSequence
+  解法一：时间复杂度`O(n)`，空间复杂度`O(n)`
+  `small[i]` 代表比 `nums[i]` 小，同时 index 也比 i 小的 index
+  `big[i]` 代表比 `nums[i]` 大，同时 index 也比 i 大的 index
+  如果一个 `i` 同时存在 `small[i]` 和 `big[i]`，则返回 `true`
+  ```java
+  class Solution {
+      public boolean increasingTriplet(int[] nums) {
+          if(nums == null || nums.length == 0){
+              return false;
+          }
+          int n = nums.length;
+          int[] small = new int[n];
+          small[0] = -1; // no element has an index < 0
+          int minIndex = 0;
+          for(int i = 1; i < n; i++){
+              if(nums[i] <= nums[minIndex]){
+                  minIndex = i;
+                  small[i] = -1; // i is the current smallest index, no element is < small[i] 
+              } else {
+                  small[i] = minIndex;
+              }
+          }
+          
+          int[] big = new int[n];
+          big[n - 1] = -1; // no element has an index < 0
+          int maxIndex = n - 1;
+          for(int i = n - 2; i >= 0; i--){
+              if(nums[i] >= nums[maxIndex]){
+                  maxIndex = i;
+                  big[i] = -1; // i is the current smallest index, no element is < small[i] 
+              } else {
+                  big[i] = maxIndex;
+              }
+          }
+          
+          for(int i = 0; i < n; i++){
+              if(small[i] != -1 && big[i] != -1){
+                  return true;
+              }
+          }
+          return false;
+      }
+  }
+  ```
+  解法二：时间复杂度`O(n)`，空间复杂度`O(1)`
+  initial : `[1, 2, 0, 3]`, small = `MAX`, big = `MAX`
+  loop1 : `[1, 2, 0, 3]`, small = `1`, big = `MAX`
+  loop2 : `[1, 2, 0, 3]`, small = `1`, big = `2`
+  loop3 : `[1, 2, 0, 3]`, small = `0`, big = `2` // <- Uh oh, `0` technically appeared after `2`
+  loop4 : return true since `3` > `small` && `3` > `big` // Isn’t this a violation??
+  
+  If you observe carefully, the moment we updated big from MAX to some other value, that means that there clearly was a value less than it (which would have been assigned to small in the past). What this means is that once you find a value bigger than big, you’ve implicitly found an increasing triplet.
+  ```java
+  class Solution {
+      public boolean increasingTriplet(int[] nums) {
+          if(nums == null || nums.length == 0){
+              return false;
+          }
+          int first = Integer.MAX_VALUE;
+          int second = Integer.MAX_VALUE;
+          for(int i = 0; i < nums.length; i++){
+              if(nums[i] < first){
+                  first = nums[i];
+              } else if(first < nums[i] && nums[i] < second){
+                  second = nums[i];
+              } else if(nums[i] > second){
+                  return true;
+              }
+          }
+          return false;
+      }
+  }
+  ```
+'''
+tags: [
+  "PocketGem"
+]
+isStarred: false
+isTrashed: false

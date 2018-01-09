@@ -19,6 +19,7 @@ content: '''
           }
           //reverse half of the number
           int reverse = 0;
+  		// 停止的时候 reverse 比 num 多一位
           while(num > reverse){
               reverse = reverse * 10 + num % 10;
               num /= 10;
@@ -39,4 +40,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-23T02:27:33.876Z"
-updatedAt: "2017-10-23T02:34:56.482Z"
+updatedAt: "2018-01-03T00:17:08.310Z"

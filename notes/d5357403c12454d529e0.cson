@@ -1,0 +1,57 @@
+createdAt: "2018-01-08T21:31:23.415Z"
+updatedAt: "2018-01-08T22:06:28.968Z"
+type: "MARKDOWN_NOTE"
+folder: "0ef4dc321cdc22cb8b00"
+title: "进制转换 Bit / Decimal Convertion"
+content: '''
+  # 进制转换 Bit / Decimal Convertion
+  ### Decimal to Bit
+  ```java
+  String decimalToBit(int n){
+  	StringBuilder sb = new StringBuilder();
+      while(n > 0){
+  		sb.append(n % 2);
+  		n = n / 2;
+  	}
+  	return sb.reverse().toString();
+  }
+  ```
+  Using Java API
+  ```java
+  int num = 4;
+  String s = Integer.toBinaryString(num);
+  // Alternative
+  String s = Integer.toString(num, 2);
+  ```
+  ### Bit to Decimal
+  ```java
+  int binaryToDecimal(String n){
+      String num = n;
+      int dec_value = 0;
+       
+      // Initializing base value to 2^0
+      int base = 1;
+       
+      int len = num.length();
+      for (int i = len - 1; i >= 0; i--){
+          if (num.charAt(i) == '0'){
+              dec_value += 0 * base;
+              base = base * 2;
+          } else{
+              dec_value += 1 * base;
+              base = base * 2;
+          }
+      }
+      return dec_value;
+  }
+  ```
+  Using Java API
+  ```java
+  String s = "110010";
+  // converts String to int using base two
+  int decimalValue = Integer.parseInt(s, 2);
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

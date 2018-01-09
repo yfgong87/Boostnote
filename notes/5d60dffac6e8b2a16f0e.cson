@@ -6,7 +6,9 @@ content: '''
   I: 最长路线必须从`parent`到`child`
   
   Summary:
-  A helper method return the length of the Longest Consecutive Path of the current root, including the root itself.
+  - PostOrder traversal of the tree and return the longest consecutive path starting at current node to its parent
+  - Then the parent node can examine if itself can be included in this consecutive path.
+  - The recursive helper method return the length of the Longest Consecutive Path starting at the current node, including the node itself.
   ```java
   public class Solution {
       /**
@@ -149,4 +151,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T02:48:00.281Z"
-updatedAt: "2017-12-30T22:15:57.541Z"
+updatedAt: "2018-01-08T05:53:06.318Z"

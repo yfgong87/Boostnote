@@ -83,7 +83,8 @@ content: '''
               slow = slow.next;
               fast = fast.next.next;
               if (slow == fast) {
-                  while (entry != slow) {
+  				// 注意判断条件 entry != slow.next
+                  while (entry != slow.next) {
                       entry = entry.next;
                       slow = slow.next;
                   }
@@ -95,8 +96,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T05:47:16.427Z"
-updatedAt: "2017-12-09T18:17:09.568Z"
+updatedAt: "2018-01-02T03:00:43.172Z"
