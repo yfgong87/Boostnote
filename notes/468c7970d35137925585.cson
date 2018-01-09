@@ -85,8 +85,10 @@ content: '''
   
   Same as above except only adding the first/last element of the map value.
 '''
-tags: []
+tags: [
+  "PocketGem"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T17:38:48.601Z"
-updatedAt: "2018-01-07T07:52:05.226Z"
+updatedAt: "2018-01-09T21:43:35.185Z"

@@ -112,8 +112,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "PocketGem"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-08T00:16:04.452Z"
-updatedAt: "2017-12-29T04:09:18.085Z"
+updatedAt: "2018-01-09T21:46:35.202Z"

@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "2Queues = Stack vs 2Stacks = Queue"
+title: "Implement Stack using Queues"
 content: '''
-  # 2Queues = Stack vs 2Stacks = Queue
+  ### Implement Stack using Queues
   两个`Queue`实现`Stack`
   ```java
   class Stack {
@@ -42,20 +42,17 @@ content: '''
        * return the top of the stack
        */
       public int peek() {
-          moveItems();                //queue1只留最后一个数(最后加入的数)
-          int item = queue1.poll();   //queue1最后一个数就是stack要pop/peek的数，queue1在poll()之后变为空queue
-          swapQueues();               //交换1，2
-          queue1.offer(item);         //把最后一个数再还给queue1
-          return item;
+          moveItems();                
+          return queue1.peek();
       }
       
       /**
        * pop the top of the stack and return it
        */
       public int pop() {
-          moveItems();
-          int item = queue1.poll();
-          swapQueues();   //最后一个数不用还给queue1
+          moveItems();				//queue1只留最后一个数(最后加入的数)
+          int item = queue1.poll();	//queue1最后一个数就是stack要pop/peek的数，queue1在poll()之后变为空queue
+  		swapQueues();      	 		//交换1，2
           return item;
       }
       
@@ -63,10 +60,11 @@ content: '''
        * check the stack is empty or not.
        */
       public boolean isEmpty() {
-          return queue1.isEmpty();
+          return queue1.isEmpty(); // queue1 永远都是先看的那个
       }
   }
   ```
+  ### Implement Queue using Stacks
   两个`Stack`实现`Queue`
   ```java
   public class MyQueue {
@@ -86,36 +84,48 @@ content: '''
           }
       }
       
+  	// O(1)
       public void push(int element) {
           // write your code here
           //新来的数全放进stack1
           stack1.push(element);
       }
-  
+  	
+  	// 最坏 O(n), 平均 O(1)
       public int pop() {
           // write your code here
           //如果stack2为空，继续从stack1逆序转移数
           //将stack1变成逆序然后全部放进stack2，stack
-          if(stack2.empty() == true){
+          if(stack2.isEmpty()){
               move();
           }
           //如果stack2不为空，直接返回stack2的最后一个
           //逆序的最后一个 = 顺序的第一个
           return stack2.pop();
       }
-  
+  	
+  	// 最坏 O(n), 平均 O(1)
       public int peek() {
           // write your code here
-          if(stack2.empty() == true){
+          if(stack2.isEmpty()){
               move();
           }
           return stack2.peek();
       }
+  	
+  	/** Returns whether the queue is empty. */
+      public boolean empty() {
+          return stack1.isEmpty() && stack2.isEmpty();
+      }
   }
   ```
 '''
-tags: []
+tags: [
+  "Queue"
+  "Stack"
+  "Data_Structure"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-19T18:54:54.539Z"
-updatedAt: "2017-10-08T05:34:51.836Z"
+updatedAt: "2018-01-09T18:09:28.744Z"

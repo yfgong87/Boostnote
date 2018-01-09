@@ -27,7 +27,7 @@ content: '''
   a | b = 00101110 = 46
   ```
   
-  #### 异或运算 `^` 不一样为1, 不进位加法！！
+  #### 异或运算 `^` 不一样为1, 不进位加法！！ (XOR, exclusive-or / ex-or)
   ```java
   1 ^ 1 = 0
   1 ^ 0 = 1
@@ -165,4 +165,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-25T00:00:22.388Z"
-updatedAt: "2017-10-25T16:18:45.237Z"
+updatedAt: "2018-01-09T16:59:27.420Z"

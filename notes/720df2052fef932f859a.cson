@@ -1,0 +1,37 @@
+createdAt: "2018-01-09T16:08:39.721Z"
+updatedAt: "2018-01-09T16:13:52.012Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "First Unique Character in String"
+content: '''
+  # First Unique Character in String
+  Solution:
+  - 循环 `s` 中所有 `char`，在 Map 中存每个`char`和其出现频率
+  - 循环 `s` again，一旦发现某个 `char` 只出现了一次，返回
+  
+  Time Complexity: `O(n)`
+  Space Complexity: `O(n)`
+  ```java
+  class Solution {
+      public int firstUniqChar(String s) {
+          int[] hash = new int[256];
+          char[] sc = s.toCharArray();
+          for(int i = 0; i < sc.length; i++){
+              hash[sc[i] - '0']++;
+          }
+          for(int i = 0; i < sc.length; i++){
+              if(hash[sc[i] - '0'] == 1){
+                  return i;
+              }
+          }
+          return -1;
+      }
+  }
+  ```
+'''
+tags: [
+  "HashMap"
+  "String"
+]
+isStarred: false
+isTrashed: false

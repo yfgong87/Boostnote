@@ -12,6 +12,18 @@ content: '''
   Explanation:
   `'e'` appears twice while `'r'` and `'t'` both appear once.
   So `'e'` must appear before both `'r'` and `'t'`. Therefore `"eetr"` is also a valid answer.
+  
+  解法一：
+  Solution: 
+  - Use a `HashMap` to count the frequency of each `char`
+  - Give each frequency a bucket, which stores all the `char` that has the same frequency
+  - Print each bucket from large to small frequency
+  
+  Time Complexity:
+  `O(n)`+ `O(n)` + `O(n)` where `n` = `s.length()`
+  Space Complexity:
+  `O(n)` + `O(n)`
+  
   ```java
   class Solution {
       public String frequencySort(String s) {
@@ -53,9 +65,50 @@ content: '''
       }
   }
   ```
+  解法二：直接对 `HashMap` 进行排序
+  Time Complexity: `O(nlogn)`
+  ```java
+  class Solution {
+      public String frequencySort(String s) {
+          //<char, frequency>
+          Map<Character, Integer> map = new HashMap<>();
+          
+          //每个char都放进map，统计出现频率
+          for(char c : s.toCharArray()){
+              if(!map.containsKey(c)){
+                  map.put(c, 1);
+              } else {
+                  map.put(c, map.get(c) + 1);
+              }
+          }
+          
+          List<Map.Entry<Character, Integer>> entries = new ArrayList<Map.Entry<Character, Integer>>(map.entrySet());
+          Collections.sort(entries, new Comparator<Map.Entry<Character, Integer>>(){
+              public int compare(Map.Entry<Character, Integer> a, Map.Entry<Character, Integer> b){
+                  int dif = b.getValue() - a.getValue();
+                  if(dif == 0){
+                      dif = a.getKey() - b.getKey();
+                  }
+                  return dif;
+              }
+          });
+          
+          //打印
+          StringBuilder sb = new StringBuilder();
+          for(Map.Entry<Character, Integer> entry : entries){
+              for(int i = 0; i < entry.getValue(); i++){
+                  sb.append(entry.getKey());
+              }
+          }
+          return sb.toString();
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "HashMap"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T06:42:49.205Z"
-updatedAt: "2017-10-01T06:43:43.920Z"
+updatedAt: "2018-01-09T16:28:46.808Z"

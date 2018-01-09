@@ -29,7 +29,7 @@ content: '''
           }
       }
   ```
-  ### Remove Duplicate in Array
+  ### Remove Duplicate in Array (Sorted)
   不要求保持原来顺序，只需要不重复的数在数组前面就行了
   ```java
   public class Solution {
@@ -69,7 +69,7 @@ content: '''
               return 0;
           }
           int slow = 0;
-          int fast = 1; //right 从 1 开始
+          int fast = 1; //注意 fast 从 1 开始
           int count = 1; //增加一个count，从 1 开始
           while(fast < nums.length){
               if(nums[fast] == nums[slow]){
@@ -194,4 +194,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-06T18:18:09.235Z"
-updatedAt: "2018-01-02T03:00:07.133Z"
+updatedAt: "2018-01-09T19:37:19.567Z"

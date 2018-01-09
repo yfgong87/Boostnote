@@ -1,0 +1,48 @@
+createdAt: "2018-01-09T21:51:30.951Z"
+updatedAt: "2018-01-09T22:01:18.625Z"
+type: "MARKDOWN_NOTE"
+folder: "d244500e287747fe254a"
+title: "Check whether a given point lies inside a triangle or not"
+content: '''
+  # Check whether a given point lies inside a triangle or not
+    			
+               B(10,30)
+                  / \\
+                 /   \\
+                /     \\
+               /   P   \\      P'
+              /         \\
+       A(0,0) ----------- C(20,0) 
+  ![](https://i.stack.imgur.com/3oDbh.png)	
+  `AB` = `(x2−x1,y2−y1)`, `AC` = `(x3−x1,y3−y1)`
+  `area` = `((x2−x1)(y3−y1) − (x3−x1)(y2−y1)) / 2`
+  ```java
+  static double area(int x1, int y1, int x2, int y2, int x3, int y3) {
+  	return Math.abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
+  }
+        
+  /* A function to check whether point P(x, y) lies
+  inside the triangle formed by A(x1, y1), B(x2, y2) and C(x3, y3) */
+  static boolean isInside(int x1, int y1, int x2, int y2, int x3, int y3, int x, int y){   
+  	/* Calculate area of triangle ABC */
+      double A = area (x1, y1, x2, y2, x3, y3);
+        
+      /* Calculate area of triangle PBC */ 
+      double A1 = area (x, y, x2, y2, x3, y3);
+        
+      /* Calculate area of triangle PAC */ 
+  	double A2 = area (x1, y1, x, y, x3, y3);
+        
+      /* Calculate area of triangle PAB */  
+  	double A3 = area (x1, y1, x2, y2, x, y);
+          
+      /* Check if sum of A1, A2 and A3 is same as A */
+      return (A == A1 + A2 + A3);
+  }
+  ```
+'''
+tags: [
+  "PocketGem"
+]
+isStarred: false
+isTrashed: false
