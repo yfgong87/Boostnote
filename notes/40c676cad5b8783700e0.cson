@@ -70,8 +70,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T17:15:04.366Z"
-updatedAt: "2017-12-30T23:58:57.104Z"
+updatedAt: "2018-01-09T23:45:57.533Z"

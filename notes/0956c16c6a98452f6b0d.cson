@@ -13,9 +13,9 @@ content: '''
   Solution:
   - First use a `HashMap` to count the occurrence of each word
   - Then use a PriorityQueue which is of size k, traverse through each `<key value>` pairs in the `HashMap` and keep the top K frequent pair
-  - The priorityQueue will be a `minHeap` in order to keep the top k, in the end we print the PriorityQueue
+  - The priorityQueue will be a `minHeap` in order to keep the top `k`, in the end we print the PriorityQueue in reverse order (frequency from high to low)
   
-  时间 `O(n)` + `O(nlogk)`，空间 `O(n)` + `O(k)`
+  时间 `O(n)` + `O(nlogk)`，where n = number of word in words, 空间 `O(n)` + `O(k)`
   最终复杂度：时间 `O(nlogk)`，空间 `O(n)`
   ```java
   class Solution {
@@ -90,6 +90,8 @@ content: '''
       }
   }
   ```
+  ### 系统设计
+  [System Design of Top K](http://zpjiang.me/2017/11/13/top-k-elementes-system-design/)
 '''
 tags: [
   "PocketGem"
@@ -99,4 +101,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-15T22:01:45.523Z"
-updatedAt: "2018-01-09T16:30:15.513Z"
+updatedAt: "2018-01-11T22:14:17.659Z"

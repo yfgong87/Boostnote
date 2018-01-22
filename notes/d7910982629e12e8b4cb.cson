@@ -1,12 +1,77 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Roman to Integer"
+title: "Integer to Roman & Roman to Integer"
 content: '''
-  # Roman to Integer
+  # Integer to Roman & Roman to Integer
+  ### Integer to Roman
+  Solution:
+  
+  Sort the numeral representation of all roman number that are multiples of `10`, `9`, `5`, `4`, divide and mod `n` by these numbers in order
+  ```java
+  public class Solution {
+      /*
+       * @param n: The integer
+       * @return: Roman representation
+       */
+      public String intToRoman(int n) {
+          // write your code here
+          StringBuilder sb = new StringBuilder();
+  		//从大到小依次除
+          int[] numeral = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+          String[] roman = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+          for(int i = 0; i < 13; i++){
+              int m = n / numeral[i];
+              if(m != 0){
+                  for(int j = 0; j < m; j++){
+                      sb.append(roman[i]);
+                  }
+              }
+              n = n % numeral[i];
+          }
+          return sb.toString();
+      }
+  }
+  ```
+  
+  ### Roman to Integer
   `IV` -> `4`
   `XII` -> `12`
   `XXI` -> `21`
   `XCIX` -> `99`
+  HashMap写法
+  ```java
+  public class Solution {
+      /*
+       * @param s: Roman representation
+       * @return: an integer
+       */
+      public int romanToInt(String s) {
+  		// First create a HashMap representation from roman to integer
+          Map<Character, Integer> map = new HashMap<>();
+          map.put('I', 1);
+          map.put('V', 5);
+          map.put('X', 10);
+          map.put('L', 50);
+          map.put('C', 100);
+          map.put('D', 500);
+          map.put('M', 1000);
+          char[] sc = s.toCharArray();
+          int sum = 0;
+  		// Iterate each roman letter:
+  		// - See if roman[i] is smaller than roman[i + 1], if so, substract roman[i]
+  		// - Otherwise add roman[i] to sum
+          for(int i = 0; i < sc.length - 1; i++){
+              if(map.get(sc[i]) < map.get(sc[i + 1])){
+                  sum -= map.get(sc[i]);
+              } else {
+                  sum += map.get(sc[i]);
+              }
+          }
+  		// Always add the last roman
+          return sum += map.get(sc[sc.length - 1]);
+      }
+  }
+  ```
   ```java
   public class Solution {
       /*
@@ -56,65 +121,12 @@ content: '''
       }
   }
   ```
-  HashMap写法
-  ```java
-  public class Solution {
-      /*
-       * @param s: Roman representation
-       * @return: an integer
-       */
-      public int romanToInt(String s) {
-          // write your code here
-          Map<Character, Integer> map = new HashMap<>();
-          map.put('I', 1);
-          map.put('V', 5);
-          map.put('X', 10);
-          map.put('L', 50);
-          map.put('C', 100);
-          map.put('D', 500);
-          map.put('M', 1000);
-          char[] sc = s.toCharArray();
-          int sum = 0;
-          for(int i = 0; i < sc.length - 1; i++){
-              if(map.get(sc[i]) < map.get(sc[i + 1])){
-                  sum -= map.get(sc[i]);
-              } else {
-                  sum += map.get(sc[i]);
-              }
-          }
-          return sum += map.get(sc[sc.length - 1]);
-      }
-  }
-  ```
-  # Integer to Roman
-  ```java
-  public class Solution {
-      /*
-       * @param n: The integer
-       * @return: Roman representation
-       */
-      public String intToRoman(int n) {
-          // write your code here
-          StringBuilder sb = new StringBuilder();
-  		//从大到小依次除
-          int[] numeral = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-          String[] roman = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
-          for(int i = 0; i < 13; i++){
-              int m = n / numeral[i];
-              if(m != 0){
-                  for(int j = 0; j < m; j++){
-                      sb.append(roman[i]);
-                  }
-              }
-              n = n % numeral[i];
-          }
-          return sb.toString();
-      }
-  }
-  ```
 '''
-tags: []
+tags: [
+  "HashMap"
+  "String"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T16:10:54.480Z"
-updatedAt: "2017-12-25T04:33:56.128Z"
+updatedAt: "2018-01-22T15:16:04.245Z"

@@ -37,13 +37,23 @@ content: '''
   - `int` `search`(`Object` `element`): Searches for `element` in the `stack`. If found, its OFFSET from the top of the `stack` is returned. Otherwise, `-1` is returned. i.e. Top element will return `1`.
   
   # Deque
+  两种实现：
+  - Linked structures are possibly the worst structure to iterate with a cache miss on each element. On top of it they consume way more memory.
+  - If you need add/remove of the both ends, ArrayDeque is significantly better than a linked list. Random access each element is also O(1) for a cyclic queue.
+  - The only better operation of a linked list is removing the current element during iteration.
+  ```java
+  Deque<Integer> deque = new ArrayDeque<>();
+  Deque<Integer> deque = new LinkedList<>();
+  ```
   - `offerFirst(e)`
   - `offerLast(e)` 
   - `removeFirst()` 
   - `removeLast()`
+  - `peekFirst()`
+  - `peekLast()`
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-12T14:54:35.945Z"
-updatedAt: "2017-10-11T00:40:28.763Z"
+updatedAt: "2018-01-21T03:09:22.742Z"

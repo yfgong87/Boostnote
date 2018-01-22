@@ -1,29 +1,14 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Majority Number"
+title: "Majority Number / Element I"
 content: '''
-  # Majority Number
-  - `O(n)` time complexity, `O(1)` space complexity
-  ```java
-  public int majorityNumber(List<Integer> nums) {
-          // write your code here
-          int num = -1;
-          int count = 0;
-          for(int i = 0; i < nums.size(); i++){
-              if(count == 0){
-                  num = nums.get(i);
-                  count = 1;
-              } else if (count != 0){
-                  if(nums.get(i) == num){
-                      count++;
-                  } else {
-                      count--;
-                  }
-              }
-          }
-          return num;
-      }
-  ```
+  ### Majority Number / Element I
+  Given an array of size n, find the majority element. The majority element is the element that appears more than `n/2` times.
+  
+  解法一：
+  - `HashMap` 统计出现频率，一旦某个数出现频率高于 `n / 2`，返回这个数
+  
+  Time Complexity
   - `O(n)` time complexity, `O(n)` space complexity
   ```java
   public int majorityNumber(List<Integer> nums) {
@@ -45,10 +30,84 @@ content: '''
           return -1;
       }
   ```
+  解法二：
+  - Maintain a candidate number and a running count for the candidate number
+  - If `count > 0`, `count++` if next number is equal to candidate number or `count--` if next number is not equal to candidate
+  - update the candidate number if `count == 0`
+  
+  Time Complexity
+  - `O(n)` time complexity, `O(1)` space complexity
+  ```java
+  public int majorityNumber(List<Integer> nums) {
+          // write your code here
+          int candidate = -1;
+          int count = 0;
+          for(int i = 0; i < nums.size(); i++){
+              if(count == 0){
+                  candidate = nums.get(i);
+                  count = 1;
+              } else if (count != 0){
+                  if(nums.get(i) == candidate){
+                      count++;
+                  } else {
+                      count--;
+                  }
+              }
+          }
+          return candidate;
+      }
+  ```
+  ### Majority Number / Element II
+  ```java
+  class Solution {   
+      public List<Integer> majorityElement(int[] nums) {
+          List<Integer> result = new ArrayList<>();
+          int candidate1 = -1;
+          int candidate2 = -1;
+          int count1 = 0;
+          int count2 = 0;
+          for(int i = 0; i < nums.length; i++){
+              if(nums[i] == candidate1){
+                  count1++;
+              } else if(nums[i] == candidate2){
+                  count2++;
+              } else if(count1 == 0){
+                  candidate1 = nums[i];
+                  count1 = 1;
+              } else if(count2 == 0){
+                  candidate2 = nums[i];
+                  count2 = 1; 
+              } else {
+                  count1--;
+                  count2--;
+              }
+          }
+  		// 统计 candidate1 和 2 总共出现多少次
+          count1 = 0;
+          count2 = 0;
+          for(int num : nums){
+              if(num == candidate1){
+                  count1++;
+              } else if(num == candidate2){
+                  count2++;
+              }
+          }
+          if(count1 > nums.length / 3){
+              result.add(candidate1);
+          }
+          if(count2 > nums.length / 3){
+              result.add(candidate2);
+          }
+          return result;
+      }
+  }
+  ```
   
 '''
-tags: []
+tags: [
+  "HashMap"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-05T17:11:58.077Z"
-updatedAt: "2017-09-05T17:16:01.190Z"
+updatedAt: "2018-01-10T01:50:49.182Z"

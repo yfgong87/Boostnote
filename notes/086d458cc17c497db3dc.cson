@@ -1,10 +1,17 @@
 createdAt: "2018-01-03T01:19:06.404Z"
-updatedAt: "2018-01-03T03:40:44.388Z"
+updatedAt: "2018-01-18T05:05:04.340Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Validate Number"
 content: '''
   # Validate Number
+  What are considered as number?
+  - `[0 - 9]`: `01`
+  - `decimal`: `0.1`,`-0.1`,`1.`,`.1`,`0..1`
+  - `scientific`: `1e10`, `1e-10`, `1e01`,`1ee10`,`10e`,`e10`
+  - `mix`: `0.1e10`
+  
+  
   All we need is to have a couple of flags so we can process the string in linear time:
   We start with trimming.
   
@@ -57,7 +64,56 @@ content: '''
       }
   }
   ```
+  用 `Switch` 写
+  ```java
+  class Solution {
+      public boolean isNumber(String s) {
+          boolean hasNum = false;
+          boolean hasDot = false;
+          boolean hasE = false;
+          s = s.trim();
+          for(int i = 0; i < s.length(); i++){
+              if(s.charAt(i) >= '0' && s.charAt(i) <= '9'){
+                  hasNum = true;
+                  continue;
+              }
+              switch(s.charAt(i)){
+                  case '.':
+                      if(hasDot || hasE){
+                          return false;
+                      } else {
+                          hasDot = true;
+                      }
+                      break;
+                  case 'e':
+                      if(hasE || !hasNum){
+                          return false;
+                      } else {
+                          hasE = true;
+                          hasNum = false;
+                      }
+                      break;
+                  case '+':
+                      if(i != 0 && s.charAt(i - 1) != 'e'){
+                          return false;
+                      }
+                      break;
+                  case '-':
+                      if(i != 0 && s.charAt(i - 1) != 'e'){
+                          return false;
+                      }
+                      break;
+                  default:
+                      return false;
+              }
+          }
+          return hasNum;
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false

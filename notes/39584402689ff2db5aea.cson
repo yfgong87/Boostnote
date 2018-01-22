@@ -5,7 +5,7 @@ content: '''
   # N Queen
   ![DFS Tree](http://dl2.iteye.com/upload/attachment/0048/6298/84d26802-8906-35b1-b9c3-7e381dd4125a.jpg)
   
-  树的高度为`n`，每一层都有`n`种摆放可能，总复杂度`n^n`
+  树的高度为`n`，第一层都有`n`种摆放可能，第二层`n - 1`种可能，总复杂度`n!`
   ```java
   public class Solution {
       /*
@@ -94,4 +94,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-23T04:17:46.883Z"
-updatedAt: "2017-12-24T04:37:59.634Z"
+updatedAt: "2018-01-10T05:38:32.051Z"

@@ -1,0 +1,44 @@
+createdAt: "2018-01-21T21:34:48.463Z"
+updatedAt: "2018-01-21T21:44:41.184Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Container With Most Water"
+content: '''
+  # Container With Most Water
+  	4	2	3	1	2	3
+  	|
+  	|		|			|
+  	|	|	|		|	|
+  	|	|	|	|	|	|
+  	a1	a2	a3	a4	a5	a6
+  Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.
+  
+  Soution:
+  
+  - Brute Force will require finding out each pair of height (`O(n^2)`), then calculate the area.
+  - Use Two Pointers moving towards each other from the start and end of the x axis, a pointer moves one step only when the height of this pointer is smaller than the other pointer.
+  ```java
+  class Solution {
+      public int maxArea(int[] height) {
+          int left = 0;
+          int right = height.length - 1;
+          int max = 0;
+          while(left < right){
+              int area = Math.min(height[left], height[right]) * (right - left);
+              max = Math.max(max, area);
+              if(height[left] < height[right]){
+                  left++;
+              } else {
+                  right--;
+              }
+          }
+          return max;
+      }
+  }
+  ```
+'''
+tags: [
+  "Two_Pointer"
+]
+isStarred: false
+isTrashed: false

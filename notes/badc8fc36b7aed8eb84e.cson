@@ -4,8 +4,12 @@ title: "3Sum & 4Sum"
 content: '''
   # 3Sum & 4Sum
   ### 3Sum
-  数组排序 -> 枚举第一个数 -> 在第一个数往后的`subArray`中用`Two sum`找第二和第三个数
-  注意去重
+  找到 num1 + num2 + num3 = 0，返回所有可能的组合
+  Solution:
+  - 数组排序 -> 枚举第一个数 -> 在第一个数往后的`subArray`中用`Two sum`找第二和第三个数
+  - 注意去重
+  
+  Time: `O(n^2)`
   ```java
   public class Solution {
       /*
@@ -48,7 +52,7 @@ content: '''
               } else {
                   //Deep Copy
                   ArrayList<Integer> result = new ArrayList<Integer>();
-                  result.add(-target);
+                  result.add(-target);   // -target = 第一个数，三个数中最小的
                   result.add(numbers[left]);
                   result.add(numbers[right]);
                   results.add(result);
@@ -106,6 +110,7 @@ content: '''
   }
   ```
   ### 3Sum Smaller
+  找到 `nums[i] + nums[j] + nums[k] < target`
   ```java
   class Solution {
       int count = 0;
@@ -137,6 +142,7 @@ content: '''
   }
   ```
   ### 4Sum
+  以下 code 当题目要求解中的四个数不能有任何重复时可以通过
   ```java
   public class Solution {
       /*
@@ -203,9 +209,62 @@ content: '''
       }
   }
   ```
+  以下 code 当题目要求不能有重复解，但每个解中可以有重复数时可以通过，使用`HashSet`去重
+  ```java
+  class Solution {
+      Set<String> set = new HashSet<>();
+      public List<List<Integer>> fourSum(int[] nums, int target) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          Arrays.sort(nums);
+          for(int i = 0; i < nums.length; i++){
+              for(int j = i + 1; j < nums.length; j++){
+                  int complement = target - nums[i] - nums[j];
+                  int left = j + 1;
+                  int right = nums.length - 1;
+                  helper(results, nums, left, right, complement, i , j);
+              }
+          }
+          return results;
+      }
+      
+      public void helper(List<List<Integer>> results,
+                         int[] nums,
+                         int left,
+                         int right,
+                         int complement,
+                         int i,
+                         int j){
+          while(left < right){
+              if(nums[left] + nums[right] < complement){
+                  left++;
+              } else if(nums[left] + nums[right] > complement){
+                  right--;
+              } else {
+                  StringBuilder sb = new StringBuilder();
+                  sb.append(nums[i]).append(nums[j]).append(nums[left]).append(nums[right]); 
+                  String s = sb.toString();
+                  if(!set.contains(s)){
+                      set.add(s);
+                      List<Integer> list = new ArrayList<Integer>();
+                      list.add(nums[i]);
+                      list.add(nums[j]);
+                      list.add(nums[left]);
+                      list.add(nums[right]);
+                      results.add(list);
+                  }
+                  left++;
+                  right--;
+              }
+          }
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T19:24:18.564Z"
-updatedAt: "2017-12-29T02:16:41.534Z"
+updatedAt: "2018-01-22T02:30:51.949Z"

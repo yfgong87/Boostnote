@@ -4,13 +4,13 @@ title: "Merge k sorted list"
 content: '''
   # Merge k sorted list
   ### 时间复杂度: `k`个平均长度为`n`的list
-  - 解法1(`divide & conquer`): 与解法3类似，一共递归`logk`层，每层每个数进行了一次操作，故时间复杂度为`O(nlogk)`
-  - 解法2(`Heap`): 每个元素进入堆一次，出去堆一次，一共是`2n`次，因为堆得大小是`k`，所以每次操作的复杂度是`logk`，故时间复杂度也是`O(nlogk)`
-  - 解法3(`两两合并`): `List.size()`开始值为`k`, 对于每一层，`Lists.size()`都会减半，所以总共需要`logk`层，而在每一层，所有的数(共`n` 个)都只进行了一次操作，故时间复杂度为`O(nlogk)`
+  - 解法1(`divide & conquer`): 一共递归`logk`层，每层每个数(`n * k`)进行了一次操作，故时间复杂度为`O(n*k*logk)`
+  - 解法2(`Heap`): `k`个 `list` 放进 `minHeap`，按照`list`的第一个元素 `heapify`，每次 poll 出最小值，加入新 list, 并将最小值的 `next` 加入`minHeap`。最终每个元素进入堆一次，出去堆一次，一共是`2*(n*k)`次，因为堆得大小是`k`，所以每次操作的复杂度是`logk`，故时间复杂度也是`O(n*k*logk)`
+  - 解法3(`两两合并`): `List.size()`开始值为`k`, 对于每一层，`Lists.size()`都会减半，所以总共需要`logk`层，而在每一层，所有的数(共`n*k` 个)都只进行了一次操作，故时间复杂度为`O(n*k*logk)`
   
   ### 空间复杂度: `k`个平均长度为`n`的list
   - 解法1(`divide & conquer`): 因为链表的合并不需要额外空间，故空间复杂度为`O(1)`
-  - 解法2(`Heap`): 因为需要额外的`k`大小的堆，，故空间复杂度为`O(k)`
+  - 解法2(`Heap`): 因为需要额外的`k`大小的堆，故空间复杂度为`O(k)`
   - 解法3(`两两合并`): 因为链表的合并不需要额外空间，故空间复杂度为`O(1)`
   
   ### 解法一：Divide & Conquer
@@ -53,9 +53,39 @@ content: '''
           return dummy.next;
   }
   ```
+  ### 解法二：PriorityQueue
+  ```java
+  class Solution {
+      public ListNode mergeKLists(ListNode[] lists) {
+          PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(new Comparator<ListNode>(){
+              public int compare(ListNode a, ListNode b){
+                  return a.val - b.val;
+              }
+          });
+          for(ListNode list : lists){
+              if(list != null){
+                  pq.add(list);
+              }
+          }
+          ListNode dummy = new ListNode(0), curr = dummy;
+          while(!pq.isEmpty()){
+              ListNode head = pq.poll();
+              curr.next = head;
+              curr = curr.next;
+              if(head.next != null){
+                  pq.add(head.next);
+              }
+          }
+          return dummy.next;
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-02T21:22:07.620Z"
-updatedAt: "2017-09-05T23:10:30.051Z"
+updatedAt: "2018-01-18T21:22:08.978Z"

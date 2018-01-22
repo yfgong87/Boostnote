@@ -172,13 +172,20 @@ content: '''
   //Get first and last element
   linkedList.getFirst();
   linkedList.getLast();
+  
+  linkedList.peekFirst(); // retrieve but not remove
+  linkedList.peekLast();
+  
   linkedList.subList(1, 2); //From index 1 to 2
   linkedList.indexOf("String");
   
-  //Common methods
-  linkedList.add("String");
+  //Add, Remove and Set
+  linkedList.add("String"); //add to the tail
   linkedList.add(1, "String");
   linkedList.addAll(new LinkedList<String>());
+  linkedList.addFirst();
+  linkedList.addLast();
+  
   linkedList.remove("String");
   linkedList.remove(1, "String");
   linkedList.removeAll(new LinkedList<String>());
@@ -195,4 +202,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T02:58:27.081Z"
-updatedAt: "2017-10-11T07:33:15.391Z"
+updatedAt: "2018-01-15T20:54:55.718Z"

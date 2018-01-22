@@ -1,0 +1,121 @@
+createdAt: "2018-01-20T03:42:48.022Z"
+updatedAt: "2018-01-21T06:15:47.490Z"
+type: "MARKDOWN_NOTE"
+folder: "8d19d56ee029f3fa592b"
+title: "Palindrome Substring / Count how many palindromic substring"
+content: '''
+  # Palindrome Substring / Count how many palindromic substring
+  ### 解法一：Brute Force `O(n^3)`
+  Find all the substring of the string (`O(n^2)`), test if each of these subtring is a palindrome
+  重复在于，对于`"abca"`，当我已知 `"bc"` 不是回文时，已经无需判断 `"abca"`
+  ```java
+  class Solution {
+      public int countSubstrings(String s) {
+          if(s == null || s.length() == 0){
+              return 0;
+          }
+          int count = 0;
+          for(int i = s.length() - 1; i >= 0; i--){
+              for(int j = 0; j <= i; j++){
+                  String sub = s.substring(j, i + 1);
+                  if(isValid(sub)){
+                      count++;
+                  }
+              }
+          }
+          return count;
+      }
+      
+      public boolean isValid(String s){
+          int i = 0;
+          int j = s.length() - 1;
+          while(i < j){
+              if(s.charAt(i) != s.charAt(j)){
+                  return false;
+              }
+              i++;
+              j--;
+          }
+          return true;
+      }
+  }
+  ```
+  ### 解法二：expand 
+  Time Complexity: `O(n^2)` worst case when we need to expand `n` times for each `char`
+  Space: `O(1)`
+  ```java
+  class Solution {
+      int count = 0;
+      public int countSubstrings(String s) {
+          for(int i = 0; i < s.length(); i++){
+              expand (s, i, i);
+              expand (s, i, i + 1);
+          }
+          return count;
+      }
+      
+      public void expand (String s, int i, int j){
+          while(i >= 0 && j <= s.length() - 1){
+              if(s.charAt(i) != s.charAt(j)){
+                  break;
+              } else {
+                  count++;
+                  i--;
+                  j++;
+              }
+          }
+      }
+  }
+  ```
+  ### 解法三：DP
+  - `f[i][j]`: 从 `i` 到 `j` 的 substring 是否回文
+  - 初始化: 
+    - `f[i][i]` 都是回文
+    - `f[i][i + 1]` 相邻的两个字符如果相同，其组成的 substring 也是回文
+  - `f[i][j]` is palindrome if `f[i + 1][j - 1]` is palindrome and `s.charAt(i) == s.charAt(j)`
+  - If `f[i][j]` is palindrome, `count++`, return `count`
+  
+  Time: `O(n^2)`, Space: `O(n^2)`
+  ```java
+  class Solution {
+      //  012
+      // "aaa"
+      //f[i][i]    f[i][i+1]
+      // 1 0 0       1 1 0        1 1 1
+      // 0 1 0       0 1 1        0 1 1
+      // 0 0 1       0 0 1        0 0 1
+      public int countSubstrings(String s) {
+          int count = 0;
+          int n = s.length();
+          boolean f[][] = new boolean[n][n];
+          for(int i = 0; i < n; i++){
+              f[i][i] = true;
+              count++;
+          }
+          for(int i = 0; i < n - 1; i++){
+              if(s.charAt(i) == s.charAt(i + 1)){
+                  f[i][i + 1] = true;
+                  count++;
+              }
+          }
+  		// 先有 f[i + 1][j - 1], 再有 f[i][j]，所以 i 从大到小 --， j 从小到大 ++
+          for(int i = n - 1; i >= 0; i--){
+              for(int j = i + 2; j < n; j++){
+                  if(s.charAt(i) == s.charAt(j) && f[i + 1][j - 1]){
+                      f[i][j] = true;
+                      count++;
+                  }
+              }
+          }
+          return count;
+      }
+  }
+  ```
+'''
+tags: [
+  "Linkedin"
+  "Dynamic_Programming"
+  "Two_Pointer"
+]
+isStarred: false
+isTrashed: false

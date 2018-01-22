@@ -4,18 +4,58 @@ title: "Sparse Matrix Multiplication"
 content: '''
   # Sparse Matrix Multiplication
   ```java
+  			        C     =     A      *     B
+  	[row,col]     [n,m]	 	  [n,t]		   [t,m]
+  	公式：	       C[i][j]  +=  A[i][k]  *   B[k][j]   (0 <= k < t)
+  ```
+  Brute Force 解法: `O(n^3)`
+  ```java
+  public class Solution {
+      /**
+       * @param A a sparse matrix
+       * @param B a sparse matrix
+       * @return the result of A * B
+       */
+      public int[][] multiply(int[][] A, int[][] B) {
+          // Write your code here
+          int n = A.length;     // n = A 的 row
+          int m = B[0].length;  // m = B 的 col
+          int t = A[0].length;  // t = A 的 col = B 的 row
+          int[][] C = new int[n][m];
+  		
+  		// 顺序为 n, m, t
+          for (int i = 0; i < n; i++) {
+              for (int j = 0; j < m; j++) {
+                  for (int k = 0; k < t; k++) {
+                      C[i][j] += A[i][k] * B[k][j];
+                  }
+              }
+          }
+          return C;
+      }
+  }
+  
+  ```
+  优化解法: `O(n^3)` (优化了常数项)
+  ```java
   class Solution {
       public int[][] multiply(int[][] A, int[][] B) {
-          int m = A.length;    // m = A 的 row
-          int n = B[0].length; // n = B 的 col
+          int n = A.length;    // n = A 的 row
+          int m = B[0].length; // m = B 的 col
           int t = A[0].length; // t = A 的 col = B 的 row
-          int[][] C = new int[m][n];
-          for(int i = 0; i < m; i++){
+          int[][] C = new int[n][m];
+  		
+  		// 顺序为 n, t, m
+          for(int i = 0; i < n; i++){
               for(int k = 0; k < t; k++){
                   if(A[i][k] == 0){
                       continue;
                   }
-                  for(int j = 0; j < n; j++){
+                  for(int j = 0; j < m; j++){
+  					//Not necessary since the if will cost O(1)
+  					//if(B[k][j] == 0){
+                      //	continue;
+                  	//}
                       C[i][j] += A[i][k] * B[k][j];
                   }
               }
@@ -24,6 +64,7 @@ content: '''
       }
   }
   ```
+  进一步优化：去掉 B Matrix 中的所有 0, 这样 B 中的 0 就不会进入循环了
   ```java
   public class Solution {
       /*
@@ -33,25 +74,25 @@ content: '''
        */
       public int[][] multiply(int[][] A, int[][] B) {
           // write your code here
-          //A[m][t], B[t][n], C[m][n]
-          int m = A.length;
+          //A[n][t], B[t][m], C[n][m]
+          int n = A.length;
           int t = A[0].length;
-          int n = B[0].length;
-          int[][] C = new int[m][n];
+          int m = B[0].length;
+          int[][] C = new int[n][m];
           //Remove 0 in B
           List<List<Integer>> col = new ArrayList<List<Integer>>();
           List<List<Integer>> val = new ArrayList<List<Integer>>();
           for(int i = 0; i < t; i++){
               col.add(new ArrayList<Integer>());
               val.add(new ArrayList<Integer>());
-              for(int j = 0; j < n; j++){
+              for(int j = 0; j < m; j++){
                   if(B[i][j] != 0){
                       col.get(i).add(j);
                       val.get(i).add(B[i][j]);
                   }
               }
           }
-          for(int i = 0; i < m; i++){
+          for(int i = 0; i < n; i++){
               for(int k = 0; k < t; k++){
                   if(A[i][k] == 0){
                       continue;
@@ -68,8 +109,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "Math"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-05T19:55:51.769Z"
-updatedAt: "2018-01-04T04:59:21.658Z"
+updatedAt: "2018-01-19T03:02:59.664Z"

@@ -13,12 +13,21 @@ content: '''
   	  
   Returns `[[4, 5, 3], [2], [1]]`.
   
+  Get Depth Order: `4` -> depth `1`, `5` -> depth `1`, `2` -> depth `2`, `3` -> depth `1`, `1` -> depth `3`
+  <depth, Node>
+  `1`: `4`, `5`, `3`
+  `2`: `2`
+  `3`: `1`
+  
   ### Summary
-  First traverse the tree and assigning a depth label to all nodes. Leaf Node depth will be `1`. Use a `HashMap` to store `<depth, list of node with same depth>`. Then sort the `HashMap` based on `depth` from small to big. Print the sorted `HashMap`
+  First traverse the tree and assigning a `depth` label to all nodes. This should be done in a postorder way that we get the depth of left child first, then right child, then root. Leaf Node depth will be `1`. Use a `HashMap` to store `<depth, list of node with same depth>`. Then sort the `HashMap` based on `depth` from small to big. Print the sorted `HashMap`
   
   Time complexity:
   getDepth: `O(n)`
-  sort HashMap: sorting 花费 `mlogm` where `m` =  `logn` (depth of tree)
+  sort HashMap: sorting 花费 `mlogm` where `m` =  `depth of tree`
+  
+  Space complexity:
+  HashMap: `O(depth of tree)`
   ```java
   public class Solution {
       /*
@@ -62,8 +71,9 @@ content: '''
 '''
 tags: [
   "Binary_Tree"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-11T06:01:46.814Z"
-updatedAt: "2017-12-30T21:54:40.343Z"
+updatedAt: "2018-01-22T03:04:05.231Z"

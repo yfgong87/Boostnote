@@ -3,6 +3,14 @@ folder: "8d19d56ee029f3fa592b"
 title: "Permutation II"
 content: '''
   # Permutation II
+  Difference from Permutation I:
+  - Now we have duplicates in the number array. 
+  - We need to make sure when we have a solution with duplicates number in it, the order of these duplicates number has to stay same. Which even though there might be many permutation with these duplicates number, we only keep one as a representative.
+  - How can we quickly determine if a number has a dulicates in the array? Since for each recursive call, we always scan from the beginning of the array, we just need to make sure that all the duplicates are clustered together, then when I am processing a number, I just need to check its adjacent number and make sure it does not have the same value. If it is a duplicates, I check whether that duplicate has already been selected or not. If so I will skip the current number which has the same value and actually abandon the entire branch.
+  - So my solution is to sort all numbers in array and add a if statement in the dfs.
+  
+  Time complexity: `O(n!)` as recursion tree has `n` level, each level has `n, n - 1, n - 2, ... 1` branching choice. Same as Permutation I because sorting `nlogn` is no match for `n!`, also we are just cutting off some branches due to duplicate numbers which is constant complexity
+  Space complexity: `O(n)` extra space for `visited[]`, on top of the memory we used in stack during recursion
   ```java
   class Solution {
       //{1(1), 1(2), 2}
@@ -52,8 +60,9 @@ content: '''
 tags: [
   "DFS"
   "backtracking"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T18:29:42.817Z"
-updatedAt: "2018-01-02T02:58:01.356Z"
+updatedAt: "2018-01-20T03:39:43.742Z"

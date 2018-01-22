@@ -3,17 +3,27 @@ folder: "8d19d56ee029f3fa592b"
 title: "Factorization (Factor Combination)"
 content: '''
   # Factorization (Factor Combination)
+  Solution:
+  - Crude solution is to keep divide the number by numbers that are less than it, until the remain is 1. 
+  - When the remain is not divisible by the number we pick, we can skip this number
+  - When remain is 1, we need to check if there is only 1 factor which is the number itself, if not, we add all the factors to results.
+  - Recursion + Backtracking. In first level of the recursion, the divisors candidates starts from `2`, goes all the way up to `n`. In the next level, the divisor candidates starts from the divisor we chose in the last level. Otherwise there will be redundant calculation.
+  - Demo
+  
   Time Complexity:
-  - 粗略计算：一个数大约有`logn`个约数，递归树最多`logn`层，每层有最多`n`种分叉可能，复杂度为`n^(logn)`
+  - 一个数最多有`logn`个约数(全是`2`)，因此递归树最多`logn`层，每层有最多`n`种分叉可能，复杂度为`n^(logn)`
+  - 如果考虑剪枝，每层最多`sqrt(n)`种分叉？
+  
+  以下待验证：
   - 对于loop到`n`，大约是`O((logn)! * n ^ (logn))`
   - 对于loop到`sqrt(n)`即剪枝情况，大约是`O((logn)! * sqrt(n) ^ (logn))`
   - `(logn)!`为解的个数：就如combination 的解的个数为`n!`一样，如果一个数可能的约数有`logn`个，那么全组合有`(logn)!`个解
   - 在计算每个解的时候，一共递归`logn`层，每一层中都有一个`n`的循环，`n ^ (logn)`
   ```java
-  // 8                                                      (remain % i != 0)
-  //          [2,4]            #[3,?]        [4,2]         #[5,?] #[6?] #[7,?]   #[8,1](solution.size() == 1)
-  // [2,2,2] #[2,3?] [2,4,1]         #[4,4,](start = 4 > 2)
-  //[2,2,2,1]
+  // 8                          (remain % i != 0)                 (remain % i != 0)      (solution.size() == 1)
+  //          [2,] remain = 4      #[3,?]        [4,] remain = 2   #[5,?] #[6?] #[7,?]   #[8,] remain = 1 
+  // [2,2,] #[2,3?] [2,4,] remain = 1   	    #[4,4,](start = 4 > 2)
+  //[2,2,2] remain = 1
   ```
   ```java
   class Solution {  
@@ -101,8 +111,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "Backtracking"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:19:05.939Z"
-updatedAt: "2018-01-02T22:04:13.125Z"
+updatedAt: "2018-01-22T04:05:34.601Z"

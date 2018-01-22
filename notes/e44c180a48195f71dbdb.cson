@@ -20,6 +20,10 @@ content: '''
   - `Map.Entry<K, V>` `TreeMap`.`floorEntry`(`K` `key`)
   - `NavigableMap<K,V>` `TreeMap`.`subMap`(`K` `fromKey`, `boolean` `fromInclusive`, `K` `toKey`, `boolean` `toInclusive`)
   Returns a view of the portion of this map whose keys range from `fromKey` to `toKey`.
+  - `K` `TreeMap`.`firstKey`( )
+  Returns the `lowest` key
+  - `K` `TreeMap`.`lastKey`( )
+  Returns the `highest` key
   ```java
   for (Map.Entry<Integer, String> entry : map.subMap(start, true, end, true).entrySet()) {
       //handle entry.getKey()
@@ -31,9 +35,13 @@ content: '''
   Returns the `least` element in this set `greater` than or equal to the given element, or null if there is no such element.
   - `E` `TreeSet`.`floor`(`E` `e`)
   Returns the `greatest` element in this set `less` than or equal to the given element, or null if there is no such element.
+  - `K` `TreeSet`.`first`( )
+  Returns the `lowest` key
+  - `K` `TreeSet`.`last`( )
+  Returns the `highest` key
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T04:21:16.760Z"
-updatedAt: "2018-01-08T04:21:28.691Z"
+updatedAt: "2018-01-15T20:01:11.733Z"

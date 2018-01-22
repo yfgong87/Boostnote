@@ -1,0 +1,69 @@
+createdAt: "2018-01-21T04:52:25.389Z"
+updatedAt: "2018-01-22T03:39:57.902Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Count Different Palindromic Subsequences"
+content: '''
+  # Count Different Palindromic Subsequences
+  - `f[i][j][k]`: 从 `i` 到 `j`, 以 `k` 开头及结尾的 SubSequence 共有多少个
+  - 初始化: 
+    - `f[i][i][k]` = `1` if `s.charAt(i) == 'a' + k`
+    - `f[i][i + 1][k]` = `2` if `s.charAt(i) == s.charAt(i + 1) = 'a' + k` 
+      - (相邻的两个字符如果相同，例如`aa`，一共能组成两种不同的 Subsequence `a` 和 `aa`)
+  - DP公式：
+    - if `s.charAt(i) != 'a' + k`: `f[i][j]['a' + k]` = `f[i + 1][j]['a' + k]`
+    - if `s.charAt(j) != 'a' + k`: `f[i][j]['a' + k]` = `f[i][j - 1]['a' + k]`
+    - if `s.charAt(i) == s.charAt(j) == 'a' + k`: `f[i][j]['a' + k]` = `2` + `sum of f[i][j]['a' + 0 ~ 4]` 
+  - 返回 `sum of f[0][n - 1]['a' + 0 ~ 4]`
+  
+  Time: `O(n^2)`, Space: `O(n^2)`
+  ```java
+  class Solution {
+    public int countPalindromicSubsequences(String S) {
+      int n = S.length();
+      int mod = 1000000007;
+      int[][][] f = new int[n][n][4];
+  
+      for (int i = n-1; i >= 0; --i) {
+          for (int j = i; j < n; ++j) {
+              for (int k = 0; k < 4; ++k) {
+                  char c = (char) ('a' + k);
+                  if (j == i) {
+                      if (S.charAt(i) == c){
+                          f[i][j][k] = 1;
+                      }
+                  } else { // j > i
+                      if (S.charAt(i) != c) f[i][j][k] = f[i+1][j][k];
+                      else if (S.charAt(j) != c) f[i][j][k] = f[i][j-1][k];
+                      else { // S[i] == S[j] == c
+                          if (j == i+1) f[i][j][k] = 2; // "aa" : {"a", "aa"}
+                          else { // length is > 2
+                              f[i][j][k] = 2;
+                              for (int m = 0; m < 4; ++m) { // count each one within subwindows [i+1][j-1]
+                                  f[i][j][k] += f[i+1][j-1][m];
+                                  f[i][j][k] %= mod;
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  
+      int res = 0;
+      for (int k = 0; k < 4; ++k) {
+          res += f[0][n-1][k];
+          res %= mod;
+      }
+  
+      return res;
+    }
+  }
+  ```
+'''
+tags: [
+  "Dynamic_Programming"
+  "Linkedin"
+]
+isStarred: false
+isTrashed: false

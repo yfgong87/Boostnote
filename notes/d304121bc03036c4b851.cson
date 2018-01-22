@@ -1,5 +1,5 @@
 createdAt: "2017-12-31T16:30:03.183Z"
-updatedAt: "2017-12-31T16:37:36.194Z"
+updatedAt: "2018-01-09T23:45:35.684Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Odd Even LinkedList"
@@ -30,6 +30,8 @@ content: '''
   ```
   ![algorithm](https://leetcode.com/problems/odd-even-linked-list/Figures/328_Odd_Even.svg)
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false

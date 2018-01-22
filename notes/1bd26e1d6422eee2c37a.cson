@@ -1,15 +1,20 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Sqrt I & II"
+title: "Valid Perfect Square"
 content: '''
-  # Sqrt I & II
-  ### Valid Perfect Square
+  # Valid Perfect Square
+  Solution:
+  
+  Use binary search to find a target number, the power of the target number is equal to number. If we can find such a number we return `true`. We should search in a range of `[0, sqrt(n)]`
+  
+  Time complexity: `O(log(sqrt(n)))`
+  
   ```java
   class Solution {
       public boolean isPerfectSquare(int num) {
   		// 如果 num 过大，mid * mid 可能越界，注意用 long 兜住
           long start = 0;
-          long end = num;
+          long end = (long) Math.sqrt(num);
           while(start + 1 < end){
               long mid = start + (end - start) / 2;
               if(mid * mid < num){
@@ -30,6 +35,7 @@ content: '''
       }
   }
   ```
+  # Sqrt I & II
   ### `int` 作为输入
   ```java
   class Solution {
@@ -93,8 +99,10 @@ content: '''
 '''
 tags: [
   "Binary_Search"
+  "Math"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T18:32:10.403Z"
-updatedAt: "2018-01-02T02:59:17.722Z"
+updatedAt: "2018-01-21T02:48:40.122Z"

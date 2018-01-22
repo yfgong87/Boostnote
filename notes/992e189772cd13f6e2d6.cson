@@ -1,11 +1,12 @@
 createdAt: "2017-12-25T04:46:19.627Z"
-updatedAt: "2017-12-28T16:07:36.451Z"
+updatedAt: "2018-01-21T00:24:43.305Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "String Manipulation"
 content: '''
   # String Manipulation
   ### Reverse String
+  反向双指针，`O(n)`, Space `O(n)`
   ```java
   class Solution {
       public String reverseString(String s) {
@@ -63,6 +64,8 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false

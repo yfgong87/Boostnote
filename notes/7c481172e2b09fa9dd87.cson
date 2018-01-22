@@ -1,10 +1,22 @@
 createdAt: "2018-01-03T16:34:20.975Z"
-updatedAt: "2018-01-03T19:02:55.930Z"
+updatedAt: "2018-01-18T06:28:28.638Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Max Point on a line"
 content: '''
   # Max Point on a line
+  Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
+  
+  Solution:
+  - General idea is to calculate the slope between every pair of points, and count the maximum number of points that has the same slope
+  - To do the count we can use a HashMap to store each slope and its frequency
+  - For each point, we calculate the slope between it and every other point, then pick the most frequent value among these slopes.
+  
+  优化：
+  - Since slope is a double, we can use something else as the key of the HashMap
+  - We need to consider overlapping points as they might have different slope while actually on the same line
+  
+  Time: `O(n^2)`， Space: `O(n^2)`
   ```java
   /*
           遍历每个点，看它和后面的每个点构成的直线上有多少个点
@@ -54,6 +66,7 @@ content: '''
                   }
                   max = Math.max(max, map.get(slope));
                }
+  			 // 与 i 有相同斜率的点最多有多少个 + 与 i 重合的点 + Point i 自己
                res = Math.max(res, max + overlap + 1);
           }
           return res;
@@ -72,6 +85,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "Math"
+  "HashMap"
+]
 isStarred: false
 isTrashed: false

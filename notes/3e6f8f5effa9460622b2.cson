@@ -24,7 +24,7 @@ content: '''
   		//	/
   		// 2
   		//
-  		// 1 的 MinDepth 不是 0，而是 1，可以与面试官确认
+  		// 1 的 MinDepth 不是 1，而是 2，可以与面试官确认
           if(root.left == null || root.right == null){
               return Math.max(left, right) + 1;
           }
@@ -62,7 +62,7 @@ content: '''
       }
   }
   ```
-  ### Max Depth
+  ### Max Depth = getDepth
   - 不存在上面的问题
   ```java
   public int maxDepth(TreeNode root) {
@@ -76,8 +76,11 @@ content: '''
       }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T01:41:53.508Z"
-updatedAt: "2018-01-03T17:42:23.240Z"
+updatedAt: "2018-01-21T02:41:57.193Z"

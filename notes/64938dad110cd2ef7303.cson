@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "二分法 Binary Search 总结"
+title: "Binary Search Summary 二分法总结"
 content: '''
-  # 二分法 Binary Search 总结
+  # Binary Search Summary 二分法总结
   - 数组一定要是排好序的
   - 如果二分的是数组的`index`，如果写成`while(start + 1 < end)`，那么最后`start`和`end`分别对应数组里两个相邻的数，`start`和`end`对应的数与`target`大小关系未知，且这两个数哪一个和`target`更接近也是未知的，需要判断
   - 如果二分的是连续整数，如果写成`while(start + 1 < end)`，那么最后`start`和`end`一定是相邻的两个整数
@@ -43,4 +43,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-24T18:00:36.391Z"
-updatedAt: "2018-01-02T00:15:53.980Z"
+updatedAt: "2018-01-19T06:10:50.015Z"

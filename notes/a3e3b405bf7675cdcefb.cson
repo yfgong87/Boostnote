@@ -3,8 +3,17 @@ folder: "8d19d56ee029f3fa592b"
 title: "Permutation"
 content: '''
   # Permutation
+  Solution:
+  
+  - Since we need all the possible permutation, we need to select one number at a time, until we have selected all the numbers in the array, then we got a solution.
+  - Once we selected a number, we need to keep track of our choice by remembering we have already taken that number. So next time we only select numbers that has not been selected before. For this we can maintain a boolean array for each number in array to indicate whether we have visited it or not.
+  - We can do the entire process using depth first search, that is to add numbers all the way until we got one solution, then we revoke our most recent selection, tell the boolean array to mark this number as not visited, then we start over from the beginning of the array and pick a different number which we have not tried yet.
+  
+  Time complexity: `O(n!)` as recursion tree has `n` level, each level has `n, n - 1, n - 2, ... 1` branching choice
+  Space complexity: `O(n)` extra space for `visited[]`, on top of the memory we used in stack during recursion
   ```java
   class Solution {
+  	// {1, 2, 3}
       //                         []
       //       [1]              [2]             [3]
       //    [1,2][1,3]       [2,1][2,3]      [3,1][3,2]
@@ -45,8 +54,9 @@ content: '''
 tags: [
   "DFS"
   "backtracking"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-30T18:14:08.968Z"
-updatedAt: "2018-01-02T02:58:08.541Z"
+updatedAt: "2018-01-20T03:41:01.084Z"

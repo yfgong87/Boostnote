@@ -3,7 +3,41 @@ folder: "df7fbd4f413bd7e56cde"
 title: "Min Stack"
 content: '''
   # Min Stack
-  使用反向链表结构
+  解法一：Two Stack，全`O(1)`
+  ```java
+  class MinStack {
+      Stack<Integer> stack;
+      Stack<Integer> minStack;
+      /** initialize your data structure here. */
+      public MinStack() {
+          stack = new Stack<>();
+          minStack = new Stack<>();
+      }
+      
+      public void push(int x) {
+          if(minStack.isEmpty()){
+              minStack.push(x);
+          }else{
+              minStack.push(Math.min(minStack.peek(), x));
+          }
+          stack.push(x);
+      }
+      
+      public void pop() {
+          minStack.pop();
+          stack.pop();
+      }
+      
+      public int top() {
+          return stack.peek();
+      }
+      
+      public int getMin() {
+          return minStack.peek();
+      }
+  }
+  ```
+  解法二：使用反向链表结构,记录链表的`head`，每次插入删除都对`head`进行操作
   ```java
   class MinStack {
       ListNode head;
@@ -12,6 +46,7 @@ content: '''
           
       }
       //反向链表的结构，每次加入一个新head，head里面记录了最新的min
+  	//做 O(1) 的比较
       public void push(int x) {
           if(head == null){
               head = new ListNode(x, x);
@@ -21,15 +56,15 @@ content: '''
               head = newNode;
           }
       }
-      //pop就是删除head
+      //pop就是删除head，O(1)
       public void pop() {
           head = head.next;
       }
-      //top就是返回head的值
+      //top就是返回head的值，O(1)
       public int top() {
           return head.val;
       }
-      //getMin就是返回head中记录的min
+      //getMin就是返回head中记录的min, O(1)
       public int getMin() {
           return head.min;
       }
@@ -46,8 +81,12 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+  "Stack"
+  "Data_Structure"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T05:19:10.751Z"
-updatedAt: "2017-10-01T05:21:28.404Z"
+updatedAt: "2018-01-15T20:36:59.454Z"

@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Binary Tree Flipping"
+title: "Binary Tree Flipping / Upside down"
 content: '''
-  # Binary Tree Flipping
+  # Binary Tree Flipping / Upside down
   Given a binary tree where all the right nodes are either `leaf` nodes with a sibling (a left node that shares the same parent node) or empty, flip it upside down and turn it into a tree where the original right nodes turned into left leaf nodes. Return the new root.
   右节点一定是leaf node，这个条件很重要
   
@@ -14,8 +14,12 @@ content: '''
   
   Time Complexity: `O(height of tree)`
   
-  Non-Recursion
-  Starting from the bottom left node, Traverse the tree in the order of `left -> root`
+  Non-Recursion Solution:
+  Starting from the bottom left node, Traverse the tree in the order of `left -> root`. 
+  - First going down towards the bottom left side, store all node in a `stack`. Then poll each node out in order. 
+  - If the node is the bottom left most node, we set this node as our new Root, then do nothing and go to its parent node. 
+  - In the parent node, we rearrange the pointer of the nodes. Parents' right child now need to be the left child of the Parents' left child. And the Parents' left child's right child has to be the Parent node. 
+  - We also need to set the Parents' left and right child to `null`, because if we don't do that there will be reciprocal link between parents and child, this will lead to problem when printing the tree
   ```java
   public class Solution {
       /*
@@ -87,8 +91,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:19:00.092Z"
-updatedAt: "2017-12-31T00:16:20.780Z"
+updatedAt: "2018-01-20T02:03:38.982Z"

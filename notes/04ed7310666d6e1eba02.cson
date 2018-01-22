@@ -562,6 +562,10 @@ content: '''
   ```
   ### Paint House
   每个house不能和前一个同色，一共三种颜色`0`,`1`,`2`，每个house刷每一种颜色的`cost`存在`costs`里，求刷完所有house的`最小cost`
+  - `f[i][j]`: The min Cost to paint house `i` with color `j`
+  - `f[i][j]` = `costs[i][j]` + min value of `f[i - 1][every color other than j]`
+  - 需要初始化 `f[0][j]`
+  - return min value of `f[n - 1][every color]`;
   ```java
   class Solution {
       public int minCost(int[][] costs) {
@@ -618,8 +622,9 @@ content: '''
 '''
 tags: [
   "Dynamic_Programming"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-26T18:14:07.355Z"
-updatedAt: "2018-01-07T01:45:14.157Z"
+updatedAt: "2018-01-16T15:29:01.937Z"

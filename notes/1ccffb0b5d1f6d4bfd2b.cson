@@ -1,0 +1,63 @@
+createdAt: "2018-01-14T02:03:07.328Z"
+updatedAt: "2018-01-14T02:39:19.998Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Divide Integer"
+content: '''
+  # Divide Integer
+  Solution:
+  
+  不断将 `divisor` 翻倍，直到超过 `dividend`，此时计算 `reminder (dividend - divisor)`，然后递归调用函数继续计算 `reminder / divisor`
+  
+  Time Complexity: `O(logn)`
+  ```java
+  class Solution {
+      public int divide(int dividend, int divisor) {
+  		// Handle divid by 0 
+          if(divisor == 0){
+              return Integer.MAX_VALUE;
+          }
+  		
+          int sign = 1;
+  		// 一定要在 Math.abs() 之前做类型转换，不然 Math.abs(-2147483648) = -2147483648
+          long ldividend = dividend;
+          long ldivisor = divisor;
+          if((ldividend < 0 && ldivisor > 0) || (ldividend > 0 && ldivisor < 0)){
+              sign = -1;
+          }
+  		
+  		// 记录完正负号后取绝对值
+          ldividend = Math.abs(ldividend);
+          ldivisor = Math.abs(ldivisor);
+  		
+  		// 调用 Overloading Method
+          long ans = divide(ldividend, ldivisor);
+  		
+  		// ans 有可能越界，如 -2147483648 / -1 = 2147483648，(int) 2147483648 = -2147483648
+          if(ans > Integer.MAX_VALUE){
+              return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+          }
+          return (int) ans * sign;
+      }
+      
+      public long divide(long dividend, long divisor){
+          if(dividend < divisor){
+              return 0;
+          }
+          long count = 1;
+          long sum = divisor;
+          while((sum + sum) < dividend){
+              sum += sum;
+              count += count; // 注意是 += count
+          }
+          return count + divide(dividend - sum, divisor);
+      }
+  }
+  ```
+'''
+tags: [
+  "Math"
+  "Binary_Search"
+]
+isStarred: false
+isTrashed: false

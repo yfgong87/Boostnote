@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "String Homomorphism"
+title: "String Homomorphism / Isomorphic String"
 content: '''
-  # String Homomorphism
+  # String Homomorphism / Isomorphic String
   Given s = `"egg"`, t = `"add"`, return `true`.
   Given s = `"foo"`, t = `"bar"`, return `false`.
   Given s = `"paper"`, t = `"title"`, return `true`.
@@ -10,11 +10,16 @@ content: '''
   
   Solution:
   
-  The int value of each `char` in `s` will be the index / key of the hashmap. At each index, the Map will store the `char` at the same index in `t`. This way we build a 1 to 1 mapping between `s` and `t` at the same index. 
+  The integer value of each `char` in `s` will be the index / key of the hashmap. At each index, the Map will store the `char` at the same index in `t`. This way we build a 1 to 1 mapping between `s` and `t` at the same index. 
   
   Then we scan the `s` array from left and right...
   ```java
   public boolean isIsomorphic(String s, String t) {
+  		
+  		//	"foo"	"bar"
+  		//   abfor
+  		//	 00000
+  
           // write your code here
           int[] map = new int[256];
           char[] sc = s.toCharArray();
@@ -28,7 +33,7 @@ content: '''
                   }
               }
           }
-          //必须正反各扫一遍，不然 foo -> bar 能过，bar -> foo 过不了
+          //必须正反各扫一遍，不然 bar -> foo 能过，foo -> bar 过不了
           int[] map2 = new int[256]; // 一定要记得清空 map
           for(int i = 0; i < t.length(); i++){
               if(map2[tc[i]] == 0){
@@ -44,8 +49,11 @@ content: '''
       }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "HashMap"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-02T18:45:39.080Z"
-updatedAt: "2018-01-04T04:08:07.531Z"
+updatedAt: "2018-01-19T05:46:17.877Z"

@@ -1,8 +1,17 @@
 type: "MARKDOWN_NOTE"
-folder: "0ef4dc321cdc22cb8b00"
+folder: "df7fbd4f413bd7e56cde"
 title: "Binary Tree Serilization & Deserilization"
 content: '''
   # Binary Tree Serilization & Deserilization
+  ### Serialize:
+  We traverse the tree in level order, and add the value in the treenode into the serialized String. We also need to separate each node value with a separator, this is because later we need to be able to separate them during de-serialization. For leaf node, we need to somehow record their child as null node. If the tree is unbalanced, which has a very small right tree, then there will be many null node, we can delete the trailing null node to save some space.
+  - Time Complexity: `O(n)`
+  - Space: worst case `O(size of the bottom level of the tree)`
+  
+  ### De-serialize:
+  We split the String by the separator to get an array of String. Then we handle each String. As we iterate each String, which is a representation of a node, we need to know several things. First, are we dealing with a left or right child? We can use a flag to tell. Second, which is the current root we are working on? Once we are done with a node, we can put it in a list, then use an index to tell us which one is the current root I am working with. For example, the index points to the root initially, when we are done with a pair of left and right child, we increment the index. 
+  - Time Complexity: String.split `O(n)` + go through every String `O(n)`
+  - Space: `O(n)`
   ```java
   public class Codec {
   
@@ -69,8 +78,12 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "BFS"
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T02:46:26.990Z"
-updatedAt: "2018-01-03T03:26:36.247Z"
+updatedAt: "2018-01-22T03:20:17.744Z"

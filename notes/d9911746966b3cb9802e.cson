@@ -11,6 +11,17 @@ content: '''
     - otherwise, `f[i][j] = Math.max(f[i+1][j], f[i][j-1])`
   - Initialization: `f[i][i] = 1`
   - Return: `f[0][s.length() - 1]`
+  
+  因为初始化了对角线，所以从右下角开始，每一行从对角线开始往后填表，最后返回右上角
+  ```java
+  //  0123
+  // "cbbd"
+  //   i = 3		 i = 2 		  i = 1		  i = 0
+  // 	0 0 0 0		0 0 0 0	 	 0 0 0 0	 1 1 2 2
+  // 	0 0 0 0	    0 0 0 0		 0 1 2 2	 0 1 2 2
+  // 	0 0 0 0		0 0 1 1	     0 0 1 1	 0 0 1 1
+  // 	0 0 0 1     0 0 0 1		 0 0 0 1	 0 0 0 1
+  ```
   ```java
   class Solution {
       public int longestPalindromeSubseq(String s) {
@@ -31,8 +42,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Dynamic_Programming"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-04T04:04:48.778Z"
-updatedAt: "2018-01-03T00:04:19.462Z"
+updatedAt: "2018-01-17T03:09:01.393Z"

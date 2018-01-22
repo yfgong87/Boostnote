@@ -7,20 +7,31 @@ content: '''
   Input: nums = `[4, 3, 2, 3, 5, 2, 1]`, `k` = `4`
   Output: `true`
   Explanation: It's possible to divide it into 4 subsets (5), (1, 4), (2,3), (2,3) with equal sums.
-  这题本质上还是个Combination的问题，因为答案不需要排序，所以还是需要用到 startIndex
-  
-  Solution:
   
   Coner Cases:
   - `nums.length < k` or `k <= 0` : impossible
   - `sum % k != 0`, If sum of array is not divisible by K, then it is not possible to divide the array.
+  
+  Solution:
   - Starting from the first element, we add its value to sum, if `sum > target`, we backtrack
   - if `sum == target`, means we found a valid subset, now we do `k - 1` and start searching from the beginning of the input array
   - we use a `visited[]` to check whether an element is already used or not
   - `k == 1` means we have the answer, when we find a subset, we do `k - 1`
   - dfs will return a `boolean`, whenever we found a possible partition, we return true, no need to process every possibility
   
+  Time Complexity: `O(n!)`, Space: `O(n)`
   ```java
+  // 		     [4,3,2,3,5,2,1]	 sum / k = 5
+  // visited    1 1 1 1 0 1 1
+  //
+  //     		[4]	    				[3] 	   [2] ...
+  //	  #[4,3]#[4,2]...[4,1]  k=3
+  //				    [3]
+  //				   [3,2]  k=2
+  //				  [3]
+  //		     #[3,5][3,2] k=1
+  //
+  // height of the tree: n;    branch: n - 1, n - 2... 1
   class Solution {
       public boolean canPartitionKSubsets(int[] nums, int k) {
           int sum = 0;
@@ -64,6 +75,9 @@ content: '''
               }
               visited[i] = true;
               if(canPartition(nums, k, visited, i + 1, target, sum + nums[i])){
+  				//when it is true for current state
+  				//backtracking for previous state will NOT continue searching
+  				//so not necessary to reset visited[i]
                   return true;
               }
               visited[i] = false;
@@ -76,8 +90,9 @@ content: '''
 tags: [
   "Backtracking"
   "DFS"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-07T03:18:39.686Z"
-updatedAt: "2018-01-04T18:41:42.991Z"
+updatedAt: "2018-01-20T16:18:53.172Z"

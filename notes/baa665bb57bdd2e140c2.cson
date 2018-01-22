@@ -1,0 +1,53 @@
+createdAt: "2018-01-13T03:27:25.313Z"
+updatedAt: "2018-01-19T06:25:51.266Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Find Smallest Letter Greater than Target"
+content: '''
+  # Find Smallest Letter Greater than Target
+  Given a list of sorted characters letters containing only lowercase letters, and given a target letter target, find the smallest element in the list that is larger than the given target.
+  
+  Letters also wrap around. For example, if the target is target = `'z'` and letters = `['a', 'b']`, the answer is `'a'`.
+  
+  Solution:
+  We use binary search to find the last appearance of target, then we decide which number to return based on the comparison between target and the last position of my binary search pointers.
+  ```java
+  class Solution {
+      public char nextGreatestLetter(char[] letters, char target) {
+          if(letters == null || letters.length == 0){
+              char c = '\\0';
+              return c;
+          }
+          int start = 0;
+          int end = letters.length - 1;
+          while(start + 1 < end){
+              int mid = start + (end - start) / 2;
+              if(letters[mid] < target){
+                  start = mid;
+              } else if(letters[mid] > target){
+                  end = mid;
+              } else {
+                  start = mid; // 保证不漏掉最后出现的那个 target
+              }
+          }
+  		// 从 letters[end]，即最后出现的 target 开始判断
+          if(letters[end] <= target){
+              return letters[(end + 1) % letters.length]; // 当 end <= target 时，返回 end 后面那个数
+          }
+          if(letters[start] < target && target < letters[end]){
+              return letters[end]; // target 在 start 和 end 之间时，end 是最接近 target 的那个数
+          }
+          if(target == letters[start]){
+              return letters[start + 1]; // 当 start == target 时，返回 start 后面那个数
+          }
+          return letters[start]; // target 比 start 小，
+      }
+  }
+  ```
+'''
+tags: [
+  "Binary_Search"
+  "Linkedin"
+]
+isStarred: false
+isTrashed: false

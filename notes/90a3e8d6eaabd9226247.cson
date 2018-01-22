@@ -47,7 +47,7 @@ content: '''
      }
   ```
   ### Method `Overloading`
-  When a class has two or more methods by the `same name` but `different parameters`, it is known as method `overloading`. It is different from overriding. In `overriding`, a method has the same method name, type, number of parameters, etc.
+  When a class has two or more methods by the `same name` but `different parameters`, it is known as method `overloading`. It is different from overriding. In `overriding`, a method has the same method name, type, number of parameters, etc. `overloading` can change the return type as well.
   ![overriding vs overload](https://www.programcreek.com/wp-content/uploads/2009/02/overloading-vs-overriding.png)
   
   ### `super` and `Overriding`
@@ -119,4 +119,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T01:03:41.271Z"
-updatedAt: "2017-10-02T04:55:09.998Z"
+updatedAt: "2018-01-18T22:12:08.593Z"

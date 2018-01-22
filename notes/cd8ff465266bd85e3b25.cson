@@ -1,0 +1,132 @@
+createdAt: "2018-01-11T21:06:08.575Z"
+updatedAt: "2018-01-11T21:15:59.522Z"
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Sort Color I - Partition into three parts"
+content: '''
+  ### Sort Color I - Partition into `three` parts
+  `O(n)`时间复杂度，`O(1)`空间复杂度
+  ```java
+  class Solution {
+      /**
+       * @param nums: A list of integer which is 0, 1 or 2 
+       * @return: nothing
+       */
+      public void sortColors(int[] nums) {
+          // write your code here
+          if(nums == null || nums.length == 0){
+              return;
+          }
+          int left = 0;
+          int right = nums.length - 1;
+          int index = 0;
+          while(index <= right){
+              if(nums[index] == 0){
+                  swap(nums, left, index);
+                  left++;
+                  index++; //跟左边换完之后 index 可以走，因为换回来的数一定是 1
+              } else if (nums[index] == 1){
+                  index++;
+              } else {
+  				//注意跟右边换完之后 index 不能走，因为换回来的数并没有检验过
+                  swap(nums, index, right);
+                  right--;
+              }
+          }
+      }
+      
+      public void swap(int[] nums, int i, int j){
+          int temp = nums[i];
+          nums[i] = nums[j];
+          nums[j] = temp;
+      }
+  }
+  ```
+  ### Sort Colors II (Rainbow Sort / 彩虹排序🌈)
+  待确认：时间复杂度为 `O(nlogk)`, `k`为 `color`的数目
+  
+  Non-randomly Picking the `Pivot`
+  这里 `while (l <= r && colors[l] <= colorMid)`
+  对于这个while循环为什么是<= 不是 < , 它为什么和快排不一样呢 ？
+  首先由如下几个地方大家需要注意：
+  因为rainbowSort的递归里 (..., colorMid + 1, colorTo)，所以colorMid的值不能混到右边去，因为右边值的区间是`[colorMid + 1, colorTo]`, 左边的值是`[colorFrom, colorMid]`。所以我们需要把等于colorMid的值放在partition的左侧。而不是像快排一样，等于pivot的值的元素放在左侧或者右侧是无所谓的。所以这里我们应该分别使用`colors[l] <= colorMid` 和 `color[r] > colorMid`
+  因为`colorFrom >= colorTo`的时候我们已经return了，所以求colorMid的时候，colorFrom一定不等于colorTo。又因为`colorMid = （colorFrom + colorTo） / 2`, 所以colorMid一定不会等于最大值colorTo，也就避免了我们所说的因为pivot是最大值而导致无限递归的问题，所以我们可以放心的使用<=。
+  ```java
+  private void rainbowSort(int[] colors,
+                        int start,
+                        int end,
+                        int colorFrom, 
+                        int colorTo){
+          if(start >= end){
+              return;
+          }           
+          if(colorFrom >= colorTo){
+              return;
+          }
+          int left = start;
+          int right = end;
+          int colorMid = (colorFrom + colorTo) / 2;
+          while(left <= right){
+              //注意这里是colors[left] <= colorMid,因为在递归时colorMid只能去左边
+              while(left <= right && colors[left] <= colorMid){
+                  left++;
+              }
+              while(left <= right && colors[right] > colorMid){
+                  right--;
+              }
+              if(left <= right){
+                  int temp = colors[left];
+                  colors[left] = colors[right];
+                  colors[right] = temp;
+                  left++;
+                  right--;
+              }
+          }
+          rainbowSort(colors, start, right, colorFrom, colorMid);
+          rainbowSort(colors, left, end, colorMid + 1, colorTo);
+      }
+  ```
+  ### Counting Sort
+  🌈彩虹排序的`HashMap`做法
+  `2 * O(n)` 时间复杂度, `O(k)` extra memory 
+  ```java
+  class Solution {
+      /**
+       * @param colors: A list of integer
+       * @param k: An integer
+       * @return: nothing
+       */
+      public void sortColors2(int[] colors, int k) {
+          // write your code here
+          if(colors == null || colors.length == 0){
+              return;
+          }
+          Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+          for(int color : colors){
+              if(!map.containsKey(color)){
+                  map.put(color, 1);
+              } else {
+                  map.put(color, map.get(color) + 1);
+              }
+          }
+          int index = 0;
+          for(int color = 1; color <= k; color++){
+              if(!map.containsKey(color)){
+                  continue;
+              }
+              for(int i = 0; i < map.get(color); i++){
+                  colors[index] = color;
+                  index++;
+              }
+          }
+      }
+  
+  }
+  ```
+'''
+tags: [
+  "Sorting"
+  "HashMap"
+]
+isStarred: false
+isTrashed: false

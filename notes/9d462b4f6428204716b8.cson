@@ -3,6 +3,7 @@ folder: "8d19d56ee029f3fa592b"
 title: "Pow(x, n)"
 content: '''
   # Pow(x, n)
+  Brute Force is to multiply `x` for `n` times which will cost `O(n)`
   基本思路，递归调用 myPow, 每次 `myPow(x, n)` = `myPow(x, n/2)` * `myPow(x, n/2)`，复杂度`logn`
   ```java
   public class Solution {
@@ -36,6 +37,7 @@ content: '''
   }
   ```
   如何完美解决`Integer.MIN_VALUE`的overflow问题：
+  We can create an overloading method that takes `long` instead of `int`, then call this overlading method from the original method
   注意这里两个函数名相同，利用了 Java 的 `PolyMorphyism`，`myPow()`被`overload`了
   ```java
   public class Solution {
@@ -76,8 +78,10 @@ content: '''
 '''
 tags: [
   "Recursion"
+  "Linkedin"
+  "Math"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-04T20:11:50.313Z"
-updatedAt: "2018-01-02T02:59:30.111Z"
+updatedAt: "2018-01-18T23:06:50.362Z"

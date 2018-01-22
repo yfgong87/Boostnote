@@ -3,7 +3,9 @@ folder: "8d19d56ee029f3fa592b"
 title: "Longest Palindromic Substring"
 content: '''
   # Longest Palindromic Substring
-  ### Brute Force, `O(n^3)`
+  ### 解法一 Brute Force, `O(n^3)`
+  Find all the substring of the string (`O(n^2)`), test if each of these subtring is a palindrome
+  重复在于，对于`"abca"`，当我已知 `"bc"` 不是回文时，已经无需判断 `"abca"`
   ```java
   public class Solution {
       /*
@@ -43,7 +45,9 @@ content: '''
       }
   }
   ```
-  ### Expanding, `O(n^2)`
+  ### 解法二 Expanding, `O(n^2)`
+  反向双指针(expanding), for each char in String, we expand the char towards both end until the two ends does not match. We keep track of the window size between both end, compare it with a running max size.
+  Time: `O(n^2)`, Space: `O(1)`
   ```java
   public String longestPalindrome(String s) {
           // write your code here
@@ -64,49 +68,75 @@ content: '''
           return s.substring(start, end + 1); //右边不包含
       }
   	
-  	public int expand (String s, int start, int end){
-          while(start >= 0 && end <= s.length() - 1){
-              if(s.charAt(start) != s.charAt(end)){
+  	public int expand (String s, int left, int right){
+          while(start >= 0 && right <= s.length() - 1){
+              if(s.charAt(left) != s.charAt(right)){
                   break;
               } else {
-                  start--;
-                  end++;
+                  left--;
+                  right++;
               }
           }
   		//各倒退一格
   		start++;
-  		end--;
-          return end - start + 1;
+  		right--;
+          return right - left + 1;
       }
   ```
-  ### Related: Count how many palindromic substring
+  ### 解法三：DP
+  `f[i][j]`: 从 `i` 到 `j` 的 substring 是否回文
+  初始化: `f[i][i]` 都是回文，`f[i][i + 1]` 相邻的两个字符如果相同，其组成的 substring 也是回文
+  `f[i][j]` is palindrome if `f[i + 1][j - 1]` is palindrome and `s.charAt(i) == s.charAt(j)`
+  Time: `O(n^2)`, Space: `O(n^2)`
   ```java
   class Solution {
-      int count = 0;
-      public int countSubstrings(String s) {
-          for(int i = 0; i < s.length(); i++){
-              expand (s, i, i);
-              expand (s, i, i + 1);
-          }
-          return count;
-      }
+      //  0123
+      // "cbbd"
+      //
+      // 1 0 0 0	    1 0 0 0    	 1 0 0 0       1 0 0 0 <- 
+      // 0 1 1 0      0 1 1 0	     0 1 1 0 <-    0 1 1 0    
+      // 0 0 1 0      0 0 1 0 <-	 0 0 1 0       0 0 1 0    
+      // 0 0 0 1 <-   0 0 0 1      0 0 0 1       0 0 0 1    
       
-      public void expand (String s, int i, int j){
-          while(i >= 0 && j <= s.length() - 1){
-              if(s.charAt(i) != s.charAt(j)){
-                  break;
-              } else {
-                  count++;
-                  i--;
-                  j++;
+      public String longestPalindrome(String s) {
+          int index = 0;
+          int max = 0;
+          int n = s.length();
+          boolean f[][] = new boolean[n][n];
+          for(int i = 0; i < n; i++){
+              f[i][i] = true;
+              max = 1;
+          }
+          for(int i = 0; i < n - 1; i++){
+              if(s.charAt(i) == s.charAt(i + 1)){
+                  f[i][i + 1] = true;
+                  index = i; // 注意这里要更新 index
+                  max = 2;
               }
           }
+          for(int i = n - 1; i >= 0; i--){
+              for(int j = i + 2; j < n; j++){
+                  if(s.charAt(i) == s.charAt(j) && f[i + 1][j - 1]){
+                      f[i][j] = true;
+                      if(j - i + 1 > max){
+                          index = i;
+                          max = j - i + 1;
+                      }
+                  }
+              }
+          }
+          return s.substring(index, index + max);
       }
   }
   ```
 '''
-tags: []
+tags: [
+  "PocketGem"
+  "Linkedin"
+  "Dynamic_Programming"
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T23:36:01.852Z"
-updatedAt: "2018-01-03T00:49:36.566Z"
+updatedAt: "2018-01-22T16:48:13.345Z"

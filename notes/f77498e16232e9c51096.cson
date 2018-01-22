@@ -1,10 +1,85 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Longest Substring without repeating character"
+title: "Minimum Window Substring"
 content: '''
+  # Minimum Window Substring
+  Given a string source and a string target, find the minimum window in source which will contain all the characters in target.
+  Should the characters in minimum window has the same order in target? `NO`
+  For source = `"CDBAC"`, target = `"ABC"`, the minimum window is `"BAC"`
+  
+  Solution: 
+  Brute Force is `O(n^3)`, it will take `O(n^2)` to get all the substrings, then `O(n)` to find out if the substring contains all char in `target`. If we already know a substring that contains all the char in `target`, there is no point looking at other substring that expanding on this substring since they will not be the minimum window.
+  
+  To have a more efficient algorithm we need to keep track of the char we met, and have an idea of how many char in target we have already encountered. We can use a `HashMap` to store the char in `target`, then use a pointer to iterate the source String. Whenver we encounter one of these char in `source` String, we increment the `count`. When the `count` reach the length of the `target` String, meaning we have found a substring that contains all the char in the `target`. Now we use another pointer starting from the beginning of the `source` String to see how much we can shrink the window while making sure we still have all the char in `target` present within the window.
+  
+  Time Complexity: `O(n)`, worst case `O(2n)` when both pointer iterate the entire `source` String
+  
+  ```java
+  public class Solution {
+      /*
+       * @param source : A string
+       * @param target: A string
+       * @return: A string denote the minimum window, return "" if there is no such a string
+       */
+  	//  1110
+  	//  ABCD
+  	//  
+  	//  01234
+  	// "CDBAC"		"ABC"
+  	//	e
+  	//	s
+  	//  count = 0
+  	//  min = Integer.MAX_VALUE
+  
+      public String minWindow(String source , String target) {
+          // write your code here
+          int[] map = new int[256];
+          for(int i = 0; i < target.length(); i++){
+              map[target.charAt(i)]++;
+          }
+          int start = 0;
+          int end = 0;
+  		//count 代表 target 中已经被放进 Substring 的 char 的数目
+          int count = 0; 
+          int min = Integer.MAX_VALUE;
+          int minStart = start;
+          int minEnd = end;
+          while(end < source.length()){
+              if(map[source.charAt(end)] > 0){
+                  count++;
+              }
+              map[source.charAt(end)]--;
+              end++;
+  			//当 Substring 中已经包含了 target 中所有的 Char
+  			//向右移动 start 寻找最小 Substring，直到某个 Char 被移出 Substring
+              while(count == target.length()){
+                  if(end - start < min){
+                      minStart = start;
+                      minEnd = end;
+                      min = end - start;
+                  }
+                  map[source.charAt(start)]++;
+  				
+  				//if(map[source.charAt(start)] > 0)
+  				// meaning a char that is in target is removed from the window
+                  if(map[source.charAt(start)] == 1){
+                      count--;
+                  }
+                  start++;
+              }
+          }
+          return source.substring(minStart, minEnd);
+      }
+  }
+  ```
   # Longest Substring without repeating character
-  - 暴力枚举`O(n^3)`
-  ### 模板
+  
+  ### 同向双指针
+  Brute force will cost `O(n^3)` (getting all substring and test for repeating character). But if we already know a substring that has repeating character, we don't need to go over all the substring that contains this substring. There are a lot of redundant calculation. 
+  
+  We need to memorize which char we have already met. Iterate the String with one pointer, keep track of the char we met in a HashMap. Whenever we encounter a repeating char, we fix the pointer, then use another pointer starting from the beginning of the String. Move the new pointer until we remove the repeating char from the HashMap. Now calculate the length of the substring and compare it with a running max.
+  
+  Time Complexity: `O(n)`
   ```java
   public class Solution {
       /*
@@ -12,12 +87,15 @@ content: '''
        * @return: an integer
        */
       public int lengthOfLongestSubstring(String s) {
+  		if(s == null || s.length() == 0){
+              return 0;
+          }
           int[] map = new int[256];
           int start = 0;
           int end = 0;
   		//count 代表遇到 Repeating Character 的个数
           int count = 0;
-          int max = 0;
+          int max = Integer.MIN_VALUE;
           while(end < s.length()){
   			//遇到了一个 Repeating Character
   			// map[s.charAt(end)] > 0
@@ -66,7 +144,7 @@ content: '''
       }
   }
   ```
-  ### Longest Substring with At Most Two Distinct Characters
+  # Longest Substring with At Most Two Distinct Characters
   Given a string, find the length of the longest substring T that contains at most 2 distinct characters.
   For example, Given s = `“eceba”`, T is `"ece"` which its length is `3`.
   ```java
@@ -101,7 +179,7 @@ content: '''
   }
   ```
   
-  ### Longest Substring with At Most K Distinct Characters
+  # Longest Substring with At Most K Distinct Characters
   ```java
   class Solution {
       public int lengthOfLongestSubstringKDistinct(String s, int k) {
@@ -133,61 +211,13 @@ content: '''
       }
   }
   ```
-  ### Minimum Window Substring
-  Given a string source and a string target, find the minimum window in source which will contain all the characters in target.
-  Should the characters in minimum window has the same order in target? `NO`
-  For source = `"CDBAC"`, target = `"ABC"`, the minimum window is `"BAC"`
-  ```java
-  public class Solution {
-      /*
-       * @param source : A string
-       * @param target: A string
-       * @return: A string denote the minimum window, return "" if there is no such a string
-       */
-      public String minWindow(String source , String target) {
-          // write your code here
-          int[] map = new int[256];
-          for(int i = 0; i < target.length(); i++){
-              map[target.charAt(i)]++;
-          }
-          int start = 0;
-          int end = 0;
-  		//count 代表 target 中已经被放进 Substring 的 char 的数目
-          int count = 0; 
-          int min = Integer.MAX_VALUE;
-          int minStart = start;
-          int minEnd = end;
-          while(end < source.length()){
-              if(map[source.charAt(end)] > 0){
-                  count++;
-              }
-              map[source.charAt(end)]--;
-              end++;
-  			//当 Substring 中已经包含了 target 中所有的 Char
-  			//向右移动 start 寻找最小 Substring，直到某个 Char 被移出 Substring
-              while(count == target.length()){
-                  if(end - start < min){
-                      minStart = start;
-                      minEnd = end;
-                      min = end - start;
-                  }
-                  map[source.charAt(start)]++;
-                  if(map[source.charAt(start)] > 0){
-                      count--;
-                  }
-                  start++;
-              }
-          }
-          return source.substring(minStart, minEnd);
-      }
-  }
-  ```
 '''
 tags: [
   "Sliding_Window"
   "Two_Pointer"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-03T23:38:44.423Z"
-updatedAt: "2018-01-03T15:05:55.779Z"
+updatedAt: "2018-01-22T16:20:15.182Z"

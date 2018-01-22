@@ -9,6 +9,7 @@ content: '''
   
   Summary: 
   Since I only need to look for SubStirng that is `10` char long, I will use a window of size 10, slide it from left to right of the DNA Sequence and store every SubString in a `HashMap`, once a Substring appeared at least twice in the `HashMap`, I will add it to the result List.
+  Time: `O(n)`, Space: `O(n)`
   ```java
   class Solution {
       public List<String> findRepeatedDnaSequences(String s) {
@@ -30,17 +31,19 @@ content: '''
   }
   ```
   优化做法：
-  The key point is that it is not doing hash, it is doing the exact coding of a `10-letter sequence` into a `20 bits` number, which is simply not possible for any generic string, but is possible for strings in this problem because they can have only 4 differfent characters.
+  Before we use the `10-letter sequence` as the key of `HashMap`. Since the String only has `4` different char, we can potentially reduce the size of the key by converting the char in String into a binary number:
   
   - 0 = 00 (bits in binary number system) = ‘A’
   - 1 = 01 (bits in binary number system) = ‘T’
   - 2 = 10 (bits in binary number system) = ‘G’
   - 3 = 11 (bits in binary number system) = ‘C’
   
-  Note that since there 10 letters and each letter requires only 2 bits, we will need only 10 * 2 = `20 bits` to code the string (which is less then size of integer in java (as well as in all othere popular languages), which is 4 bytes = 32 bits).
+  `10` two bits binary number will take `20 bits`.
   
   A  T  G  C 
-  00 01 10 11 00011011 (binary) = 16 + 8 + 2 + 1 = 27 (decimal)
+  00 01 10 11 
+  00011011 (binary) = 16 + 8 + 2 + 1 = 27 (decimal)
+  
   ```java
   class Solution {
       public List<String> findRepeatedDnaSequences(String s) {
@@ -85,8 +88,9 @@ tags: [
   "String"
   "Bit"
   "Hash"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-15T21:21:02.932Z"
-updatedAt: "2018-01-03T20:21:23.196Z"
+updatedAt: "2018-01-18T23:24:15.624Z"

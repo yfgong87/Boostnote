@@ -1,0 +1,42 @@
+createdAt: "2018-01-13T23:09:42.595Z"
+updatedAt: "2018-01-13T23:10:20.439Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Find Peak Element"
+content: '''
+  # Find Peak Element
+  因为保证了至少有一个 peak, 数组至少有三个数
+  ```java
+  class Solution {
+      /**
+       * @param A: An integers array.
+       * @return: return any of peek positions.
+       */
+      public int findPeak(int[] A) {
+          // write your code here
+          if(A == null || A.length == 0){
+              return -1;
+          }
+          int start = 0;
+          int end = A.length - 1;
+          while(start + 1 < end){
+              int mid = start + (end - start) / 2;
+              if(A[mid + 1] > A[mid]){
+                  start = mid;
+              } else {
+                  end = mid;
+              }
+          }
+          if(A[start] > A[end]){
+              return start;
+          } else {
+              return end;
+          }
+      }
+  }
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

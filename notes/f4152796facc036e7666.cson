@@ -1,0 +1,53 @@
+createdAt: "2018-01-14T01:05:40.535Z"
+updatedAt: "2018-01-14T01:09:30.616Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Closest Binary Search Tree Value"
+content: '''
+  # Closest Binary Search Tree Value
+  Given target value is a floating point.
+  You are guaranteed to have only one unique value in the BST that is closest to the target
+  
+  Solution:
+  
+  - InOrder traverse the tree. If root value is equal to target, return root value, otherwise keep searching to left or right.
+  - If root value is smaller than target, meaning the other possible closest value is in the right subtree, search toward right
+  - If root value is bigger than target, meaning the other possible closest value is in the left subtree, search toward left
+  - Every recursion call we compare whether the root value or child value is closer to the target, return the closer one to upper level
+  
+  Time Complexity: `O(logn)`
+  Space Complexity: `O(1)`
+  ```java
+  class Solution {
+      public int closestValue(TreeNode root, double target) {
+          if(root.val == target){
+              return root.val;
+          }
+          int child = 0;
+          if(root.val < target){
+              if(root.right != null){
+                  child = closestValue(root.right, target);
+              } else {
+                  child = root.val;
+              }
+          } else {
+              if(root.left != null){
+                  child = closestValue(root.left, target);
+              } else {
+                  child = root.val;
+              }
+          }
+          if(Math.abs(root.val - target) < Math.abs(child - target)){
+              return root.val;
+          }
+          return child;
+      }
+  }
+  ```
+'''
+tags: [
+  "Binary_Tree"
+  "Binary_Search"
+]
+isStarred: false
+isTrashed: false

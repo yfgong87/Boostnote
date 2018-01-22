@@ -1,5 +1,5 @@
 createdAt: "2017-08-21T13:19:26.494Z"
-updatedAt: "2018-01-06T19:28:13.337Z"
+updatedAt: "2018-01-22T16:52:12.997Z"
 type: "MARKDOWN_NOTE"
 folder: "c7615b6dcc7b2832aa16"
 title: "Quick Sort"
@@ -65,20 +65,10 @@ content: '''
       }
   ```
   ### List 的 QuickSort
+  - We need a utility method to find the mid point as the pivot
+  - We need to partition the list into three part: left, mid and right, then we recursively sort the left and right segments, then we concatenate left, mid and right
+  
   ```java
-  /**
-   * Definition for ListNode.
-   * public class ListNode {
-   *     int val;
-   *     ListNode next;
-   *     ListNode(int val) {
-   *         this.val = val;
-   *         this.next = null;
-   *     }
-   * }
-   */
-  
-  
   public class Solution {
       /*
        * @param head: The head of linked list.
@@ -153,201 +143,10 @@ content: '''
       }
   }
   ```
-  ### 彩虹排序🌈
-  待确认：时间复杂度为 `O(nlogk)`, `k`为 `color`的数目
-  
-  Non-randomly Picking the `Pivot`
-  这里 `while (l <= r && colors[l] <= colorMid)`
-  对于这个while循环为什么是<= 不是 < , 它为什么和快排不一样呢 ？
-  首先由如下几个地方大家需要注意：
-  因为rainbowSort的递归里 (..., colorMid + 1, colorTo)，所以colorMid的值不能混到右边去，因为右边值的区间是`[colorMid + 1, colorTo]`, 左边的值是`[colorFrom, colorMid]`。所以我们需要把等于colorMid的值放在partition的左侧。而不是像快排一样，等于pivot的值的元素放在左侧或者右侧是无所谓的。所以这里我们应该分别使用`colors[l] <= colorMid` 和 `color[r] > colorMid`
-  因为`colorFrom >= colorTo`的时候我们已经return了，所以求colorMid的时候，colorFrom一定不等于colorTo。又因为`colorMid = （colorFrom + colorTo） / 2`, 所以colorMid一定不会等于最大值colorTo，也就避免了我们所说的因为pivot是最大值而导致无限递归的问题，所以我们可以放心的使用<=。
-  ```java
-  private void rainbowSort(int[] colors,
-                        int start,
-                        int end,
-                        int colorFrom, 
-                        int colorTo){
-          if(start >= end){
-              return;
-          }           
-          if(colorFrom >= colorTo){
-              return;
-          }
-          int left = start;
-          int right = end;
-          int colorMid = (colorFrom + colorTo) / 2;
-          while(left <= right){
-              //注意这里是colors[left] <= colorMid,因为在递归时colorMid只能去左边
-              while(left <= right && colors[left] <= colorMid){
-                  left++;
-              }
-              while(left <= right && colors[right] > colorMid){
-                  right--;
-              }
-              if(left <= right){
-                  int temp = colors[left];
-                  colors[left] = colors[right];
-                  colors[right] = temp;
-                  left++;
-                  right--;
-              }
-          }
-          rainbowSort(colors, start, right, colorFrom, colorMid);
-          rainbowSort(colors, left, end, colorMid + 1, colorTo);
-      }
-  ```
-  ### Counting Sort
-  🌈彩虹排序的`HashMap`做法(`O(k)` extra memory)， `O(n)`时间复杂度 
-  ```java
-  class Solution {
-      /**
-       * @param colors: A list of integer
-       * @param k: An integer
-       * @return: nothing
-       */
-      public void sortColors2(int[] colors, int k) {
-          // write your code here
-          if(colors == null || colors.length == 0){
-              return;
-          }
-          Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-          for(int color : colors){
-              if(!map.containsKey(color)){
-                  map.put(color, 1);
-              } else {
-                  map.put(color, map.get(color) + 1);
-              }
-          }
-          int index = 0;
-          for(int color = 1; color <= k; color++){
-              if(!map.containsKey(color)){
-                  continue;
-              }
-              for(int i = 0; i < map.get(color); i++){
-                  colors[index] = color;
-                  index++;
-              }
-          }
-      }
-  
-  }
-  ```
-  
-  ### Heap Sort
-  工业界不用 Heap Sort 的原因是因为每次找到最大（小）值后要和数组的头（尾）互换，两个地址可能隔得很远
-  
-  | Best TC | Average TC | Worst TC | Space C |
-  | ------- | ---------  | -------- | ------- |
-  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(1)` |
-  ![](https://upload.wikimedia.org/wikipedia/commons/1/1b/Sorting_heapsort_anim.gif)
-  ```java      
-  public void sort(int arr[])
-      {
-          int n = arr.length;
-   
-          // Build heap (rearrange array)
-          for (int i = n / 2 - 1; i >= 0; i--)
-              heapify(arr, n, i);
-   
-          // One by one extract an element from heap
-          for (int i=n-1; i>=0; i--)
-          {
-              // Move current root (arr[0]) to end
-              int temp = arr[0];
-              arr[0] = arr[i];
-              arr[i] = temp;
-   
-              // call max heapify on the reduced heap
-              heapify(arr, i, 0);
-          }
-      }
-      /*
-      Does this satisfy the head-order property?
-  
-                      20
-              5              10
-          12    15        8      2
-        6   2  9
-  
-  
-      Note that this can also be written an array format as:
-          20 5 10 12 15 8 2 6 2 9
-  
-      No, but   12      15    are heaps.
-               6  2    9
-      */
-      // To heapify a subtree rooted with node i which is
-      // an index in arr[]. n is size of heap
-      void heapify(int arr[], int n, int i)
-      {
-          int largest = i;  // Initialize largest as root
-          int l = 2*i + 1;  // left = 2*i + 1
-          int r = 2*i + 2;  // right = 2*i + 2
-   
-          // If left child is larger than root
-          if (l < n && arr[l] > arr[largest])
-              largest = l;
-   
-          // If right child is larger than largest so far
-          if (r < n && arr[r] > arr[largest])
-              largest = r;
-   
-          // If largest is not root
-          if (largest != i)
-          {
-              int swap = arr[i];
-              arr[i] = arr[largest];
-              arr[largest] = swap;
-   
-              // Recursively heapify the affected sub-tree
-              heapify(arr, n, largest);
-          }
-      }
-  ```
-  `Non-recursive` version
-  Actually, building a heap with repeated calls of `siftDown` has a complexity of `O(n)` whereas building it with repeated calls of `siftUp` has a complexity of `O(nlogn)`.
-  
-  This is due to the fact that when you use `siftDown`, the time taken by each call `decreases` with the depth of the node because these nodes are closer to the leaves. When you use `siftUp`, the number of swaps `increases` with the depth of the node because if you are at full depth, you may have to swap all the way to the root. As the number of nodes grows exponentially with the depth of the tree, using siftUp gives a more expensive algorithm.
-  ```java
-  void siftdown(int arr[], int n, int i)
-      {
-          //i 是当前子树的根
-          while(i < n){
-            int largest = i;  // Initialize largest as root
-            int l = 2*i + 1;  // left = 2*i + 1
-            int r = 2*i + 2;  // right = 2*i + 2
-   
-            // If left child is larger than root
-            if (l < n && arr[l] > arr[largest])
-                largest = l;
-   
-            // If right child is larger than largest so far
-            if (r < n && arr[r] > arr[largest])
-                largest = r;
-   
-            // If largest is root, break
-            if (largest == i) break;
-            // If largest is not root, swap
-            int swap = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = swap;
-            // 继续检验换过去的root是不是该subtree里的最大
-            i = largest;
-          }
-      }
-      
-  public void heapify(int[] A) {
-        int n = A.length;
-        //这里没有 -1 也能过，但是 n / 2 是没有叶子节点的，所以没有必要进入循环，n / 2 - 1 更好
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            siftdown(A, n, i);
-        } 
-    }
-  ```
 '''
 tags: [
   "PocketGem"
+  "LinkedList"
 ]
 isStarred: false
 isTrashed: false

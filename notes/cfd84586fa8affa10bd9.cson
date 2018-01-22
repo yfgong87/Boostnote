@@ -1,5 +1,5 @@
 createdAt: "2018-01-07T03:03:29.246Z"
-updatedAt: "2018-01-07T03:11:08.847Z"
+updatedAt: "2018-01-11T04:08:59.106Z"
 type: "MARKDOWN_NOTE"
 folder: "d244500e287747fe254a"
 title: "Minimum Cost of Ropes/Rods"
@@ -17,12 +17,14 @@ content: '''
   - poll two numbers out at a time and add them, put the sum back to minHeap
   - Loop until there is only one number in minHeap
   
+  总时间复杂度为 `logn + log(n - 1) +...+ log(2)` < `nlogn`，空间复杂度 < `O(n)`
   ```java
   static int minCost(int arr[], int n){
   	if(arr == null || arr.length < n){
   		return 0;
   	}
   	
+  	// 如果没有这个判断最后会返回 sum = 0 
   	if(n == 1){
   		return arr[0];
   	}

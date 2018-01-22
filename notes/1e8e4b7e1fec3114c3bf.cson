@@ -1,0 +1,124 @@
+createdAt: "2018-01-11T21:06:34.590Z"
+updatedAt: "2018-01-11T21:06:46.962Z"
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Heap Sort"
+content: '''
+  # Heap Sort
+  工业界不用 Heap Sort 的原因是因为每次找到最大（小）值后要和数组的头（尾）互换，两个地址可能隔得很远
+  
+  | Best TC | Average TC | Worst TC | Space C |
+  | ------- | ---------  | -------- | ------- |
+  | `O(nlogn)`	| `O(nlogn)` | 	`O(nlogn)` | `O(1)` |
+  ![](https://upload.wikimedia.org/wikipedia/commons/1/1b/Sorting_heapsort_anim.gif)
+  ```java      
+  public void sort(int arr[])
+      {
+          int n = arr.length;
+   
+          // Build heap (rearrange array)
+          for (int i = n / 2 - 1; i >= 0; i--)
+              heapify(arr, n, i);
+   
+          // One by one extract an element from heap
+          for (int i=n-1; i>=0; i--)
+          {
+              // Move current root (arr[0]) to end
+              int temp = arr[0];
+              arr[0] = arr[i];
+              arr[i] = temp;
+   
+              // call max heapify on the reduced heap
+              heapify(arr, i, 0);
+          }
+      }
+      /*
+      Does this satisfy the head-order property?
+  
+                      20
+              5              10
+          12    15        8      2
+        6   2  9
+  
+  
+      Note that this can also be written an array format as:
+          20 5 10 12 15 8 2 6 2 9
+  
+      No, but   12      15    are heaps.
+               6  2    9
+      */
+      // To heapify a subtree rooted with node i which is
+      // an index in arr[]. n is size of heap
+      void heapify(int arr[], int n, int i)
+      {
+          int largest = i;  // Initialize largest as root
+          int l = 2*i + 1;  // left = 2*i + 1
+          int r = 2*i + 2;  // right = 2*i + 2
+   
+          // If left child is larger than root
+          if (l < n && arr[l] > arr[largest])
+              largest = l;
+   
+          // If right child is larger than largest so far
+          if (r < n && arr[r] > arr[largest])
+              largest = r;
+   
+          // If largest is not root
+          if (largest != i)
+          {
+              int swap = arr[i];
+              arr[i] = arr[largest];
+              arr[largest] = swap;
+   
+              // Recursively heapify the affected sub-tree
+              heapify(arr, n, largest);
+          }
+      }
+  ```
+  `Non-recursive` version
+  Actually, building a heap with repeated calls of `siftDown` has a complexity of `O(n)` whereas building it with repeated calls of `siftUp` has a complexity of `O(nlogn)`.
+  
+  This is due to the fact that when you use `siftDown`, the time taken by each call `decreases` with the depth of the node because these nodes are closer to the leaves. When you use `siftUp`, the number of swaps `increases` with the depth of the node because if you are at full depth, you may have to swap all the way to the root. As the number of nodes grows exponentially with the depth of the tree, using siftUp gives a more expensive algorithm.
+  ```java
+  void siftdown(int arr[], int n, int i)
+      {
+          //i 是当前子树的根
+          while(i < n){
+            int largest = i;  // Initialize largest as root
+            int l = 2*i + 1;  // left = 2*i + 1
+            int r = 2*i + 2;  // right = 2*i + 2
+   
+            // If left child is larger than root
+            if (l < n && arr[l] > arr[largest])
+                largest = l;
+   
+            // If right child is larger than largest so far
+            if (r < n && arr[r] > arr[largest])
+                largest = r;
+   
+            // If largest is root, break
+            if (largest == i) break;
+            // If largest is not root, swap
+            int swap = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = swap;
+            // 继续检验换过去的root是不是该subtree里的最大
+            i = largest;
+          }
+      }
+      
+  public void heapify(int[] A) {
+        int n = A.length;
+        //这里没有 -1 也能过，但是 n / 2 是没有叶子节点的，所以没有必要进入循环，n / 2 - 1 更好
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            siftdown(A, n, i);
+        } 
+    }
+  ```
+'''
+tags: [
+  "Sorting"
+  "Heap"
+]
+isStarred: false
+isTrashed: false

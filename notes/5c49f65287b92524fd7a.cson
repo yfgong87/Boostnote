@@ -41,7 +41,7 @@ content: '''
           //binary search
           while (start + 1 < end){
               int mid = start + (end - start) / 2;
-              if (target < A[0] && A[mid] > A[0]){
+              if (target < A[0] && A[mid] >= A[0]){
                   start = mid; // if target is on left segment, mid on right segment
               // 注意！ target >= A[0] 代表 target 在左边，"=" 不能漏
   			} else if (target >= A[0] && A[mid] < A[0]){ 
@@ -98,8 +98,9 @@ content: '''
 '''
 tags: [
   "Binary_Search"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-07T23:36:53.338Z"
-updatedAt: "2018-01-03T19:47:59.944Z"
+updatedAt: "2018-01-19T03:22:48.646Z"

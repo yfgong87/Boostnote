@@ -3,9 +3,25 @@ folder: "8d19d56ee029f3fa592b"
 title: "Word Ladder"
 content: '''
   # Word Ladder
+  Check:
+  - If `start == end`, return `1`?
+  - Is `dict` a `Set` or `List`?
+  - Do we need to make sure that the end word is also in the dictionary?
+  
+  Solution:
+  - Since we don't need to find all the transformation, we just need the length of the shortest possible transformation, we don't need to go through every possibility. 
+  - So we can use a search algorithm, better use BFS so that we don't have to deal with stack overflow
+  - We start from the begin word, then modify one char at a time in this word, see if the new word is provided in the dictionary, if so, we store this new word as a potential candidate along the transformation sequence. 
+  - When we get a new word, we also need to check if the new word is the end word, if so we return the length of the transformation sequence so far. Ohterwise we keep looking
+  - We can also use a HashMap to store the intermidiate word transformation that we have already enountered so we don't have redundant calculation
+  
+  Time Complexity:
   `O(25 * wordLength * dict.size)`
-  - BFS一共遍历了`dict.size`个词，每个词`getNextWord`花费`25 * wordLength`
+  - BFS一共遍历了`dict.size`个词 (因为只有在 dict 中才会进 Queue)，每个词`getNextWord`花费`25 * wordLength`
   - 在dict中找词的复杂度如果精确计算应该为`25 * wordLength * wordLength`，因为HashMap耗费`O(size of the key)`而不是`O(1)`
+  
+  Space:
+  Worst Case `O(dict.size())`
   ```java
   public class Solution {
       public int ladderLength(String start, String end, Set<String> dict) {
@@ -14,6 +30,12 @@ content: '''
               return 1; // check with 面试官
           }
           
+  		// 如果 dict 是 List 需要转换成 HashSet
+  		//Set<String> dict = new HashSet<>();
+          //for(String word : wordList){
+          //    dict.add(word);
+          //}
+  		
           //如果只要求中间词一定要在字典中，那么必须先把 start 和 end 加到字典里
           //dict.add(start); //可以不加start，但必须加end
   		//如果要求 end 也要在字典中，这步不能有!
@@ -76,8 +98,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "BFS"
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T03:18:48.801Z"
-updatedAt: "2018-01-09T03:00:23.216Z"
+updatedAt: "2018-01-20T19:18:38.889Z"

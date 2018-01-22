@@ -1,13 +1,19 @@
 createdAt: "2018-01-02T23:26:58.715Z"
-updatedAt: "2018-01-02T23:40:34.158Z"
+updatedAt: "2018-01-19T00:32:20.823Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Find Celebrity"
 content: '''
   # Find Celebrity
   Brute Force `O(n^2)`
-  - If a knows b, a cannot be a celebrity
-  - If !(a knows b), b cannot be a celebrity
+  For every possible pair of people, check:
+  - If `a` knows `b`, `a` cannot be a celebrity
+  - If `a` don't know `b`, `b` cannot be a celebrity
+  
+  优化：
+  When we do `knows(a, b)`, if it is `true`, we know that `a` cannot be celebrity, if it is `false`, we know that `b` cannot be a celebrity, so we do not have to do both `knows(a, b)` and `knows(b, a)`, it is redundant. We just need to go through all people, calling `knows()` `n` times, each time we call the method we can exclude one person until we have only one candidate left. Then we check backwards between this candidate and all other people to see if this candidate meet the requirement.
+  
+  Time: `O(2 * n)`
   ```java
   /* The knows API is defined in the parent class Relation.
         boolean knows(int a, int b); */
@@ -66,6 +72,8 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false

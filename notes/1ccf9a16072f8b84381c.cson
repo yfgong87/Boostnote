@@ -18,9 +18,14 @@ content: '''
   - `Integer.MAX_VALUE`: 2<sup>31</sup>-1
   - `Integer.MIN_VALUE`: -2<sup>31</sup>
   - 注意：`Math.abs`(`Integer.MIN_VALUE`) 依然等于`Integer.MIN_VALUE`因为越界了，需要用`Math.abs`( (`long`)`Integer.MIN_VALUE`)
+  
+  ### Math.pow(base, exponent)
+  ```java
+  Math.pow(2,3); // 2^3
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-29T01:00:11.930Z"
-updatedAt: "2017-10-02T05:17:02.112Z"
+updatedAt: "2018-01-11T01:03:44.809Z"

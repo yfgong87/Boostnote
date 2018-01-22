@@ -20,6 +20,7 @@ content: '''
       }
   ```
   ### (变化) Best time to sell a stock
+  只能买卖一次
   ```java
   class Solution {
       public int maxProfit(int[] prices) {
@@ -184,8 +185,9 @@ tags: [
   "Sliding_Window"
   "Array"
   "PocketGem"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T23:21:52.628Z"
-updatedAt: "2018-01-09T21:45:46.529Z"
+updatedAt: "2018-01-21T02:35:48.153Z"

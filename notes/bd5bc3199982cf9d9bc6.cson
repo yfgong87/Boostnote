@@ -153,7 +153,7 @@ content: '''
   - `boolean` `Character`.`isDigit`(`char` `c`)
   - `boolean` `Character`.`isLetter`(`char` `c`)
   - `boolean` `Character`.`isWhiteSpace`(`char` `c`)
-  ### transform
+  ### `char[]` to `String`
   - `String` `Character`.`toString`( )
   ```java
   //String to char[]
@@ -182,9 +182,25 @@ content: '''
   char a = '1';
   int b = a - '0'; // b = 1
   ```
+  ### `int` to `String`
+  - `toString()`: Returns a `String` object representing the value of a specified `int` or `Integer`.
+  - `String`.`valueOf`():
+  ```java
+  Integer x = 5;
+  x.toString(); //return "5"
+  Integer.toString(12); //return "12"
+  
+  String.valueOf(12); //return "12"
+  ```
+  ### `String` to `int`
+  - `parseInt`(`String`): Returns an `int` representing the value of a `String` containing primitive `int` value.
+  ```java
+  String str = "1";
+  int a = Integer.parseInt(str);
+  ```
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-16T20:25:36.618Z"
-updatedAt: "2018-01-07T18:53:36.960Z"
+updatedAt: "2018-01-18T07:33:13.662Z"

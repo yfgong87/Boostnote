@@ -3,37 +3,53 @@ folder: "df7fbd4f413bd7e56cde"
 title: "Text Justification"
 content: '''
   # Text Justification
+  words: `["This", "is", "an", "example", "of", "text", "justification."]`
+  L: `16`.
+  
+  Return the formatted lines as:
+  `[
+     "This    is    an",
+     "example  of text",
+     "justification.  "
+  ]`
   
   Solution: 
-  
+  - General idea is to process line by line until we run out of word
+  - In everyline, as long as we still have space, we keep adding the next word in until the size of the line exceed the limit. Then we need to handle the remaining empty spaces.
+  - In case the word is the last word in the word list, we need to left justifify. Or in case we have only one word in the list, we also need to left justify, which means all the empty space goes after the last word
+  - Otherwise we need to do middle justification, which means we divide the remaining space evenly between each word in the line. If we still have remaining space, we always add them after words that lie on the left side.
+  - We need two pointers to record the start and end of the word of the line we are processing.
   
   ```java
   public class Solution {
       public List<String> fullJustify(String[] words, int L) {
           List<String> lines = new ArrayList<String>();
   		// index 代表当前处理到第几个 word
-          int index = 0;
+          int start = 0;
   		//处理每一个word
-          while (index < words.length) {
+          while (start < words.length) {
+  			
   			//这一行目前的长度，初始值为第一个 Word 的长度
-              int lineLen = words[index].length();
+              int lineLen = words[start].length();
   			StringBuilder sb = new StringBuilder(); //每一行都需要 new 一个 sb
-              sb.append(words[index]); //因为 Word 的长度保证 < L，第一个 Word 可以直接加入 sb
-  			//始终 Assume 当前处理 Word 的下一个为这一行的最后一个 Word
-              int last = index + 1;
-              while (last < words.length) {
+              sb.append(words[start]); //因为 Word 的长度保证 < L，第一个 Word 可以直接加入 sb
+  			
+  			//始终 Assume 当前处理 Word 的下一个为这一行的最后一个 Word, 注意 end 是 exclusive 的
+              int end = start + 1;
+              while (end < words.length) {
   				//plus one for the space, if its a perfect fit it will fit，so use ">"
-                  if (words[last].length() + lineLen + 1 > L) break;
-                  lineLen += words[last].length() + 1;
-                  last++;
+                  if (words[end].length() + lineLen + 1 > L) break;
+                  lineLen += words[end].length() + 1;
+                  end++;
               }
-              int numWord = last - index;
+              int numWord = end - start;
+  			
   		   // left-justified
-             // if "last" is the last word of the input 
-  		   // if number of words in the line is 1 (极端情况一个 word 有 15 个 char)
-              if (last == words.length || numWord == 1) {
+             // case1: if "last" is the last word of the input 
+  		   // case2: if number of words in the line is 1 (极端情况一个 word 有 15 个 char)
+              if (end == words.length || numWord == 1) {
   				//先把每一个 Word 加进 sb
-                  for (int i = index + 1; i < last; i++) {
+                  for (int i = start + 1; i < end; i++) {
   					//先加空格
                       sb.append(" ");
   					//再加Word
@@ -48,10 +64,10 @@ content: '''
   				int numSlot = numWord - 1; // numWord > 1
                   int slotLen = (L - lineLen) / numSlot;
                   int remain = (L - lineLen) % numSlot;
-                  for (int i = index + 1; i < last; i++) {
+                  for (int i = start + 1; i < end; i++) {
   					//先加空格
   					sb.append(" ");
-  					//再加 SpaceLen
+  					//再加 slotLen
                       for(int j = 0; j < slotLen; j++) {
                           sb.append(" ");
                       }
@@ -67,15 +83,18 @@ content: '''
                   }
               }
               lines.add(sb.toString()); //将这一行加入 Result
-              index = last;
+              start = end;
           }
           return lines;
       }
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "String"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-10T21:51:24.104Z"
-updatedAt: "2018-01-04T07:39:34.809Z"
+updatedAt: "2018-01-18T05:57:50.000Z"

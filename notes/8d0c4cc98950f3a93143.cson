@@ -1,0 +1,223 @@
+createdAt: "2018-01-15T20:25:36.497Z"
+updatedAt: "2018-01-18T03:23:08.658Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Max Stack"
+content: '''
+  # Max Stack
+  解法一：PriorityQueue + LinkedList
+  One of the intuitive way to find max quickly is to use heap, PriorityQueue in java. But priorityQueue don't maintain the original order of the number. So we need an additional data structure such as a stack or a list. Let's say we use a LinkedList where we store new value in the end of it.
+  
+  Time Complexity:
+  `push`: `O(logn)` because of PriorityQueue
+  `pop`: `O(n)` because of PriorityQueue
+  `top`: `O(1)`
+  `peekMax`: `O(1)`
+  `popMax`: `O(n)` because of list
+  ```java
+  class MaxStack {
+      LinkedList<Integer> list;
+      PriorityQueue<Integer> pq;
+      /** initialize your data structure here. */
+      public MaxStack() {
+          list = new LinkedList<>();
+          pq = new PriorityQueue<>((Integer a, Integer b) -> (b - a));
+      }
+  
+      public void push(int x) {
+          list.add(x); //O(1)
+          pq.add(x); //O(logn)
+      }
+  
+      public int pop() {
+          pq.remove(list.getLast()); //O(n)
+          return list.removeLast(); //O(1)
+      }
+  
+      public int top() {
+          return list.getLast(); //O(1)
+      }
+  
+      public int peekMax() {
+          return pq.peek(); //O(1)
+      }
+  
+      public int popMax() {
+          int max = pq.poll(); //O(logn)
+          list.removeLastOccurrence(max); //最坏O(n)
+          return max;
+      }
+      
+  }
+  ```
+  
+  解法二：Two Stack
+  What if we don't need PriorityQueue to find max, instead we find the current max and store it as we push every value. Then when we pop a value, we pop the max corresponding to this value at the same time. This way the `push` and `pop` will both be `O(1)`. We can use two `stack` to do this:
+  
+  - 一个`stack`存`val`，另一个`stack`存`max`，每次`push`一个`val`的同时跟前一个`max`比大小
+  - `popMax`的时候，一直`pop`，并存入`buffer`中直到找到了要删掉的那个`max`，删掉`max`后从`buffer`重新读取数据
+  
+  Time Complexity:
+  popMax() 最坏为 `O(n)`，其他`O(1)`
+  
+  ```java
+  class MaxStack {
+      Stack<Integer> stack;
+      Stack<Integer> maxStack;
+      /** initialize your data structure here. */
+      public MaxStack() {
+          stack = new Stack<>();
+          maxStack = new Stack<>();
+      }
+      
+      public void push(int x) {
+          if(maxStack.isEmpty()){
+              maxStack.push(x);
+          } else {
+              maxStack.push(Math.max(maxStack.peek(), x));
+          }
+          stack.push(x);
+      }
+      
+      public int pop() {
+          maxStack.pop();
+          return stack.pop();
+      }
+      
+      public int top() {
+          return stack.peek();
+      }
+      
+      public int peekMax() {
+          return maxStack.peek();
+      }
+      
+  	// pop all the value until we find the max
+  	// put values back while updating their corresponding new max
+      public int popMax() {
+          int max = peekMax();
+          Stack<Integer> buffer = new Stack<>();
+          while(stack.peek() != max){
+              buffer.push(pop());
+          }
+          pop();
+          while(!buffer.isEmpty()){
+              push(buffer.pop());
+          }
+          return max;
+      }
+  }
+  ```
+  解法三: TreeMap + DoublyLinkedList
+  - 只要用了 Stack 或者 List, popMax 都是 `O(n)`
+  - We will need a data structure that can find the max and delete the max both under `O(n)`, which could be a TreeMap. TreeMap 找到 max 是 `O(logn)`, 删除也是 `O(logn)`
+  - Now, we still need another data structure to maintain the order of the values. Again if we still store the value in a list or a stack, we will still need `O(n)` time to find it and remove it. We can probably use something like a DoublyLinkedList which will take `O(1)` to remove a node as long as you know its reference. We can store the reference of the node in the TreeMap, under each value as a key, we have a list of node that has the same value. Then we can use the TreeMap to help us find the reference of the max node.
+  ```java
+  class MaxStack {
+      TreeMap<Integer, ArrayList<ListNode>> map;
+      DoublyLinkedList dll;
+      /** initialize your data structure here. */
+      public MaxStack() {
+          map = new TreeMap<>();
+          dll = new DoublyLinkedList();
+      }
+  	
+      // O(logn)
+      public void push(int x) {
+          if(!map.containsKey(x)){
+              map.put(x, new ArrayList<ListNode>());
+          }
+          map.get(x).add(dll.addLast(x));
+      }
+  	
+      //O(logn)
+      public int pop() {
+          int pop = dll.removeLast();
+          ArrayList<ListNode> list = map.get(pop);
+          list.remove(list.size() - 1);
+          if(list.size() == 0){
+              map.remove(pop);
+          }
+          return pop;
+      }
+  	
+      //O(1)
+      public int top() {
+          return dll.getLast();
+      }
+  	
+      //O(logn)
+      public int peekMax() {
+          return map.lastKey();
+      }
+  	
+      //O(logn)
+      public int popMax() {
+          int max = map.lastKey();
+          ArrayList<ListNode> list = map.get(max);
+          ListNode node = list.remove(list.size() - 1);
+          dll.remove(node);
+          if(list.size() == 0){
+              map.remove(max);
+          }
+          return max;
+      }  
+      
+  }
+  
+  class DoublyLinkedList{
+      ListNode head;
+      ListNode tail;
+      DoublyLinkedList(){
+          head = new ListNode(0);
+          tail = new ListNode(0);
+          head.next = tail;
+          tail.prev = head;
+      }
+      // tail.prev -> tail
+      ListNode addLast(int x){
+          ListNode newNode = new ListNode(x);
+          tail.prev.next = newNode;
+          newNode.prev = tail.prev;
+          newNode.next = tail;
+          tail.prev = newNode;
+          return newNode;
+      }
+      
+      int removeLast(){
+          return remove(tail.prev).val;
+      }
+      
+      int getLast(){
+          return tail.prev.val;
+      }
+      
+      ListNode remove(ListNode node){
+          node.prev.next = node.next;
+          node.next.prev = node.prev;
+          return node;
+      }
+  }
+  
+  class ListNode{
+      int val;
+      ListNode prev;
+      ListNode next;
+      ListNode(int val){
+          this.val = val;
+          this.prev = null;
+          this.next = null;
+      }
+  }
+  ```
+'''
+tags: [
+  "Stack"
+  "LinkedList"
+  "TreeMap"
+  "Data_Structure"
+  "DoublyLinkedList"
+  "Linkedin"
+]
+isStarred: false
+isTrashed: false

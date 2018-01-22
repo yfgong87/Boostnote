@@ -1,24 +1,33 @@
 createdAt: "2018-01-07T17:46:45.714Z"
-updatedAt: "2018-01-07T17:54:45.709Z"
+updatedAt: "2018-01-11T04:57:50.855Z"
 type: "MARKDOWN_NOTE"
 folder: "d244500e287747fe254a"
 title: "Ternery Expression to Binary Tree"
 content: '''
   # Ternery Expression to Binary Tree
-  Input : expression =  `a?b?c:d:e`
+  Input : expression =  `1?2?3:4:5`
   
   Output :
   ```java
-               a
+               1
              /  \\
-            b    e
+            2    5
           /  \\
-         c    d
+         3    4
   ```
+  expression -> tree
+  
   Solution: 
-  总体的遍历顺序是 preOrder
+  - Make the first char as root
+  - Iterate the char array:
+    - If `"?"` is met, add the root after `"?"` as the left child of current root
+    - If `":"` is met, add the root after `":"` as the right child of current root
+  - To keep track of the current root, we push every node into a stack as we creating them
+    - If we are seeing `"?"`, it means we are still going down toward the left branch, the top element of the stack will be the current root
+    - If we are seeing `":"`, it means we are adding the right child of previous node, the top element of the stack will be the left child at the same level, we don't need it so `stack.pop()`, if the top element is a node that already have both left and right child, we don't need it so keep doing `stack.pop()` until we find a node with a `null` right child, then we add the current node there
+  
   ```java
-  TreeNode convertExpression(char[] expression)
+  TreeNode expressionToTree(char[] expression)
   	{
   		if(expression == null || expression.length == 0){
   		    return null;
@@ -44,10 +53,41 @@ content: '''
   		return root;
   	}
   ```
+  tree -> expression
+  
+  preOrder traversal (`root` -> `left` -> `right`), stack implementation, handle `root` first, put `right` into stack, then put `left` into stack
+  ```java
+  String treeToExpression(TreeNode root){
+          StringBuilder sb = new StringBuilder();
+          Stack<TreeNode> stack = new Stack<>();
+          if(root != null){
+              stack.push(root);
+          }
+          while(!stack.isEmpty()){
+              TreeNode head = stack.pop();
+              sb.append(head.val);
+              if(head.right != null){
+                  stack.push(head.right);
+              }
+              if(head.left != null){
+                  stack.push(head.left);
+                  sb.append("?");
+              }
+              if(head.left == null && head.right == null){
+                  sb.append(":");
+              }
+          }
+          while(sb.charAt(sb.length() - 1) == ':'){
+              sb.deleteCharAt(sb.length() - 1);
+          }
+          return sb.toString();
+      }
+  ```
 '''
 tags: [
   "PocketGem"
   "Binary_Tree"
+  "Stack"
 ]
 isStarred: false
 isTrashed: false

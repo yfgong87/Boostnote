@@ -1,0 +1,94 @@
+createdAt: "2018-01-21T01:05:36.630Z"
+updatedAt: "2018-01-21T01:59:04.049Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Shuffle an array"
+content: '''
+  # Shuffle an array
+  假设k个牌 从1 to k，第一次随机抽一张，抽到1的概率是1/k,  第二次从剩下的k-1牌抽到1的概率是  (1-1/k) * 1/(k-1)  = 1/k  乘法左边是1还留在k-1的概率，右边是从k-1里面抽到1的概率，以此类推
+  
+  Brute Force:
+  
+  Put all the number into a lottery, draw one random number out at a time and put it into the new array, then remove this number from the lottery.
+  
+  Time: `O(n^2)`, `O(n)` to iterate all the numbers, for each number, `O(n)` to remove a number from lottery
+  Space: `O(3n)` to store `lottery` and `shuffle` and `original`
+  ```java
+  class Solution {
+      Random rand;
+      int[] original;
+      int[] shuffle;
+      
+      public Solution(int[] nums) {
+          rand = new Random();
+          original = nums;
+          shuffle = original.clone();
+      }
+      
+      /** Resets the array to its original configuration and return it. */
+      public int[] reset() {
+          shuffle = original;
+          original = original.clone();
+          return original;
+      }
+      
+      /** Returns a random shuffling of the array. */
+      public int[] shuffle() {
+          List<Integer> lottery = new ArrayList<Integer>();
+          for(int i = 0; i < original.length; i++){
+              lottery.add(original[i]);
+          }
+          for(int i = 0; i < shuffle.length; i++){
+              int index = rand.nextInt(lottery.size());
+              shuffle[i] = lottery.get(index);
+              lottery.remove(index);
+          }
+          return shuffle;
+      }
+  }
+  ```
+  优化：instead of using two arrays, we can swap element within the original `nums` array. We start from the first element, draw a random index from the rest element, swap first element and this random element, then we move on to the next element, draw a random index from the remaining element to the right.
+  
+  Time: `O(n)`, Space: `O(n)` to store `original` and `shuffle`
+  ```java
+  class Solution {
+      Random rand;
+      int[] original;
+      int[] shuffle;
+      
+      public Solution(int[] nums) {
+          rand = new Random();
+          original = nums;
+          shuffle = original.clone();
+      }
+      
+      /** Resets the array to its original configuration and return it. */
+      public int[] reset() {
+          shuffle = original;
+          original = original.clone();
+          return original;
+      }
+      
+      /** Returns a random shuffling of the array. */
+      public int[] shuffle() {
+          for(int i = 0; i < shuffle.length; i++){
+              int index = rand.nextInt(shuffle.length - i) + i; // i 必须可以和自己交换!
+              swap(shuffle, i, index);
+          }
+          return shuffle;
+      }
+      
+      public void swap(int[] nums, int a, int b){
+          int temp = nums[a];
+          nums[a] = nums[b];
+          nums[b] = temp;
+      }
+  }
+  ```
+'''
+tags: [
+  "Linkedin"
+  "Array"
+]
+isStarred: false
+isTrashed: false

@@ -1,0 +1,42 @@
+createdAt: "2018-01-20T16:52:39.710Z"
+updatedAt: "2018-01-20T16:52:54.738Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Combination"
+content: '''
+  # Combination
+  ```java
+  class Solution {
+      public List<List<Integer>> combine(int n, int k) {
+          List<List<Integer>> results = new ArrayList<List<Integer>>();
+          if(n == 0 || n < k){
+              return results;
+          }
+          dfs(results, new ArrayList<Integer>(), n, k, 1);
+          return results;
+      }
+      
+      public void dfs(List<List<Integer>> results,
+                      List<Integer> solution,
+                      int n,
+                      int k,
+                      int startIndex){
+          if(k == 0){
+              results.add(new ArrayList<Integer>(solution));
+              return;
+          }
+          for(int i = startIndex; i <= n; i++){
+              solution.add(i);
+              dfs(results, solution, n, k - 1, i + 1);
+              solution.remove(solution.size() - 1);
+          }
+      }
+  }
+  ```
+'''
+tags: [
+  "Backtracking"
+  "DFS"
+]
+isStarred: false
+isTrashed: false

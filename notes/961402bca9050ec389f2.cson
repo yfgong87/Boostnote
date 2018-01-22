@@ -1,0 +1,47 @@
+createdAt: "2018-01-21T00:21:04.694Z"
+updatedAt: "2018-01-21T06:16:22.909Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Triangle Count / Valid Triangle Number"
+content: '''
+  # Triangle Count / Valid Triangle Number
+  找出数组中满足 `a + b > c` 的 `{a, b, c}`有多少个
+  - 将数组排序
+  - 枚举`c`，为保证至少有两个比`c`小的数，`c`的起始`index`为`2`
+  - 在`c`的左边（所有比`c`小的数中），枚举`a`和`b`，一旦发现一组`a + b > c`，当前`b`和`a`之间包括`a`的所有数（一共 `b - a` 个）都满足条件
+  - `O(n)`
+  ```java
+  public class Solution {
+      /*
+       * @param S: A list of integers
+       * @return: An integer
+       */
+      public int triangleCount(int[] S) {
+          // write your code here
+          if(S == null || S.length < 3){
+              return 0;
+          }
+          Arrays.sort(S);
+          int count = 0;
+          for(int i = 2; i < S.length; i++){
+              int left = 0;
+              int right = i - 1;
+              while(left < right){
+                  if(S[left] + S[right] > S[i]){
+                      count = count + right - left;
+                      right--;
+                  } else {
+                      left++;
+                  }
+              }
+          }
+          return count;
+      }
+  }
+  ```
+'''
+tags: [
+  "Linkedin"
+]
+isStarred: false
+isTrashed: false

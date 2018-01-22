@@ -89,6 +89,7 @@ content: '''
   //Comparator类从生到死只产生了一个对象，所以可以使用匿名类定义
   Arrays.sort(pairArray, new Comparator<Pair>() {
         @Override
+  	  // 之所以是 public 是因为继承了父类的 signiture
         public int compare(Pair a, Pair b) {
             return a.num - b.num;
         } 
@@ -103,10 +104,12 @@ content: '''
       // Point global_origin; //写法一：Java 7 中必须要将 origin 作为函数所在类的变量传给匿名类Comparator
       public Point[] kClosest(Point[] points, Point origin, int k) {
           // write your code here
-          Point global_origin = origin; //写法二：Java 7 中必须要将 origin 作为局部变量传给匿名类Comparator
+          Point local_origin = origin; //写法二：Java 7 中必须要将 origin 作为局部变量传给匿名类Comparator
           PriorityQueue<Point> pq = new PriorityQueue<Point>(new Comparator<Point>(){
               public int compare(Point a, Point b){
-                  int dif = getDistance(b, global_origin) - getDistance(a, global_origin);
+  				//写法一：int dif = getDistance(b, global_origin) - getDistance(a, global_origin); 
+                  //写法二：
+  				int dif = getDistance(b, local_origin) - getDistance(a, local_origin);
                   if(dif == 0){
                       dif = b.x - a.x;
                   }
@@ -140,4 +143,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T05:01:50.939Z"
-updatedAt: "2017-10-25T07:13:19.427Z"
+updatedAt: "2018-01-18T22:09:08.122Z"

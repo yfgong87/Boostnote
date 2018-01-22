@@ -71,79 +71,62 @@ content: '''
       }
   }
   ```
+  如果需要输出结果按照大小排序
   ```java
-  public class Solution {
-      /*
-       * @param A: an integer array
-       * @param target: An integer
-       * @param k: An integer
-       * @return: an integer array
-       */
-      public int[] kClosestNumbers(int[] A, int target, int k) {
-          // write your code here
-          int[] results = new int[k];
-          if(A == null || A.length == 0){
-              return A;
-          }
-          if(k > A.length){
-              return A;
-          }
-          int index = findClose(A, target);
-          int start = index - 1;
-          int end = index;
-          for(int i = 0; i < k; i++){
-              if(start < 0){
-                  results[i] = A[end];
-                  end++;
-              }else if(end >= A.length){
-                  results[i] = A[start];
-                  start--;
-              } else{
-                  //<= because if start and end is equally close to target,
-                  //you need to sorted in ascending order by number,
-                  //that is, always print start first
-                  if(target - A[start] <= A[end] - target){
-                      results[i] = A[start];
-                      start--;
-                  } else {
-                      results[i] = A[end];
-                      end++;
-                  }
-              }
-          }
-          return results;
-      }
-      public int findClose(int[] A, int target){
+  class Solution {
+      public List<Integer> findClosestElements(int[] A, int k, int target) {
           int start = 0;
-          int mid = 0;
           int end = A.length - 1;
           while(start + 1 < end){
-              mid = start + (end - start) / 2;
-              if(A[mid] == target){
-                  end = mid;
-              } else if(A[mid] < target){
+              int mid = start + (end - start) / 2;
+              if(A[mid] < target){
                   start = mid;
               } else {
                   end = mid;
               }
           }
-          //return the index where A[index] >= target
-          if(A[start] >= target){
-              return start;
+          int index = Math.min(start, end);
+          int left = index;
+          int right = index + 1;
+          ArrayList<Integer> results = new ArrayList<>();
+          for(int i = 0; i < k; i++){
+              //注意一!!!!!处理越界
+              if(left < 0){
+                  results.add(A[right]);
+                  right++;
+                  continue;
+              }
+              if(right == A.length){
+                  results.add(0, A[left]);
+                  left--;
+                  continue;
+              }
+              if(Math.abs(A[left] - target) < Math.abs(A[right] - target)){
+                  results.add(0, A[left]);
+                  left--;
+              } else if (Math.abs(A[left] - target) > Math.abs(A[right] - target)){
+                  results.add(A[right]);
+                  right++;
+              } else {
+                  if(A[left] < A[right]){
+                      results.add(0, A[left]);
+                      left--;
+                  } else {
+                      results.add(A[right]);
+                      right++;
+                  }
+              }
           }
-          if(A[end] >= target){
-              return end;
-          }
-          //if target is bigger than the largest value in A[]
-          return A.length;
+          return results;
       }
   }
   ```
 '''
 tags: [
   "Binary_Search"
+  "Two_Pointer"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T02:50:21.744Z"
-updatedAt: "2018-01-02T23:54:09.051Z"
+updatedAt: "2018-01-13T23:44:31.140Z"

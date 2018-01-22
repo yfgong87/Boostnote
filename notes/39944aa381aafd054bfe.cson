@@ -75,8 +75,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "DFS"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-25T17:29:12.415Z"
-updatedAt: "2017-10-25T17:31:24.348Z"
+updatedAt: "2018-01-14T03:52:58.032Z"

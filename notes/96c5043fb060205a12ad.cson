@@ -1,0 +1,48 @@
+createdAt: "2018-01-10T03:52:52.895Z"
+updatedAt: "2018-01-10T03:53:27.361Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Happy Number"
+content: '''
+  # Happy Number
+  19 is a happy number
+  1^2 + 9^2 = 82
+  8^2 + 2^2 = 68
+  6^2 + 8^2 = 100
+  1^2 + 0^2 + 0^2 = 1
+  ```java
+  public class Solution {
+      /*
+       * @param n: An integer
+       * @return: true if this is a happy number or false
+       */
+      public boolean isHappy(int n) {
+          // write your code here
+          Set<Integer> set = new HashSet<>();
+          while(n != 1){
+              if(set.contains(n)){
+                  return false;
+              }
+              set.add(n);
+              n = getNextHappy(n);
+          }
+          return true;
+      }
+      
+      public int getNextHappy(int n){
+          int happy = 0;
+          while(n != 0){
+              happy += (n % 10) * (n % 10);
+              n /= 10;
+          }
+          return happy;
+      }
+  }
+  ```
+'''
+tags: [
+  "HashMap"
+  "Math"
+]
+isStarred: false
+isTrashed: false

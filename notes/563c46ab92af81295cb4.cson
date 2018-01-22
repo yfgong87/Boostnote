@@ -4,12 +4,16 @@ title: "Product of Array Except itself"
 content: '''
   # Product of Array Except itself
   - Given `[1,2,3,4]`, return `[24,12,8,6]`.
-  - Brute Force is `O(n^2)`
-  - An intuitive thoughts is scan from left to right once, store the running product in a new array, then scan from left to right again and divide the running product by the number at that index
-  - Final solution: 
+  
+  Solution:
+  - Brute Force is `O(n^2)`, we multiply each number with all the other number in the array
+  - An intuitive thoughts is scan from left to right once, store the running product in a new array, then scan from left to right again and divide the running product by the number at that index.
+  - Since we cannot use divide, the final solution: 
   	- Since the product basically is calculated using the numbers before the current number and the numbers after the current number. Thus, we can scan the array twice. 
   	- First, we calcuate the running product from left to right, but each `index` of the running product array stores the running product up to `index - 1`. 
   	- Second, we calculate the running product from right to left, each `index` of the running product array stores the product of the original value and the running product up to `index + 1`
+  
+  Time Complexity: `O(2 * n)`, Space: `O(n)`
   ```java
   class Solution {
       public int[] productExceptSelf(int[] nums) {
@@ -20,8 +24,8 @@ content: '''
           }
           int prefixProduct = 1;
           for(int i = 0; i < n; i++){
-              results[i] = prefixProduct;
-              prefixProduct *= nums[i];
+              results[i] = prefixProduct; // First update results[i] with the running product up to i - 1
+              prefixProduct *= nums[i];  // Then update the running product
           }
           prefixProduct = 1;
           for(int i = n - 1; i >= 0; i--){
@@ -32,7 +36,7 @@ content: '''
       }
   }
   ```
-  ### Brute Force
+  ### Brute Force `O(n^2)`
   ```java
   class Solution {
       public int[] productExceptSelf(int[] nums) {
@@ -70,8 +74,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T16:45:38.065Z"
-updatedAt: "2018-01-03T18:19:41.863Z"
+updatedAt: "2018-01-19T06:36:48.824Z"

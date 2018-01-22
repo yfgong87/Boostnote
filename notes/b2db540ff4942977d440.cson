@@ -4,6 +4,10 @@ title: "Second Minimum Node in Binary Tree"
 content: '''
   # Second Minimum Node in Binary Tree
   返回树中第二小的值，如果数中所有数都相等，返回`-1`
+  
+  Solution:
+  Traverse the tree, use two variable to store the first and second minimum value. When we encounter a value that is smaller than the first minimum, we set the old first minimum as the second minimum, then update the first minimum. When we encounter a value that is between the first and second minimum value, we update the second minimum value. In the end we check if we have a second minumum value, if so we return it.
+  Time complexity: `O(n)`
   ```java
   /**
    * Definition for a binary tree node.
@@ -46,8 +50,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T20:31:53.426Z"
-updatedAt: "2018-01-04T18:23:59.414Z"
+updatedAt: "2018-01-19T05:24:14.676Z"

@@ -3,52 +3,18 @@ folder: "8d19d56ee029f3fa592b"
 title: "strStr"
 content: '''
   # strStr
+  Follow up，允许一个maxError数: 
+  解法一：Brute Force
+  解法二：对 target 进行 sort，对每个 sliding window 也进行 sort
+  解法二复杂度不如解法一
+  
   ### Brute Force
-  ```java
-  class Solution {
-      /**
-       * Returns a index to the first occurrence of target in source,
-       * or -1  if target is not part of source.
-       * @param source string to be scanned.
-       * @param target string containing the sequence of characters to match.
-       */
-      public int strStr(String source, String target) {
-          // write your code here
-          int count = 0;
-          boolean check = true;
-          if (source == null || target == null){
-              return -1;
-          }
-          if (target.equals("")){
-              return 0;
-          }
-          while (count <= (source.length() - target.length())){
-              if (source.charAt(count) == target.charAt(0)){
-                  for (int i = 1; i < target.length(); i++){
-                      if (source.charAt(count + i) != target.charAt(i)){
-                          check = false;
-                          break;
-                      }
-                  }
-                  if (check){
-                      return count;
-                  }
-              }
-              check = true;
-              count++;
-          }
-          return -1;
-      }
-  }
-  ```
+  时间 `O(n * m)`, 空间 `O(1)`
   ```java
   public int strStr(String source, String target) {
           // write your code here
           if(source == null || target == null){
               return -1;
-          }
-          if(source != null && target.length() == 0){
-              return 0;
           }
           for(int i = 0; i < source.length() - target.length() + 1; i++){
               int j = 0;
@@ -64,7 +30,40 @@ content: '''
           return -1;
       }
   ```
-  `O(n + m)`
+  时间 `O(256 * n + m)`， 空间 `O(256)`
+  ```java
+  class Solution {
+      public int strStr(String source, String target) {
+          if(source.length() < target.length()){
+              return -1;
+          }
+          int[] mapS = new int[256];
+          int[] mapT = new int[256];
+          char[] sc = source.toCharArray();
+          char[] tc = target.toCharArray();
+          for(int i = 0; i < target.length(); i++){
+              mapS[sc[i]]++;
+              mapT[tc[i]]++;
+          }
+          if(Arrays.equals(mapS, mapT)){
+              if(source.substring(0, target.length()).equals(target)){
+                  return 0;
+              }
+          }
+          for(int i = 1; i <= source.length() - target.length(); i++){
+              mapS[sc[i - 1]]--;
+              mapS[sc[i + target.length() - 1]]++;
+              if(Arrays.equals(mapS, mapT)){
+                  if(source.substring(i, i + target.length()).equals(target)){
+                      return i;
+                  }
+              }
+          }
+          return -1;
+      }
+  }
+  ```
+  时间 `O(n + m)`, 空间 `O(1)`
   ```java
   public class Solution {
       /**
@@ -124,8 +123,9 @@ content: '''
 '''
 tags: [
   "PocketGem"
+  "HashMap"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T14:14:22.315Z"
-updatedAt: "2018-01-06T19:25:04.148Z"
+updatedAt: "2018-01-11T06:08:41.493Z"

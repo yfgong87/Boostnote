@@ -1,8 +1,8 @@
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
-title: "Short Word Distance I, II，III"
+title: "Shortest Word Distance I, II，III"
 content: '''
-  # Short Word Distance I, II，III
+  # Shortest Word Distance I, II，III
   ### Short Word Distance I
   Given a list of words and two words `word1` and `word2`, return the shortest distance between these two words in the list. You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
   
@@ -11,8 +11,10 @@ content: '''
   
   Given `word1` = `“coding”`, `word2` = `“practice”`, return `3`.
   Given `word1` = `"makes"`, `word2` = `"coding"`, return `1`.
-  - 记录所有 index + Two Pointer 解法
-  时间 `O(n)` + `O(x + y)`，空间 `O(x + y)`
+  #### 1.1 记录所有 index + Two Pointer 解法
+  用两个 list 记录 word1 和 word2 出现的所有 Index, 同向双指针扫描两个 list, 更新 min Distance
+  
+  时间 `O(n)` + `O(x + y)` = `O(n)`，空间 `O(x + y)`
   ```java
   class Solution {
       public int shortestDistance(String[] words, String word1, String word2) {
@@ -46,7 +48,9 @@ content: '''
       }
   }
   ```
-  - Two Pointer 遍历解法
+  #### 1.2 遍历解法
+  遍历 words, 用两个变量分别记录上一次出现的 word1 或 word2 的 index，更新 min Distance, min 只能出现在相邻的 index1/index2 之间
+  
   Time Complexity `O(n)`, Space `O(1)`
   ```java
   class Solution {
@@ -71,7 +75,10 @@ content: '''
   ```
   ### Short Word Distance III
   当`word1`可以等于`word2`时, You may assume word1 and word2 are both in the list.
-  - HashMap + Two Pointer 解法
+  
+  #### 3.1 HashMap + Two Pointer 解法
+  `HashMap`<`word`, `List of index`> 记录每个 word 及其出现的所有 index，根据 input 得到两个 word 出现的所有 index，同向双指针不断更新 min Distance
+  
   Time `O(n + x + y)`, Space `O(n + x + y)`，`x` 和 `y` 为 `word1` 和 `word2`出现的次数
   ```java
   class Solution {
@@ -113,7 +120,9 @@ content: '''
       }
   }
   ```
-  - Two Pointer 遍历解法
+  #### 3.2 遍历解法
+  遍历 words, 用两个变量分别记录上一次出现的 word1 或 word2 的 index，更新 min Distance, min 只能出现在相邻的 index1/index2 之间，如果两个 word 相同，只需要用到 index1
+  
   Time Complexity `O(n)`, Space `O(1)`
   ```java
   class Solution {
@@ -154,9 +163,10 @@ content: '''
   ### Short Word Distance II
   当函数需要被调用多次
   You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
-  - HashMap + Two Pointer 解法
-  如果不这么做，假设`words`中一共有`n`个`word`，`shortest`被反复调用了`m`次，时间复杂度为 `n * m`
-  下面的方法为 `O(n) + O((x + y) * n)`，其中`x`和`y`为两个`word`在`words`中出现的次数。因为`x` << `n`且`y` << `n`, 第二种方法更优
+  
+  #### 2.1 HashMap + Two Pointer 解法
+  `HashMap`<`word`, `List of index`> 记录每个 word 及其出现的所有 index，根据 input 得到两个 word 出现的所有 index，同向双指针不断更新 min Distance. 如果不这么做而是每次都重新遍历整个 `words`，假设`words`中一共有`n`个`word`，`shortest`被反复调用了`m`次，时间复杂度为 `n * m`
+  下面的方法为 `O(n) + O((x + y) * m)`，其中`x`和`y`为两个`word`在`words`中出现的次数。因为`x` << `n`且`y` << `n`, 第二种方法更优
   - Assuming there are `n` words in `words`, then since `shortest` is called `m` times, time complexity is `O(n * m)`. This HashMap + mergeSort method will have a time complexity of `O(n) + O((x + y) * m)`, while `x` and `y` are the occurrence of `word1` and `word2` in `words`. Since `x` << `n` and `y` << `n`, this is a better method
   - Time: `O(n) + O((x + y) * m)`, Space `O(n + x + y)`
   ```java
@@ -209,7 +219,7 @@ content: '''
       }
   }
   ```
-  - Two Pointer 遍历解法
+  #### 2.2 遍历解法
   Time: `O(n * m)`, Space: `O(n)`
   ```java
   class WordDistance {
@@ -241,8 +251,12 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Linkedin"
+  "HashMap"
+  "Two_Pointer"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-25T19:33:54.599Z"
-updatedAt: "2018-01-02T19:12:17.245Z"
+updatedAt: "2018-01-19T00:56:45.940Z"

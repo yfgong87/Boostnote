@@ -10,7 +10,7 @@ content: '''
   Space complexity: `O(h)`
   
   ### Solution
-  The idea is to traverse the tree starting from root. Since LCA is always has the largest depth, we use `postOrder Traversal` to look at the nodes with largest depth first, then traverse back to root.
+  The idea is to traverse the tree starting from root. Since LCA is always has the largest depth, we use `PostOrder Traversal` to look at the nodes with largest depth first, then traverse back to root.
   
   The node which has one key present in its left subtree and the other key present in right subtree is the LCA. If both keys lie in left subtree, then left subtree has LCA, otherwise LCA lies in right subtree.
   
@@ -49,7 +49,7 @@ content: '''
   不提供`root`, 但是每个`TreeNode`都有一个`parent`
   并且保证`TreeNode A`和`TreeNode B` 一定存在于树中
   
-  Time complexity: `O(n)`, tree is traversed twice
+  Time complexity: `O(2 * height of the tree)`, tree height is traversed twice
   Space complexity: `O(2 * height of the tree)` to store the two paths
   
   Summary:
@@ -87,11 +87,33 @@ content: '''
           return path;
                                                    }
   ```
+  使用 `HashSet` 优化，Time: `O(h)`, Space: `O(h)`
+  ```java
+  public ParentTreeNode lowestCommonAncestorII(ParentTreeNode root, ParentTreeNode A, ParentTreeNode B) {
+          // write your code here
+          Set<ParentTreeNode> set = new HashSet<>();
+          while(A != null){
+              set.add(A);
+              A = A.parent;
+          }
+          
+          while(B != null){
+              if(set.contains(B)){
+                  return B;
+              }
+              B = B.parent;
+          }
+          return null;
+      }
+  ```
   变种2：
   `不`保证`TreeNode A`和`TreeNode B` 一定存在于树中
   
   We assumes that both keys are present in Binary Tree. If one key is present and other is absent, then the traversal method will returns the present key as LCA (which ideally should have returned `NULL`).
   We can extend this method to handle all cases by passing two boolean variables `a_exist` and `b_exist`. `a_exist` is set as true when `a` is present in tree and `b_exist` is set as true if `b` is present in tree.
+  
+  PostOrder
+  
   ```java
   class ResultType {
       public boolean a_exist, b_exist;
@@ -144,6 +166,10 @@ content: '''
       }
   }
   ```
+  Follow Up:
+  K 叉树中找 2 个节点的 LCA，不一定要扫完所有 K 个分叉，找到两个就可以返回，如果只有一个则要继续往下扫
+  K 叉树中找 k 个节点的 LCA, 对所有节点建一个 Map
+  
   ### Lowest Common Ancestor of Binary Search Tree
   变种3：在`BST`中找`LCA`
   ```java
@@ -179,4 +205,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-16T03:53:08.885Z"
-updatedAt: "2018-01-08T02:37:41.066Z"
+updatedAt: "2018-01-19T00:34:14.211Z"

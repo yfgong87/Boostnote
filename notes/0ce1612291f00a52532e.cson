@@ -73,8 +73,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-07T18:14:54.433Z"
-updatedAt: "2017-12-07T18:18:51.978Z"
+updatedAt: "2018-01-09T23:46:20.666Z"

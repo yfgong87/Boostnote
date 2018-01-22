@@ -5,6 +5,8 @@ content: '''
   # Add Two numbers
   ### Two Number stored in `LinkedList`
   #### `6 -> 1 -> 7` = `716`
+  Time: `O(n + m)` since we need to go through every node until both list reach null
+  Space: `max(m,n) + 1`
   ```java
   public class Solution {
       /*
@@ -40,6 +42,7 @@ content: '''
   }
   ```
   #### `6 -> 1 -> 7` = `617`
+  Time: `O(n) + O(m) + 2 * O(n + m)`
   ```java
   public class Solution {
       /*
@@ -133,10 +136,71 @@ content: '''
       }
   }
   ```
-  
+  ### Plus One
+  Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
+  You may assume the integer do not contain any leading zero, except the number 0 itself.
+  The digits are stored such that the most significant digit is at the head of the list.
+  ```java
+  class Solution {
+      // {1,2,3} = 123
+      public int[] plusOne(int[] digits) {
+          int carry = 1;
+          for(int i = digits.length - 1; i >= 0; i--){
+              int sum = digits[i] + carry;
+              carry = sum / 10;
+              digits[i] = sum % 10;
+              if(carry == 0){
+                  break;
+              } 
+          }
+          if(carry == 1){
+              digits = new int[digits.length + 1];
+              digits[0] = 1;
+          }
+          return digits;
+      }
+  }
+  ```
+  ### Plus One LinkedList
+  新建一个List
+  ```java
+  class Solution {
+      public ListNode plusOne(ListNode head) {
+          ListNode dummy = new ListNode(0), curr = dummy;
+          head = reverse(head);
+          int carry = 1;
+          while(head != null){
+              int sum = head.val + carry;
+              carry = sum / 10;
+              curr.next = new ListNode(sum % 10);
+              curr = curr.next;
+              head = head.next;
+          }
+          if(carry == 1){
+              curr.next = new ListNode(1);
+          }
+          return reverse(dummy.next);
+      }
+      
+      public ListNode reverse(ListNode head){
+          ListNode prev = null;
+          while(head != null){
+              ListNode temp = head.next;
+              head.next = prev;
+              prev = head;
+              head = temp;
+          }
+          return prev;
+      }
+  }
+  ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+  "Math"
+  "Linkedin"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-24T23:51:25.050Z"
-updatedAt: "2017-12-27T01:09:38.480Z"
+updatedAt: "2018-01-22T02:45:37.668Z"

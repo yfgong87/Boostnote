@@ -3,6 +3,12 @@ folder: "8d19d56ee029f3fa592b"
 title: "Clone Graph"
 content: '''
   # Clone Graph
+  Solution:
+  - Use a `HashMap` to store each node and its copy
+  - Use a queue to traverse all the node and its neighbors, use a `HashSet` to avoid loop
+  
+  Time Complexity: `O(V + E)` = `O(number of node + number of neighbor relationship)`
+  Space Complexity: `O(V)` = `O(number of node)`
   ```java
   /**
    * Definition for undirected graph.
@@ -68,8 +74,11 @@ content: '''
 '''
 tags: [
   "PocketGem"
+  "BFS"
+  "Topological_Sorting"
+  "HashMap"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-06T14:57:54.354Z"
-updatedAt: "2018-01-09T21:45:58.889Z"
+updatedAt: "2018-01-11T16:54:59.063Z"

@@ -1,5 +1,5 @@
 createdAt: "2017-12-27T01:24:57.507Z"
-updatedAt: "2017-12-27T02:32:55.707Z"
+updatedAt: "2018-01-22T02:47:59.362Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Anagram 系列"
@@ -176,6 +176,9 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "HashMap"
+  "String"
+]
 isStarred: false
 isTrashed: false

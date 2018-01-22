@@ -1,0 +1,75 @@
+createdAt: "2018-01-11T00:23:18.979Z"
+updatedAt: "2018-01-11T00:53:26.422Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Number of 1 Bits / Count Bits"
+content: '''
+  ### Number of 1 Bits / Count Bits
+  - The solution is straight-forward. We check each of the 32 bits of the number. If the bit is 1, we add one to the count.
+  - We can check the i th bit of a number using a bit mask. We start with a mask m=1, because the binary representation of 1 is `0000 0000 0000 0000 0000 0000 0000 0001`
+  - Clearly, a logical AND (`&`) between any number and the mask 1 gives us the least significant bit of this number. 
+  - To check the next bit, we shift the mask to the left by one.
+  
+  Time Complexity:`O(1)`
+  ```java
+  public class Solution {
+      // you need to treat n as an unsigned value
+      public int countBit(int n) {
+          int count = 0;
+          int mask = 1;
+          for(int i = 0; i < 32; i++){
+              if((n & mask) != 0){
+                  count++;
+              }
+              mask <<= 1;
+          }
+          return count;
+      }
+  }
+  ```
+  ### Sort based on Number of Bits
+  给一个整数 `k`，代表一个二进制数有`k`位，对所有可能的`k`位二进制数按照其中`1`的个数进行排序
+  Example: `k` = `2`, 那么有`00`，`01`，`10`，`11`四个数, 按照`1`的个数排序就是 `00`，`01`，`10`，`11`，其中`1`的个数相同的数字顺序无所谓
+  
+  Solution：Couting Sort, `k` 位的二进制数从 `0` 开始到 `2^k - 1` 结束，对每个数，count Bits, 放入相应的 `HashMap<Integer, List<Integer>>` 中，从 0 到 k，打印 `map.get(k)`
+  Time Complexity: `O(2^k)` + `O(k)` = 2^k
+  Space Complexity: `O(2^k)`
+  ```java
+  public class Solution {
+  	Map<Integer, ArrayList<Integer>> map = new HashMap<>(); 
+      public ArrayList<Integer> countSort(int k){
+  		ArrayList<Integer> result = new ArrayList<>();
+  		for(int i = 0; i < 2^k; i++){
+  			int bit = countBit(i);
+  			if(!map.containsKey(bit)){
+  				map.put(bit, new ArrayList<Integer>());
+  			}
+  			map.get(bit).add(i);
+  		}
+  		for(int i = 0; i <= k; i++){
+  			if(map.containsKey(i)){
+  				result.addAll(map.get(i));
+  			}
+  		}
+  		return result;
+  	}
+      public int countBit(int n) {
+          int count = 0;
+          int mask = 1;
+          for(int i = 0; i < 32; i++){
+              if((n & mask) != 0){
+                  count++;
+              }
+              mask <<= 1;
+          }
+          return count;
+      }
+  }
+  ```
+'''
+tags: [
+  "Bit"
+  "Math"
+]
+isStarred: false
+isTrashed: false

@@ -37,6 +37,11 @@ content: '''
   }
   ```
   ### Insert Interval (interval array already sorted by start)
+  The general idea is to find the insertion point by comparing the lower boundary of all intervals. Then we merge all the intervals in place. Since the `start` is all sorted, we just need to compare the `end` of an interval with the `start` of the next interval, if there is any overlapping, we merge the two interval by taking the `start` of the first interval as the new `start`, and the maximum `end` between the two interval as the new `end`
+  
+  Time complexity: `O(n)`, Space: `O(n)` for the buffer result list
+  
+  You can potentially reduce the time to search for the insertion point by doing a binary search, but eventually the bottle neck will be the merge interval. Because if you have an extreme case where your insertion point is the head of the list, but the upper boundary of the inserted interval is bigger than every interval, then you have to merge all `n` intervals which takes `O(n)`
   ```java
   class Solution {
       public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
@@ -98,8 +103,9 @@ content: '''
 '''
 tags: [
   "Interval"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T22:03:48.044Z"
-updatedAt: "2018-01-02T02:59:12.651Z"
+updatedAt: "2018-01-18T20:09:54.809Z"

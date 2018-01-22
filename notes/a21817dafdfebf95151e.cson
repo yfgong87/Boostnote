@@ -124,8 +124,10 @@ content: '''
   ```
   
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-11T03:23:12.937Z"
-updatedAt: "2017-12-31T17:54:48.473Z"
+updatedAt: "2018-01-09T23:44:02.381Z"

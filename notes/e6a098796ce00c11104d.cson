@@ -54,8 +54,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-01T02:09:07.152Z"
-updatedAt: "2018-01-08T01:55:12.270Z"
+updatedAt: "2018-01-22T02:48:19.990Z"

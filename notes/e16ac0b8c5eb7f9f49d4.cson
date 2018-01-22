@@ -4,7 +4,7 @@ title: "Sum of Square Number"
 content: '''
   # Sum of Square Number
   ### 最优解 (14ms)
-  - Two Pointer解法，复杂度为`O(sqrt(c)) + O(log(c)`
+  - 经典Two Pointer解法，反向双指针，复杂度为`O(sqrt(c)) + O(log(c))`
   - Two Point 本身`O(sqrt(c))`，`Math.sqrt(c)`最坏复杂度为`O(log(c))`，由于 `sqrt(c)` >> `log(c)`，最终复杂度为`O(sqrt(c))`
   ```java
   class Solution {
@@ -45,19 +45,19 @@ content: '''
   }
   ```
   ### 中间解II (96ms)
-  - Binary Search，`O(sqrt(c) * log(c))`，外面for循环一共`sqrt(c)`，里面二分每次`log(c)`
+  - Binary Search，`O(sqrt(c) * log(c))`，外面for循环一共`sqrt(c)`，里面二分每次`log(c)` (b * b 最大为 c)
   ```java
   class Solution {
       public boolean judgeSquareSum(int c) {
           for(long a = 0; a * a <= c; a++){ //注意等号要有
-              if(isPerfectSquare(c - (int) (a * a))){
+              if(isPerfectSquare(c - a * a)){
                   return true;
               }
           }
           return false;
       }
       
-      public boolean isPerfectSquare(int b){
+      public boolean isPerfectSquare(long b){
           long start = 0; //注意使用long型，不然如果 b 太大
           long end = b;   //start/end/mid 如果是 int 则无法在不越界的前提下平方得到 b
           while(start + 1 < end){
@@ -80,6 +80,7 @@ content: '''
   ```java
   class Solution {
       public boolean judgeSquareSum(int c) {
+  		//注意使用long型
           for(long a = 0; a * a <= c; a++){
               for(long b = 0; b * b <= c; b++){
                   if(a * a + b * b == c){
@@ -97,8 +98,9 @@ content: '''
 '''
 tags: [
   "Two_Pointer"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T20:55:59.403Z"
-updatedAt: "2018-01-04T17:41:32.712Z"
+updatedAt: "2018-01-21T02:55:54.852Z"

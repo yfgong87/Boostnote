@@ -1,5 +1,5 @@
 createdAt: "2017-09-01T20:28:15.762Z"
-updatedAt: "2017-12-31T15:53:41.456Z"
+updatedAt: "2018-01-09T23:44:07.213Z"
 type: "MARKDOWN_NOTE"
 folder: "c7615b6dcc7b2832aa16"
 title: "Merge Sort"
@@ -136,6 +136,8 @@ content: '''
   };
   ```
 '''
-tags: []
+tags: [
+  "LinkedList"
+]
 isStarred: false
 isTrashed: false

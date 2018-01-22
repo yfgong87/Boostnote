@@ -1,8 +1,42 @@
 type: "MARKDOWN_NOTE"
 folder: "0ef4dc321cdc22cb8b00"
-title: "QuickSelect"
+title: "QuickSelect / Kth smallest / largest Element"
 content: '''
-  # QuickSelect
+  # QuickSelect / Kth smallest / largest Element
+  
+  ### Kth Largest Element
+  
+  时间复杂度比较：
+  - Sort Array (`O(nlogn)`) -> print the kth number (`O(1)`) = `O(nlogn)`
+  - Min Heap of size `k` -> poll n times (n * logk) = `O(nlogk)`
+  - quick Select = `O(n)`
+  
+  #### Heap 解法
+  Min Heap of size `k` -> poll n times (n * logk) = `O(nlogk)`
+  ```java
+  class Solution {
+      public int findKthLargest(int[] nums, int k) {
+          if(nums == null || nums.length == 0){
+              return -1;
+          }
+          PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+          for(int i = 0; i < nums.length; i++){
+              pq.add(nums[i]);
+              if(pq.size() > k){
+                  pq.poll();
+              }
+          }
+          return pq.poll();
+      }
+  }
+  ```
+  #### QuickSelect 解法
+  
+  - Similar to QuickSort, except we don't need to sort the entire array. When we find that our partition index is less than k, we keep looking in the right partition, otherwise we go to the left. This way every recursion our run time is reduced to half in average.
+  - 注意最后左右指针之间可能有一个数(即最后左右指针都指向同一个数，且此数值为 pivot，此时左右指针互换并各前进一格，中间空出一个值为 pivot 的数)，此时直接返回 `nums[k]`
+  - 左右指针之间也可能没有数，此时往左边或右边递归
+  
+  Time Complexity: `O(n)`
   
   我们来算一个理想状况，假如每次都平分，这样时间复杂度展开是 O(n + n/2 + n/4 + ... .+1) = O(2n) = O(n)。因为算法是，挑选一个pivot之后，O(n)时间进行partition，然后判断一下第k大在左边还是在右边。然后继续往下进行，那么理想情况下，无论去左边还是去右边，规模都从 n 变成了 n / 2。所以 `T(n) = T(n/2) + O(n) = O(2n) = O(n)`
   
@@ -17,15 +51,8 @@ content: '''
   
   如果不理想的情况，运气很不好的话，每次的pivot 都取到了最大或者最小的值，那么复杂度展开是 O(n + n-1 + n-2 + n-3 ... + 1) = O(n^2)。那么我们应该怎么衡量这个算法的时间复杂度呢？类似快速排序我们认为是 O(nlogn)的，因为我们算的是平均时间复杂度，也就是平摊一下各种情况的概率和时间复杂度。因为并不一定每次都运气那么不好，比如你用随机的方式挑选 pivot的话，这样我们认为 quick select 的时间复杂度均摊是 `O(n)`的
   
-  注意最后左右指针之间可能有一个数，此时直接返回 `nums[k]`
-  左右指针之间也可能没有数
-  
-  时间复杂度比较：
-  - Sort Array (`O(nlogn)`) -> print the kth number (`O(1)`) = `O(nlogn)`
-  - Min Heap Heapify (`O(n)`) -> poll k times (k * logn) = `O(n + klogn)`
-  - quick Select = `O(n)`
   ```java
-  public int kthSmallest(int k, int[] nums) {
+  	public int kthSmallest(int k, int[] nums) {
           // write your code here
           if(nums == null || nums.length < k){
               return -1;
@@ -41,10 +68,12 @@ content: '''
           int right = end;
           int pivot = nums[(start + end) / 2];
           while(left <= right){
-              while(left <= right && nums[left] < pivot){
+  			// Kth smallest: while(left <= right && nums[left] < pivot)
+  			// Kth largest
+              while(left <= right && nums[left] > pivot){
                   left++;
               }
-              while(left <= right && nums[right] > pivot){
+              while(left <= right && nums[right] < pivot){
                   right--;
               }
               if(left <= right){
@@ -64,58 +93,22 @@ content: '''
           return nums[k];
       }
   ```
-      
   ### Median
   ```java
-  public class Solution {
-      /*
-       * @param nums: A list of integers
-       * @return: An integer denotes the middle number of the array
-       */
-      public int median(int[] nums) {
-          // write your code here
-          if(nums == null || nums.length == 0){
-              return -1;
-          }
-          return quickSelect(0, nums.length - 1, nums, (nums.length - 1) / 2);
+  public int median(int[] nums) {
+      // write your code here
+      if(nums == null || nums.length == 0){
+          return -1;
       }
-      public int quickSelect(int start, int end, int[] nums, int k){
-          if(start == end){
-              return nums[start];
-          }
-          int left = start;
-          int right = end;
-          int pivot = nums[(start + end) / 2];
-          while(left <= right){
-              while(left <= right && nums[left] < pivot){
-                  left++;
-              }
-              while(left <= right && nums[right] > pivot){
-                  right--;
-              }
-              if(left <= right){
-                  int temp = nums[left];
-                  nums[left] = nums[right];
-                  nums[right] = temp;
-                  left++;
-                  right--;
-              }
-          }
-          if(k <= right && start <= right){
-              return quickSelect(start, right, nums, k);
-          }
-          if(k >= left && left <= end){
-              return quickSelect(left, end, nums, k);
-          }
-          return nums[k];
-      }
+      return quickSelect(0, nums.length - 1, nums, (nums.length - 1) / 2);
   }
   ```
 '''
 tags: [
   "PocketGem"
+  "Sorting"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-08T00:16:04.452Z"
-updatedAt: "2018-01-09T21:46:35.202Z"
+updatedAt: "2018-01-11T20:57:40.429Z"

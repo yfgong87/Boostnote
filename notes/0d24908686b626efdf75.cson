@@ -15,6 +15,7 @@ content: '''
   - Two Sum 的Brute Force Time Complexity是`O`(`N`<sup>`2`</sup>)，因为一共有 `(n - 1) * n / 2` 个 pairs
   - 如果直接用Two Sum (`O(nlogn)`) 由于先行sort了所以需要保存原来的index，不如直接用HashMap (`O(n)`)
   #### HashMap 解法：
+  Time: `O(n)`, Space: `O(n)` in worst case
   ```java
   public class Solution {
       /*
@@ -39,6 +40,8 @@ content: '''
   }
   ```
   #### 直接 Two Sum 解法
+  Time: `O(nlogn)` if array is NOT sorted; `O(n)` if array is sorted; 
+  Space: `O(n)` if array is NOT sorted to store `IndexNum[]`; `O(1)` if array is sorted;
   ```java
   class IndexNum{
       int index;
@@ -420,8 +423,9 @@ content: '''
 '''
 tags: [
   "Two_Pointer"
+  "Linkedin"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T18:18:22.509Z"
-updatedAt: "2018-01-08T03:25:54.282Z"
+updatedAt: "2018-01-19T20:35:54.861Z"

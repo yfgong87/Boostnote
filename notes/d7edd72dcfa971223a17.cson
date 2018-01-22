@@ -1,0 +1,118 @@
+createdAt: "2018-01-21T03:36:09.784Z"
+updatedAt: "2018-01-21T04:26:37.919Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "Maximal Square"
+content: '''
+  # Maximal Square
+  
+  Brute Force Solution:
+  
+  - For each point(i, j) in the matrix, we check the maximal square that use this point as its top left coner. 
+  - First we check if the value in this point is `1`, if not we `continue`. 
+  - Otherwise we expand from this point(i, j) to point (i + 1, j + 1), then check if all the value in the expanded column and row has a value of `1`, if not we stop the iteration.
+  
+  Time complexity: `O((mn)^2)` worst case since we need to expand on every point
+  Space complexity: `O(1)`
+  ```java
+  class Solution {
+      public int maximalSquare(char[][] matrix) {
+          if(matrix == null || matrix.length == 0 || matrix[0].length == 0){
+              return 0;
+          }
+          int n = matrix.length;
+          int m = matrix[0].length;
+          int globalMax = 0;
+          for(int i = 0; i < n; i++){
+              for(int j = 0; j < m; j++){
+                  if(matrix[i][j] == '0'){
+                      continue;
+                  }
+                  boolean flag = true;
+                  int max = 1;
+                  while(max + i < n && max + j < m && flag){
+                      for(int k = i; k <= max + i; k++){
+                          if(matrix[k][max + j] == '0'){
+                              flag = false;
+                              break;
+                          }
+                      }
+                      for(int k = j; k <= max + j; k++){
+                          if(matrix[max + i][k] == '0'){
+                              flag = false;
+                              break;
+                          }
+                      }
+                      if(flag){
+                          max++;
+                      }
+                  }
+                  globalMax = Math.max(globalMax, max);
+              }
+          }
+          return globalMax * globalMax;
+      }
+  }
+  ```
+  优化 DP Solution:
+  ![](https://leetcode.com/media/original_images/221_Maximal_Square.PNG?raw=true)
+  - `f[i][j]`: the length of side of maximal square that use `point(i,j)` as its bottom right coner
+  - DP 方程：
+    - if maxtrix[i][j] == '1': `f[i][j]` = `min(f[i-1][j-1],f[i-1][j],f[i][j-1])` + `1` because the min is the bottle neck
+    - if maxtrix[i][j] == '0': `f[i][j]` = `0`
+  - 初始化：第一行和第一列
+  - Compare `globalMax` with each `f[i][j]`, return `global max`
+  
+  Time Complexity: `O(mn)`, Space: `O(mn)`
+  ```java
+  class Solution {
+      public int maximalSquare(char[][] matrix) {
+          if(matrix == null || matrix.length == 0 || matrix[0].length == 0){
+              return 0;
+          }
+          int n = matrix.length;
+          int m = matrix[0].length;
+          int max = 0;
+          int[][] f = new int[n][m];
+  		
+  		//初始化第一列
+          for(int i = 0; i < n; i++){
+              if(matrix[i][0] == '1'){
+                  f[i][0] = 1;
+                  max = 1;
+              } else {
+                  f[i][0] = 0;
+              }
+          }
+  		
+  		//初始化第一行
+          for(int j = 0; j < m; j++){
+              if(matrix[0][j] == '1'){
+                  f[0][j] = 1;
+                  max = 1;
+              } else {
+                  f[0][j] = 0;
+              }
+          }
+  		
+          for(int i = 1; i < n; i++){
+              for(int j = 1; j < m; j++){
+                  if(matrix[i][j] == '1'){
+                      f[i][j] = Math.min(Math.min(f[i-1][j-1], f[i-1][j]),f[i][j-1]) + 1;
+                  } else {
+                      f[i][j] = 0;
+                  }
+                  max = Math.max(max, f[i][j]);
+              }
+          }
+          return max * max;
+      }
+  }
+  ```
+'''
+tags: [
+  "Dynamic_Programming"
+  "Linkedin"
+]
+isStarred: false
+isTrashed: false

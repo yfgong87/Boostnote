@@ -1,5 +1,5 @@
 createdAt: "2018-01-09T21:51:30.951Z"
-updatedAt: "2018-01-09T22:01:18.625Z"
+updatedAt: "2018-01-11T05:05:22.726Z"
 type: "MARKDOWN_NOTE"
 folder: "d244500e287747fe254a"
 title: "Check whether a given point lies inside a triangle or not"
@@ -43,6 +43,7 @@ content: '''
 '''
 tags: [
   "PocketGem"
+  "Math"
 ]
 isStarred: false
 isTrashed: false

@@ -3,6 +3,14 @@ folder: "8d19d56ee029f3fa592b"
 title: "System Longest File Path"
 content: '''
   # System Longest File Path
+  The string `"dir\\n\\tsubdir1\\n\\tsubdir2\\n\\t\\tfile.ext"` represents:
+  ```java
+  dir
+  	subdir1
+    	subdir2
+  		file.ext
+  ```	
+  Longest File Path is `dir/subdir1/file.ext`
   ```java
   public class Solution {
       /*
@@ -40,4 +48,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-20T20:04:52.104Z"
-updatedAt: "2017-10-11T04:46:21.098Z"
+updatedAt: "2018-01-22T18:11:50.385Z"
