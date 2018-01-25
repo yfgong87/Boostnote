@@ -39,7 +39,7 @@ content: '''
           //如果只要求中间词一定要在字典中，那么必须先把 start 和 end 加到字典里
           //dict.add(start); //可以不加start，但必须加end
   		//如果要求 end 也要在字典中，这步不能有!
-          dict.add(end);
+          //dict.add(end);
   
           HashSet<String> hash = new HashSet<String>();
           Queue<String> queue = new LinkedList<String>();
@@ -105,4 +105,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-21T03:18:48.801Z"
-updatedAt: "2018-01-20T19:18:38.889Z"
+updatedAt: "2018-01-23T18:05:40.962Z"

@@ -9,6 +9,7 @@ content: '''
   解法二复杂度不如解法一
   
   ### Brute Force
+  For every char in source, if it match the first char in target, keep checking until reach the length of the target.
   时间 `O(n * m)`, 空间 `O(1)`
   ```java
   public int strStr(String source, String target) {
@@ -124,8 +125,9 @@ content: '''
 tags: [
   "PocketGem"
   "HashMap"
+  "String"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T14:14:22.315Z"
-updatedAt: "2018-01-11T06:08:41.493Z"
+updatedAt: "2018-01-23T03:03:06.943Z"

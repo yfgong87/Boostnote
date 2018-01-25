@@ -12,7 +12,13 @@ content: '''
   Given `word1` = `“coding”`, `word2` = `“practice”`, return `3`.
   Given `word1` = `"makes"`, `word2` = `"coding"`, return `1`.
   #### 1.1 记录所有 index + Two Pointer 解法
-  用两个 list 记录 word1 和 word2 出现的所有 Index, 同向双指针扫描两个 list, 更新 min Distance
+  Check:
+  Are word 1 and 2 both in the words array?
+  
+  Solution:
+  - First traverse the array once, store all the indices of word1 和 word2, since I don't know how many times each word appears, I will use two lists. 
+  - Since the indices of the two words are added in order into the list, which means the list is already sorted, the minimum distance must be between two adjacent index. 
+  - So I can use two pointers, one pointer for one list, both pointing the the begining of list, both moving from left to right. I make sure the difference between the two pointer is no more than 1. I keep calculating the absoloute difference between the indices that the two pointers pointed at, and updating a minimum Distance
   
   时间 `O(n)` + `O(x + y)` = `O(n)`，空间 `O(x + y)`
   ```java
@@ -76,34 +82,27 @@ content: '''
   ### Short Word Distance III
   当`word1`可以等于`word2`时, You may assume word1 and word2 are both in the list.
   
-  #### 3.1 HashMap + Two Pointer 解法
-  `HashMap`<`word`, `List of index`> 记录每个 word 及其出现的所有 index，根据 input 得到两个 word 出现的所有 index，同向双指针不断更新 min Distance
+  #### 3.1 Two Pointer 解法
+  加一行判断，当 index1 == index2 时需要跳过，因为是同一个数
   
-  Time `O(n + x + y)`, Space `O(n + x + y)`，`x` 和 `y` 为 `word1` 和 `word2`出现的次数
+  Time `O(n + x + y)`, Space `O(x + y)`，`x` 和 `y` 为 `word1` 和 `word2`出现的次数
   ```java
   class Solution {
       public int shortestWordDistance(String[] words, String word1, String word2) {
-          Map<String, List<Integer>> map = new HashMap<>();
+          List<Integer> list1 = new ArrayList<>();
+          List<Integer> list2 = new ArrayList<>();
           for(int i = 0; i < words.length; i++){
-              if(!map.containsKey(words[i])){
-                  List<Integer> list = new ArrayList<>();
-                  list.add(i);
-                  map.put(words[i], list);
-              } else {
-                  map.get(words[i]).add(i);
+              if(words[i].equals(word1)){
+                  list1.add(i);
+              }
+              if(words[i].equals(word2)){
+                  list2.add(i);
               }
           }
-          
-          List<Integer> list1 = map.get(word1);
-          List<Integer> list2 = map.get(word2);
-          int size1 = list1.size();
-          int size2 = list2.size();
           int i = 0;
           int j = 0;
           int min = Integer.MAX_VALUE;
-          //由于index的list是按照从小到大的顺序加入到map中的，相当于已经排好序了
-          //此时用一个类似mergeSort的算法花O(m + n)的时间遍历两个list并打擂台找最小差值
-          while(i < size1 && j < size2){
+          while(i < list1.size() && j < list2.size()){
               int index1 = list1.get(i);
               int index2 = list2.get(j);
               //注意这里要判断，当 index1 == index2 时需要跳过，因为是同一个数
@@ -259,4 +258,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-25T19:33:54.599Z"
-updatedAt: "2018-01-19T00:56:45.940Z"
+updatedAt: "2018-01-23T20:18:04.422Z"

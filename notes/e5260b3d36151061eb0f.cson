@@ -1,5 +1,5 @@
 createdAt: "2017-12-24T00:27:15.274Z"
-updatedAt: "2017-12-24T00:51:30.271Z"
+updatedAt: "2018-01-23T03:39:19.011Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Restore IP Address"
@@ -68,6 +68,9 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Backtracking"
+  "DFS"
+]
 isStarred: false
 isTrashed: false

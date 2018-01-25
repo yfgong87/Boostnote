@@ -1,0 +1,41 @@
+createdAt: "2018-01-22T21:34:31.033Z"
+updatedAt: "2018-01-22T21:57:41.408Z"
+type: "MARKDOWN_NOTE"
+folder: "df7fbd4f413bd7e56cde"
+title: "String to Integer (atoi, ASCII to Integer)"
+content: '''
+  # String to Integer (atoi, ASCII to Integer)
+  In java: `true` == `1`, `false` = `0`
+  ```java
+  class Solution {
+      public int myAtoi(String str) {
+          int index = 0;
+          int sign = 1;
+          boolean hasSign = false;
+          boolean hasInvalid = false;
+          boolean hasNum = false;
+          long num = 0;
+          char[] sc = str.toCharArray();
+          while(index < str.length() && !hasInvalid){
+              if(sc[index] == '-'){
+                  sign = hasSign == false ? -1 : 0;
+                  hasSign = true;
+              } else if(sc[index] == '+'){
+                  sign = hasSign == false ? 1 : 0;
+                  hasSign = true;
+              } else if(sc[index] >= '0' && sc[index] <= '9'){
+                  num = 10 * num + (sc[index] - '0');
+                  hasNum = true;
+              } else {
+                  if(sc[index] != ' ') hasInvalid = true;
+              }
+              index++;
+          }
+          return (int) num * sign;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

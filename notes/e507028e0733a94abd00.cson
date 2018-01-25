@@ -18,28 +18,6 @@ content: '''
           ArrayList<Integer> result = new ArrayList<Integer>();
           int sum = 0;
           map.put(0, 0);
-          for(int i = 0; i < nums.length; i++){
-              sum += nums[i];
-              if(map.containsKey(sum)){
-                  result.add(map.get(sum));
-                  result.add(i);
-                  return result;
-              } else {
-                  //sum array 比 num 多一位，如果 i 是在 num 里 iterate，
-                  //则 sum 的 index 是 i + 1
-                  map.put(sum, i + 1);
-              }
-          }
-          return result;
-      }
-  ```
-  ```java
-  public ArrayList<Integer> subarraySum(int[] nums) {
-          // write your code here
-          HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-          ArrayList<Integer> result = new ArrayList<Integer>();
-          int sum = 0;
-          map.put(0, 0);
           //如果循环的是 sum 数组一定要注意以下几点：
           //首先在循环外面要初始化 sum[0]
           //循环的范围从 1 开始, 到 n(包括n) 结束
@@ -105,4 +83,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-24T19:58:31.726Z"
-updatedAt: "2017-12-09T19:21:20.432Z"
+updatedAt: "2018-01-23T02:52:23.462Z"

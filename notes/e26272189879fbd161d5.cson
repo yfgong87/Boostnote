@@ -14,11 +14,11 @@ content: '''
   ]`
   
   Solution: 
-  - General idea is to process line by line until we run out of word
-  - In everyline, as long as we still have space, we keep adding the next word in until the size of the line exceed the limit. Then we need to handle the remaining empty spaces.
-  - In case the word is the last word in the word list, we need to left justifify. Or in case we have only one word in the list, we also need to left justify, which means all the empty space goes after the last word
-  - Otherwise we need to do middle justification, which means we divide the remaining space evenly between each word in the line. If we still have remaining space, we always add them after words that lie on the left side.
-  - We need two pointers to record the start and end of the word of the line we are processing.
+  - General idea is to process line by line until we run out of word, complexity will be `O(n)`
+  - In everyline, as long as we still have space left, we keep adding the next word in until the size of the line exceed the limit. Then we need to handle the remaining empty spaces:
+    - In case the word is the last word in the word list, we need to left justifify. Or in case we have only one word in the list, we also need to left justify, which means all the empty space goes after the last word
+    - Otherwise we need to do middle justification, which means we divide the remaining space evenly between each word in the line. If the remaining space cannot be divided evenly between all the words, for example we have 5 words in the line, then there will be 4 slots between these words. Let's say we have 7 remaining space in the line. We divide 7 by 4, the remainder is 3. Then as we go from left to right, we assign one space to each word from the reminder 3 until we run out of the 3 empty space. This way we make sure the left word always get more space than the right word.
+  - After we are done with one line, we add it to the results. Then we start processing a newline from the next word to the last word that we are handling. 
   
   ```java
   public class Solution {
@@ -97,4 +97,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-10T21:51:24.104Z"
-updatedAt: "2018-01-18T05:57:50.000Z"
+updatedAt: "2018-01-23T18:28:17.325Z"

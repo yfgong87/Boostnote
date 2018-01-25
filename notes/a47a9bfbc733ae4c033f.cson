@@ -11,6 +11,13 @@ content: '''
   		file.ext
   ```	
   Longest File Path is `dir/subdir1/file.ext`
+  
+  Solution:
+  - Seperate input by `'\\n'`
+  - Count how many `'\\t'` in the head of each String to calculate which level the directory is
+  - Use a prefixSum array to keep track of the maximum file length up to each level. For example, `sum[i]` will be the max sum at level i. 
+  - For each level we add the maximum level length to the last element in prefixSum array, so the prefixSum array starts from 1.
+  - Whenever we don't see a `'.'`, meaning we are not at the bottom level, we need to append a forward slash `'/'` after the directory name
   ```java
   public class Solution {
       /*
@@ -30,7 +37,7 @@ content: '''
               //+2 是为了留出 sums[0] 方便后面当 level = 1 时执行 sums[level - 1]
               //顶层 str.lastIndexOf('\\t')返回 -1, -1 + 2 = 1
               int level = str.lastIndexOf('\\t') + 2;
-              int len = str.length() - level + 1;
+              int len = str.length() - (level - 1); // 每一层有 level - 1 个 '\\t'
               if(str.contains(".")){
                   //最后一层不用加'/'
                   maxSum = Math.max(maxSum, sums[level - 1] + len);
@@ -44,8 +51,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "prefixSum"
+  "String"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-20T20:04:52.104Z"
-updatedAt: "2018-01-22T18:11:50.385Z"
+updatedAt: "2018-01-22T19:42:20.143Z"

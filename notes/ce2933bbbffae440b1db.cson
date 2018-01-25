@@ -8,10 +8,12 @@ content: '''
   - When the given word's abbr is not found in the map, return `true`
   - Otherwise search the list of word, if the given word cannot be found in the list, return `false`
   - Otherwise, check if the list of the word has only the given word, if not, it means the abbr is not unique, return `false`
+  
   时间复杂度：
   - `O(1)` to get abbr
   - `O(n)` to put all word in map
   - `O(1)` to check if unique
+  
   空间复杂度：
   - `O(n)` + `O(number of unique abbr)`
   ```java
@@ -81,8 +83,11 @@ content: '''
   
    ```
 '''
-tags: []
+tags: [
+  "HashMap"
+  "String"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-22T20:03:11.105Z"
-updatedAt: "2017-12-25T02:56:29.841Z"
+updatedAt: "2018-01-23T01:57:34.231Z"

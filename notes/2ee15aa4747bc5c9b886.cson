@@ -3,6 +3,14 @@ folder: "8d19d56ee029f3fa592b"
 title: "Top k Largest Number II"
 content: '''
   # Top k Largest Number II
+  Implement a data structure, provide two interfaces:
+  
+  `add(number)`. Add a new number in the data structure.
+  `topk()`. Return the top k largest numbers in this data structure. k is given when we create the data structure.
+  
+  Time Complexity:
+  - add(): first k number we need to build the heap which cost `O(k)`, then for each number added `O(logk)`
+  - topk(): `O(k)`
   ```java
   public class Solution {
       Queue<Integer> pq;
@@ -31,15 +39,18 @@ content: '''
           PriorityQueue<Integer> pqCopy = new PriorityQueue<Integer>(pq);
           //注意check是否已经Empty
           while(!pqCopy.isEmpty()){
-              results.add(0, pqCopy.poll());
+              results.add(0, pqCopy.poll()); // 倒着加，后 poll 出来的数在 list 最前面
           }
           return results;
       }
   };
   ```
 '''
-tags: []
+tags: [
+  "Data_Structure"
+  "PriorityQueue"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-06T23:08:39.779Z"
-updatedAt: "2017-09-06T23:09:04.705Z"
+updatedAt: "2018-01-23T01:49:35.492Z"

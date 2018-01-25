@@ -89,8 +89,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "BFS"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-09T18:18:57.438Z"
-updatedAt: "2017-10-09T18:18:57.438Z"
+updatedAt: "2018-01-23T01:57:06.010Z"

@@ -239,7 +239,9 @@ content: '''
   - 将数组排序
   - 枚举`c`，为保证至少有两个比`c`小的数，`c`的起始`index`为`2`
   - 在`c`的左边（所有比`c`小的数中），枚举`a`和`b`，一旦发现一组`a + b > c`，当前`b`和`a`之间包括`a`的所有数（一共 `b - a` 个）都满足条件
-  - `O(n)`
+  
+  Time Complexity: `O(n^2)`
+  Space Complexity: `O(nlogn)` for sorting the array
   ```java
   public class Solution {
       /*
@@ -428,4 +430,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T18:18:22.509Z"
-updatedAt: "2018-01-19T20:35:54.861Z"
+updatedAt: "2018-01-23T00:43:50.607Z"

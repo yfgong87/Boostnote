@@ -32,11 +32,19 @@ content: '''
       }
   ```
   
-  # Valid Parentheses 加强版
-  How to check valid parenthesis w/ only `(` and `)`? Easy. Count each char from left to right. When we see `(`, `count`++; when we see `)` `count`--; if `count` < `0`, it is invalid (`)` is more than `(`); At last, `count` should == `0`.
-  This problem added `*` (wildcard). The easiest way is to try 3 possible ways when we see it. Return true if one of them is valid.
+  # Valid Parentheses String
+  Solution: 
+  - Iterate each char from left to right. 
+  - When we see `(`, `left count`++; 
+  - When we see `)` `right count`++; 
+  - If `left count` < `right count`, it is invalid (`)` is more than `(`); 
+  - At last, `left count` should == `right count`.
   
-  Time Complexity: upper bond is `3^n`, `n` = number of `*`.
+  加强版 (with wild card `'*'`):
+  The easiest way is to try 3 possible ways when we see it. Return true if one of them is valid.
+  
+  Time Complexity: 
+  upper bond is `3^n`, `n` = number of `*`.
   ```java
   class Solution {
       public boolean checkValidString(String s) {
@@ -57,9 +65,9 @@ content: '''
               } else if (c == ')'){
                   right++;
               } else if (c == '*'){
-                  return helper(s, i + 1, left, right) || 
-                         helper(s, i + 1, left + 1, right) || 
-                         helper(s, i + 1, left, right + 1);
+                  return helper(s, i + 1, left, right) ||     // '*' = ' '
+                         helper(s, i + 1, left + 1, right) || // '*' = '('
+                         helper(s, i + 1, left, right + 1);   // '*' = ')'
               }
           }
           return left == right;
@@ -96,8 +104,12 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "String"
+  "Stack"
+  "DFS"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-05T17:33:29.500Z"
-updatedAt: "2017-12-17T21:51:48.050Z"
+updatedAt: "2018-01-23T01:56:55.729Z"

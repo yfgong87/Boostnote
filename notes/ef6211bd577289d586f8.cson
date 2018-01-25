@@ -11,11 +11,43 @@ content: '''
   Return value: `f[s.length()]`
   
   Time Complexity:
-  `O(nL)` where `n` = `s.length()`, `L` is average length of the words
+  `O(nL)` where `n` = `s.length()`, `L` is the max length of the words
   
   Space：`O(n)` for `f[]`array
   
   优化后，严格来说复杂度是`O(nL^2)`，`n`为总长度，`L`为最长字符串长度。`L^2`包含两个部分，一个是枚举最后一个单词的长度时的耗费`L`，然后枚举出一个单词之后，检查这个单词在hash表中是否存在，严格的说应该是需要耗费`O(L)`的，所以是`O(nL^2）`。但是建议这个hash表部分的复杂度，一定要明白的告诉面试官你是怎么计算的，否则某些水平不高的面试官可能会以为你算错了。
+  
+  ### 无优化解法：`O(n^2)`
+  ```java
+  class Solution {
+      //0 1 2 3 4 5 6 7 8
+      // l e e t|c o d e
+      // i = 4
+      public boolean wordBreak(String s, List<String> wordDict) {
+          if(s == null || s.length() == 0){
+              return false;
+          }
+          Set<String> set = new HashSet<>();
+          for(String word : wordDict){
+              set.add(word);
+          }
+          int n = s.length();
+          boolean[] f = new boolean[n + 1];
+          f[0] = true;
+          for(int i = 1; i < n + 1; i++){
+              for(int j = 0; j < i; j++){
+                  if(f[j] && set.contains(s.substring(j, i))){
+                      f[i] = true;
+                      break;
+                  }
+              }
+          }
+          return f[n];
+      }
+  
+  }
+  ```
+  优化： `O(n * L)` 其中 L 是 maxLength
   ```java
   public class Solution {
       /*
@@ -111,4 +143,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-29T18:59:25.330Z"
-updatedAt: "2018-01-11T16:09:45.289Z"
+updatedAt: "2018-01-22T21:07:57.898Z"

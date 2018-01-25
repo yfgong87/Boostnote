@@ -1,5 +1,5 @@
 createdAt: "2017-12-23T22:56:48.832Z"
-updatedAt: "2018-01-02T03:02:02.979Z"
+updatedAt: "2018-01-22T19:59:41.217Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Letter Combination of Phone number"
@@ -8,7 +8,14 @@ content: '''
   ![panel](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png)
   Input:Digit string `"23"`
   Output: `["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]`.
+  
+  Solution:
+  - First we need a mapping between digits and letters, we can use an array in which the index will be the digits, corresponding letters will be stored in the array as a String.
+  - We use dfs and backtracking to test each possibility at each digit. When we have tested all the digits we terminate the recursion.
+  
+  Time Complexity:
   树的高度为`n = digits.length()`，每一层可能性`3`或`4`或`0`，平均按`3`算，总复杂度为`O(3^n)`
+  
   ```java
   class Solution {
       // "23"

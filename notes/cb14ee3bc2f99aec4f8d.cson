@@ -1,5 +1,5 @@
 createdAt: "2018-01-11T00:23:18.979Z"
-updatedAt: "2018-01-11T00:53:26.422Z"
+updatedAt: "2018-01-22T20:42:55.462Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Number of 1 Bits / Count Bits"
@@ -70,6 +70,7 @@ content: '''
 tags: [
   "Bit"
   "Math"
+  "PocketGem"
 ]
 isStarred: false
 isTrashed: false

@@ -3,6 +3,42 @@ folder: "8d19d56ee029f3fa592b"
 title: "Sliding Window with Max Average"
 content: '''
   # Sliding Window with Max Average 
+  Time: `O(1)` for next
+  Space: `O(1000000)`
+  ```java
+  // count 1 2 3 4 5
+  // num   1 2 3 4 5
+  // sums    1 3 6 10 15
+  // idx	 0 1 2 3 4  5
+  // size = 3
+  // count = 4, sums[4] = sums[3] + 4 = 10, sums[4] - sums[4 - 3] = 10 - 1 = 9, 9 / size = 3
+  //
+  public class MovingAverage {
+      /**
+       * Initialize your data structure here.
+       */
+      int count;
+  	int size;
+      double[] sums;
+  
+      MovingAverage(int size) {
+          count = 0;
+          this.size = size;
+          sums = new double[1000000]; // number of calls of next() < 1000000
+      }
+  
+      public double next(int val) {
+          count++; // total number of num processed so far
+          sums[count] = sums[count - 1] + val;
+          if (count < size) {
+  			return sums[count] / count;
+          } else {
+              return (sums[count] - sums[count - size]) / size;
+          }
+      }
+  }
+  ```
+  Space: `O(size)`
   ```java
   public class MovingAverage {
       int count;
@@ -20,7 +56,6 @@ content: '''
       }
       
       public double next(int val) {
-          // Write your code here
           count++;
           sums[mod(count)] = sums[mod(count - 1)] + val;
           if(count < size){
@@ -32,8 +67,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "prefixSum"
+  "Array"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-03T00:00:54.766Z"
-updatedAt: "2017-10-03T00:01:16.549Z"
+updatedAt: "2018-01-23T03:32:12.651Z"

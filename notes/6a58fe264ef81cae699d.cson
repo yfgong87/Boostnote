@@ -3,6 +3,11 @@ folder: "8d19d56ee029f3fa592b"
 title: "Top k Largest Number"
 content: '''
   # Top k Largest Number
+  Solution:
+  For each number in array, put the number into a minHeap, whenever the size of the heap go above k, we poll out the smallest number in the heap. In the end we will have top k largest number inside the heap, then we can print them out reversly (since the first number we poll out of the heap will be the kth largest number)
+  
+  Time Complexity: `nlogk`, 每个数都要进出一次 heap，heap 大小为 `k`, 每次进去是 `logk`
+  Space Complexity: `O(k)`
   ```java
   class Solution {
       /*
@@ -35,8 +40,10 @@ content: '''
   };
   ```
 '''
-tags: []
+tags: [
+  "PriorityQueue"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-04T13:35:45.828Z"
-updatedAt: "2017-09-04T13:36:11.860Z"
+updatedAt: "2018-01-23T01:49:43.039Z"

@@ -7,6 +7,7 @@ content: '''
   
   Solution:
   Traverse the tree, use two variable to store the first and second minimum value. When we encounter a value that is smaller than the first minimum, we set the old first minimum as the second minimum, then update the first minimum. When we encounter a value that is between the first and second minimum value, we update the second minimum value. In the end we check if we have a second minumum value, if so we return it.
+  
   Time complexity: `O(n)`
   ```java
   /**
@@ -57,4 +58,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-27T20:31:53.426Z"
-updatedAt: "2018-01-19T05:24:14.676Z"
+updatedAt: "2018-01-23T20:18:25.938Z"

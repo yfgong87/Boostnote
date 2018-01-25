@@ -33,15 +33,18 @@ content: '''
               int index = -1;
               for(String sub : dict){
                   index = head.indexOf(sub);
+  				// 只要字典里的这个 sub 能在 head 里找到，就一直删下去
                   while(index != -1){
                       String newString = head.substring(0, index) + head.substring(index + sub.length(), head.length());
                       if(!set.contains(newString)){
+  						// 更新 min length
                           if(newString.length() < min){
                               min = newString.length();
                           }
                           set.add(newString);
                           queue.offer(newString);
                       }
+  					// 从当前 index + 1 的位置继续往下找下一个 sub
                       index = head.indexOf(sub, index + 1);
                   }
               }
@@ -51,8 +54,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "BFS"
+  "String"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-22T20:49:07.877Z"
-updatedAt: "2017-12-22T21:06:02.867Z"
+updatedAt: "2018-01-23T04:20:19.181Z"

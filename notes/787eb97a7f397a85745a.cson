@@ -86,8 +86,8 @@ content: '''
               for(int i = 0; i < size; i++){
                   UndirectedGraphNode head = queue.poll();
   				if(set.contains(head)){
-                          continue;
-                      }
+                      continue;
+                  }
   				set.add(head);
                   for(UndirectedGraphNode neighbor : head.neighbors){
                       /*判断重复可以放在内层循环，也可以放在外层循环
@@ -110,6 +110,7 @@ content: '''
   ```
   
   ### Connected Component in Undirected Graph
+  BFS for each node in the node list since we need to find all the connections
   ```java
   public class Solution {
       /**
@@ -147,8 +148,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "BFS"
+  "Topological_Sorting"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-17T02:20:51.205Z"
-updatedAt: "2017-12-21T21:34:42.564Z"
+updatedAt: "2018-01-23T01:49:55.630Z"

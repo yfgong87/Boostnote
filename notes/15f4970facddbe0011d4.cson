@@ -6,7 +6,7 @@ content: '''
   Solution: 
   Traverse the tree T1 in `preorder` fashion. For every visited node in the traversal, see if the subtree rooted with this node is identical to S.
   
-  Time Complexity: `O(mn)`
+  Time Complexity: `O(mn)`, in worst case(skewed tree) traverse function takes `O(m * n)` time.
   ```java
   public class Solution {
       /*
@@ -39,8 +39,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Tree"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-12T21:54:02.735Z"
-updatedAt: "2017-12-30T16:15:11.564Z"
+updatedAt: "2018-01-23T02:21:49.209Z"

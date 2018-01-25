@@ -1,5 +1,5 @@
 createdAt: "2018-01-21T00:41:46.870Z"
-updatedAt: "2018-01-21T00:53:07.046Z"
+updatedAt: "2018-01-23T20:25:59.674Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Second / Kth smallest/largest element in BST"
@@ -12,7 +12,7 @@ content: '''
   - `second` largest: traverse the BST in the order of `right` -> `root` -> `left`, return the `2nd` element during traversal
   - `Kth` largest: traverse the BST in the order of `right` -> `root` -> `left`, return the `Kth` element during traversal
   - `second` smallest: traverse the BST in the order of `left` -> `root` -> `right`, return the `2nd` element during traversal
-  - `Kth` largest: traverse the BST in the order of `left` -> `root` -> `right`, return the `Kth` element during traversal
+  - `Kth` smallest: traverse the BST in the order of `left` -> `root` -> `right`, return the `Kth` element during traversal
   
   Time: `O(h + 2)` / `O(h + K)`, Space: `O(h + 2)` / `O(h + K)`
   

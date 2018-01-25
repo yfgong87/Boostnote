@@ -7,7 +7,7 @@ content: '''
   - `Interface`里所有的方法不需要实现(`Java8`之后允许实现，叫做`default`方法)
   - `Interface`里的所有变量都是`常量`，不能定义`变量`
   ```java
-  public interface Drivable{
+  interface Drivable{
     double PI = 3.14; //field in interface is CONSTANT and FINAL
     int getWheel();//public abstract is the default modifier
   } 
@@ -25,6 +25,15 @@ content: '''
   - If the `Class` has an `Abstract` `method` then the `class` must also be `Abstract`.
   - An `Abstract` `method` must be `implemented` by the very first `Non-Abstract` `sub-class`.
   - `Abstract` `class` in Design patterns are used to encapsulate the behaviors that keeps changing.
+  
+  ### Abstract Class vs Interface
+  - Type of methods: Interface can have ONLY `abstract` methods. Abstract class can have `abstract` and `non-abstract` methods. From Java 8, it can have `default` and `static` methods also.
+  - Final Variables: Variables declared in a Java interface are by default `final`. An abstract class may contain `non-final` variables.
+  - Type of variables: Abstract class can have final, non-final, static and non-static variables. Interface has only static and final variables.
+  - Implementation: Abstract class can provide the implementation of interface. Interface can’t provide the implementation of abstract class.
+  - Inheritance vs Abstraction: A Java interface can be implemented using keyword “implements” and abstract class can be extended using keyword “extends”.
+  - Multiple implementation: An interface can extend another Java interface only, an abstract class can extend another Java class and implement multiple Java interfaces.
+  - Accessibility of Data Members: Members of a Java interface are `public` by default. A Java abstract class can have class members like `private`, `protected`, etc.
   
   ### Interface (`implements`) vs Superclass (`extends`)
   - Use an `interface`/`implements` if you want to define a `contract/default behavior`. I.e. X must take Y and return Z. It doesn't care how the code is doing that. 
@@ -56,9 +65,12 @@ content: '''
   List<List<Integer>> list = new List<ArrayList<Integer>>();
   ```
   
+  ### Can Interface be overriden?
+  - Interface can be implemented. Implementing is a specific type of overriding, where the overridden method is abstract and the overriding method is not.
+  - In java 8, there is a concept of default method for interfaces. Now we can provide a default definition to each method. If the class implementing interface does not overide some method, its default definition provided in the interface get executed.
 '''
 tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-12T16:38:38.775Z"
-updatedAt: "2017-10-08T16:50:32.959Z"
+updatedAt: "2018-01-23T17:57:23.602Z"

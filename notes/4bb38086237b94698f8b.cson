@@ -1,10 +1,10 @@
 createdAt: "2018-01-03T21:47:52.242Z"
-updatedAt: "2018-01-21T00:20:20.484Z"
+updatedAt: "2018-01-23T05:23:38.852Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
-title: "Maximum Size Subarray Sum Equals k"
+title: "Maximum Size Subarray Sum Equals k (target)"
 content: '''
-  # Maximum Size Subarray Sum Equals k
+  # Maximum Size Subarray Sum Equals k (target)
   The HashMap stores the `sum` of all elements before index `i` as key, and `i` as value. For each `i`, check not only the `current sum` but also `(currentSum - previousSum)` to see if there is any that equals k, and update max length.
   ```java
   class Solution {
@@ -24,6 +24,8 @@ content: '''
               if(sum == target){
                   maxLen = i + 1; // 从 0 到 i 一共 i + 1 个 element
               } else {
+  				// |		 sum		   |
+  				// | sum - target | target | 
                   if(map.containsKey(sum - target)){
   					// 从 map.get(sum - target) + 1 到 i
                       maxLen = Math.max(maxLen, i - (map.get(sum - target) + 1) + 1);

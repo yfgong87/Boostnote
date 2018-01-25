@@ -25,10 +25,7 @@ content: '''
                   end = mid;
               }
           }
-          if(start * start == num){
-              return true;
-          }
-          if(end * end == num){
+          if(start * start == num || end * end == num){
               return true;
           }
           return false;
@@ -105,4 +102,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T18:32:10.403Z"
-updatedAt: "2018-01-21T02:48:40.122Z"
+updatedAt: "2018-01-23T18:15:58.111Z"

@@ -1,13 +1,15 @@
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
-title: "Validate BST"
+title: "Validate BST / Valid Binary Search Tree"
 content: '''
-  # Validate BST
+  # Validate BST / Valid Binary Search Tree
   A tree is a BST if:
   - Its left tree and right tree are BST
   - For each node, its value must be larger than all the value on its left, and smaller than all the value on its right
   
   We don't want to compare each node with all the other nodes. So as we traverse the tree, we can keep track of current min and max value we have encountered. The value of a node has to be larger than the max value within its left subtree, and smaller than the min vlaue within its right subtree.
+  
+  Time: `O(n)`, Space: `O(h)`
   ```java
   class ResultType {
       boolean isBST;
@@ -43,6 +45,11 @@ content: '''
           int min = root.val;
           int max = root.val;
           boolean isBST = true;
+  		
+  		// Three things to do: 
+  		// 1. Update min and max of root
+  		// 2. See if both left and right are BST
+  		// 3. See if root.val is in between (left.max, right.min)
           if(left != null){
               min = Math.min(min, left.min);
               if(!left.isBST || root.val <= left.max){
@@ -68,4 +75,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-25T20:31:17.510Z"
-updatedAt: "2018-01-22T04:50:51.427Z"
+updatedAt: "2018-01-23T18:15:07.016Z"

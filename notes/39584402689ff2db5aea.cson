@@ -90,8 +90,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Backtracking"
+  "DFS"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-23T04:17:46.883Z"
-updatedAt: "2018-01-10T05:38:32.051Z"
+updatedAt: "2018-01-23T04:25:02.302Z"

@@ -9,18 +9,18 @@ content: '''
   (You may assume both `s` and `t` have the same length)
   
   Solution:
+  We can build a 1 to 1 mapping between `s` and `t` at the same index. We can use an array as a HashMap, the integer value of each `char` in `s` will be the index / key of the hashmap. At each index, the Map will store the `char` at the same index in `t`. This way we check if each of the `char` in `s` is uniquely related to `char` in `t`. Then we need to do the same process vice versa, that is to check if each of the `char` in `t` is also uniquely related to `char` in `s`.
   
-  The integer value of each `char` in `s` will be the index / key of the hashmap. At each index, the Map will store the `char` at the same index in `t`. This way we build a 1 to 1 mapping between `s` and `t` at the same index. 
-  
-  Then we scan the `s` array from left and right...
+  Time Complexity: `O(n + m)`, Space: `O(256)`
   ```java
   public boolean isIsomorphic(String s, String t) {
-  		
-  		//	"foo"	"bar"
-  		//   abfor
-  		//	 00000
+  		//    s		  t
+  		//	"bar"	"foo"
+  		// scan s:  abfor	 pass 
+  		//	 		of00o
+  		// scan t:  abfor	 not pass 
+  		//	 		00ba0 
   
-          // write your code here
           int[] map = new int[256];
           char[] sc = s.toCharArray();
           char[] tc = t.toCharArray();
@@ -52,8 +52,9 @@ content: '''
 tags: [
   "Linkedin"
   "HashMap"
+  "String"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-02T18:45:39.080Z"
-updatedAt: "2018-01-19T05:46:17.877Z"
+updatedAt: "2018-01-23T03:13:09.066Z"

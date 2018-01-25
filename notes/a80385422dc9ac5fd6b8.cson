@@ -1,5 +1,5 @@
 createdAt: "2017-12-27T01:24:57.507Z"
-updatedAt: "2018-01-22T02:47:59.362Z"
+updatedAt: "2018-01-22T21:14:02.654Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Anagram 系列"
@@ -36,7 +36,7 @@ content: '''
       }
   };
   ```
-  ### Anagram
+  ### Anagram / Group Anagram
   Given an array of strings, return all groups of strings that are anagrams.
   Given `["lint", "intl", "inlt", "code"]`, return `["lint", "inlt", "intl"]`.
   
@@ -46,7 +46,7 @@ content: '''
   Go through all Strings and store <Representative, Array of Anagram Strings> in a HashMap.
   Go through the HashMap and if the size of the Array of Anagram String is >= 2, add it to result.
   For every group of Anagram, use the sorted version of the String as the representative of the group.
-  时间复杂度：`O(w)` * `O(nlogn)` where `w = number of words in String[]`, `n = avg number of char in each word`
+  时间复杂度：`O(n)` * `O(LlogL)` where `n = number of words in String[]`, `L = avg number of char in each word`
   空间复杂度：`O(number of anagram word)`
   ```java
   public class Solution {
@@ -72,6 +72,10 @@ content: '''
               if(entry.getValue().size() > 1){
                   results.addAll(entry.getValue());
               }
+  			// 如果需要将 Anagram 相同的词放在一组，则返回如下：
+  			//for(Map.Entry<String, List<String>> entry : map.entrySet()){
+              //	results.add(entry.getValue());
+          	//}
           }
           return results;
       }

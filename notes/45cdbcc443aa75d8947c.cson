@@ -6,7 +6,7 @@ content: '''
   ### Two Number stored in `LinkedList`
   #### `6 -> 1 -> 7` = `716`
   Time: `O(n + m)` since we need to go through every node until both list reach null
-  Space: `max(m,n) + 1`
+  Space: `max(n,m) + 1` to store the new LinkedList
   ```java
   public class Solution {
       /*
@@ -42,7 +42,9 @@ content: '''
   }
   ```
   #### `6 -> 1 -> 7` = `617`
-  Time: `O(n) + O(m) + 2 * O(n + m)`
+  Time: 
+  - `O(n) + O(m)` to reverse both list, `O(n + m)` to add, `O(n + m)` to reverse the final answer.
+  - `O(n + m)` in total
   ```java
   public class Solution {
       /*
@@ -203,4 +205,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-24T23:51:25.050Z"
-updatedAt: "2018-01-22T02:45:37.668Z"
+updatedAt: "2018-01-23T04:51:46.208Z"

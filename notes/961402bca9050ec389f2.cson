@@ -1,15 +1,17 @@
 createdAt: "2018-01-21T00:21:04.694Z"
-updatedAt: "2018-01-21T06:16:22.909Z"
+updatedAt: "2018-01-23T18:20:51.619Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Triangle Count / Valid Triangle Number"
 content: '''
   # Triangle Count / Valid Triangle Number
   找出数组中满足 `a + b > c` 的 `{a, b, c}`有多少个
-  - 将数组排序
-  - 枚举`c`，为保证至少有两个比`c`小的数，`c`的起始`index`为`2`
-  - 在`c`的左边（所有比`c`小的数中），枚举`a`和`b`，一旦发现一组`a + b > c`，当前`b`和`a`之间包括`a`的所有数（一共 `b - a` 个）都满足条件
-  - `O(n)`
+  - First sort the array
+  - Then we fix number `c`，if we can find two number `a` and `b` on the left side of `c`, and the sum of these two numbers is greater than `c`, then we got `b - a` pairs of numbers which are valid, because `b` can form a valid pair with any number that is in between `b` and `a`
+  - 为保证至少有两个比`c`小的数，`c`的起始`index`为`2`
+  
+  Time Complexity: `O(n^2)`
+  Space Complexity: `O(nlogn)` for sorting the array
   ```java
   public class Solution {
       /*

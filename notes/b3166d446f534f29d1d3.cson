@@ -3,6 +3,8 @@ folder: "8d19d56ee029f3fa592b"
 title: "Window Sum"
 content: '''
   # Window Sum
+  `sums[i + 1] = sums[i] - nums[i - 1] + nums[i + k - 1]`
+  Time: `O(n)`
   ```java
   public class Solution {
       /*
@@ -31,8 +33,11 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "prefixSum"
+  "Array"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T22:14:48.578Z"
-updatedAt: "2017-09-08T22:15:49.147Z"
+updatedAt: "2018-01-23T01:57:41.565Z"

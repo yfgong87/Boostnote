@@ -1,10 +1,11 @@
 createdAt: "2018-01-21T01:05:36.630Z"
-updatedAt: "2018-01-21T01:59:04.049Z"
+updatedAt: "2018-01-23T18:35:22.112Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Shuffle an array"
 content: '''
   # Shuffle an array
+  证明：
   假设k个牌 从1 to k，第一次随机抽一张，抽到1的概率是1/k,  第二次从剩下的k-1牌抽到1的概率是  (1-1/k) * 1/(k-1)  = 1/k  乘法左边是1还留在k-1的概率，右边是从k-1里面抽到1的概率，以此类推
   
   Brute Force:

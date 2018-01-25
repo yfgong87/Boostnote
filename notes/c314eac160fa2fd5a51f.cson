@@ -1,5 +1,5 @@
 createdAt: "2018-01-21T02:37:21.924Z"
-updatedAt: "2018-01-21T02:39:28.571Z"
+updatedAt: "2018-01-23T01:02:09.131Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Search for a Range"
@@ -8,7 +8,7 @@ content: '''
   
   Solution: 
   
-  Use Binary search to find a target, then use two pointers, starting from the target index, one moving towards left, another towards right, until the number they are pointing to are not target any more, then return the position of the two pointers.
+  Use Binary search to find the first occurrence of the target, then use a pointer, starting from the first target index, moving towards right, until the number it is pointing to is not target any more, then return the window between the first target and the last position of the pointer.
   
   Time complexity: `O(logn) + O(k)` where `k` is the number of occurrence of the target
   ```java
@@ -31,27 +31,26 @@ content: '''
               if(A[mid] < target){
                   start = mid;
               } else {
-                  end = mid;
+                  end = mid; // 保证不漏掉第一个出现的 target
               }
           }
           int index = 0;
           if(A[start] == target){
-              index = start;
+              index = start; // 先 check start
           } else if(A[end] == target){
-              index = end;
+              index = end; // 再 check end
           } else {
-              return new int[]{-1, -1};
+              return new int[]{-1, -1}; // 找不到 target
           }
           int startIndex = index;
           int endIndex = index;
-          while(startIndex >= 0 && A[startIndex] == target){
-              startIndex--;
-          }
+  		// 只需要往右找
           while(endIndex < A.length && A[endIndex] == target){
               endIndex++;
           }
-  		// startIndex 和 endIndex 各退回一格
-          return new int[]{startIndex + 1, endIndex - 1};
+  		// endIndex 退回一格
+          endIndex--;
+          return new int[]{startIndex, endIndex};
       }
   }
   ```

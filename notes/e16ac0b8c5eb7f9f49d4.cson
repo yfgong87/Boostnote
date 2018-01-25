@@ -3,7 +3,32 @@ folder: "8d19d56ee029f3fa592b"
 title: "Sum of Square Number"
 content: '''
   # Sum of Square Number
+  ### 最慢解 (TLE)
+  For each `a` where the power of `a` is less or equal to `c`, we pair it with a `b` where the power of `b` is also less or equal to `c`. Then we test if the sum of power `a` and power `b` is equal to `c`
+  
+  Time Complexity
+  `O(sqrt(c) * sqrt(c))` = `O(c)`
+  ```java
+  class Solution {
+      public boolean judgeSquareSum(int c) {
+  		//注意使用long型
+          for(long a = 0; a * a <= c; a++){
+              for(long b = 0; b * b <= c; b++){
+                  if(a * a + b * b == c){
+                      return true;
+                  }
+              }
+          }
+          return false;
+      }
+  }
+  ```
+  
   ### 最优解 (14ms)
+  Solution:
+  Since the max size of `a` or `b` is `sqrt(c)`. We use two pointers, one start from `0`, the other from `sqrt(c)`, if the sum of the two numbers is less than `c`, we need to discard the small number, otherwise we discard the large number.
+  
+  Time Complexity:
   - 经典Two Pointer解法，反向双指针，复杂度为`O(sqrt(c)) + O(log(c))`
   - Two Point 本身`O(sqrt(c))`，`Math.sqrt(c)`最坏复杂度为`O(log(c))`，由于 `sqrt(c)` >> `log(c)`，最终复杂度为`O(sqrt(c))`
   ```java
@@ -75,23 +100,7 @@ content: '''
       }
   }
   ```
-  ### 最慢解 (TLE)
-  - Brute Force, `O(sqrt(c) * sqrt(c))` = `O(c)`
-  ```java
-  class Solution {
-      public boolean judgeSquareSum(int c) {
-  		//注意使用long型
-          for(long a = 0; a * a <= c; a++){
-              for(long b = 0; b * b <= c; b++){
-                  if(a * a + b * b == c){
-                      return true;
-                  }
-              }
-          }
-          return false;
-      }
-  }
-  ```
+  
   ### sqrt(N) will increase a lot more than log2(N)
   ![sqrtVSlog](https://i.stack.imgur.com/0oZZQ.png)
   
@@ -103,4 +112,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-11-02T20:55:59.403Z"
-updatedAt: "2018-01-21T02:55:54.852Z"
+updatedAt: "2018-01-23T18:33:42.817Z"

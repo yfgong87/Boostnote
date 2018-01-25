@@ -1,5 +1,5 @@
 createdAt: "2018-01-09T03:00:29.428Z"
-updatedAt: "2018-01-09T04:17:22.210Z"
+updatedAt: "2018-01-23T01:57:17.351Z"
 type: "MARKDOWN_NOTE"
 folder: "8d19d56ee029f3fa592b"
 title: "Word Ladder II"
@@ -108,6 +108,9 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "BFS"
+  "DFS"
+]
 isStarred: false
 isTrashed: false

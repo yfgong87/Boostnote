@@ -43,8 +43,10 @@ content: '''
   }
   ```
 '''
-tags: []
+tags: [
+  "Binary_Search"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-07T19:51:11.079Z"
-updatedAt: "2017-09-07T19:51:28.442Z"
+updatedAt: "2018-01-23T03:38:50.709Z"

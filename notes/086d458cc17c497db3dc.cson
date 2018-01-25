@@ -1,5 +1,5 @@
 createdAt: "2018-01-03T01:19:06.404Z"
-updatedAt: "2018-01-18T05:05:04.340Z"
+updatedAt: "2018-01-23T18:11:32.572Z"
 type: "MARKDOWN_NOTE"
 folder: "df7fbd4f413bd7e56cde"
 title: "Validate Number"
@@ -10,22 +10,22 @@ content: '''
   - `decimal`: `0.1`,`-0.1`,`1.`,`.1`,`0..1`
   - `scientific`: `1e10`, `1e-10`, `1e01`,`1ee10`,`10e`,`e10`
   - `mix`: `0.1e10`
+  - Is trailing space counted as valid? How about space in the middle?
   
-  
-  All we need is to have a couple of flags so we can process the string in linear time:
-  We start with trimming.
-  
+  Solutions:
+  - Trim the String
+  - Set flags for dots, e sign and number
   - If we see `[0-9]` we reset the number flags.
   - We can only see `.` if we didn’t see `e` or `.`.
   - We can only see `e` if we didn’t see `e` but we did see a number. We reset number flag.
   - We can only see `+` and `-` in the beginning and after an `e`
   - any other character break the validation.
-  
-  At the and it is only valid if there was at least 1 number and if we did see an e then a number after it as well.
+  - In the and it is only valid if there was at least 1 number. Also if we do have an `e` then we need to have a number after it as well. So we need to make sure the number flag is `true`.
   
   So basically the number should match this regular expression:
-  
   `[-+]?(([0-9]+(.[0-9]*)?)|.[0-9]+)(e[-+]?[0-9]+)?`
+  
+  Time Complexity: `O(n)`
   ```java
   class Solution {
       public boolean isNumber(String s) {

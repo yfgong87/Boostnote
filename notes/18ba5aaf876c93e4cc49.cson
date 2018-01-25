@@ -3,6 +3,13 @@ folder: "8d19d56ee029f3fa592b"
 title: "Copy List with Random Pointer"
 content: '''
   # Copy List with Random Pointer
+  
+  Solution: 
+  - Use a HashMap to store the original node and its copy
+  - Starting from head, traverse the LinkedList, for each ListNode, we first check whether we already have a copy for this node in the HashMap, if so we skip, otherwise we create a new node and put it into HashMap.
+  - Then we check if the ListNode has a random pointer point to a non-null node. If so, we check if we already have that non-null node in the HashMap. Let's call it random node. If the random node is there already we just need to point the random pointer of ListNode to this random node. Otherwise we need to create a copy of the random node, pointer the random pointer to this new random node, and, we also need to put this random node into the HashMap.
+  
+  Time: `O(n)`, Space: `O(n)`
   ```java
   public class Solution {
       /**
@@ -41,6 +48,7 @@ content: '''
   }
   ```
   ### O(1)空间复杂度做法
+  Time: `O(n)`, Space: `O(1)`
   ```java
   /*第一遍扫的时候巧妙运用next指针
   开始数组是1->2->3->4, 
@@ -95,8 +103,9 @@ content: '''
 '''
 tags: [
   "LinkedList"
+  "HashMap"
 ]
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-10T22:06:15.629Z"
-updatedAt: "2018-01-09T23:44:23.350Z"
+updatedAt: "2018-01-22T20:33:15.179Z"

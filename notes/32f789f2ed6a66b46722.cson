@@ -3,7 +3,16 @@ folder: "8d19d56ee029f3fa592b"
 title: "Generate Parenthesis"
 content: '''
   # Generate Parenthesis
-  For every character so far, we have two options, go left or go right, which means we could either "(" or ")". Our base case should be either we have 2n "(" or ")". So we have 2n levels, it is a geometric progression. Then you will get the result O(2^2n). However, for this problem, we only need to consider half of the whole because when we have n "(" or ")" then we reach to the level our result. So generally we can add 1/2 as a factor to the 2^2n, but our time complexity is still `O(2^2n)` level. Hope this will help you understand.
+  Solution:
+  - For every character so far, we have two options, go left or go right, which means we could either choose `"("` or `")"`. We need to recursively select either left or right bracket.
+  - Our extreme case would be we select `2n` `"("` or `")"`. So the max depth of recursion tree will be `2n`
+  - However there are rules that we need to follow:
+  	- At any level, we always need to have more left than right bracket
+  	- Which means whenever we have `n` left bracket and `n` right bracket we need to stop recursion and return the answer. We need to keep a count on how many left and right bracket we have already
+  - Demo
+  - We found that we actually skipped half of our recursion tree due to the rule that right bracket cannot go first
+  
+  Time Complexity:
   树的层数为`2n`，每一层有`2`种可能的选择，复杂度为`2^2n`，由于规则有一半的可能性不成立，最终复杂度为`1/2 * 2^2n`
   ```java
   public class Solution {
@@ -58,4 +67,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-17T17:17:29.088Z"
-updatedAt: "2018-01-10T05:48:57.526Z"
+updatedAt: "2018-01-22T20:40:09.103Z"

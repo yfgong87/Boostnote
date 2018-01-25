@@ -8,20 +8,20 @@ content: '''
   ```java
   class Solution {
       public ListNode swapPairs(ListNode head) {
-          // curr -> n1 -> n2 -> temp ... -> null
-          // curr -> n1 <- n2    temp ... -> null
-          // curr -> n2 -> n1 -> temp ... -> null
-          ListNode dummy = new ListNode(0), curr = dummy;
+          // pre1 -> n1 -> n2 -> post2 ... -> null
+          // pre1 -> n1 <- n2    post2 ... -> null
+          // pre1 -> n2 -> n1 -> post2 ... -> null
+          ListNode dummy = new ListNode(0), pre1 = dummy;
           dummy.next = head;
-          while(curr.next != null && curr.next.next != null){
-              ListNode n1 = curr.next;
-              ListNode n2 = curr.next.next;
+          while(pre1.next != null && pre1.next.next != null){
+              ListNode n1 = pre1.next;
+              ListNode n2 = pre1.next.next;
               
-              ListNode temp = n2.next;
+              ListNode post2 = n2.next;
               n2.next = n1;
-              n1.next = temp;
-              curr.next = n2;
-              curr = n1;
+              n1.next = post2;
+              pre1.next = n2;
+              pre1 = n1;
           }
           return dummy.next;
       }
@@ -29,25 +29,6 @@ content: '''
   ```
   ### Swap Two nodes in LinkedList
   ```java
-  /**
-   * Definition for singly-linked list.
-   * public class ListNode {
-   *     int val;
-   *     ListNode next;
-   *     ListNode(int x) { val = x; }
-   * }
-   */
-  
-  
-  /**
-   * Definition for singly-linked list.
-   * public class ListNode {
-   *     int val;
-   *     ListNode next;
-   *     ListNode(int x) { val = x; }
-   * }
-   */
-  
   public class Solution {
       /*
        * @param head: a ListNode
@@ -112,4 +93,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-12-20T01:05:32.929Z"
-updatedAt: "2018-01-02T03:00:39.760Z"
+updatedAt: "2018-01-23T02:15:12.655Z"

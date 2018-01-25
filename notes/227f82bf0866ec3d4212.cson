@@ -4,6 +4,9 @@ title: "Ugly Number I & II & III"
 content: '''
   # Ugly Number I & II & III
   检测一个数`num`是否是`Ugly Number`(`2`, `3`, `5`的倍数), `1`是`Ugly Number`
+  
+  Solution: 
+  - To check whether a number is divisible by another number, keep divide the big num by the small num until the mod is not `0`, the mod should be `1`
   ```java
   class Solution {
       public boolean isUgly(int num) {
@@ -24,6 +27,15 @@ content: '''
   }
   ```
   返回第`n`个`Ugly Number`(`2`, `3`, `5`的倍数), `1`是`Ugly Number`
+  
+  Solution: 
+  `HashSet` + `PriorityQueue`，HashSet 用于去重， PriorityQueue 始终返回最小的因数，这个数分别乘以 2, 3, 5, 得到的数再放进 HashSet 和 PriorityQueue 里
+  
+  Time Complexity:
+  `O(nlogn)`, `PriorityQueue` 里最多 `n` 个数，每次插入最坏 `logn`, 一共插入 `n` 次
+  
+  Space Complexity:
+  `O(n)`
   ```java
   public class Solution {
       /*
@@ -61,6 +73,13 @@ content: '''
   }
   ```
   返回第`n`个`Super Ugly Number`(给定质数数组`primes`中每一个质数的倍数), `1`是`Super Ugly Number`
+  
+  Time Complexity:
+  `O(nlogn)`, `PriorityQueue` 里最多 `n` 个数，每次插入最坏 `logn`, 一共插入 `n` 次
+  
+  Space Complexity:
+  `O(n)`
+  
   ```java
   public int nthSuperUglyNumber(int n, int[] primes) {
           // write your code here
@@ -85,10 +104,47 @@ content: '''
           }
           return (int)number;
       }
-      ```
+  ```
+  `O(n)` 做法：
+  ```java
+  // version 1: O(n) scan
+  class Solution {
+      /**
+       * @param n an integer
+       * @return the nth prime number as description.
+       */
+      public int nthUglyNumber(int n) {
+          List<Integer> uglys = new ArrayList<Integer>();
+          uglys.add(1);
+          
+          int index2 = 0;
+  		int index3 = 0;
+  		int index5 = 0;
+  
+          for (int i = 1; i < n; i++) {
+              int lastNumber = uglys.get(i - 1);
+              while (uglys.get(index2) * 2 <= lastNumber) index2++;
+              while (uglys.get(index3) * 3 <= lastNumber) index3++;
+              while (uglys.get(index5) * 5 <= lastNumber) index5++;
+              
+              uglys.add(Math.min(
+                  Math.min(uglys.get(index2) * 2, uglys.get(index3) * 3),
+                  uglys.get(index5) * 5
+              ));
+          }
+  
+          return uglys.get(n - 1);
+      }
+  };
+  
+  ```
 '''
-tags: []
+tags: [
+  "Math"
+  "PriorityQueue"
+  "HashSet"
+]
 isStarred: false
 isTrashed: false
 createdAt: "2017-10-01T06:06:21.385Z"
-updatedAt: "2017-10-24T18:42:58.721Z"
+updatedAt: "2018-01-23T01:58:07.002Z"

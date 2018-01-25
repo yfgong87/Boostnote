@@ -5,6 +5,7 @@ content: '''
   # 3Sum & 4Sum
   ### 3Sum
   找到 num1 + num2 + num3 = 0，返回所有可能的组合
+  
   Solution:
   - 数组排序 -> 枚举第一个数 -> 在第一个数往后的`subArray`中用`Two sum`找第二和第三个数
   - 注意去重
@@ -210,6 +211,7 @@ content: '''
   }
   ```
   以下 code 当题目要求不能有重复解，但每个解中可以有重复数时可以通过，使用`HashSet`去重
+  For every valid quadraplets, we convert it to a String, which serves as the key of HashSet. Whenever we found the same key, we discard that answer.
   ```java
   class Solution {
       Set<String> set = new HashSet<>();
@@ -267,4 +269,4 @@ tags: [
 isStarred: false
 isTrashed: false
 createdAt: "2017-09-08T19:24:18.564Z"
-updatedAt: "2018-01-22T02:30:51.949Z"
+updatedAt: "2018-01-23T04:49:05.791Z"
