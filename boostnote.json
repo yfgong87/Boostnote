@@ -64,6 +64,11 @@
       "key": "c42c8fd92533ad636543",
       "color": "#2BA5F7",
       "name": "有用帖子"
+    },
+    {
+      "key": "826d661fa478dc56691c",
+      "color": "#E10051",
+      "name": "Android"
     }
   ],
   "version": "1.0"

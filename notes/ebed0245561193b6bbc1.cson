@@ -1,0 +1,97 @@
+createdAt: "2018-02-03T05:40:15.323Z"
+updatedAt: "2018-02-03T06:49:41.540Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android UI"
+content: '''
+  # Android UI
+  [Android Cheatsheet for Graphic Designers](http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/#screen-densities-and-icon-dimensions)
+  
+  ### 单位转换
+  - `pt`, `inch`, `mm` 为实际物理单位
+  	- `pt` = 1/72 `inch`
+  	- `inch` = 2.54 `cm` = 25.4 `mm`
+  	- 手机屏幕大小`3.2 inch`指的是对角线长度
+  - `dp` 与屏幕密度无关，`sp` 与屏幕 scale 无关
+  	- `dp` = 设备像素密度 / 160 `px`
+  		- 1`dp`在像素密度 320 的大屏上就会自动调节为 1 * 320 / 160 = 2`px`
+  	- 当像素密度(`dpi`)等于 `160`时，1 `dp` = 1 `px`
+  	- `sp` 就是 `dp`，用于描述字体，可以响应用户的`font size preference`设置
+  
+  #### 1.使用 TypedValue.java 转换
+  从所有单位 -> `px`
+  ```java
+  /**
+   * Converts an unpacked complex data value holding a dimension to its final floating 
+   * point value. The two parameters <var>unit</var> and <var>value</var>
+   * are as in {@link #TYPE_DIMENSION}.
+   *  
+   * @param unit The unit to convert from.
+   * @param value The value to apply the unit to.
+   * @param metrics Current display metrics to use in the conversion -- 
+   *                supplies display density and scaling information.
+   * 
+   * @return The complex floating point value multiplied by the appropriate 
+   * metrics depending on its unit. 
+   */
+  public static float applyDimension(int unit, float value,
+                                     DisplayMetrics metrics)
+  {
+      switch (unit) {
+      case COMPLEX_UNIT_PX:
+          return value;
+      case COMPLEX_UNIT_DIP:
+  		// metrics.density 的默认值为 metrics.densityDpi / (float) DENSITY_DEFAULT
+  		// DENSITY_DEFAULT = dpi的参考值，值为160px/inch
+  		// 该值为归整之后的值：densityDpi = 150dpi 的设备，density值为1，即按照160dpi进行处理。
+  		// density的典型值为0.75、1.0、1.5、2.0、3.0等
+          return value * metrics.density; 
+      case COMPLEX_UNIT_SP:
+  		// 具有 density 所有的特征，如果用户设置了font size preference，还需要乘以一个 scale 系数
+          return value * metrics.scaledDensity;
+      case COMPLEX_UNIT_PT:
+          return value * metrics.xdpi * (1.0f/72);
+      case COMPLEX_UNIT_IN:
+  		// xdpi = x 方向的物理像素密度，精确的值，单位px/inch。同样的有 ydpi
+          return value * metrics.xdpi;
+      case COMPLEX_UNIT_MM:
+          return value * metrics.xdpi * (1.0f/25.4f);
+      }
+      return 0;
+  }
+  ```
+  实际应用(`dp` to `px`):
+  ```java
+  int dp = 50;
+  // convert to 50dp
+  int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+  ```
+  #### 2.从资源文件中获取`px`
+  ```xml
+  <?xmlversion="1.0" encoding="utf-8"?>
+  <resources>
+  	<dimen name="thumbnail_height">120dp</dimen>
+  </resources>
+  ```
+  ```java
+  getResources().getDimensionPixelSize(R.dimen.thumbnail_height);
+  ```
+  #### 3.通过直接计算转换
+  `dp` to `px`
+  ```java
+  public static int dipToPixel(Context context, float dpValue){
+  	final float scale = context.getResources().getDisplayMetrics().density;
+  	return (int) (dpValue * scale + 0.5f);
+  }
+  ```
+  `px` to `dp`
+  ```java
+  public static int pixelToDip(Context context, float pxValue){
+  	final float scale = context.getResources().getDisplayMetrics().density;
+  	return (int) (pxValue / scale + 0.5f);
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false
