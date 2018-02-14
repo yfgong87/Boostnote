@@ -1,0 +1,166 @@
+createdAt: "2018-02-09T03:49:18.214Z"
+updatedAt: "2018-02-09T04:24:01.858Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Listener"
+content: '''
+  # Listener
+  六种写法：
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>  
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+      android:layout_width="fill_parent"  
+      android:layout_height="fill_parent"  
+      android:orientation="vertical" >  
+      <TextView  
+          android:id="@+id/tvTitle"  
+          android:layout_width="fill_parent"  
+          android:layout_height="30dip"  
+          android:layout_gravity="center"  
+          android:gravity="center"  
+          android:height="24dip"  
+          android:textColor="#ff0000"  
+          android:textSize="20sp"  
+          android:text="显示点击Button"   
+          android:focusable="true">  
+          <requestFocus />  
+      </TextView>  
+    
+      <Button  
+          android:id="@+id/button1"  
+          android:layout_width="match_parent"  
+          android:layout_height="wrap_content"  
+          android:text="Button1" />  
+    
+      <Button  
+          android:id="@+id/button2"  
+          android:layout_width="match_parent"  
+          android:layout_height="wrap_content"  
+          android:text="Button2" />  
+    
+      <Button  
+          android:id="@+id/button3"  
+          android:layout_width="match_parent"  
+          android:layout_height="wrap_content"  
+          android:text="Button3" />  
+    
+      <Button  
+          android:id="@+id/button4"  
+          android:layout_width="match_parent"  
+          android:layout_height="wrap_content"  
+          android:text="Button4"  
+          android:onClick="Btn4OnClick" /> <!-- 绑定方法Btn4OnClick -->  
+    
+      <Button  
+          android:id="@+id/button5"  
+          android:layout_width="match_parent"  
+          android:layout_height="wrap_content"  
+          android:text="Button5" />  
+    
+      <Button  
+          android:id="@+id/button6"  
+          android:layout_width="match_parent"  
+          android:layout_height="wrap_content"  
+          android:text="Button6" />  
+  </LinearLayout>  
+  ```
+  ```java
+  public class Main extends Activity implements OnClickListener {  
+      private Button m_button1, m_button2, m_button3, m_button4, m_button5, m_button6;  
+      public TextView tv;  
+    
+      @Override  
+      public void onCreate(Bundle savedInstanceState) {  
+          super.onCreate(savedInstanceState);  
+          setContentView(R.layout.main);  
+    
+          tv = (TextView) findViewById(R.id.tvTitle);  
+          m_button1 = (Button) findViewById(R.id.button1);  
+          m_button2 = (Button) findViewById(R.id.button2);  
+          m_button3 = (Button) findViewById(R.id.button3);  
+  //      m_button4 = (Button) findViewById(R.id.button4); // xml绑定button，android:onClick="Btn4OnClick"  
+          m_button5 = (Button) findViewById(R.id.button5);  
+          m_button6 = (Button) findViewById(R.id.button6);  
+            
+          /* 
+           * 方法1，参数this相当于new OnClickListener()对象, 即class Main 对象 
+           * 用这种方式的话，public void onClick 方法必须写在该Main类中
+  		 * 且Main类开头实现implements OnClickListener接口， 即this对象可以直接调用接口方法onClick() 
+           */  
+          m_button1.setOnClickListener(this);  
+    		
+  		// 方法2，使用对象clickListener 
+          m_button2.setOnClickListener(clickListener);         
+    		
+  		// 方法3，使用匿名对象创建监听，同方法2，可以看作另一种写法  
+          m_button3.setOnClickListener(new Button.OnClickListener() {     
+              @Override  
+              public void onClick(View v) {  
+                  String strTmp = "点击Button03";  
+                  tv.setText(strTmp);  
+              }  
+          });  
+  		
+          // 方法4，使用XML文件创建时绑定方法Btn4OnClick，详见main.xml  
+    		
+  		// 方法5，自己设计个监听类，监听的方法引用OnClickListener接口中的方法，创建的是匿名对象
+          m_button5.setOnClickListener(new clickListener2());       
+    		
+  		// 方法6, 外部类实现事件监听器接口，很少用，详看文件callout.java
+          m_button6.setOnClickListener(new callOut(this));          
+      }  
+    	
+  	// 对应->方法1
+      @Override  
+      public void onClick(View v) {  
+          Log.i("log", "click");  
+          String strTmp = "点击Button01";  
+          tv.setText(strTmp);  
+      }  
+      
+  	// 对应->方法2，新建一个对象clickListener
+      public OnClickListener clickListener = new OnClickListener() {  
+          @Override  
+          public void onClick(View v) {  
+              String strTmp = "点击Button02";  
+              tv.setText(strTmp);  
+          }  
+      };  
+    	
+  	// 对应->方法4
+      public void Btn4OnClick(View view) {  
+          String strTmp = "点击Button04";  
+          tv.setText(strTmp);  
+      }  
+      
+  	// 对应->方法5
+      public class clickListener2 implements View.OnClickListener {  
+          @Override  
+          public void onClick(View v) {  
+              String strTmp = "点击Button05";  
+              tv.setText(strTmp);  
+          }  
+      };  
+  }  
+  ```
+  ```java
+  // 对应->方法6
+  public class callOut implements OnClickListener {  
+      private Main activity;  
+    
+      public callOut(Activity activity) {  
+          this.activity = (Main) activity;  
+      }  
+    
+      @Override  
+      public void onClick(View v) {  
+          String strTmp = "点击Button06";  
+          activity.tv.setText(strTmp);  
+      }  
+  }  
+  
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

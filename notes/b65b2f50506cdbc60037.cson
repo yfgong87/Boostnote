@@ -1,0 +1,315 @@
+createdAt: "2018-02-10T05:02:19.864Z"
+updatedAt: "2018-02-14T04:20:49.320Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Intent"
+content: '''
+  # Intent
+  ### Explicit vs Implicit Intent
+  - Implicit Intents do not directly specify the Android components which should be called , it only specifies action to be performed.An Uri can be used with the implicit intent to specify data type.This will cause web browser to open a webpage .Android system searches for all components which are registered for the specific action and the data type.If many components are found then the user can select which component to use..
+  ```java
+  Intent intent = new Intent(ACTION_VIEW,Uri.parse("http://www.google.com");
+  ```
+  - Explicit intents are used in the application itself wherein one activity can switch to other activty...This causes switching of activity from current context to the target activity. Explicit Intents can also be used to pass data to other activity using putExtra method and retrieved by target activity by getIntent().getExtras() methods.
+  ```java
+  // this is the current activity
+  // target is the targeting activity
+  Intent intent = new Intent(this,Target.class); 
+  ```
+  ### Explicit Intent Example:
+  In `AndroidManifest.xml`
+  ```xml
+  <activity
+      android:name="com.example.android.explicitintent.ChildActivity"
+      android:parentActivityName=".MainActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".MainActivity" />
+  </activity>
+  ```
+  In `MainActivity.java`
+  ```java
+  public class MainActivity extends AppCompatActivity {
+  
+      /* Fields that will store our EditText and Button */
+      private Button mDoSomethingCoolButton;
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+  
+          /*
+           * Using findViewById, we get a reference to our Button from xml. This allows us to
+           * do things like set the onClickListener which determines what happens when the button
+           * is clicked.
+           */
+          mDoSomethingCoolButton = (Button) findViewById(R.id.b_do_something_cool);
+  
+          /* Setting an OnClickListener allows us to do something when this button is clicked. */
+  		// setOnClickListener 是 View 的方法，所有类型的 View 都可以调用
+          mDoSomethingCoolButton.setOnClickListener(new OnClickListener() {
+  
+              /**
+               * The onClick method is triggered when this button (mDoSomethingCoolButton) is clicked.
+               *
+               * @param v The view that is clicked. In this case, it's mDoSomethingCoolButton.
+               */
+              @Override
+              public void onClick(View v) {
+                  /*
+                   * Storing the Context in a variable in this case is redundant since we could have
+                   * just used "this" or "MainActivity.this" in the method call below. However, we
+                   * wanted to demonstrate what parameter we were using "MainActivity.this" for as
+                   * clear as possible.
+                   */
+                  Context context = MainActivity.this;
+  
+                  // Store ChildActivity.class in a Class object called destinationActivity
+                  Class destinationActivity = ChildActivity.class;
+  				Context context = MainActivity.this;
+                  // Create an Intent to start ChildActivity
+                  Intent startChildActivityIntent = new Intent(context, destinationActivity);
+                  // context.startActivity(startChildActivityIntent);
+                  startActivity(startChildActivityIntent);
+  
+              }
+          });
+      }
+  }
+  ```
+  ### Passing Data between Activities
+  #### Passing Simple Data
+  Passing data from `MainActivity.java` to ChildActivity using `Intent.putExtra(Key, Value)`
+  ```java
+  // In onClick()
+  String data = "stringData";
+  startChildActivityIntent.putExtra(Intent.EXTRA_TEXT, data);
+  ```
+  Receive data in `ChildActivity.java`
+  ```java
+  public class ChildActivity extends AppCompatActivity {
+  
+      /* Field to store our TextView */
+      private TextView mDisplayText;
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_child);
+  
+          /* Typical usage of findViewById... */
+          mDisplayText = (TextView) findViewById(R.id.tv_display);
+  
+          // Use the getIntent method to store the Intent that started this Activity in a variable
+          Intent intentThatStartedThisActivity = getIntent();
+          
+  		// Create an if statement to check if this Intent has the extra we passed from MainActivity
+  		// NOTE: Always Check whether the caller intent has extra or not! Otherwise app may crash
+          if(intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)){
+  			// 注意一定要使用对应的 getExtra 方法，如果 data 是 String，就用 getStringExtra
+              String data = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
+              mDisplayText.setText(data);
+          }
+      }
+  }
+  ```
+  #### Passing Object (从主调函数向被调函数要数据)
+  首先为 `Object` 实现 `Parcelable` 接口
+  ```java
+  public class Project implements Parcelable {
+  
+      public String id;
+      public String name;
+      public Date startDate;
+      public Date endDate;
+      public List<String> details;
+  
+      public Project() {
+          id = UUID.randomUUID().toString();
+      }
+  	
+  	// 解序列化
+      protected Project(Parcel in) {
+          id = in.readString();
+          name = in.readString();
+          startDate = new Date(in.readLong());
+          endDate = new Date(in.readLong());
+          details = in.createStringArrayList();
+      }
+  
+      public static final Creator<Project> CREATOR = new Creator<Project>() {
+          @Override
+          public Project createFromParcel(Parcel in) {
+              return new Project(in);
+          }
+  
+          @Override
+          public Project[] newArray(int size) {
+              return new Project[size];
+          }
+      };
+  
+      @Override
+      public int describeContents() {
+          return 0;
+      }
+  	
+  	// 序列化
+      @Override
+      public void writeToParcel(Parcel dest, int flags) {
+          dest.writeString(id);
+          dest.writeString(name);
+          dest.writeLong(startDate.getTime());
+          dest.writeLong(endDate.getTime());
+          dest.writeStringList(details);
+      }
+  }
+  ```
+  In `被调函数` (`ProjectEditActivity.java`)
+  ```java
+  	public static final String KEY_PROJECT = "project";
+  	// 自定义函数 saveAndExit 封装 data 并通过 Intent (以 Bundle 的形式) 传递 data
+  	protected void saveAndExit(@Nullable Project data) {
+          if (data == null) {
+              data = new Project();
+          }
+  		
+  		/*
+          //data.name = ...
+          //data.startDate = ...
+          //data.endDate = ...
+          //data.details = ...
+  		*/
+  
+          Intent resultIntent = new Intent();
+  		// putExtra 只能传纯数据，方法一为将 data 中的各项一一传进去，方法二为传 Parcelable
+  		// putExtra(String, Bundle), String 存储 data 的名字(resultCode)，用于在主调函数的接收端找到需要的 data
+          resultIntent.putExtra(KEY_PROJECT, data);
+  		// Activity.setResult()，保存数据，返回主调函数时会自动调用 onActivityResult()
+  		// Activity.RESULT_OK 表示保存成功
+          setResult(Activity.RESULT_OK, resultIntent);
+          finish();
+      }
+  ```
+  In `主调函数` (`MainActivity.java`)
+  ```java
+  
+  	private static final int REQ_CODE_EDIT_PROJECT = 102;
+  	
+  	// Call 被调函数 (startActivityForResult)
+  	protected void onCreate(Bundle savedInstanceState) {
+          ImageButton addProjectBtn = (ImageButton) findViewById(R.id.add_project_btn);
+          addProjectBtn.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intent = new Intent(MainActivity.this, ProjectEditActivity.class);
+  				// 使用 startActivityForResult 来接收被调函数传回的数据
+  				// requestCode 用于区分由多个被调函数所传回的数据
+                  startActivityForResult(intent, REQ_CODE_EDIT_PROJECT);
+              }
+          });
+      }
+  	
+  	// 从被调函数接收数据 (onActivityResult)
+  	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+          if (resultCode == Activity.RESULT_OK) {
+              switch (requestCode) {
+                  case REQ_CODE_EDIT_PROJECT:
+                      Project project = data.getParcelableExtra(ProjectEditActivity.KEY_PROJECT);
+                      break;
+  				//case ...
+  				//case ...
+              }
+          }
+      }
+  ```
+  ### Implicit Intent Example:
+  Open a webpage
+  ```java
+  	private void openWebPage(String url) {
+          // Use Uri.parse to parse the String into a Uri
+          /*
+           * We wanted to demonstrate the Uri.parse method because its usage occurs frequently. You
+           * could have just as easily passed in a Uri as the parameter of this method.
+           */
+          Uri webpage = Uri.parse(url);
+  
+          // Create an Intent with Intent.ACTION_VIEW and the webpage Uri as parameters
+          /*
+           * Here, we create the Intent with the action of ACTION_VIEW. This action allows the user
+           * to view particular content. In this case, our webpage URL.
+           */
+          Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+  
+          // Verify that this Intent can be launched and then call startActivity
+          /*
+           * This is a check we perform with every implicit Intent that we launch. In some cases,
+           * the device where this code is running might not have an Activity to perform the action
+           * with the data we've specified. Without this check, in those cases your app would crash.
+           */
+          if (intent.resolveActivity(getPackageManager()) != null) {
+              startActivity(intent);
+          } else {
+              Log.d(TAG, "Couldn't open " + webpage.toString()
+                      + ", no receiving apps installed!");
+          }
+      }
+  ```
+  Open a map location
+  ```java
+  	private void showMap(Uri geoLocation) {
+          // Create an Intent with action type, Intent.ACTION_VIEW
+          /*
+           * Again, we create an Intent with the action, ACTION_VIEW because we want to VIEW the
+           * contents of this Uri.
+           */
+          Intent intent = new Intent(Intent.ACTION_VIEW);
+  
+          // Set the data of the Intent to the Uri passed into this method
+          /*
+           * Using setData to set the Uri of this Intent has the exact SAME affect as passing it in
+           * the Intent's constructor. This is simply an alternate way of doing this.
+           */
+          intent.setData(geoLocation);
+  
+          // Verify that this Intent can be launched and then call startActivity
+          if (intent.resolveActivity(getPackageManager()) != null) {
+              startActivity(intent);
+          }
+      }
+  ```
+  Share content
+  ```java
+  	private void shareText(String textToShare) {
+          // Create a String variable called mimeType and set it to "text/plain"
+          /*
+           * MIME (Multipurpose Internet Mail Extension) types are similarly to file extensions. 
+           * MIME types help a computer determine which applications can open which content. For
+           * example, if you double click on a .pdf file, you will be presented with a list of
+           * programs that can open PDFs. Specifying the MIME type as text/plain has a similar affect
+           * on our implicit Intent. With text/plain specified, all apps that can handle text content
+           * in some way will be offered when we call startActivity on this particular Intent.
+           */
+          String mimeType = "text/plain";
+  		// Other examples: "text/rtf", "image/png", "video/mp4"
+  
+          // Create a title for the chooser window that will pop up
+          /* This is just the title of the window that will pop up when we call startActivity */
+          String title = "Learning How to Share";
+  
+          // Use ShareCompat.IntentBuilder to build the Intent and start the chooser
+          /* ShareCompat.IntentBuilder provides a fluent API for creating Intents */
+          ShareCompat.IntentBuilder
+                  /* The from method specifies the Context from which this share is coming from */
+                  .from(this)
+                  .setType(mimeType)
+                  .setChooserTitle(title)
+                  .setText(textToShare)
+                  .startChooser();
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

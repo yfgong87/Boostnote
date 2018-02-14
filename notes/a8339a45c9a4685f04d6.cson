@@ -1,0 +1,122 @@
+createdAt: "2018-02-11T19:49:10.064Z"
+updatedAt: "2018-02-11T20:16:45.183Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "ArrayAdapter"
+content: '''
+  # ArrayAdapter
+  First create a customized class
+  ```java
+  public class AndroidFlavor {
+      String versionName;
+      String versionNumber;
+      int image; // drawable reference id
+  
+      public AndroidFlavor(String vName, String vNumber, int image)
+      {
+          this.versionName = vName;
+          this.versionNumber = vNumber;
+          this.image = image;
+      }
+  
+  }
+  ```
+  Then create a customized `ArrayAdapter`:
+  ```java
+  public class AndroidFlavorAdapter extends ArrayAdapter<AndroidFlavor> {
+      private static final String LOG_TAG = AndroidFlavorAdapter.class.getSimpleName();
+  
+      /**
+       * This is our own custom constructor (it doesn't mirror a superclass constructor).
+       * The context is used to inflate the layout file, and the List is the data we want
+       * to populate into the lists
+       *
+       * @param context        The current context. Used to inflate the layout file.
+       * @param androidFlavors A List of AndroidFlavor objects to display in a list
+       */
+      public AndroidFlavorAdapter(Activity context, List<AndroidFlavor> androidFlavors) {
+          // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
+          // the second argument is used when the ArrayAdapter is populating a single TextView.
+          // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
+          // going to use this second argument, so it can be any value. Here, we used 0.
+          super(context, 0, androidFlavors);
+      }
+  
+      /**
+       * Provides a view for an AdapterView (ListView, GridView, etc.)
+       *
+       * @param position    The AdapterView position that is requesting a view
+       * @param convertView The recycled view to populate.
+       *                    (search online for "android view recycling" to learn more)
+       * @param parent The parent ViewGroup that is used for inflation.
+       * @return The View for the position in the AdapterView.
+       */
+      @Override
+      public View getView(int position, View convertView, ViewGroup parent) {
+          // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
+          AndroidFlavor androidFlavor = getItem(position);
+  
+          // Adapters recycle views to AdapterViews.
+          // If this is a new View object we're getting, then inflate the layout.
+          // If not, this view already has the layout inflated from a previous call to getView,
+          // and we modify the View widgets as usual.
+          if (convertView == null) {
+              convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_flavor, parent, false);
+          }
+  
+          ImageView iconView = (ImageView) convertView.findViewById(R.id.list_item_icon);
+          iconView.setImageResource(androidFlavor.image);
+  
+          TextView versionNameView = (TextView) convertView.findViewById(R.id.list_item_version_name);
+          versionNameView.setText(androidFlavor.versionName);
+  
+          TextView versionNumberView = (TextView) convertView.findViewById(R.id.list_item_versionnumber_textview);
+          versionNumberView.setText(androidFlavor.versionNumber);
+          return convertView;
+      }
+  }
+  ```
+  Then feed data into the customized Adapter
+  ```java
+  /**
+   * A fragment containing the list view of Android versions.
+   */
+  public class MainActivityFragment extends Fragment {
+  
+      private AndroidFlavorAdapter flavorAdapter;
+  
+      AndroidFlavor[] androidFlavors = {
+              new AndroidFlavor("Cupcake", "1.5", R.drawable.cupcake),
+              new AndroidFlavor("Donut", "1.6", R.drawable.donut),
+              new AndroidFlavor("Eclair", "2.0-2.1", R.drawable.eclair),
+              new AndroidFlavor("Froyo", "2.2-2.2.3", R.drawable.froyo),
+              new AndroidFlavor("GingerBread", "2.3-2.3.7", R.drawable.gingerbread),
+              new AndroidFlavor("Honeycomb", "3.0-3.2.6", R.drawable.honeycomb),
+              new AndroidFlavor("Ice Cream Sandwich", "4.0-4.0.4", R.drawable.icecream),
+              new AndroidFlavor("Jelly Bean", "4.1-4.3.1", R.drawable.jellybean),
+              new AndroidFlavor("KitKat", "4.4-4.4.4", R.drawable.kitkat),
+              new AndroidFlavor("Lollipop", "5.0-5.1.1", R.drawable.lollipop)
+      };
+  
+      public MainActivityFragment() {
+      }
+  
+      @Override
+      public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                               Bundle savedInstanceState) {
+          View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+  
+          flavorAdapter = new AndroidFlavorAdapter(getActivity(), Arrays.asList(androidFlavors));
+  
+          // Get a reference to the ListView, and attach this adapter to it.
+          ListView listView = (ListView) rootView.findViewById(R.id.listview_flavor);
+          listView.setAdapter(flavorAdapter);
+  
+          return rootView;
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

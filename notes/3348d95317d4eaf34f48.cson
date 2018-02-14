@@ -1,0 +1,24 @@
+createdAt: "2018-02-07T05:36:28.347Z"
+updatedAt: "2018-02-07T05:41:14.755Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android String"
+content: '''
+  # Android String
+  In `res/values/string.xml`
+  ```xml
+  <string name="error_message">
+      An error has occurred. Please try again by clicking REFRESH
+  </string>
+  ```
+  In Other xml
+  ```xml
+  <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/error_message" />
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,64 @@
+createdAt: "2018-02-12T04:13:11.649Z"
+updatedAt: "2018-02-12T04:14:35.640Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Parcelable"
+content: '''
+  # Parcelable
+  ```java
+  import android.os.Parcel;
+  import android.os.Parcelable;
+  
+  // Implements Parcelable
+  public class AndroidFlavor implements Parcelable{
+      String versionName;
+      String versionNumber;
+      int image;
+  	
+  	// Default Constructor
+      public AndroidFlavor(String vName, String vNumber, int image)
+      {
+          this.versionName = vName;
+          this.versionNumber = vNumber;
+          this.image = image;
+      }
+  	
+  	// Constructor from Parcel
+      private AndroidFlavor(Parcel in){
+          versionName = in.readString();
+          versionNumber = in.readString();
+          image = in.readInt();
+      }
+  
+      @Override
+      public int describeContents() {
+          return 0;
+      }
+  
+      public String toString() { return versionName + "--" + versionNumber + "--" + image; }
+  
+      @Override
+      public void writeToParcel(Parcel parcel, int i) {
+          parcel.writeString(versionName);
+          parcel.writeString(versionNumber);
+          parcel.writeInt(image);
+      }
+  
+      public final Parcelable.Creator<AndroidFlavor> CREATOR = new Parcelable.Creator<AndroidFlavor>() {
+          @Override
+          public AndroidFlavor createFromParcel(Parcel parcel) {
+              return new AndroidFlavor(parcel);
+          }
+  
+          @Override
+          public AndroidFlavor[] newArray(int i) {
+              return new AndroidFlavor[i];
+          }
+  
+      };
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

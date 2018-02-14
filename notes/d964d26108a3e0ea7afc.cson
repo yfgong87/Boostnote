@@ -1,0 +1,38 @@
+createdAt: "2018-02-10T16:56:28.465Z"
+updatedAt: "2018-02-10T18:30:13.307Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "URI vs URL"
+content: '''
+  # URI vs URL
+  - `URI`: Uniform Resource Identifier, can identify a physical location
+  - `URL`: Uniform Resource Locator, a `URI` that identifies a network location
+  ### Structure of URI
+  `scheme:[//[user:password@]host[:port][/]path[?query][#fragment]]`
+  - `[]`shows optional parts
+  - `scheme` examples: `HTTP`,`HTTPs`,`mailto`,`FTP`,`geo`,`file`...
+  - `host`: `udacity.com`(domain name),`255.255.255.255`(I.P Address)
+  - `port`: default is `80`
+  - `Authority` = `host` + `port`(non-default), eg.`255.255.255.255:8080`
+  - `Authority` = `host` when port is `80`, eg.`www.example.com`
+  - `path`:In `https://classroom.udacity.com/nanodegrees`,`nanodegrees`is the path
+  
+  ### Build an Uri
+  ```java
+  String addressString = "1600 Amphitheatre Parkway, CA";
+  
+  // Use Uri.Builder with the appropriate scheme and query to form the Uri for the address
+  Uri.Builder builder = new Uri.Builder();
+  builder.scheme("geo")
+          .path("0,0")
+          .query(addressString);
+  Uri addressUri = builder.build();
+  ```
+  Alternative way of building Uri, NOT recommended (error prone)
+  ```java
+  Uri addressUri = Uri.parse("geo:0,0?q=" + addressString);
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

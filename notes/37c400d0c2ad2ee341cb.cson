@@ -1,0 +1,68 @@
+createdAt: "2018-02-07T00:05:34.419Z"
+updatedAt: "2018-02-07T04:15:23.705Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "AsyncTask"
+content: '''
+  # AsyncTask
+  The three types used by an asynchronous task are the following:
+  
+  - `Params`, the type of the parameters sent to the task upon execution.
+  - `Progress`, the type of the progress units published during the background computation.
+  - `Result`, the type of the result of the background computation.
+  
+  Not all types are always used by an asynchronous task. To mark a type as unused, simply use the type Void:
+  ```java
+  private class MyTask extends AsyncTask<Void, Void, Void> { ... }
+  ```
+  Example of AsyncTask
+  ```java
+      public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
+  
+          // Override the doInBackground method to perform your network requests
+          @Override
+          protected String[] doInBackground(String... params) {
+  
+              /* If there's no zip code, there's nothing to look up. */
+              if (params.length == 0) {
+                  return null;
+              }
+  
+              String location = params[0];
+              URL weatherRequestUrl = NetworkUtils.buildUrl(location);
+  
+              try {
+                  String jsonWeatherResponse = NetworkUtils
+                          .getResponseFromHttpUrl(weatherRequestUrl);
+  
+                  String[] simpleJsonWeatherData = OpenWeatherJsonUtils
+                          .getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);
+  
+                  return simpleJsonWeatherData;
+  
+              } catch (Exception e) {
+                  e.printStackTrace();
+                  return null;
+              }
+          }
+  
+          // COMPLETED (7) Override the onPostExecute method to display the results of the network request
+          @Override
+          protected void onPostExecute(String[] weatherData) {
+              if (weatherData != null) {
+                  /*
+                   * Iterate through the array and append the Strings to the TextView. The reason why we add
+                   * the "\\n\\n\\n" after the String is to give visual separation between each String in the
+                   * TextView. Later, we'll learn about a better way to display lists of data.
+                   */
+                  for (String weatherString : weatherData) {
+                      mWeatherTextView.append((weatherString) + "\\n\\n\\n");
+                  }
+              }
+          }
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

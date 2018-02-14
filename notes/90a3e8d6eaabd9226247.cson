@@ -86,6 +86,11 @@ content: '''
     }
   }
   ```
+  ### 继承：
+  - 代码的复用
+  - 父类的扩展
+  - 覆盖(Override)
+  - 父类中`private`对子类不可见，父类中`protected`对子类可见
   
   ### Polymorphism (`extends`) - `Overriding` + `Overloading`
   - Java is smart enough to call the `overided method` in `subclass`, rather than the original `method` in `superclass` when a `subclass` is defined this way:
@@ -119,4 +124,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-03T01:03:41.271Z"
-updatedAt: "2018-01-18T22:12:08.593Z"
+updatedAt: "2018-02-10T00:45:29.696Z"

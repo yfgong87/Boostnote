@@ -1,0 +1,113 @@
+createdAt: "2018-02-07T05:03:07.871Z"
+updatedAt: "2018-02-11T00:34:02.280Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android Menu"
+content: '''
+  # Android Menu
+  ### Basic Usage
+  In `res/menu/main.xml`
+  Menu is a button in `ActionBar`. We can allow menu items to display when there is enough horizontal space. To do this, we add `app:showAsAction` attribute.
+  ```xml
+  <menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".MainActivity">
+  	<!--orderInCategory:设置优先级，值越大优先级越低-->
+  	<!--title:菜单项标题, 必须得有-->
+  	<!--icon:设置图标-->
+  	<!--app:showAsAction: 
+  		always：总是显示在界面上; 
+  		never：不显示在界面上，只让出现在右边的三个点中; 
+  		ifRoom：如果有位置才显示，不然就出现在右边的三个点中-->
+  	<item
+          android:id="@+id/action_refresh"
+          android:orderInCategory="1" 
+          android:title="@string/action_refresh"
+  		android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+          app:showAsAction="ifRoom"/>
+  </menu>
+  ```
+  In `MainAvtivity.java`
+  ```java
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+      /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
+      MenuInflater inflater = getMenuInflater();
+      /* Use the inflater's inflate method to inflate our menu layout to this menu */
+      inflater.inflate(R.menu.main, menu);
+      /* Return true so that the menu is displayed in the Toolbar */
+      return true;
+  }
+  
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+  	// item 为被选中的那个
+      int id = item.getItemId();
+  	// 判断 id
+      if (id == R.id.action_refresh) {
+          mWeatherTextView.setText("");
+          loadWeatherData();
+          return true; // 表示处理完菜单项的事件,不需要将该事件继续传播
+      }
+  	// 对没有处理的事件,交给父类来处理
+      return super.onOptionsItemSelected(item);
+  }
+  ```
+  ### Set Intent for a Menu Item
+  通过`onOptionsItemSelected`响应菜单项
+  这里通过`MenuItem`的`getItemId()`方法来检查菜单项的ID，然后执行相应操作。如果`onOptionsItemSelected`处理了一个菜单项，将返回`true`，此菜单项事件将不会再进一步传播，对于`onOptionsItemSelected`未处理的菜单项，应该通过调用基类的方法来处理，默认返回`false`
+  ```java
+  	@Override
+      public boolean onCreateOptionsMenu(Menu menu) {
+          MenuInflater inflater = getMenuInflater();
+          inflater.inflate(R.menu.detail, menu);  // <menu /> defined in res/menu/detail.xml
+          return true;
+      }
+  
+      @Override
+      public boolean onOptionsItemSelected(MenuItem item) {
+          int id = item.getItemId();
+  		String FORECAST_SHARE_HASHTAG = "#SunshineApp";
+  		// <item android:id="@+id/action_share" /> defined in res/menu/detail.xml
+          if(id == R.id.action_share){
+              String mimetype = "text/plain";
+              String title = "Share weather data";
+              ShareCompat.IntentBuilder.from(this)
+                      .setType(mimetype)
+                      .setChooserTitle(title)
+                      .setText(mForecast + FORECAST_SHARE_HASHTAG)
+                      .startChooser();
+              return true;
+          }
+          return super.onOptionsItemSelected(item);
+      }
+  ```
+  使用`Intent`响应菜单项
+  也可以使用`MenuItem`的`setIntent(intent)`方法，将菜单项与`Intent`关联。默认情况下菜单项没有与之关联的`Intent`，但是当`Intent`与菜单项关联后，并且没有其他方法处理菜单项时，默认将使用`startActivity(intent)`调用该`Intent`
+  ```java
+  	private Intent createShareForecastIntent() {
+          Intent shareIntent = ShareCompat.IntentBuilder.from(this)
+                  .setType("text/plain")
+                  .setText(mForecast + FORECAST_SHARE_HASHTAG)
+                  .getIntent();
+          return shareIntent;
+      }
+  
+      @Override
+      public boolean onCreateOptionsMenu(Menu menu) {
+          getMenuInflater().inflate(R.menu.detail, menu);
+          MenuItem menuItem = menu.findItem(R.id.action_share);
+          menuItem.setIntent(createShareForecastIntent());
+          return true;
+      }
+  ```
+  通过监听器响应菜单项
+  使用`onMenuItemClickListener`
+  ```java
+  // To be updated...
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

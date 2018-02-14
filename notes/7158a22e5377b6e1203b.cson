@@ -1,0 +1,71 @@
+createdAt: "2018-02-07T21:21:18.387Z"
+updatedAt: "2018-02-07T21:39:25.020Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "ProgressBar"
+content: '''
+  # ProgressBar
+  In real life, ProgressBar can be used for debugging. We should minimize the usage of it.
+  ```xml
+  <!--use fixed height and width-->
+  <!--layout_gravity="center"-->
+  <!--set as invisibille-->
+  <ProgressBar
+          android:id="@+id/pb_loading_indicator"
+          android:layout_height="42dp"
+          android:layout_width="42dp"
+          android:layout_gravity="center"
+          android:visibility="invisible" />
+  ```
+  In `MainActivity.java`
+  ```java
+  import android.widget.ProgressBar;
+  
+  public class MainActivity extends AppCompatActivity {
+  
+      // Add a ProgressBar variable to show and hide the progress bar
+      private ProgressBar mLoadingIndicator;
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_forecast);
+  
+          /*
+           * The ProgressBar that will indicate to the user that we are loading data. It will be
+           * hidden when no data is loading.
+           *
+           * Please note: This so called "ProgressBar" isn't a bar by default. It is more of a
+           * circle. We didn't make the rules (or the names of Views), we just follow them.
+           */
+          mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+  
+          new task().execute("input");
+      }
+  
+      public class task extends AsyncTask<String, Void, String[]> {
+  
+          // Within your AsyncTask, override the method onPreExecute and show the loading indicator
+          @Override
+          protected void onPreExecute() {
+              super.onPreExecute();
+              mLoadingIndicator.setVisibility(View.VISIBLE);
+          }
+  
+          @Override
+          protected String[] doInBackground(String... params) {
+  			//...
+          }
+  
+          @Override
+          protected void onPostExecute(String[] weatherData) {
+              // As soon as the data is finished loading, hide the loading indicator
+              mLoadingIndicator.setVisibility(View.INVISIBLE);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

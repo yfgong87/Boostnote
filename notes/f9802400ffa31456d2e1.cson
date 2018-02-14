@@ -1,0 +1,20 @@
+createdAt: "2018-02-10T18:31:58.025Z"
+updatedAt: "2018-02-10T18:33:48.367Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Menu"
+content: '''
+  # Menu
+  Create menu item in XML
+  ```xml
+  <menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	<item
+  		android:id="@+id/action_search"
+  		android:orderInCategory="1"
+  		
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: true

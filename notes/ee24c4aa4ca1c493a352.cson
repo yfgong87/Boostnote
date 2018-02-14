@@ -1,0 +1,40 @@
+createdAt: "2018-02-07T05:38:48.477Z"
+updatedAt: "2018-02-07T05:42:29.043Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android TextView"
+content: '''
+  # Android TextView
+  ```xml
+  <TextView
+          android:id="@+id/tv_error_message_display"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="16dp"
+          android:text="@string/error_message"
+          android:textSize="20sp"
+          android:visibility="invisible" />
+  ```
+  In `MainActivity.java`
+  ```java
+  public class MainActivity extends AppCompatActivity {
+  
+      private TextView mWeatherTextView;
+  
+      // Add a TextView variable for the error message display
+      TextView mErrorMessage;
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_forecast);
+  
+          // Find the TextView for the error message using findViewById
+          mErrorMessage = (TextView)findViewById(R.id.tv_error_message_display)
+  	}
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

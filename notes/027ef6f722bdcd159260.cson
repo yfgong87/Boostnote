@@ -1,0 +1,24 @@
+createdAt: "2018-02-13T04:37:53.496Z"
+updatedAt: "2018-02-13T05:35:04.110Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "零碎知识"
+content: '''
+  # 零碎知识
+  ### tools:text="text"
+  在预览中可以看到`text`，实际运行时不会出现，用于给开发者预览UI
+  
+  ### android:contentDescription
+  给有阅读障碍的人设计(听力辅助模式开启时)，点一下会读按钮上的文字，再点一下才是实际点下按钮
+  
+  ### android:background="?attr/selectableItemBackground"
+  控件平时显示透明背景，手指移上控件后会显示高亮背景
+  
+  ### 从Java文件中调用 res/value/string.xml 中定义的string
+  ```java
+  String string = getString(R.string.name_of_string);
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

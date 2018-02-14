@@ -1,0 +1,110 @@
+createdAt: "2018-02-07T03:43:02.416Z"
+updatedAt: "2018-02-08T01:54:58.195Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Read JSON"
+content: '''
+  # Read JSON
+  ### Example I
+  ```json
+  {
+     "temp": {
+        "min":"11.34",
+        "max":"19.01"
+     },
+     "weather": {
+        "id":"801",
+        "condition":"Clouds",
+        "description":"few clouds"
+     },
+     "pressure":"1023.51",
+     "humidity":"87"
+  }
+  ```
+  ```java
+  String getCondition(String JSONString) {
+     JSONObject forecast = new JSONObject(JSONString);
+     JSONObject weather = forecast.getJSONObject("weather");
+     return weather.getString("condition");
+  }
+  ```
+  ### Example II
+  ```json
+  {
+  	"name": {
+  		"mainName": "",
+  		"alsoKnownAs": []
+  	}
+  	"placeOforigin": "",
+  	"description": "",
+  	"image": "",
+  	"ingredients": []
+  }
+  ```
+  ```java
+  package com.udacity.sandwichclub.utils;
+  import com.udacity.sandwichclub.model.Sandwich;
+  
+  import org.json.JSONArray;
+  import org.json.JSONException;
+  import org.json.JSONObject;
+  
+  import java.util.ArrayList;
+  import java.util.List;
+  
+  public class JsonUtils {
+  
+      public static Sandwich parseSandwichJson(String json) {
+  
+          if(json != null){
+              try {
+                  //Get root JsonObject
+                  JSONObject jsonObj = new JSONObject(json);
+  
+                  //Get name JsonObject
+                  JSONObject nameObj = jsonObj.getJSONObject("name");
+  
+                  //Get mainName
+                  String mainName = nameObj.getString("mainName");
+  
+                  //Get alsoKnownAs
+                  JSONArray aka = nameObj.getJSONArray("alsoKnownAs");
+                  List<String> akaList = new ArrayList<String>();
+                  for(int i = 0; i < aka.length(); i++){
+                      akaList.add(aka.getString(i));
+                  }
+  
+                  //Get placeOfOrigin
+                  String placeOfOrigin = jsonObj.getString("placeOfOrigin");
+  
+                  //Get description
+                  String description = jsonObj.getString("description");
+  
+                  //Get image
+                  String image = jsonObj.getString("image");
+  
+                  //Get ingredients
+                  JSONArray ingredients = jsonObj.getJSONArray("ingredients");
+                  List<String> ingredientsList = new ArrayList<String>();
+                  for(int i = 0; i < ingredients.length(); i++){
+                      ingredientsList.add(ingredients.getString(i));
+                  }
+  
+                  //Create Sandwich
+                  Sandwich sandwich = new Sandwich(mainName, akaList, placeOfOrigin, description, image, ingredientsList);
+                  return sandwich;
+  
+              } catch (JSONException e) {
+                  e.printStackTrace();
+              }
+          }
+          return null;
+      }
+  }
+  
+  ```
+  ![](https://www.androidhive.info/wp-content/uploads/2012/01/json_structor.png)
+'''
+tags: []
+isStarred: false
+isTrashed: false

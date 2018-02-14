@@ -1,0 +1,25 @@
+createdAt: "2018-02-06T04:12:41.331Z"
+updatedAt: "2018-02-06T04:17:35.112Z"
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Generic class and method"
+content: '''
+  # Generic class and method
+  ```java
+  // Generic method with generic parameters and return type
+  // T extends Comparable<T> means T can only be object that inherit from Comparable class
+  public static <T extends Comparable<T>> T max(T a, T b, T c){
+  	T max = a;
+  	if(b.compareTo(max) > 0){
+  		max = b;
+  	}
+  	if(c.compareTo(max) > 0){
+  		max = c;
+  	}
+  	return max;
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

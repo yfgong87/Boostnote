@@ -1,0 +1,33 @@
+createdAt: "2018-02-14T00:30:35.427Z"
+updatedAt: "2018-02-14T00:33:10.129Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android Toolbar"
+content: '''
+  # Android Toolbar
+  ```xml
+  <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          app:popupTheme="@style/AppTheme.PopupOverlay" />
+  ```
+  In `Activity.java`
+  ```java
+  @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_detail);
+  		
+          Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+          setSupportActionBar(toolbar);
+          getSupportActionBar().setTitle(R.string.toolbar_title);
+  		// Add Up Button
+          getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

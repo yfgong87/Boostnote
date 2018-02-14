@@ -1,0 +1,26 @@
+createdAt: "2018-02-13T06:09:27.854Z"
+updatedAt: "2018-02-13T06:09:36.684Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "GridView"
+content: '''
+  # GridView
+  ```xml
+  <GridView
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:id="@+id/movie_image_grid"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:columnWidth="150dp"
+      android:numColumns="auto_fit"
+      android:verticalSpacing="0dp"
+      android:horizontalSpacing="0dp"
+      android:stretchMode="columnWidth"
+      tools:context=".MainActivityFragment" >
+  </GridView>
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

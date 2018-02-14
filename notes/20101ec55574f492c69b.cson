@@ -1,0 +1,13 @@
+createdAt: "2018-02-11T00:49:33.947Z"
+updatedAt: "2018-02-11T00:50:05.626Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Code Inspection (with Linter)"
+content: '''
+  # Code Inspection (with Linter)
+  - You can run lint by selecting Inspect Code from the Analyze menu in Android Studio.
+  - From the command-line, you can directly run the project's lint task: `./gradlew lint`
+'''
+tags: []
+isStarred: false
+isTrashed: false

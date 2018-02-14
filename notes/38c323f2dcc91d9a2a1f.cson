@@ -1,0 +1,20 @@
+createdAt: "2018-02-12T02:26:27.516Z"
+updatedAt: "2018-02-12T02:47:24.931Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "RESTful API"
+content: '''
+  # RESTful API
+  - Send queries via HTTP, receive data as mark up language such as JSON or XML
+  - Need a couple thins:
+  	- Need a developer API key
+  	- Need a base Uri
+  	- A List of Methods
+  	- Need to know the required parameters
+  
+  ### Retrofit
+  [Retrofit](http://blog.csdn.net/carson_ho/article/details/73732076)
+'''
+tags: []
+isStarred: false
+isTrashed: false

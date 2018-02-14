@@ -1,0 +1,32 @@
+createdAt: "2018-02-10T03:34:16.595Z"
+updatedAt: "2018-02-10T03:45:19.906Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Context 传值"
+content: '''
+  # Context 传值
+  
+  ### 何时用`Activity.this` 何时用`getApplicationContext()`?
+  在Android中常常会遇到传入Context给某个方法的情况，比如
+  ```java
+  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+  ```
+  - 要求传递的参数就是一个`context`，在这里我们传入的是`this`，就代表当前的`Activity`，即`Activity.this`。
+  - 既然需要`context`，为什么这里不写`getApplicationContext()`呢？这和它们的生命周期有关。`getApplicationContext()` 取的是这个应用程序的`Context`，生命周期是整个应用，而`Activity.this`取的是这个`Activity`的`Context`，它的生命周期就是`Activity`的生命周期。
+  - 在该例中，`AlertDialog`应该是属于一个`Activity`的，在`Activity`销毁的时候它也就销毁了，不会再存在；但是，如果传入`getApplicationContext()`，就表示它的生命周期是整个应用程序，这显然超过了它的生命周期了。 所以，在这里我们只能使用`Activity`的`this`。
+  - 明白了以上的原理，可以总结出，和`UI`操作相关的不建议使用`getApplicationContext()`，一般都使用和`Activity`相关的`context`，如：`View`、`Dialog`等。其余的情况，都是建议使用`getApplicationContext()`。
+  ![examples](https://blog.kuoruan.com/wp-content/uploads/2016/05/Android_Context.png)
+  
+  ### 何时用`this`何时用`Activity.this`?
+  - `this`作为当前对象，直接用在`Activity`里面是没问题的，当`this`在匿名内部类中使用，当前的对象就变成new的内部类，而你传入的东西如果是整个`Activity`的话，就要`Activity.this`了
+  - 下面的例子中，如果用`this`就错了，因为在匿名类内部中使用时`this`指代匿名类自己，而非`Activity.this`
+  ```java
+  Button b.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {  
+      public void onClick(DialogInterface dialog, int which) {  
+          Toast.makeText(AlarmActivity.this,"闹钟5秒后启动", Toast.LENGTH_SHORT);     
+  }}; 
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

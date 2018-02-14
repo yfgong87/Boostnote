@@ -1,0 +1,20 @@
+createdAt: "2018-02-13T06:05:53.759Z"
+updatedAt: "2018-02-13T06:06:17.733Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android ImageView"
+content: '''
+  # Android ImageView
+  ### How to create bleeding effect
+  ```xml
+  <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:scaleType="fitCenter"
+          android:adjustViewBounds="true"
+          android:id="@+id/movie_image"/>
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

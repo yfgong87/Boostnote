@@ -1,0 +1,37 @@
+createdAt: "2018-02-13T05:00:34.550Z"
+updatedAt: "2018-02-13T05:01:35.610Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "DateUtils"
+content: '''
+  # DateUtils
+  - `Date`可以直接比较大小，需要打印的时候用下面的方法转换为`String`
+  ```java
+  import java.text.ParseException;
+  import java.text.SimpleDateFormat;
+  import java.util.Date;
+  import java.util.Locale;
+  
+  public class DateUtils {
+  
+      private static SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy", Locale.getDefault());
+  
+      public static String dateToString(Date date) {
+          return sdf.format(date);
+      }
+  
+      public static Date stringToDate(String dateString) {
+          try {
+              return sdf.parse(dateString);
+          } catch (ParseException e) {
+              e.printStackTrace();
+              return new Date(0);
+          }
+      }
+  
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

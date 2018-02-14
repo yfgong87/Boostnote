@@ -1,0 +1,211 @@
+createdAt: "2018-02-08T06:00:59.640Z"
+updatedAt: "2018-02-10T04:23:04.069Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "RecyclerView"
+content: '''
+  # RecyclerView
+  In `build.gradle`
+  ```java
+  dependencies {
+      compile fileTree(dir: 'libs', include: ['*.jar'])
+      compile 'com.android.support:appcompat-v7:25.1.0'
+  
+      // Add RecyclerView dependency
+      compile 'com.android.support:recyclerview-v7:25.4.0'
+  }
+  ```
+  In `res/layout/activity_main.xml`
+  ```xml
+  <FrameLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+  
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_numbers"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+  </FrameLayout>
+  ```
+  In `res/layout/number_list_item.xml`
+  定义每个 ListItem 的 UI
+  ```xml
+  <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp">
+  
+      <TextView
+          android:id="@+id/tv_item_number"
+          style="@style/TextAppearance.AppCompat.Title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical|start"
+          android:fontFamily="monospace"
+          android:textSize="42sp"
+          tools:text="#42" />
+  </FrameLayout>
+  ```
+  ### ViewHolder
+  定义在`Adapter` 类内部
+  ```java
+  class NumberViewHolder extends RecyclerView.ViewHolder {
+  
+          // Will display the position in the list, ie 0 through getItemCount() - 1
+          TextView listItemNumberView;
+  
+          /**
+           * Constructor for our ViewHolder. Within this constructor, we get a reference to our
+           * TextViews and set an onClickListener to listen for clicks. Those will be handled in the
+           * onClick method below.
+           * @param itemView The View that you inflated in
+           *                 {@link GreenAdapter#onCreateViewHolder(ViewGroup, int)}
+           */
+          public NumberViewHolder(View itemView) {
+              super(itemView); // call constructor of parent (ViewHolder)
+  
+              listItemNumberView = (TextView) itemView.findViewById(R.id.tv_item_number);
+          }
+  
+          /**
+           * A method we wrote for convenience. This method will take an integer as input and
+           * use that integer to display the appropriate text within a list item.
+           * @param listIndex Position of the item in the list
+           */
+          void bind(int listIndex) {
+              listItemNumberView.setText(String.valueOf(listIndex));
+          }
+      }
+  ```
+  ### Adapter
+  - `Adapter`
+    - The Adapter creates `ViewHolder` objects and inflates item views in its `onCreateViewHolder` function
+    - Adapter also returns the number of items in the data source in `getItemCount`
+    - Adapter binds data from the data source to each item using `onBindViewHolder` (even if we pass the responsibility to the ViewHolder). 
+  - `ViewHolder` caches views associated with each item.
+  - `RecyclerView` recycle each item.
+  ```java
+  package com.example.android.recyclerview;
+  
+  import android.content.Context;
+  import android.support.v7.widget.RecyclerView;
+  import android.view.LayoutInflater;
+  import android.view.View;
+  import android.view.ViewGroup;
+  import android.widget.TextView;
+  
+  // From GreenAdapter, extend RecyclerView.Adapter<NumberViewHolder>
+  public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHolder>{
+  
+      // Add a private int variable called mNumberItems
+      private int mNumberItems;
+  
+      // Create a constructor for GreenAdapter that accepts an int as a parameter for numberOfItems
+  	// Store the numberOfItems parameter in mNumberItems
+      GreenAdapter(int numberOfItems){
+          mNumberItems = numberOfItems;
+      }
+      
+  	/**
+       *
+       * This gets called when each new ViewHolder is created. This happens when the RecyclerView
+       * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
+       *
+       * @param viewGroup The ViewGroup that these ViewHolders are contained within.
+       * @param viewType  If your RecyclerView has more than one type of item (which ours doesn't) you
+       *                  can use this viewType integer to provide a different layout. See
+       *                  {@link android.support.v7.widget.RecyclerView.Adapter#getItemViewType(int)}
+       *                  for more details.
+       * @return A new NumberViewHolder that holds the View for each list item
+       */
+  
+      @Override // Override the onCreateViewHolder method
+      public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+          Context context = viewGroup.getContext();
+  		// get the id of the layout.xml of listItem
+          int layoutForListItem = R.layout.number_list_item;
+          LayoutInflater inflater = LayoutInflater.from(context);
+          boolean shouldAttachToParentImmediately = false;
+          View view = inflater.inflate(layoutForListItem, viewGroup, shouldAttachToParentImmediately);
+  		
+  		// Create and return a new NumberViewHolder within this method
+          NumberViewHolder viewHolder = new NumberViewHolder(view);
+          return viewHolder;
+      }
+  
+  	// Override onBindViewHolder. Within onBindViewHolder, call holder.bind and pass in the position
+      @Override
+      public void onBindViewHolder(NumberViewHolder holder, int position) {
+          holder.bind(position);
+      }
+  
+  	// Override getItemCount and return the number of items to display
+      @Override
+      public int getItemCount() {
+          return mNumberItems;
+      }
+  
+      /**
+       * ViewHolder Cache of the children views for a list item.
+       */
+      class NumberViewHolder extends RecyclerView.ViewHolder {
+  		/*
+  		.
+  		. see above
+  		.
+  		*/
+      }
+  }
+  
+  ```
+  ### In `MainActivity.java`
+  ```java
+  package com.example.android.recyclerview;
+  
+  import android.os.Bundle;
+  import android.support.v7.app.AppCompatActivity;
+  import android.support.v7.widget.LinearLayoutManager;
+  import android.support.v7.widget.RecyclerView;
+  
+  public class MainActivity extends AppCompatActivity {
+  
+      // Create a private static final int called NUM_LIST_ITEMS and set it equal to 100
+      private static final int NUM_LIST_ITEMS = 100;
+  
+      // Create a GreenAdapter variable called mAdapter
+      GreenAdapter mAdapter;
+  
+      // Create a RecyclerView variable
+      RecyclerView mRecyclerView;
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+  
+          // Use findViewById to store a reference to the RecyclerView in mNumbersList
+          mRecyclerView = (RecyclerView) findViewById(R.id.rv_numbers);
+  
+          // Create a LinearLayoutManager variable called layoutManager
+          LinearLayoutManager layoutManager = new LinearLayoutManager(this); // "this" is the current context
+  
+          // Use setLayoutManager on mRecyclerView with the LinearLayoutManager we created above
+          mRecyclerView.setLayoutManager(layoutManager);
+  
+          // Designate that the contents of the RecyclerView won't change an item's size
+          mRecyclerView.setHasFixedSize(true);
+  
+          // Store a new GreenAdapter in mAdapter and pass it NUM_LIST_ITEMS
+          mAdapter = new GreenAdapter(NUM_LIST_ITEMS);
+  
+          // Set the GreenAdapter you created on mRecyclerView
+          mRecyclerView.setAdapter(mAdapter);
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

@@ -1,9 +1,10 @@
 type: "MARKDOWN_NOTE"
 folder: "c7615b6dcc7b2832aa16"
-title: "Interface"
+title: "Interface (implements)"
 content: '''
-  # Interface
-  - `Interface`里所有的方法默认是`public`
+  # Interface (implements)
+  - `"实现"`接口
+  - `Interface`里所有的方法默认是`public`,不需要写修饰符
   - `Interface`里所有的方法不需要实现(`Java8`之后允许实现，叫做`default`方法)
   - `Interface`里的所有变量都是`常量`，不能定义`变量`
   ```java
@@ -15,7 +16,14 @@ content: '''
     //RULE 1: must define EVERYTHING in interface
     //RULE 2: method MUST NOT be more restrictive than original method in interface
     public int getWheel();
+    public int getEngine();
   }
+  ```
+  * 如果定义成 interface 的 Reference，则其只能使用 interface 的方法，而不能使用实现类的方法
+  ```java
+  Drivable car = new Car();
+  car.getWheel(); // OK
+  car.getEngine(); // WRONG! Drivable can only use method in Drivable interface
   ```
   ### Abstract Class & Methods
   - `Abstract` `class` is one which can't be instantiated, i.e. its object cannot be created.
@@ -73,4 +81,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-12T16:38:38.775Z"
-updatedAt: "2018-01-23T17:57:23.602Z"
+updatedAt: "2018-02-10T03:03:14.214Z"
