@@ -1,0 +1,27 @@
+createdAt: "2018-04-11T16:12:38.011Z"
+updatedAt: "2018-04-11T16:20:14.372Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "State List"
+content: '''
+  # State List
+  ### State List Drawable
+  [Demo](https://blog.csdn.net/lxmy2012/article/details/43483671)
+  默认 State 要写在最后面，不然会影响到后面 State 起作用:
+  In `res/drawable/checkbox.xml`
+  ```xml
+  <selector>
+  	<item android:state_pressed="true"
+  		  android:state_checked="true"
+  		  android:drawable="@drawable/box_checked_pressed" />
+  	<item android:state_pressed="true"
+  		  android:drawable="@drawable/box_pressed" />
+  	<item android:state_checked="true"
+  		  android:drawable="@drawable/box_checked" />
+  	<item android:drawable="@drawable/box_default" />
+  </selector>
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,17 @@
+createdAt: "2018-04-11T17:09:11.801Z"
+updatedAt: "2018-04-11T17:09:43.141Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Style and theme"
+content: '''
+  # Style and theme
+  - style 属性不使用 `android:` 命名空间前缀
+  ```xml
+  <TextView
+      style="@style/CodeFont"
+      android:text="@string/hello" />
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

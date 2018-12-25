@@ -1,0 +1,20 @@
+createdAt: "2018-04-11T20:33:28.259Z"
+updatedAt: "2018-04-11T20:52:06.735Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Animation"
+content: '''
+  # Animation
+  ### Circular Reveal
+  ```java
+  	@Override
+      public void onClick(View view) {
+          int finalRadius = (int)Math.hypot(view.getWidth()/2, view.getHeight()/2);
+  		Animator anim = ViewAnimationUtils.createCircularReveal(view, (int) view.getWidth()/2, (int) view.getHeight()/2, 0, finalRadius);
+          anim.start();
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

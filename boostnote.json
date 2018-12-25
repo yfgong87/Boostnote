@@ -69,6 +69,16 @@
       "key": "826d661fa478dc56691c",
       "color": "#E10051",
       "name": "Android"
+    },
+    {
+      "key": "4c3f3c1336de57a06ed3",
+      "color": "#3FD941",
+      "name": "Android UI"
+    },
+    {
+      "key": "55ed01de50e3ebbd21f9",
+      "color": "#30D5C8",
+      "name": "Java Design Pattern"
     }
   ],
   "version": "1.0"

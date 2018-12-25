@@ -1,0 +1,44 @@
+createdAt: "2018-04-11T01:11:30.928Z"
+updatedAt: "2018-04-11T01:48:31.139Z"
+type: "MARKDOWN_NOTE"
+folder: "c7615b6dcc7b2832aa16"
+title: "Enum"
+content: '''
+  # Enum
+  ```java
+  public enum Student{
+  	James("biology","junior"),
+  	Leo("math","senior"),
+  	Yifan("physics","freshman");
+  	
+  	private final String major;
+  	private final String year;
+  	
+  	Student(String major, String year){
+  		this.major = major;
+  		this.year = year;
+  	}
+  	
+  	public String getMajor(){
+  		return major;
+  	}
+  	
+  	public String getYear(){
+  		return year;
+  	}
+  }
+  ```
+  ```java
+  public static void main(String[] args){
+  	for(Student student : Student.values()){
+  		System.out.printf("%s\\t%s\\t%s\\t", student, student.getMajor(), student.getYear());
+  		// James	biology		junior
+  		// Leo		math		senior
+  		// Yifan	physics		freshman
+  	}
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

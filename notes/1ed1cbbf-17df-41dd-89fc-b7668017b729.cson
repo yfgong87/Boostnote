@@ -1,0 +1,62 @@
+createdAt: "2018-04-11T17:38:41.472Z"
+updatedAt: "2018-04-11T21:40:06.661Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Surfaces"
+content: '''
+  # Surfaces
+  
+  - Use elevated surface to bring user attention on certain elements
+  - Surface is a container that cast a shadow
+  - Do not use surface for homogenous elements such as elements in a ListView (should use single surface separated by a sutble separator)
+  - Use surface when heterogeneous elements exists. However, do NOT use more than 5 levels of surfaces
+  - [Standard Elevation of Android UI](https://material.io/guidelines/material-design/elevation-shadows.html#elevation-shadows-elevation-android)
+  
+  
+  ### Seam to step transition and the relative elevation between Views
+  When scrolling the recycler view, the toolbar will callapse and then the recycler view item will scroll underneath the toolbar
+  ```xml
+  <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+  
+      <android.support.design.widget.AppBarLayout
+          android:id="@+id/app_bar_layout"
+          android:layout_width="match_parent"
+          android:layout_height="168dp"
+          android:background="?colorPrimary">
+  
+          <android.support.design.widget.CollapsingToolbarLayout
+              android:id="@+id/collapsing_toolbar_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+              app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+              app:expandedTitleMarginStart="72dp"
+              app:layout_scrollFlags="scroll|exitUntilCollapsed">
+  
+              <android.support.v7.widget.Toolbar
+                  android:id="@+id/app_bar"
+                  android:layout_width="match_parent"
+                  android:layout_height="?actionBarSize"
+                  android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                  app:navigationIcon="@drawable/ic_menu"
+                  app:contentInsetStart="72dp"
+                  app:layout_collapseMode="pin" />
+  
+          </android.support.design.widget.CollapsingToolbarLayout>
+      </android.support.design.widget.AppBarLayout>
+  
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/recyclerview"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+  
+  </android.support.design.widget.CoordinatorLayout>
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

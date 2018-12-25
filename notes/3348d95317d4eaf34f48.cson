@@ -1,5 +1,5 @@
 createdAt: "2018-02-07T05:36:28.347Z"
-updatedAt: "2018-02-07T05:41:14.755Z"
+updatedAt: "2018-03-27T21:08:19.194Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Android String"
@@ -18,6 +18,20 @@ content: '''
           android:layout_height="wrap_content"
           android:text="@string/error_message" />
   ```
+  
+  ### Bold or Italic String
+  ```xml
+  <string name="bold_italic_text"><b><i>bold and italic text</i></b></string>
+  ```
+  注意使用 `getText()` 而不是 `getString()`
+  ```java
+  TextView.setText(context.getText(R.string.bold_italic_text));
+  ```
+  
+  ### Spaces
+  Even if you use string formatting, sometimes you still need white spaces at the beginning or the end of your string. For these cases, neither escaping with `\\`, nor `xml:space` attribute helps. You must use `HTML` entity `&#160;` for a whitespace.
+  - Use `&#160;` for non-breakable whitespace.
+  - Use `&#032;` for regular space.
 '''
 tags: []
 isStarred: false

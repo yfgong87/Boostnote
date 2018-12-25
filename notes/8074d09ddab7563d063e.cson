@@ -1,17 +1,24 @@
 createdAt: "2018-02-03T05:16:27.102Z"
-updatedAt: "2018-02-13T06:48:43.158Z"
+updatedAt: "2018-02-16T18:09:21.585Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Android View"
 content: '''
   # Android View
-  ## View is a Tree Structure
+  #### View is a Tree Structure
   - `View` 就是一个内存中的树形结构，一个`View`其实是一个根节点
   - `inflate`的过程就是从 `xml` 生成树的过程
+  - `View.findViewById()` 其实就是在一棵树中搜索孩子
   
-  ### findViewById() vs view.findViewById()
+  #### findViewById() vs view.findViewById()
   - findViewById()：在`MainActivity.java`中直接调用`findViewById()`
   - view.findViewById()：在`view`这个`View`中找他的子`View`
+  
+  #### View 与 Context
+  每个`View`都有自己的`Context`，因为每个 `View` 在 inflate 的时候都需要一个 `Context`
+  ```java
+  View view = LayoutInflator.from(parent.getContext()).inflate(R.layout.main_list_item, parent, false);
+  ```
   
   ## Overview
   

@@ -1,0 +1,14 @@
+createdAt: "2018-07-26T03:38:41.982Z"
+updatedAt: "2018-07-26T03:40:02.833Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "getDimension"
+content: '''
+  # getDimension
+  - getDimension: 返回`float`
+  - getDimensionPixelSize: 返回`int`，由`float`四舍五入
+  - getDimensionPixelOffset: 返回`int`，由`float`忽略小数点
+'''
+tags: []
+isStarred: false
+isTrashed: false

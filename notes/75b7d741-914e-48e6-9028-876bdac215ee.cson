@@ -1,0 +1,15 @@
+createdAt: "2018-04-11T16:23:11.659Z"
+updatedAt: "2018-04-11T16:26:23.580Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Content Bounds"
+content: '''
+  # Content Bounds
+  ### When to use `padding` and `margin` in UI element
+  - If space is part of the object, use `padding`
+  - If you want the touchable area of the object to be enlarged, use `padding`
+  - Use `margin` to seperate the objects out
+'''
+tags: []
+isStarred: false
+isTrashed: false

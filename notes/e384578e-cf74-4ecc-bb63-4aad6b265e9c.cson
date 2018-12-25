@@ -1,0 +1,163 @@
+createdAt: "2018-03-29T13:48:37.326Z"
+updatedAt: "2018-04-11T18:16:14.121Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Android UX"
+content: '''
+  # Android UX
+  ![UI elements](https://google-developer-training.gitbooks.io/android-developer-fundamentals-course-concepts/content/en/images/4_1_C_images/dg_user_input_controls_annotated.png)
+  1. Button
+  2. Text field
+  3. Seek bar
+  4. Checkboxes
+  5. Radio buttons
+  6. Toggle
+  7. Spinner
+  
+  ### Focus
+  - Focus indicates which view is currently selected to receive input. 
+  - Focus can be programmatically controlled:
+    - For UI that are not traditionally focusable, add the `android:focusable` XML attribute to the View in the layout, and set its value to `true`. 
+    - You can also declare a View as focusable while in "touch mode" with `android:focusableInTouchMode` set to `true`.
+    - You can also explicitly set the focus or find out which view has focus by using the following methods:
+  	- Call `onFocusChanged` to determine where focus came from.
+  	- To find out which view currently has the focus, call `Activity.getCurrentFocus()`, or use `ViewGroup.getFocusedChild()` to return the focused child of a view (if any).
+  	- To find the view in the hierarchy that currently has focus, use `findFocus()`.
+  	- Use `requestFocus` to give focus to a specific view.
+  	- To change whether a view can take focus, call `setFocusable`.
+  	- To set a listener that will be notified when the view gains or loses focus, use `setOnFocusChangeListener`.
+  - Focus Movement:
+  	- Default Focus movement: left to right, top to bottom. 
+  	- If the algorithm does not give you what you want, you can override it by adding the `nextFocusDown`, `nextFocusLeft`, `nextFocusRight`, and `nextFocusUp` XML attributes to your layout file. 
+  	- The navigation focus below will cycle from top-to-bottom and bottom-to-top:
+  ```xml
+  <LinearLayout android:orientation="vertical">
+  
+  	<Button android:id="@+id/top"
+        		android:nextFocusUp="@+id/bottom"/>
+  	<Button android:id="@+id/bottom"
+        		android:nextFocusDown="@+id/top"/>
+  			
+  </LinearLayout>
+  ```
+  ### Button
+  ### Raised Button
+  - Raised button (`Defaut` Style) in three states: normal, disabled, and pressed.
+  ![Button status](https://google-developer-training.gitbooks.io/android-developer-fundamentals-course-concepts/content/en/images/4_1_C_images/dg_button_raised_composite.png)
+  
+  - Button with image and text:
+  ```xml
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/button_text"
+      android:drawableLeft="@drawable/button_icon"
+      />
+  ```
+  - Button with only image:
+  ```xml
+  <ImageButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/button_icon"
+      />
+  ```
+  - Change background color
+  ```xml
+  <Button android:background="@color/colorPrimary" />
+  ```
+  - Define default theme in AndroidManifest.xml
+  ```xml
+  <application android:theme="@android:style/Theme.Holo" />
+  ```
+  ### Flat Button
+  - Flat button in three states: normal, disabled, and pressed.
+  ![Flat Button](https://google-developer-training.gitbooks.io/android-developer-fundamentals-course-concepts/content/en/images/4_1_C_images/flat_button_example.png)
+  - Note: If you use a flat button within a layout, be sure to use padding to set it off from the surrounding text, so that the user can easily see it.
+  ```xml
+  <Button
+      android:id="@+id/button_send"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/button_send"
+      android:onClick="sendMessage"
+      style="?android:attr/borderlessButtonStyle" />
+  ```
+  ### Floating Button
+  - You should use a floating action button (56 x 56 dp default) only to represent the primary action for a screen. 
+  - Only one floating action button is recommended per screen.
+  ![Floating Button example](https://google-developer-training.gitbooks.io/android-developer-fundamentals-course-concepts/content/en/images/4_1_C_images/fab_annotated_in_contacts_app.png)
+  
+  - To use Floating Button:
+  Add to `build.gradle (Module: app)`
+  ```java
+  compile 'com.android.support:design:23.4.0'
+  ```
+  ```xml
+  <android.support.design.widget.FloatingActionButton
+  	app:fabSize="normal"
+  	app:elevation="6dp"
+  	app:pressedTranslationZ="12dp"
+  	
+      android:id="@+id/fab"
+  	android:src="@drawable/ic_fab_chat_button_white"
+  	
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+  	android:layout_gravity="end"
+  />
+  <!--
+  	app:fabSize="normal"				56dp
+  	app:elevation="6dp"					resting elevation
+  	app:pressedTranslationZ="12dp"		when pressed, elevate 12dp
+  	
+      android:id="@+id/fab"
+  	android:src="@drawable/ic_fab_chat_button_white"
+  	
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+  	android:layout_gravity="end"		in a left-right layout, end = right
+  -->
+  ```
+  ### Set up Button Click Event
+  - Method 1: Adding onClick to the layout element
+  To set up an OnClickListener for the clickable object in your Activity code and assign a callback method, use the android:onClick attribute with the clickable object's element in the XML layout. For example:
+  ```xml
+  <Button
+      android:id="@+id/button_send"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/button_send"
+      android:onClick="sendMessage" />
+  ```
+  In this case, when a user clicks the button, the Android system calls the Activity's `sendMessage()` method:
+  ```java
+  public void sendMessage(View view) {
+      // Do something in response to button click
+  }
+  ```
+  The method you declare as the `android:onClick` attribute must be `public`, return `void`, and define a `View` as its only parameter (this will be the view that was clicked). Use the method to perform a task or call other methods as a response to the button click.
+  - Method 2: Using the button-listener design pattern
+  ```java
+  fab.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  // Add a new word to the wordList.
+              }
+          });
+  ```
+  ### Using the event listener interface for other events
+  - Other events can occur with UI elements, and you can use the callback methods already defined in the event listener interfaces to handle them. 
+  - The methods are called by the Android framework when the view—to which the listener has been registered—is triggered by user interaction. You therefore must set the appropriate listener to use the method. The following are some of the listeners available in the Android framework and the callback methods associated with each one:
+  	- `onClick()` from `View.OnClickListener`: Handles a click event in which the user touches and then releases an area of the device display occupied by a view. The `onClick()` callback has no return value.
+  	- `onLongClick()` from `View.OnLongClickListener`: Handles an event in which the user maintains the touch over a view for an extended period. This returns a boolean to indicate whether you have consumed the event and it should not be carried further. That is, return `true` to indicate that you have handled the event and it should stop here; return `false` if you have not handled it and/or the event should continue to any other on-click listeners.
+  	- `onTouch()` from `View.OnTouchListener`: Handles any form of touch contact with the screen including individual or multiple touches and gesture motions, including a press, a release, or any movement gesture on the screen (within the bounds of the UI element). A MotionEvent is passed as an argument, which includes directional information, and it returns a boolean to indicate whether your listener consumes this event.
+  	- `onFocusChange()` from `View.OnFocusChangeListener`: Handles when focus moves away from the current view as the result of interaction with a trackball or navigation key.
+  	- `onKey()` from `View.OnKeyListener`: Handles when a key on a hardware device is pressed while a view has focus.
+  
+'''
+tags: []
+isStarred: false
+isTrashed: false

@@ -1,0 +1,35 @@
+createdAt: "2018-02-17T05:08:24.908Z"
+updatedAt: "2018-02-18T03:01:46.512Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "更新 GridView/ListView 里的data"
+content: '''
+  # 更新 GridView/ListView 里的data
+  One of the main reasons `notifyDataSetChanged()` won't work for you - is,
+  Your adapter loses reference to your list.
+  
+  When you first initialise the Adapter it takes a reference of your arrayList and passes it to its superclass. But if you reinitialise your existing arrayList it losses the reference, and hence, the communication channel with Adapter.
+  
+  When creating and adding a new list to the Adapter. Always follow these guidelines:
+  
+  Initialise the arrayList while declaring it globally.
+  Add the List to the adapter directly with out checking for null and empty values . Set the adapter to the list directly (don't check for any condition). Adapter guarantees you that wherever you make changes to the data of the arrayList it will take care of it, but never loose the reference.
+  Always modify the data in the arrayList itself (if your data is completely new than you can call `adapter.clear()` and `arrayList.clear()` before actually adding data to the list) but don't set the adapter i.e If the new data is populated in the arrayList than just `adapter.notifyDataSetChanged()`
+  ```java
+  	public void updateGridView(){
+          movieItemAdapter.clear();
+          movieItemAdapter.addAll(updatedMovieItemList);
+          movieItemAdapter.notifyDataSetChanged();
+      }
+  ```
+  ```java
+  	public void updateGridView(){
+          movieItemList.clear();
+          movieItemList.addAll(updatedMovieItemList);
+          movieItemAdapter.notifyDataSetChanged();
+      }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

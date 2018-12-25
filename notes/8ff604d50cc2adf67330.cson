@@ -1,0 +1,14 @@
+createdAt: "2018-02-15T03:19:21.806Z"
+updatedAt: "2018-02-15T03:20:14.640Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Thread"
+content: '''
+  # Thread
+  
+  ### UI Thread (Main Thread)
+  - UI 线程中执行时间过长会导致卡顿
+'''
+tags: []
+isStarred: false
+isTrashed: false

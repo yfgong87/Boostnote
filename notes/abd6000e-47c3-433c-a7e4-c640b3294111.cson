@@ -1,0 +1,371 @@
+createdAt: "2018-03-24T16:36:52.385Z"
+updatedAt: "2018-03-30T15:54:48.535Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "SQLite"
+content: '''
+  # SQLite
+  ### data/WaitlistContract.java
+  - `Contract` class is always `static` since no instance is required
+  - `Contract` class is implementing `BaseColumns`
+  - `Contract` class 类似于一个 schema，包含 Table 和每个 Column 的名字 as constants
+  ```java
+  public class WaitlistContract {
+  
+      // Create an inner class named WaitlistEntry class that implements the BaseColumns interface
+      public static final class WaitlistEntry implements BaseColumns{
+          // Create a static final members for the table name and each of the db columns
+          public static final String TABLE_NAME = "waitlist";
+          public static final String COLUMN_GUEST_NAME = "guestName";
+          public static final String COLUMN_PARTY_SIZE = "partySize";
+          public static final String COLUMN_TIMESTAMP = "timestamp";
+      }
+  }
+  ```
+  ### data/WaitlistDbHelper.java
+  - Extends `SQLiteOpenHelper` interface
+  - `DbHelper` class 包含用于创建及更新 table 的所有实际的 SQLite queries
+  - `sqLiteDatabase.execSQL(String s)` 适用于不需要 return data 的 SQL query
+  ```java
+  import android.database.sqlite.SQLiteDatabase;
+  import android.database.sqlite.SQLiteOpenHelper;
+  
+  public class WaitlistDbHelper extends SQLiteOpenHelper{
+      private static final String DATABASE_NAME = "waitlist.db";
+      // Always start from 1
+      private static final int DATABASE_VERSION = 1;
+      // Constructor takes a context object
+      public WaitlistDbHelper(Context context) {
+          super(context, DATABASE_NAME, null, DATABASE_VERSION);
+      }
+  
+      @Override
+      public void onCreate(SQLiteDatabase sqLiteDatabase) {
+          // Create a String SQL query to create the table
+          // If a column need to be renamed, we just need to modify the Contract class
+          final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE" +
+                  WaitlistContract.WaitlistEntry.TABLE_NAME + "(" +
+                  WaitlistContract.WaitlistEntry._ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+                  WaitlistContract.WaitlistEntry.COLUMN_GUEST_NAME + "TEXT NOT NULL" +
+                  WaitlistContract.WaitlistEntry.COLUMN_PARTY_SIZE + "INTEGER NOT NULL" +
+                  WaitlistContract.WaitlistEntry.COLUMN_TIMESTAMP + "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                  ");";
+          // Execute the query by calling execSQL on sqLiteDatabase and pass the string query
+          sqLiteDatabase.execSQL(SQL_CREATE_WAITLIST_TABLE);
+      }
+  
+      @Override
+      public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+          sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WaitlistContract.WaitlistEntry.TABLE_NAME);
+          onCreate(sqLiteDatabase);
+          // In case a new column is added to the table, update the DATABASE_VERSION to 2
+          // Then add a SQL query to append the new column to the table
+      }
+  
+  }
+  ```
+  注意: 更新 database version 时需要做 migration:
+  - We do not want drop the database onUpgrade. 
+  - We also do not want to assume users will get each upgrade sequentially, but do want to do some version checking before running update statements. 
+  - Imagine we want to update our app to include coach's name in version 2. Then in version 3, we also want to add each team's stadium name. This leaves us with the following solution.
+  - Now the app will iterate over the update statements and run any that are needed. No matter what previous version was and regardless of what more recent version they upgrade to, the app will run the proper statements to take the app from the older schema to the properly upgraded one. 
+  - One other thing to keep in mind is that you will also want to alter your create statements that are run inside the onCreate function. So, if you add a column as part of an update, add it in the create statement inside the onCreate function (for new users) and as an alter statement inside the onUpgrade function (for existing users).
+  ```java
+  public SQLiteHelper(Context context) {
+          super(context, DATABASE_NAME, null, DATABASE_VERSION);
+      }
+  
+      //database values
+      private static final String DATABASE_NAME      = "demoApp.db";
+      private static final int DATABASE_VERSION      = 3;
+      public static final String COLUMN_ID           = "_id";
+  
+      //team table
+      public static final String TABLE_TEAM       = "team";
+      public static final String COLUMN_MASCOT    = "mascot";
+      public static final String COLUMN_CITY      = "city";
+      public static final String COLUMN_COACH     = "coach";
+      public static final String COLUMN_STADIUM   = "stadium";
+  
+      private static final String DATABASE_CREATE_TEAM = "create table "
+              + TABLE_TEAM + "(" + COLUMN_ID + " integer primary key autoincrement, "
+              + COLUMN_NAME + " string, "
+              + COLUMN_MASCOT + " string, "
+              + COLUMN_COACH + " string, "
+              + COLUMN_STADIUM + " string, "
+              + COLUMN_CITY + " string);";
+  
+      private static final String DATABASE_ALTER_TEAM_1 = "ALTER TABLE "
+          + TABLE_TEAM + " ADD COLUMN " + COLUMN_COACH + " string;";
+  
+      private static final String DATABASE_ALTER_TEAM_2 = "ALTER TABLE "
+          + TABLE_TEAM + " ADD COLUMN " + COLUMN_STADIUM + " string;";
+  
+      @Override
+      public void onCreate(SQLiteDatabase db) {
+          db.execSQL(DATABASE_CREATE_TEAM);
+      }
+  
+      @Override
+      public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+          if (oldVersion < 2) {
+               db.execSQL(DATABASE_ALTER_TEAM_1);
+          }
+          if (oldVersion < 3) {
+               db.execSQL(DATABASE_ALTER_TEAM_2);
+          }
+      }
+  }
+  ```
+  
+  ### GuestListAdapter.java
+  ```java
+  public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.GuestViewHolder> {
+  
+      // Holds on to the cursor to display the waitlist
+      private Cursor mCursor;
+      private Context mContext;
+  
+      /**
+       * Constructor using the context and the db cursor
+       * @param context the calling context/activity
+       * @param cursor the db cursor with waitlist data to display
+       */
+      public GuestListAdapter(Context context, Cursor cursor) {
+          this.mContext = context;
+          this.mCursor = cursor;
+      }
+  
+      @Override
+      public GuestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+          // Get the RecyclerView item layout
+          LayoutInflater inflater = LayoutInflater.from(mContext);
+          View view = inflater.inflate(R.layout.guest_list_item, parent, false);
+          return new GuestViewHolder(view);
+      }
+  
+      @Override
+      public void onBindViewHolder(GuestViewHolder holder, int position) {
+          // Move the mCursor to the position of the item to be displayed
+          if (!mCursor.moveToPosition(position))
+              return; // bail if returned null
+  
+          // Update the view holder with the information needed to display
+          String name = mCursor.getString(mCursor.getColumnIndex(WaitlistContract.WaitlistEntry.COLUMN_GUEST_NAME));
+          int partySize = mCursor.getInt(mCursor.getColumnIndex(WaitlistContract.WaitlistEntry.COLUMN_PARTY_SIZE));
+          // COMPLETED (6) Retrieve the id from the cursor and
+          long id = mCursor.getLong(mCursor.getColumnIndex(WaitlistContract.WaitlistEntry._ID));
+  
+          // Display the guest name
+          holder.nameTextView.setText(name);
+          // Display the party count
+          holder.partySizeTextView.setText(String.valueOf(partySize));
+          // COMPLETED (7) Set the tag of the itemview in the holder to the id
+  		// itemView 可以用于存储数据，不会显示在屏幕上
+          holder.itemView.setTag(id);
+      }
+  
+  
+      @Override
+      public int getItemCount() {
+          return mCursor.getCount();
+      }
+  
+      /**
+       * Swaps the Cursor currently held in the adapter with a new one
+       * and triggers a UI refresh
+       *
+       * @param newCursor the new cursor that will replace the existing one
+       */
+      public void swapCursor(Cursor newCursor) {
+          // Always close the previous mCursor first
+          if (mCursor != null) mCursor.close();
+          mCursor = newCursor;
+          if (newCursor != null) {
+              // Force the RecyclerView to refresh
+              this.notifyDataSetChanged();
+          }
+      }
+  
+      /**
+       * Inner class to hold the views needed to display a single item in the recycler-view
+       */
+      class GuestViewHolder extends RecyclerView.ViewHolder {
+  
+          // Will display the guest name
+          TextView nameTextView;
+          // Will display the party size number
+          TextView partySizeTextView;
+  
+          /**
+           * Constructor for our ViewHolder. Within this constructor, we get a reference to our
+           * TextViews
+           *
+           * @param itemView The View that you inflated in
+           *                 {@link GuestListAdapter#onCreateViewHolder(ViewGroup, int)}
+           */
+          public GuestViewHolder(View itemView) {
+              super(itemView);
+              nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
+              partySizeTextView = (TextView) itemView.findViewById(R.id.party_size_text_view);
+          }
+  
+      }
+  }
+  ```
+  ### MainActivity.java
+  ```java
+  public class MainActivity extends AppCompatActivity {
+  
+      private GuestListAdapter mAdapter;
+      private SQLiteDatabase mDb;
+      private EditText mNewGuestNameEditText;
+      private EditText mNewPartySizeEditText;
+      private final static String LOG_TAG = MainActivity.class.getSimpleName();
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+  
+          RecyclerView waitlistRecyclerView;
+  
+          // Set local attributes to corresponding views
+          waitlistRecyclerView = (RecyclerView) this.findViewById(R.id.all_guests_list_view);
+          mNewGuestNameEditText = (EditText) this.findViewById(R.id.person_name_edit_text);
+          mNewPartySizeEditText = (EditText) this.findViewById(R.id.party_count_edit_text);
+  
+          // Set layout for the RecyclerView, because it's a list we are using the linear layout
+          waitlistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+  
+          // Create a DB helper (this will create the DB if run for the first time)
+          WaitlistDbHelper dbHelper = new WaitlistDbHelper(this);
+  
+          // Keep a reference to the mDb until paused or killed. Get a writable database
+          // because you will be adding restaurant customers
+          mDb = dbHelper.getWritableDatabase();
+  
+          // Get all guest info from the database and save in a cursor
+          Cursor cursor = getAllGuests();
+  
+          // Create an adapter for that cursor to display the data
+          mAdapter = new GuestListAdapter(this, cursor);
+  
+          // Link the adapter to the RecyclerView
+          waitlistRecyclerView.setAdapter(mAdapter);
+  
+  
+          // COMPLETED (3) Create a new ItemTouchHelper with a SimpleCallback that handles both LEFT and RIGHT swipe directions
+          // Create an item touch helper to handle swiping items off the list
+          new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+  
+              // COMPLETED (4) Override onMove and simply return false inside
+              @Override
+              public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                  //do nothing, we only care about swiping
+                  return false;
+              }
+  
+              // COMPLETED (5) Override onSwiped
+              @Override
+              public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                  // COMPLETED (8) Inside, get the viewHolder's itemView's tag and store in a long variable id
+                  //get the id of the item being swiped
+                  long id = (long) viewHolder.itemView.getTag();
+                  // COMPLETED (9) call removeGuest and pass through that id
+                  //remove from DB
+                  removeGuest(id);
+                  // COMPLETED (10) call swapCursor on mAdapter passing in getAllGuests() as the argument
+                  //update the list
+                  mAdapter.swapCursor(getAllGuests());
+              }
+  
+              //COMPLETED (11) attach the ItemTouchHelper to the waitlistRecyclerView
+          }).attachToRecyclerView(waitlistRecyclerView);
+  
+      }
+  
+      /**
+       * This method is called when user clicks on the Add to waitlist button
+       *
+       * @param view The calling view (button)
+       */
+      public void addToWaitlist(View view) {
+          if (mNewGuestNameEditText.getText().length() == 0 ||
+                  mNewPartySizeEditText.getText().length() == 0) {
+              return;
+          }
+          //default party size to 1
+          int partySize = 1;
+          try {
+              //mNewPartyCountEditText inputType="number", so this should always work
+              partySize = Integer.parseInt(mNewPartySizeEditText.getText().toString());
+          } catch (NumberFormatException ex) {
+              Log.e(LOG_TAG, "Failed to parse party size text to number: " + ex.getMessage());
+          }
+  
+          // Add guest info to mDb
+          addNewGuest(mNewGuestNameEditText.getText().toString(), partySize);
+  
+          // Update the cursor in the adapter to trigger UI to display the new list
+          mAdapter.swapCursor(getAllGuests());
+  
+          //clear UI text fields
+          mNewPartySizeEditText.clearFocus();
+          mNewGuestNameEditText.getText().clear();
+          mNewPartySizeEditText.getText().clear();
+      }
+  
+  
+  
+      /**
+       * Query the mDb and get all guests from the waitlist table
+       *
+       * @return Cursor containing the list of guests
+       */
+      private Cursor getAllGuests() {
+          return mDb.query(
+                  WaitlistContract.WaitlistEntry.TABLE_NAME,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  WaitlistContract.WaitlistEntry.COLUMN_TIMESTAMP
+          );
+      }
+  
+      /**
+       * Adds a new guest to the mDb including the party count and the current timestamp
+       *
+       * @param name  Guest's name
+       * @param partySize Number in party
+       * @return id of new record added
+       */
+      private long addNewGuest(String name, int partySize) {
+          ContentValues cv = new ContentValues();
+          cv.put(WaitlistContract.WaitlistEntry.COLUMN_GUEST_NAME, name);
+          cv.put(WaitlistContract.WaitlistEntry.COLUMN_PARTY_SIZE, partySize);
+          return mDb.insert(WaitlistContract.WaitlistEntry.TABLE_NAME, null, cv);
+      }
+  
+  
+      // COMPLETED (1) Create a new function called removeGuest that takes long id as input and returns a boolean
+      /**
+       * Removes the record with the specified id
+       *
+       * @param id the DB id to be removed
+       * @return True: if removed successfully, False: if failed
+       */
+      private boolean removeGuest(long id) {
+          // COMPLETED (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
+  		// mDb.delete() 返回一个 int，代表收到该 delete 命令影响的行数
+          return mDb.delete(WaitlistContract.WaitlistEntry.TABLE_NAME, WaitlistContract.WaitlistEntry._ID + "=" + id, null) > 0;
+      }
+  
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

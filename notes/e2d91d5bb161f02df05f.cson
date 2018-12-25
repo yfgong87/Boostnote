@@ -1,5 +1,5 @@
 createdAt: "2018-02-05T03:10:40.272Z"
-updatedAt: "2018-02-05T03:35:34.661Z"
+updatedAt: "2018-02-18T21:04:05.917Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Build URI"
@@ -83,6 +83,21 @@ content: '''
           //display URI
           mUrlDisplayTextView.setText(githubSearchUrl.toString());
   }
+  ```
+  ### Tips
+  Let's say that I want to create the following URL:
+  `https://www.myawesomesite.com/turtles/types?type=1&sort=relevance#section-name`
+  To build this with the `Uri.Builder` I would do the following.
+  ```java
+  Uri.Builder builder = new Uri.Builder();
+  builder.scheme("https")
+      .authority("www.myawesomesite.com")
+      .appendPath("turtles")
+      .appendPath("types")
+      .appendQueryParameter("type", "1")
+      .appendQueryParameter("sort", "relevance")
+      .fragment("section-name");
+  String myUrl = builder.build().toString();
   ```
 '''
 tags: []

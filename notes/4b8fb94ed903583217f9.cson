@@ -1,10 +1,13 @@
 createdAt: "2018-02-07T03:43:02.416Z"
-updatedAt: "2018-02-08T01:54:58.195Z"
+updatedAt: "2018-02-19T22:12:18.387Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Read JSON"
 content: '''
   # Read JSON
+  ### JSON structure
+  ![](https://www.androidhive.info/wp-content/uploads/2012/01/json_structor.png)
+  
   ### Example I
   ```json
   {
@@ -52,8 +55,18 @@ content: '''
   import java.util.ArrayList;
   import java.util.List;
   
-  public class JsonUtils {
+  // Always make Utils class static so that we don't need to create object before using its methods
+  public static class JsonUtils {
   
+  	// It is always better to declare the keys such as --"name"-- in constants so that it will be easy for us to access it from anywhere in the code and avoid typographical mistakes.
+  	public static final String KEY_NAME = "name";
+  	public static final String KEY_MAIN_NAME = "mainName";
+  	public static final String KEY_AKA = "alsoKnownAs";
+  	public static final String KEY_ORIGIN = "placeOfOrigin";
+  	public static final String KEY_DESCRIPTION = "description";
+  	public static final String KEY_IMAGE = "image";
+  	public static final String KEY_INGREDIENTS = "ingredients";
+  	
       public static Sandwich parseSandwichJson(String json) {
   
           if(json != null){
@@ -62,29 +75,29 @@ content: '''
                   JSONObject jsonObj = new JSONObject(json);
   
                   //Get name JsonObject
-                  JSONObject nameObj = jsonObj.getJSONObject("name");
+                  JSONObject nameObj = jsonObj.getJSONObject(KEY_NAME);
   
                   //Get mainName
-                  String mainName = nameObj.getString("mainName");
+                  String mainName = nameObj.getString(KEY_MAIN_NAME);
   
                   //Get alsoKnownAs
-                  JSONArray aka = nameObj.getJSONArray("alsoKnownAs");
+                  JSONArray aka = nameObj.getJSONArray(KEY_AKA);
                   List<String> akaList = new ArrayList<String>();
                   for(int i = 0; i < aka.length(); i++){
                       akaList.add(aka.getString(i));
                   }
   
                   //Get placeOfOrigin
-                  String placeOfOrigin = jsonObj.getString("placeOfOrigin");
+                  String placeOfOrigin = jsonObj.getString(KEY_ORIGIN);
   
                   //Get description
-                  String description = jsonObj.getString("description");
+                  String description = jsonObj.getString(KEY_DESCRIPTION);
   
                   //Get image
-                  String image = jsonObj.getString("image");
+                  String image = jsonObj.getString(KEY_IMAGE);
   
                   //Get ingredients
-                  JSONArray ingredients = jsonObj.getJSONArray("ingredients");
+                  JSONArray ingredients = jsonObj.getJSONArray(KEY_INGREDIENTS);
                   List<String> ingredientsList = new ArrayList<String>();
                   for(int i = 0; i < ingredients.length(); i++){
                       ingredientsList.add(ingredients.getString(i));
@@ -103,7 +116,10 @@ content: '''
   }
   
   ```
-  ![](https://www.androidhive.info/wp-content/uploads/2012/01/json_structor.png)
+  ### `getString()` vs `optString`
+  The difference is that `optString` returns the empty string (`""`) if the key you specify doesn't exist. `getString` on the other hand throws a `JSONException`. Use `getString` if it's an error for the data to be missing, or `optString` if you're not sure if it will be there.
+  
+  
 '''
 tags: []
 isStarred: false

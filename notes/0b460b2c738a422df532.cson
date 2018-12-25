@@ -1,18 +1,87 @@
 createdAt: "2018-02-07T01:03:49.014Z"
-updatedAt: "2018-02-07T01:06:29.819Z"
+updatedAt: "2018-04-01T18:58:48.072Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Permission"
 content: '''
   # Permission
   While declaring a permission is required for using the camera, directly dialing the phone, and directly accessing the contact database - you can do each of these things by using a system app as an intermediator. Because the camera app, dialer, and contacts app will be used to provide the data you request - users have the chance to cancel the action you initiated, giving them runtime ability to refuse your app access.
-  Your app can only access the user’s location if it explicitly declares a uses-permission.
+  
+  ### Error Associated with No permission
+  ```java
+  java.lang.SecurityException: Permission denied (missing INTERNET permission?)
+  ```
+  
+  ### API level 23
+  Starting in API level 23, permissions are asked when they are needed, not when the app is installed
+  
+  ### Request permission in Manifest
+  - uses-feature will make sure user device has requested hardware before installation
   ```xml
   <!-- Add permission to internet in AndroidManifest.xml -->
-  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+  <manifest>
+  
+  	<uses-feature
+          android:name="android.hardware.camera"
+          android:required="true" />
+  
+  	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+   	
+  	<application></application>
+   
+  </manifest>
   ```
-  # Error Associated with No permission
-  java.lang.SecurityException: Permission denied (missing INTERNET permission?)
+  
+  ### Request permission at runtime
+  ```java
+  public class MainActivity extends AppCompatActivity {
+  
+      private static final int REQUEST_STORAGE_PERMISSION = 1;
+  
+      /**
+       * OnClick method for "Emojify Me!" Button. Launches the camera app.
+       */
+      @OnClick(R.id.emojify_button)
+      public void emojifyMe() {
+          // Check for the external storage permission
+          if (ContextCompat.checkSelfPermission(this,
+                  Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                  != PackageManager.PERMISSION_GRANTED) {
+  
+              // If you do not have permission, request it
+              ActivityCompat.requestPermissions(this,
+                      new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                      REQUEST_STORAGE_PERMISSION);
+          } else {
+              // Launch the camera if the permission exists
+              launchCamera();
+          }
+      }
+  
+      @Override
+      public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+              @NonNull int[] grantResults) {
+          // Called when you request permission to read and write to external storage
+          switch (requestCode) {
+              case REQUEST_STORAGE_PERMISSION: {
+                  if (grantResults.length > 0
+                          && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                      // If you get permission, launch the camera
+                      launchCamera();
+                  } else {
+                      // If you do not get permission, show a Toast
+                      Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
+                  }
+                  break;
+              }
+          }
+      }
+  
+      private void launchCamera() {}
+  
+  }
+  
+  ```
 '''
 tags: []
 isStarred: false

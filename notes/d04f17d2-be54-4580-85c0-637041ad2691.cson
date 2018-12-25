@@ -1,0 +1,14 @@
+createdAt: "2018-04-11T16:34:45.217Z"
+updatedAt: "2018-04-11T16:53:03.510Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Choosing layout"
+content: '''
+  # Choosing layout
+  ### Framelayout
+  - Choose `Framelayout` when the child elements have to overlap with each other
+  - In View hierarchy, the element that has to be placed on `top` of all other elements should be listed as the `last` child
+'''
+tags: []
+isStarred: false
+isTrashed: false

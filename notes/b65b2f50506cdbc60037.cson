@@ -1,5 +1,5 @@
 createdAt: "2018-02-10T05:02:19.864Z"
-updatedAt: "2018-02-14T04:20:49.320Z"
+updatedAt: "2018-02-21T03:02:49.047Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Intent"
@@ -19,14 +19,29 @@ content: '''
   ### Explicit Intent Example:
   In `AndroidManifest.xml`
   ```xml
-  <activity
-      android:name="com.example.android.explicitintent.ChildActivity"
-      android:parentActivityName=".MainActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".MainActivity" />
-  </activity>
+  <application>
+  	<activity android:name=".MainActivity"
+              android:launchMode="singleTop">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+      </activity>
+  	<activity
+  		android:name="com.example.android.explicitintent.ChildActivity"
+  		android:label="@string/child_activity"
+  		android:parentActivityName=".MainActivity">
+  		<meta-data
+  			android:name="android.support.PARENT_ACTIVITY"
+  			android:value=".MainActivity" />
+  	</activity>
+  </application>
   ```
+  `NOTE`: 通过`android:launchMode`设置启动模式
+  [安卓Activity启动模式英文](https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en)
+  [安卓Activity启动模式中文](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0520/2897.html)
+  - `singleTop`: 如果在栈顶已经有一个相同类型的Activity实例，Intent不会再创建一个Activity，而是通过`onNewIntent()`被发送到现有的Activity. 在singleTop模式下我们需要同时在`onCreate()` 和 `onNewIntent()`中处理发来的intent，以满足不同情况
+  
   In `MainActivity.java`
   ```java
   public class MainActivity extends AppCompatActivity {

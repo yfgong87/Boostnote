@@ -1,22 +1,42 @@
 createdAt: "2018-02-13T04:37:53.496Z"
-updatedAt: "2018-02-13T05:35:04.110Z"
+updatedAt: "2018-03-28T20:08:30.317Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "零碎知识"
 content: '''
   # 零碎知识
-  ### tools:text="text"
-  在预览中可以看到`text`，实际运行时不会出现，用于给开发者预览UI
   
-  ### android:contentDescription
-  给有阅读障碍的人设计(听力辅助模式开启时)，点一下会读按钮上的文字，再点一下才是实际点下按钮
-  
-  ### android:background="?attr/selectableItemBackground"
-  控件平时显示透明背景，手指移上控件后会显示高亮背景
-  
-  ### 从Java文件中调用 res/value/string.xml 中定义的string
+  - tools:text="text"：在预览中可以看到`text`，实际运行时不会出现，用于给开发者预览UI
+  - android:contentDescription：给有阅读障碍的人设计(听力辅助模式开启时)，点一下会读按钮上的文字，再点一下才是实际点下按钮
+  - android:background="?attr/selectableItemBackground"：控件平时显示透明背景，手指移上控件后会显示高亮背景
+  - 从Java文件中调用 res/value/string.xml 中定义的string
   ```java
   String string = getString(R.string.name_of_string);
+  ```
+  - `AppCompactActivity`属于`Android Support Lib`，`MainActivity`如果想用后来定义的控件，需要继承自`AppCompactActivity`
+  - 在设计 layout 时使用 `tools:` 可以在 DesignView 中预览效果, `tools:` override `android:`. See [reference](http://www.randomlytyping.com/blog/2015/6/17/things-you-may-not-know-about-tools-attributes)
+  - `setVisibility(View.Visible)`
+    - `INVISIBLE`: This view is invisible, but it still takes up space for layout purposes.
+    - `GONE`: This view is invisible, and it doesn't take any space for layout purposes.
+  - Android Activity 启动模式
+  ```xml
+  <activity android:name=".MainActivity"
+            android:launchMode="singleTop">
+  </activity>
+  ```
+  - EditText:
+    - `EditText.getText()` 返回的是 `Editable`
+  	```java
+  	mEditText.getText().clear(); // 按下 button 后，清除上次输入的文字
+  	mEditText.clearFocus();  // 按下 button 后，让当前 EditText 不成为 Focus (光标不闪烁)
+  	```
+  - ToggleButton
+  The `onCheckedChanged` method is called directly from `setChecked()`. 
+  To avoid triggering `onCheckedChanged`:
+  ```java
+  mCheck.setOnCheckedChangeListener (null);
+  mCheck.setChecked (false);
+  mCheck.setOnCheckedChangeListener (mListener);
   ```
 '''
 tags: []

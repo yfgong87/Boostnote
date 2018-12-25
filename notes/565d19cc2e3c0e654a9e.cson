@@ -1,0 +1,26 @@
+createdAt: "2018-03-04T22:10:22.311Z"
+updatedAt: "2018-03-04T22:11:49.851Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Picasso"
+content: '''
+  # Picasso
+  In `build.gradle(Module:app)`:
+  ```java
+  dependencies {
+      // Add Picasso dependency
+      compile 'com.squareup.picasso:picasso:2.5.2'
+  }
+  ```
+  In Activity
+  ```java
+  	Picasso.with(getContext())
+                  .load(NetworkUtils.buildImageUrl(movieItem.image))
+                  .placeholder(R.drawable.ic_img_placeholder)
+                  .error(R.drawable.ic_error_placeholder)
+                  .into(vh.thumbnailView);        
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

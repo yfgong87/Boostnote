@@ -1,11 +1,12 @@
 createdAt: "2018-02-03T05:40:15.323Z"
-updatedAt: "2018-02-03T06:49:41.540Z"
+updatedAt: "2018-04-11T16:12:17.593Z"
 type: "MARKDOWN_NOTE"
-folder: "826d661fa478dc56691c"
-title: "Android UI"
+folder: "4c3f3c1336de57a06ed3"
+title: "Android Resolution"
 content: '''
-  # Android UI
+  # Android Resolution
   [Android Cheatsheet for Graphic Designers](http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/#screen-densities-and-icon-dimensions)
+  [Android Resource Qualifier](https://developer.android.com/guide/topics/resources/providing-resources.html)
   
   ### 单位转换
   - `pt`, `inch`, `mm` 为实际物理单位
@@ -15,7 +16,7 @@ content: '''
   - `dp` 与屏幕密度无关，`sp` 与屏幕 scale 无关
   	- `dp` = 设备像素密度 / 160 `px`
   		- 1`dp`在像素密度 320 的大屏上就会自动调节为 1 * 320 / 160 = 2`px`
-  	- 当像素密度(`dpi`)等于 `160`时，1 `dp` = 1 `px`
+  	- 当像素密度(`dpi, dots per inch`)等于 `160`时，1 `dp` = 1 `px`
   	- `sp` 就是 `dp`，用于描述字体，可以响应用户的`font size preference`设置
   
   #### 1.使用 TypedValue.java 转换

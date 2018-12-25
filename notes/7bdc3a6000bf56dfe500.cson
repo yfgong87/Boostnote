@@ -3,12 +3,17 @@ folder: "c7615b6dcc7b2832aa16"
 title: "Modifier Table"
 content: '''
   # Modifier Table
-  |  Modifier |  Class  |  Package  |  Subclass (same pkg)  |  Subclass (diff pkg)  |  World  |
-  |-----------|---------|-----------|-----------------------|-----------------------|---------|
-  |  public   |   `+`   |    `+`    |          `+`          |          `+`          |   `+`   |
-  | protected |   `+`   |    `+`    |          `+`          |          `+`          |         |
-  |no modifier|   `+`   |    `+`    |          `+`          |                       |         |
-  |  private  |   `+`   |           |                       |                       |         |
+  ### Access level
+  - On class level, we have `public` or `no modifier` (package-private)
+  - On class member level, we have `public`, `protected`, `no modifier` and `private`
+  
+  ### The table
+  |  Modifier 				  |  Class  |  Package  |  Subclass (same pkg)  |  Subclass (diff pkg)  |  World  |
+  |-----------------------------|---------|-----------|-----------------------|-----------------------|---------|
+  |  public   				  |   `+`   |    `+`    |          `+`          |          `+`          |   `+`   |
+  | protected 				  |   `+`   |    `+`    |          `+`          |          `+`          |         |
+  |no modifier (package-private)|   `+`   |    `+`    |          `+`          |                       |         |
+  |  private  				  |   `+`   |           |                       |                       |         |
   `+` : accessible
   `blank` : not accessible
   
@@ -20,4 +25,4 @@ tags: []
 isStarred: false
 isTrashed: false
 createdAt: "2017-08-04T15:29:57.549Z"
-updatedAt: "2017-08-26T14:07:01.341Z"
+updatedAt: "2018-03-30T19:05:32.132Z"

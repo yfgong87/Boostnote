@@ -1,0 +1,19 @@
+createdAt: "2018-03-23T02:49:44.637Z"
+updatedAt: "2018-03-23T02:52:06.696Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Android XML NameSpace"
+content: '''
+  # Android XML NameSpace
+  [Android三种NameSpace](http://blog.qiji.tech/archives/3744)
+  
+  在Android中，命名空间可分为3种:
+  1. `xmlns:android="http://schemas.android.com/apk/res/android"`
+  2. `xmlns:tools="http://schemas.android.com/tools"`
+  3. `xmlns:app="http://schemas.android.com/apk/res-auto"`
+  
+  其中，1和2命名空间里的属性是系统封装好的，第3种命名空间里的属性是用户自定义的
+'''
+tags: []
+isStarred: false
+isTrashed: false

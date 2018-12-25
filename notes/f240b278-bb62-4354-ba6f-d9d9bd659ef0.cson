@@ -1,0 +1,60 @@
+createdAt: "2018-04-11T21:45:05.901Z"
+updatedAt: "2018-05-13T15:34:21.577Z"
+type: "MARKDOWN_NOTE"
+folder: "4c3f3c1336de57a06ed3"
+title: "Gestalt Principles"
+content: '''
+  # Gestalt Principles
+  ### Law of past experiences
+  Makes UI familiar
+  ### Law of Proximity
+  Objects that are close to each other are related
+  ### Law of Similarity
+  Similar items must be related
+  
+  # Material Design
+  Grid - 8dp (and multiples of 8)
+  Text - 4dp baseline grid (and multiples of 4)
+  
+  # Color
+  - Color with higher numbers are darker
+  - Colors starts with `A` are used as `Accent` color
+  - Color Pallet: Three Hues of `Primary` color and one `Accent` color
+  - Set up colors in `res/values/colors.xml`
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <resources>
+      <!--   color for the app bar and other primary UI elements -->
+      <color name="colorPrimary">#3F51B5</color>
+  
+      <!--   a darker variant of the primary color, used for
+             the status bar (on Android 5.0+) and contextual app bars -->
+      <color name="colorPrimaryDark">#303F9F</color>
+  
+      <!--   a secondary color for controls like checkboxes and text fields -->
+      <color name="colorAccent">#FF4081</color>
+  </resources>
+  ```
+  - Apply colors in theme (styles.xml):
+      - `res/values/styles.xml`        # themes for all versions
+      - `res/values-v21/styles.xml`    # themes for API level 21+ only
+  ```xml
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+      <!-- Customize your theme here. -->
+      <item name="colorPrimary">@color/colorPrimary</item>
+      <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+      <item name="colorAccent">@color/colorAccent</item>
+  </style>
+  ```
+  
+  # Font
+  - Sans vs Serif
+  ![Sans-serif](http://shyfonts.com/wp-content/uploads/2017/09/sansserif.png)
+  - Font Metrics
+  ![Font metrics](https://developer.apple.com/library/content/documentation/TextFonts/Conceptual/CocoaTextArchitecture/Art/glyph_metrics_2x.png)
+  - Where to put font file: `app/assets/Roboto-Regular.ttf`
+  - Weight (eg. Bold, Regular, Thin)
+'''
+tags: []
+isStarred: false
+isTrashed: false

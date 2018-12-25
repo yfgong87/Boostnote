@@ -1,0 +1,51 @@
+createdAt: "2018-03-30T18:39:28.178Z"
+updatedAt: "2018-03-30T19:34:17.169Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "Encapsulation in Android"
+content: '''
+  # Encapsulation in Android
+  ### Descriptive packages
+  - Packages are named groups of related classes.
+  - You can organize your code by using descriptive packages. For example, you can store your "Activity" classes in a package named "activity".
+  ```java
+  package com.example.android.popularmovies.activity;
+  ```
+  ### Java default modifier
+  By default, Java makes field variables "package private". What this means is any class in the package in which this class resides can access these fields.
+  
+  ### Encapsulation
+  - Encapsulation(otherwise known as data hiding) is what allows you as a programmer to prevent other classes from directly reaching in and changing the state of your object. 
+  - There are some times where you want to expose your fields , but unless you're writing a performance heavy application (like a video game), I would recommend always marking them as `private`. 
+  - Another big exception is if your field is a primitive data type (int, double, float, etc..) and marked `public static final`. Because that variable cannot be changed, and is `static`, it's not that big of a deal to expose it.
+  - General tips:
+  	- Use the most restrictive access level that makes sense for a particular member. 
+  	- Use `private` unless you have a good reason not to.
+  	- Avoid `public` fields except for constants.
+  
+  ### Final class & private constructor
+  - A class that will never be extended should be marked as `final`. 
+  - Otherwise, classes designed to be extended should come with enough documentation to describe how it should be done.
+  - Noting that by marking a class as `final` you disable a powerful and flexible feature of the language (inherihence).
+  ```java
+  public final class UtilityClass {}
+  ```
+  - A class that will never be instantiated, we can suppress its constructor:
+  	- AssertionError isn’t strictly required, but it provides insurance in case the constructor is accidentally invoked from within the class.
+  	- As a side effect, suppressed constructor also prevents the class from being subclassed. Since all constructors must invoke a superclass constructor, explicitly or implicitly, and a subclass would have no accessible superclass constructor to invoke.
+  	- [final class ~= private constructor](https://stackoverflow.com/questions/7337079/what-is-the-difference-between-having-a-class-as-final-and-having-a-class-constr). Private constructor make it impossible to extend the class from outside, but you can still do `internal instantiation`. To prevent that, throw `AssertionError()`
+  ```java
+  // Noninstantiable utility class
+  public class UtilityClass {
+      // Suppress default constructor for noninstantiability
+      private UtilityClass() {
+  		// This is to prevent the class got accidentally instantiated from within the class itself
+          throw new AssertionError("This class is not intended to be instantiated!");
+      }
+      ... // Remainder omitted
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

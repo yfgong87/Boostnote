@@ -1,5 +1,5 @@
 createdAt: "2018-02-13T06:05:53.759Z"
-updatedAt: "2018-02-13T06:06:17.733Z"
+updatedAt: "2018-03-31T23:03:45.133Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "Android ImageView"
@@ -13,6 +13,12 @@ content: '''
           android:scaleType="fitCenter"
           android:adjustViewBounds="true"
           android:id="@+id/movie_image"/>
+  ```
+  ```java
+  private List<Integer> mImageIds;
+  private int mListIndex;
+  
+  imageView.setImageResource(mImageIds.get(mListIndex));
   ```
 '''
 tags: []

@@ -1,0 +1,76 @@
+createdAt: "2018-12-25T03:01:44.752Z"
+updatedAt: "2018-12-25T03:32:00.512Z"
+type: "MARKDOWN_NOTE"
+folder: "55ed01de50e3ebbd21f9"
+title: "Strategy Pattern"
+content: '''
+  # Strategy Pattern
+  - Use two `class` to implement a same `interface`. In two `class`, defining defferent behaviors of the same method in the `interface`
+  - Do NOT add any method in super class if they do not pertain to its subclass. In this case, use strategy pattern.
+  - Example: `Animal` super class can be inherited by `Dog` or `Bird` sub class. Implement a method called fly that does not apply to `Dog` but do apply to `Bird`.
+  ```java
+  // Flys.java
+  public interface Flys {
+      String fly();
+  }
+  
+  class CanFly implements Flys {
+      public String fly() {
+          return "Can fly";
+      }
+  }
+  
+  class CannotFly implements Flys {
+      public String fly() {
+          return "Cannot fly";
+      }
+  }
+  ```
+  ```java
+  // Animal.java
+  public class Animal {
+      public Flys flyType;
+      
+      // Animal pushes off the responsibility for flying to flyType
+      public String tryToFly() {
+          return flyType.fly();
+      }
+      
+      // If want to change fly type dynamically
+      public void setFlyAbility(Flys newFlyType) {
+          this.flyType = newFlyType;
+      }
+  }
+  ```
+  ```java
+  // Dog.java
+  public class Dog extends Animal {
+      public Dog() {
+          super();
+          flyType = new CannotFly();
+      }
+  }
+  // Bird.java
+  public class Bird extends Animal {
+      public Bird() {
+          super();
+          flyType = new CanFly();
+      }
+  }
+  ```
+  ```java
+  public class AnimalPlay {
+      public static void main(String[] args) {
+          Animal dog = new Dog();
+          Animal bird = new Bird();
+          System.out.println(dog.tryToFly());
+          System.out.println(bird.tryToFly());
+          // Dynamically change fly type
+          dog.setFlyAbility(new CanFly());
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

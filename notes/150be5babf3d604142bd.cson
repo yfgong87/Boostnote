@@ -1,0 +1,105 @@
+createdAt: "2018-02-16T04:23:08.048Z"
+updatedAt: "2018-03-04T20:59:53.447Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "ViewHolderAdapter"
+content: '''
+  # ViewHolderAdapter
+  - 面向对象设计: `BaseAdapter` -> `ViewHolderAdapter` -> `ToDoListAdapter`
+  - `ViewHolderAdapter` 继承自 `BaseAdapter`，实现 getView (`convertView` 回收) 和 `ViewHolder`
+  - 底层`Adapter`(`ToDoListAdapter`) 继承自 `ViewHolderAdapter`，只负责将数据转成界面
+  - 好处是中间层`ViewHolderAdapter`强制实现了回收和`ViewHolder`，并且底层不用每次都实现这两个功能
+  ### ViewHolderAdapter
+  ```java
+  // 
+  public abstract class ViewHolderAdapter extends BaseAdapter  {
+  	
+  	// getView 是 Adapter 的回调函数
+      @Override
+      public View getView(final int position, View convertView, ViewGroup parent) {
+          // Get MovieItem from current position
+          ViewHolder vh;
+          // If no View has been recycled
+          if (convertView == null) {
+              // Create a new View
+              vh = onCreateViewHolder(parent, position);
+  			convertView = vh.view;
+              vh.view.setTag(vh);
+          } else {
+              vh = (ViewHolder) convertView.getTag();
+          }
+  
+          onBindViewHolder(vh, position);
+          return convertView;
+      }
+  	
+  	// 由子类实现
+  	protected abstract ViewHolder onCreateViewHolder(ViewGroup parent, int position);
+  	// 由子类实现
+  	protected abstract void onBindViewHolder(ViewHolder viewHolder, int position);
+  	
+  	// 将 ViewHolder 类放在 ViewHolderAdapter 内部强调了两者的从属关系
+  	// 将 ViewHolder 定义为 private static 保证了 ViewHolder 类在 ViewHolderAdapter 外部无法被调用
+  	// static 表示 ViewHolder 这个类相对于 ViewHolderAdapter 类是一个有独立功能的类
+      private static abstract class ViewHolder{
+          protected View view;
+  		// @NonNull 提醒程序员此处为空会出错，程序依然能编译
+  		public ViewHolder(@NonNull View view){this.view = view;}
+      }
+  
+  }
+  ```
+  ### ToDoListAdapter
+  ```java
+  public class TodoListAdapter extends ViewHolderAdapter {
+  
+      private Context context;
+      private List<Todo> data;
+  
+      public TodoListAdapter(@NonNull Context context, List<Todo> data) {
+          this.context = context;
+          this.data = data;
+      }
+  
+      @Override
+      public int getCount() {
+          return data.size();
+      }
+  
+      @Override
+      public Object getItem(int position) {
+          return data.get(position);
+      }
+  
+      @Override
+      public long getItemId(int position) {
+          return position;
+      }
+  
+      @Override
+      protected ViewHolderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+          View view = LayoutInflater.from(context).inflate(R.layout.main_list_item, parent, false);
+          return new TodoListViewHolder(view);
+      }
+  
+      @Override
+      protected void onBindViewHolder(ViewHolderAdapter.ViewHolder viewHolder, int position) {
+  		// Todo todo = data.get(position);
+          Todo todo = (Todo) getItem(position);
+          ((TodoListViewHolder) viewHolder).todoText.setText(todo.text);
+      }
+  
+      private static class TodoListViewHolder extends ViewHolderAdapter.ViewHolder {
+          TextView todoText;
+  
+          public TodoListViewHolder(@NonNull View view) {
+              super(view);
+              todoText = (TextView) view.findViewById(R.id.main_list_item_text);
+          }
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

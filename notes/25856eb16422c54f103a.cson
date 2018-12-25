@@ -1,0 +1,227 @@
+createdAt: "2018-02-20T01:15:29.506Z"
+updatedAt: "2018-03-26T15:31:40.130Z"
+type: "MARKDOWN_NOTE"
+folder: "826d661fa478dc56691c"
+title: "AsyncTaskLoader"
+content: '''
+  # AsyncTaskLoader
+  AsyncTaskLoader is a better choice for Activity-bound thread management, because it handles lifecycle changes correctly (no need to mannually persist data):
+  - delivering the result to the current active activity
+  - preventing duplication of background threads
+  - helping to eliminate duplication of zombie activities
+  
+  Loader are tied to the application life cycle, they are designed to reload if user navigated away from activity and then return. If we don't need this extra load, we can cache and deliver our existing results.
+  
+  # Steps to initialize Loader
+  1. Create a Loader ID
+  ```java
+  private static final int GITHUB_SEARCH_LOADER = 22;
+  ```
+  2. Fill-in Loader Callbacks
+  ```java
+  @Override
+  public Loader<String> onCreateLoader(int id, final Bundle args) {}
+  @Override
+  public void onLoadFinished(Loader<String> loader, String data) {}
+  @Override
+  public void onLoaderReset(Loader<String> loader) {}
+  ```
+  3. Init Loader with `getLoaderManager` or `getSupportLoaderManager` if using `Support Library`
+  - The initLoader() method takes `3` parameters:
+  	- A unique `ID` that identifies the loader. This ID can be whatever you want.
+  	- Optional arguments to supply to the loader at construction, in the form of a `Bundle`. If a loader already exists, this parameter is ignored.
+  	- A `implementation`, which the LoaderManager calls to report loader events. In this example, the local class implements the LoaderManager.LoaderCallbacks interface, so it passes a reference to itself, this.
+  - Put the call to `initLoader()` in `onCreate()` so that the activity can reconnect to the same loader when the configuration changes. That way, the loader doesn't lose the data it has already loaded.
+  ```java
+  Bundle mBundle = new Bundle();
+  // Pass data into Bundle
+  
+  LoaderManager loaderManager = getSupportLoaderManager();
+  loaderManager.initLoader(GITHUB_SEARCH_LOADER, mBundle, this);
+  ```
+  EXAMPLE:
+  ```java
+  import android.support.v4.content.AsyncTaskLoader;
+  import android.support.v4.content.Loader;
+  import android.support.v4.app.LoaderManager.LoaderCallbacks;
+  
+  public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+  	
+  	/* A constant to save and restore the URL that is being displayed */
+      private static final String SEARCH_QUERY_URL_EXTRA = "query";
+  	
+      /*
+       * This number will uniquely identify our Loader and is chosen arbitrarily. You can change this
+       * to any number you like, as long as you use the same variable name.
+       */
+      private static final int GITHUB_SEARCH_LOADER = 0;
+  
+      private EditText mSearchBoxEditText;
+      private TextView mSearchResultsTextView;
+      private ProgressBar mLoadingIndicator;
+  
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+          mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
+          mSearchResultsTextView = (TextView) findViewById(R.id.tv_github_search_results_json);
+          mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+  
+          // Initialize the loader with GITHUB_SEARCH_LOADER as the ID, null for the bundle, and this for the context
+          getSupportLoaderManager().initLoader(GITHUB_SEARCH_LOADER, null, this);
+      }
+  
+      private void makeGithubSearchQuery() {
+          String githubQuery = mSearchBoxEditText.getText().toString();
+  
+          URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
+  
+          // Create a bundle called queryBundle
+          Bundle queryBundle = new Bundle();
+  		
+          // Use putString with SEARCH_QUERY_URL_EXTRA as the key and the String value of the URL as the value
+          queryBundle.putString(SEARCH_QUERY_URL_EXTRA, githubSearchUrl.toString());
+  
+          /*
+           * Now that we've created our bundle that we will pass to our Loader, we need to decide
+           * if we should restart the loader (if the loader already existed) or if we need to
+           * initialize the loader (if the loader did NOT already exist).
+           *
+           * We do this by first store the support loader manager in the variable loaderManager.
+           * All things related to the Loader go through the LoaderManager. Once we have a
+           * hold on the support loader manager, (loaderManager) we can attempt to access our
+           * githubSearchLoader. To do this, we use LoaderManager's method, "getLoader", and pass in
+           * the ID we assigned in its creation. You can think of this process similar to finding a
+           * View by ID. We give the LoaderManager an ID and it returns a loader (if one exists). If
+           * one doesn't exist, we tell the LoaderManager to create one. If one does exist, we tell
+           * the LoaderManager to restart it.
+           */
+          // Call getSupportLoaderManager and store it in a LoaderManager variable
+          LoaderManager loaderManager = getSupportLoaderManager();
+  		
+          // Get our Loader by calling getLoader and passing the ID we specified
+          Loader<String> githubSearchLoader = loaderManager.getLoader(GITHUB_SEARCH_LOADER);
+  		
+          // If the Loader was null, initialize it. Else, restart it.
+          if (githubSearchLoader == null) {
+              loaderManager.initLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
+          } else {
+              loaderManager.restartLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
+          }
+      }
+  
+      // Override onCreateLoader
+      @Override
+  	/**
+       * Instantiate and return a new Loader for the given ID.
+       *
+       * @param id The ID whose loader is to be created.
+       * @param loaderArgs Any arguments supplied by the caller. 
+       * 		  Make loaderArgs final so it can be accessed from inner class
+       *
+       * @return Return a new Loader instance that is ready to start loading.
+       */
+      public Loader<String> onCreateLoader(int id, final Bundle args) { 
+          // Return a new AsyncTaskLoader<String> as an anonymous inner class with this as the constructor's parameter
+  		// AsyncTaskLoader<DataTypeToLoad>(Context context)
+          return new AsyncTaskLoader<String>(this) {
+  		
+  			/* This String will contain the raw JSON from the results of our Github search */
+              String cachedResults;
+  
+              // Override onStartLoading
+              @Override
+              protected void onStartLoading() {
+  
+                  /* If no arguments were passed, we don't have a query to perform. Simply return. */
+                  if (args == null) {
+                      return;
+                  }
+  
+                  /*
+                   * When we initially begin loading in the background, we want to display the
+                   * loading indicator to the user
+                   */
+                  mLoadingIndicator.setVisibility(View.VISIBLE);
+  
+                   /*
+                   * If we already have cached results, just deliver them now. If we don't have any
+                   * cached results, force a load.
+                   */
+                  if (cachedResults != null) {
+                      deliverResult(cachedResults);
+                  } else {
+                      forceLoad();
+                  }
+              }
+  
+              // Override loadInBackground
+              @Override
+              public String loadInBackground() {
+  
+                  /* Extract the search query from the args using our constant */
+                  String searchQueryUrlString = args.getString(SEARCH_QUERY_URL_EXTRA);
+  
+                  /* Parse the URL from the passed in String and perform the search */
+                  try {
+                      URL githubUrl = new URL(searchQueryUrlString);
+                      String githubSearchResults = NetworkUtils.getResponseFromHttpUrl(githubUrl);
+                      return githubSearchResults;
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                      return null;
+                  }
+              }
+  			
+  			/**
+               * Sends the result of the load to the registered listener.
+               *
+               * @param data The result of the load
+               */
+              @Override
+              public void deliverResult(String data) {
+                  cachedResults = data;
+                  super.deliverResult(data);
+              }
+          };
+      }
+  
+      /**
+       * Called when a previously created loader has finished its load.
+       *
+       * @param loader The Loader that has finished.
+       * @param data The data generated by the Loader.
+       */
+      @Override
+      public void onLoadFinished(Loader<String> loader, String data) {
+  
+          /* When we finish loading, we want to hide the loading indicator from the user. */
+          mLoadingIndicator.setVisibility(View.INVISIBLE);
+  
+          mSearchResultsTextView.setText(data);
+      }
+  
+      /**
+       * Called when a previously created loader is being reset, and thus
+       * making its data unavailable.  The application should at this point
+       * remove any references it has to the Loader's data.
+       *
+       * @param loader The Loader that is being reset.
+       */
+      @Override
+      public void onLoaderReset(Loader<String> loader) {
+          /*
+           * We aren't using this method in our example application, but we are required to Override
+           * it to implement the LoaderCallbacks<String> interface. 
+           * The onLoaderReset() callback is only called when the loader is being destroyed, 
+           * so you can leave onLoaderReset() blank most of the time, 
+           * because you won't try to access the data after the loader is destroyed.
+           */
+      }
+  }
+  ```
+'''
+tags: []
+isStarred: false
+isTrashed: false

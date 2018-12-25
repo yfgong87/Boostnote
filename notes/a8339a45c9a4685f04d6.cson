@@ -1,5 +1,5 @@
 createdAt: "2018-02-11T19:49:10.064Z"
-updatedAt: "2018-02-11T20:16:45.183Z"
+updatedAt: "2018-02-15T04:40:05.811Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "ArrayAdapter"
@@ -51,6 +51,8 @@ content: '''
        * @param parent The parent ViewGroup that is used for inflation.
        * @return The View for the position in the AdapterView.
        */
+  	// getView 是一个回调函数，由使用 Adapter 的 ListView/GridView 调用
+  	// getView 是在 UI 线程中执行
       @Override
       public View getView(int position, View convertView, ViewGroup parent) {
           // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
@@ -61,6 +63,7 @@ content: '''
           // If not, this view already has the layout inflated from a previous call to getView,
           // and we modify the View widgets as usual.
           if (convertView == null) {
+  			// LayOutInflater 在非 MainActivity.java 中调用时需要设置 .from(Context)
               convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_flavor, parent, false);
           }
   

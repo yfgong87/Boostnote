@@ -1,15 +1,42 @@
 createdAt: "2018-02-07T00:05:34.419Z"
-updatedAt: "2018-02-07T04:15:23.705Z"
+updatedAt: "2018-03-26T12:34:03.202Z"
 type: "MARKDOWN_NOTE"
 folder: "826d661fa478dc56691c"
 title: "AsyncTask"
 content: '''
   # AsyncTask
+  ### UI (Main) Thread
+  - Do not block the UI thread. Use `AsyncTask` or `AsyncTaskLoader`
+  - Do UI work only on the UI thread. Don't use a background thread to manipulate your UI, because the Android UI toolkit is not thread-safe.
+  
+  ### Extract AsyncTask into separate classes
+  [Blog](http://www.jameselsey.co.uk/blogs/techblog/extracting-out-your-asynctasks-into-separate-classes-makes-your-code-cleaner/)
+  [java - Android Development: Having an AsyncTask in a separate class file - Stack Overflow](https://stackoverflow.com/questions/15487807/android-development-having-an-asynctask-in-a-separate-class-file)
+  ### Limitations of AsyncTask
+  `AsyncTask` is impractical for some use cases:
+  - Changes to device configuration cause problems.
+  When device configuration changes while an `AsyncTask` is running, for example if the user changes the screen orientation, the activity that created the `AsyncTask` is destroyed and re-created. The `AsyncTask` is unable to access the newly created activity, and the results of the `AsyncTask` aren't published.
+  - Old `AsyncTask` objects stay around, and your app may run out of memory or crash.
+  If the activity that created the `AsyncTask` is destroyed, the `AsyncTask` is not destroyed along with it. For example, if your user exits the application after the `AsyncTask` has started, the `AsyncTask` keeps using resources unless you call `cancel()`.
+  
+  ### When to use `AsyncTask`:
+  - Short or interruptible tasks.
+  - Tasks that don't need to report back to UI or user.
+  - Low-priority tasks that can be left unfinished.
+  - For all other situations, use `AsyncTaskLoader`, which is part of the `Loader` framework
+  
+  ### Four steps
+  When AsyncTask is executed, it goes through four steps:
+  - `onPreExecute()` is invoked on the UI thread before the task is executed. This step is normally used to set up the task, for instance by showing a progress bar in the UI.
+  - `doInBackground(Params...)` is invoked on the background thread immediately after onPreExecute() finishes. This step performs a background computation, returns a result, and passes the result to `onPostExecute()`. `The doInBackground()` method can also call `publishProgress(Progress...)` to publish one or more units of progress.
+  - `onProgressUpdate(Progress...)` runs on the UI thread after `publishProgress(Progress...)` is invoked. Use `onProgressUpdate()` to report any form of progress to the UI thread while the background computation is executing. For instance, you can use it to pass the data to animate a progress bar or show logs in a text field.
+  - `onPostExecute(Result)` runs on the UI thread after the background computation has finished.
+  
   The three types used by an asynchronous task are the following:
   
-  - `Params`, the type of the parameters sent to the task upon execution.
-  - `Progress`, the type of the progress units published during the background computation.
-  - `Result`, the type of the result of the background computation.
+  - `"Params"` specifies the type of parameters passed to `doInBackground()` as an array.
+  - `"Progress"` specifies the type of parameters passed to `publishProgress()` on the background thread. These parameters are then passed to the `onProgressUpdate()` method on the main thread.
+  - `"Result"` specifies the type of parameter that `doInBackground()` returns. This parameter is automatically passed to `onPostExecute()` on the main thread.
   
   Not all types are always used by an asynchronous task. To mark a type as unused, simply use the type Void:
   ```java
@@ -17,6 +44,8 @@ content: '''
   ```
   Example of AsyncTask
   ```java
+  	// The "Progress" parameter type is Void
+  	// Which means that FetchAsyncTask won't use the publishProgress() or onProgressUpdate() methods.
       public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
   
           // Override the doInBackground method to perform your network requests
@@ -62,6 +91,12 @@ content: '''
           }
       }
   ```
+  Execute in `MainActivity.java`
+  ```java
+  String param = "location";
+  new FetchWeatherTask().execute(param);
+  ```
+  
 '''
 tags: []
 isStarred: false
